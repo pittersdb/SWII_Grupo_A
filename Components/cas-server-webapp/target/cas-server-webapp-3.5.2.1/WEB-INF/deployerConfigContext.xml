@@ -163,10 +163,10 @@
           <value>jdbc:postgresql://localhost:5432/TestSofwareDB</value>
          </property>
          <property name="username">
-          <value>postgres</value>
+          <value>sysmedic</value>
          </property>
          <property name="password">
-          <value>pedro</value>
+          <value>sysmedic2014</value>
          </property>
         </bean>
 
