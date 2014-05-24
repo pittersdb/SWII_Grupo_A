@@ -143,7 +143,7 @@
                                           </bean> -->
                                            <bean class="org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler">
                                             <property name="dataSource" ref="dataSource" />
-                                            <property name="sql" value="select password from &quot;TestSoftwareSchema&quot;.&quot;Users&quot; where lower(nickname) = lower(?)" />
+                                            <property name="sql" value="select password from &quot;SysMedic&quot;.&quot;Users&quot; where lower(nickname) = lower(?)" />
                                           </bean>
 
 
@@ -160,7 +160,7 @@
           <value>org.postgresql.Driver</value>
          </property>
          <property name="url">
-          <value>jdbc:postgresql://localhost:5432/TestSofwareDB</value>
+          <value>jdbc:postgresql://localhost:5432/SysMedic</value>
          </property>
          <property name="username">
           <value>sysmedic</value>
