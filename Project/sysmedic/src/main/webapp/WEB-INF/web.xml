@@ -34,7 +34,7 @@
 	</init-param>
 	<init-param>
 		<param-name>serverName</param-name>
-		<param-value>LUCAS-PC:8080</param-value>
+		<param-value>localhost:8080</param-value>
 	</init-param>
     </filter>
 
