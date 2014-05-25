@@ -83,7 +83,7 @@
                            <select name="locale">
                                <option value="en">English</option>
                                <option value="es">Spanish</option>
-                               <option value="fr">French</option>
+                               <!-- <option value="fr">French</option>
                                <option value="ru">Russian</option>
                                <option value="nl">Nederlands</option>
                                <option value="sv">Svenska</option>
@@ -102,7 +102,7 @@
                                <option value="fa">Farsi</option>
                                <option value="ar">Arabic</option>
                                <option value="pt_PT">Portuguese</option>
-                               <option value="pt_BR">Portuguese (Brazil)</option>
+                               <option value="pt_BR">Portuguese (Brazil)</option> -->
                            </select>
                            <input type="submit" value="Switch">
                         </form>
@@ -110,9 +110,10 @@
                      <c:otherwise>
                         <c:set var="loginUrl" value="login?${xquery}${not empty xquery ? '&' : ''}locale=" />
 						<ul
-							><li class="first"><a href="${loginUrl}en">English</a></li
-							><li><a href="${loginUrl}es">Spanish</a></li
-							><li><a href="${loginUrl}fr">French</a></li
+							><li ><a href="${loginUrl}en">English</a></li
+							><li class="first"><a href="${loginUrl}es">Spanish</a></li
+							>
+                                                        <!-- <li><a href="${loginUrl}fr">French</a></li
 							><li><a href="${loginUrl}ru">Russian</a></li
 							><li><a href="${loginUrl}nl">Nederlands</a></li
 							><li><a href="${loginUrl}sv">Svenska</a></li
@@ -132,7 +133,8 @@
                             ><li><a href="${loginUrl}pt_PT">Portuguese</a></li
                             ><li><a href="${loginUrl}pt_BR">Portuguese (Brazil)</a></li
 							><li class="last"><a href="${loginUrl}pl">Polish</a></li
-						></ul>
+						> -->
+                                                        </ul>
                      </c:otherwise>
                    </c:choose>
                 </div>
