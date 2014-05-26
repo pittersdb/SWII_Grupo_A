@@ -7,18 +7,10 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Users;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 
 /**
  *
@@ -39,8 +31,8 @@ public class UsersFacade extends AbstractFacade<Users> {
     } 
 
     public Users GetUser(String nickName) {
-            TypedQuery<Users> query = em.createNamedQuery("Users.findAll", Users.class);
-            //query.setParameter("nickname", nickName);
+            TypedQuery<Users> query = em.createNamedQuery("Users.findByNickname", Users.class);
+            query.setParameter("nickname", nickName.toLowerCase());
             Users user = query.getResultList().get(0);
             return user;
        
