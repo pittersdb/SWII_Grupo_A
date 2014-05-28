@@ -10,7 +10,10 @@
         <br />
         <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
         <br />
-        <h:outputLink value="https://localhost:8181/cas-server-webapp/logout">Log Out from APP</h:outputLink>
+        <h:form>            
+            <h:commandLink action="#{User.LogOut()}" value="Log Out from APP" />
+        </h:form>
+        
     </h:body>
 </html>
 

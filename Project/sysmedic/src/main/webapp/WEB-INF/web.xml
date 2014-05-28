@@ -31,7 +31,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>localhost:8080</param-value>
+            <param-value>https://localhost:8181</param-value>
         </init-param>
     </filter>
     
@@ -45,7 +45,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>localhost:8080</param-value>
+            <param-value>https://localhost:8181</param-value>
         </init-param>
       </filter>
        
