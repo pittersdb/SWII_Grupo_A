@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -26,14 +25,18 @@
             
             <p:layout fullPage="true">
                 
-                <p:layoutUnit id="header" position="north" size="90" resizable="false" closable="true" collapsible="true">
-                    <p:graphicImage value="/Images/caduceusGold.png" />
-                    <h:outputText value="SysMedic (Sistema M&eacute;dico Integrado)" style="padding-left: 200px;"/>
+                <p:layoutUnit id="header" position="north" size="87" resizable="false" closable="true" collapsible="false">
+                    <!-- <p:graphicImage value="/Images/caduceusGold.png" /-->
+                    <br />
+                    <h:outputText value="Sistema M&eacute;dico Integrado (SYSMEDIC)" style="background: url(Images/caduceusGold.png) no-repeat; color: darkslategray; padding: 1.05em 4em; font-size: 1.2em; font-weight: normal; background-position:0em 0em; border:groove rgb(238,238,238);"/>
+                     <h:form>            
+                        <h:commandLink action="#{User.LogOut()}" value="Salir" style="float: right; margin-top: -3em; margin-right: 1.1em; font-size: 0.8em"/>
+                        <!-- h:outputText value="Salir"  style="float: right; margin-top: -3em; margin-right: 1.1em; font-size: 0.8em"/-->
+                    </h:form>  
+                    <h:outputText value="Bienvenid@, #{User.Name()}" style="float: right; margin-top: 0em; margin-right: 1em;"/>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="60" closable="true" collapsible="true">
-                    <h:outputLink value="https://localhost:8181/cas-server-webapp/logout">Log Out</h:outputLink>
-                    <br />
+                <p:layoutUnit position="south" size="40" closable="true" collapsible="true">                    
                     <h:outputText value="&reg; Todos los derechos reservados." />
                 </p:layoutUnit>
 
@@ -75,26 +78,3 @@
 
     </f:view>
 </html>
-
-
-=======
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets   #{User.Name()}
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:form>            
-            <h:commandLink action="#{User.LogOut()}" value="Log Out from APP" />
-        </h:form>
-        
-    </h:body>
-</html>
-
->>>>>>> 92b21eda39c68ce174452a512fe5b330aa765880
