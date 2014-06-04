@@ -48,7 +48,8 @@ public class UsersView {
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.invalidateSession();
         try {            
-            externalContext.redirect("https://localhost:8181/cas-server-webapp/logout" + "?destination=https://localhost:8181/sysmedic");            
+            String serverName = System.getProperty("server.https.name"); 
+            externalContext.redirect( serverName + "/cas-server-webapp/logout" + "?destination="+serverName+"/sysmedic");            
         } catch (IOException ex) {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, ex);
         }
