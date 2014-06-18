@@ -18,6 +18,21 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>SysMedic</title>
+                <script type="text/javascript">
+                    function mostrarInventario(){
+                        ocultarTodo();
+                        document.getElementById("panelInventario").style.display="block";
+                    }
+                    function mostrarHistorial(){
+                        ocultarTodo();
+                        document.getElementById("panelHistorial").style.display="block";
+                    }
+                    function ocultarTodo(){
+                        document.getElementById("panelInicio").style.display="none";
+                        document.getElementById("panelInventario").style.display="none";
+                        document.getElementById("panelHistorial").style.display="none";
+                    }
+                </script>
             </f:facet>
         </h:head>
 
@@ -45,13 +60,13 @@
                         
                         <p:menuitem value="Agenda" url="#" />
                         <p:menuitem value="Facturaci&oacute;n" url="#" />
-                        <p:menuitem value="Prescripci&oacute;n" url="#" />
-                        <p:menuitem value="Inventario" url="#" />
+                        <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()"/>
+                        <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
                     </p:menu>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <p:panel id="pag_inicio" header="Inicio">
+                    <p:panel id="panelInicio" header="Inicio">
                         <h:panelGroup>
                             <div>
                                 <p>SysMedic es una aplicaci&oacute;n web para facilitar 
@@ -71,15 +86,15 @@
                     </p:panel>
                     
                     <!-- Panel para el Inventario -->
-                    <p:panel id="panelInventario" header="Inventario" style="display: block;">
+                    <p:panel id="panelInventario" header="Inventario" style="display: none;">
                         <h:panelGroup>
                             <ui:include src="inventario.xhtml" />
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel para el Historial clinico -->
-                    <p:panel id="panelHistorialClinico" header="Historial Cl&iacute;nico" style="display: block;">
-                        <h:panelGroup id="hist">
+                    <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
+                        <h:panelGroup>
                             <ui:include src="historial.html" />
                         </h:panelGroup>
                     </p:panel>
