@@ -70,6 +70,20 @@
                         </h:panelGroup>
                     </p:panel>
                     
+                    <!-- Panel para el Inventario -->
+                    <p:panel id="panelInventario" header="Inventario" style="display: block;">
+                        <h:panelGroup>
+                            <ui:include src="inventario.xhtml" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                    <!-- Panel para el Historial clinico -->
+                    <p:panel id="panelHistorialClinico" header="Historial Cl&iacute;nico" style="display: block;">
+                        <h:panelGroup id="hist">
+                            <ui:include src="historial.html" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
                 </p:layoutUnit>
 
             </p:layout>
