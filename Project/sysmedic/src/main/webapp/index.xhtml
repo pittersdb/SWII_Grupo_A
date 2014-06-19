@@ -19,6 +19,9 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>SysMedic</title>
                 <script type="text/javascript">
+                    function mostrarNuevaMedicina(){
+                        document.getElementById("nuevaMedicina").show();
+                    }
                     function mostrarInventario(){
                         ocultarTodo();
                         document.getElementById("panelInventario").style.display="block";
@@ -78,7 +81,7 @@
                                 <ul>
                                     <li><a href="#">Agenda de citas</a></li>
                                     <li><a href="#">Facturaci&oacute;n</a></li>
-                                    <li><a href="#">Prescripci&oacute;n</a></li>
+                                    <li><a href="#">Historial Cl&iacute;nico</a></li>
                                     <li><a href="#">Inventario</a></li>
                                 </ul>
                             </div>
@@ -88,9 +91,26 @@
                     <!-- Panel para el Inventario -->
                     <p:panel id="panelInventario" header="Inventario" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="inventario.xhtml" />
+                            <ui:include src="inventario.xhtml" /><br />
+                            <!-- Pop up para nueva medicina-->
+                            <p:confirmDialog id="confirmDialog" 
+                                            widgetVar="confirmDeleteMultiple" 
+                                            message="Ingresar los datos" 
+                                            header="Nueva Medicina" 
+                                            severity="alert" 
+                                            closeOnEscape="true" 
+                                            appendTo="@(body)"
+                                            closable="true">
+                                            <ui:include src="nuevaMedicina.html" />
+                            </p:confirmDialog>
+                            
+                            <p:commandButton oncomplete="confirmDeleteMultiple.show()" 
+                                            update=":confirmDialog" 
+                                            ajax="true" type="submit" value="Nueva Medicina" />
                         </h:panelGroup>
                     </p:panel>
+                    
+                    
                     
                     <!-- Panel para el Historial clinico -->
                     <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
