@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    
+    <div>
+      <h2>Lista de Usuarios</h2>
+        <h:form id="form">
+                                    
+          <p:growl id="msgs" showDetail="true" />
+                                    
+          <p:dataTable id="users" var="user" value="#{User.all()}" tableStyle="width:auto">
+  
+              <p:column headerText="Nombre" style="width:100px">
+                  <h:outputText value="#{user.name}" />
+              </p:column>
+                                        
+              <p:column headerText="Usuario" style="width:100px">
+                  <h:outputText value="#{user.nickname}" />
+              </p:column>
+                                        
+              <p:column headerText="Password" style="width:100px">
+                  <h:outputText value="#{user.password}" />
+              </p:column>
+                                        
+              <p:column>
+                <a href="edit.faces?tid=#{user.id}">Editar</a>
+              </p:column>
+                                        
+            </p:dataTable>
+            <center>
+                <h:commandButton value="Crear Nuevo Usuario" id="opFormUsuario" onclick="mostrarFormUsuario()"/>
+            </center>
+          </h:form>                                                                
+                                
+        </div>
+  
+</html>

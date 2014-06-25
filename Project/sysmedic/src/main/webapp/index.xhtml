@@ -30,10 +30,30 @@
                         ocultarTodo();
                         document.getElementById("panelHistorial").style.display="block";
                     }
+                    function mostrarUsuarios(){
+                        ocultarTodo();
+                        document.getElementById("panelUsuarios").style.display="block";
+                    }
+                    function mostrarPacientes(){
+                        ocultarTodo();
+                        document.getElementById("panelPacientes").style.display="block";
+                    }
+                    function mostrarFormPaciente(){
+                        ocultarTodo();
+                        document.getElementById("panelFormPaciente").style.display="block";
+                    }
+                    function mostrarFormUsuario(){
+                        ocultarTodo();
+                        document.getElementById("panelFormUsuario").style.display="block";
+                    }
                     function ocultarTodo(){
                         document.getElementById("panelInicio").style.display="none";
                         document.getElementById("panelInventario").style.display="none";
                         document.getElementById("panelHistorial").style.display="none";
+                        document.getElementById("panelUsuarios").style.display="none";
+                        document.getElementById("panelPacientes").style.display="none";
+                        document.getElementById("panelFormPaciente").style.display="none";
+                        document.getElementById("panelFormUsuario").style.display="none";
                     }
                 </script>
             </f:facet>
@@ -65,6 +85,8 @@
                         <p:menuitem value="Facturaci&oacute;n" url="#" />
                         <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()"/>
                         <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
+                        <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
+                        <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
                     </p:menu>
                 </p:layoutUnit>
 
@@ -116,6 +138,34 @@
                     <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
                         <h:panelGroup>
                             <ui:include src="historial.html" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                    <!-- Panel para los Usuarios -->
+                    <p:panel id="panelUsuarios" header="Usuarios" style="display: none;">
+                        <h:panelGroup>
+                            <ui:include src="usuarios.xhtml" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                    <!-- Panel para los Pacientes -->
+                    <p:panel id="panelPacientes" header="Pacientes" style="display: none;">
+                        <h:panelGroup>
+                            <ui:include src="pacientes.xhtml" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                    <!-- Panel formulario de Paciente -->
+                    <p:panel id="panelFormPaciente" header="Paciente" style="display: none;">
+                        <h:panelGroup>
+                            <ui:include src="nuevoPaciente.xhtml" />
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                    <!-- Panel formulario de Usuario -->
+                    <p:panel id="panelFormUsuario" header="Formulario Usuario" style="display: none;">
+                        <h:panelGroup>
+                            <ui:include src="nuevoUsuario.xhtml" />
                         </h:panelGroup>
                     </p:panel>
                     

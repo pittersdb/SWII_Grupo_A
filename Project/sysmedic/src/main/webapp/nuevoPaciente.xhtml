@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    
+
+    <div>
+      <h2>Formulario</h2>
+
+        <h:form>
+            <h:outputLabel for="nombres" value="Nombres:" />
+              <p:inputText value="#{Paciente.nombres}" id="nombres" required="true" label="nombres" /><br />
+
+            <h:outputLabel for="apellidos" value="Apellidos:" />
+              <p:inputText value="#{Paciente.apellidos}" id="apellidos" required="true" label="apellidos" /><br />
+
+            <h:outputLabel for="ci" value="C.I.:" />
+              <p:inputText value="#{Paciente.ci}" id="ci" required="true" label="ci" /><br />
+
+            <h:outputLabel for="fecha_nacimiento" value="Fecha de Nacimiento:" />
+              <p:inputText value="#{Paciente.fecha_nacimiento}" id="fecha_nacimiento" required="true" label="fecha_nacimiento" /><br />
+
+            <h:outputLabel for="sexo" value="Sexo:" />
+              <h:selectOneMenu value="#{Paciente.sexo}" id="sexo" required="true" label="sexo">
+                <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+              </h:selectOneMenu>
+                                        
+            <h:outputLabel for="lugar_procedencia" value="Lugar de Procedencia:" />
+              <p:inputText value="#{Paciente.lugar_procedencia}" id="lugar_procedencia" required="true" label="lugar_procedencia" /><br />
+
+            <h:outputLabel for="direccion" value="Direccion:" />
+              <p:inputText value="#{Paciente.direccion}" id="direccion" required="true" label="direccion" /><br />
+
+            <!--f:facet name="footer"-->
+            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#{Paciente.guardar}" />
+              <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+            <!--/f:facet-->
+          </h:form>
+    </div>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    
+
+    <div>
+                            <h2>Formulario</h2>
+
+                                    <h:form>
+                                        <h:outputLabel for="nombre" value="Nombre:" />
+                                        <p:inputText value="#{Users.name}" id="nombre" required="true" label="nombre" /><br />
+
+                                        <h:outputLabel for="nickname" value="Usuario:" />
+                                        <p:inputText value="#{Users.nickname}" id="nickname" required="true" label="nickname" /><br />
+
+                                        <h:outputLabel for="password" value="Password:" />
+                                        <p:inputText value="#{Users.password}" id="password" required="true" label="password" /><br />
+
+                                        <!--f:facet name="footer"-->
+                                        <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
+                                        <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+                                        <!--/f:facet-->
+                                    </h:form>
+                        </div>
+</html>
+
