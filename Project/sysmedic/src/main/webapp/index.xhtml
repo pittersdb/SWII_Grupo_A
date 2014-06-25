@@ -3,7 +3,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
 
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
@@ -113,22 +116,27 @@
                     <!-- Panel para el Inventario -->
                     <p:panel id="panelInventario" header="Inventario" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="inventario.xhtml" /><br />
-                            <!-- Pop up para nueva medicina-->
-                            <p:confirmDialog id="confirmDialog" 
-                                            widgetVar="confirmDeleteMultiple" 
-                                            message="Ingresar los datos" 
-                                            header="Nueva Medicina" 
-                                            severity="alert" 
-                                            closeOnEscape="true" 
-                                            appendTo="@(body)"
-                                            closable="true">
-                                            <ui:include src="nuevaMedicina.html" />
-                            </p:confirmDialog>
-                            
-                            <p:commandButton oncomplete="confirmDeleteMultiple.show()" 
-                                            update=":confirmDialog" 
-                                            ajax="true" type="submit" value="Nueva Medicina" />
+                            <sec:authorize url="/faces/inventario.xhtml" var="isAuthorizedI">
+                                <ui:include src="inventario.xhtml" /><br />
+                                <!-- Pop up para nueva medicina-->
+                                <p:confirmDialog id="confirmDialog" 
+                                                widgetVar="confirmDeleteMultiple" 
+                                                message="Ingresar los datos" 
+                                                header="Nueva Medicina" 
+                                                severity="alert" 
+                                                closeOnEscape="true" 
+                                                appendTo="@(body)"
+                                                closable="true">
+                                                <ui:include src="nuevaMedicina.html" />
+                                </p:confirmDialog>
+
+                                <p:commandButton oncomplete="confirmDeleteMultiple.show()" 
+                                                update=":confirmDialog" 
+                                                ajax="true" type="submit" value="Nueva Medicina" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedI}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
@@ -137,35 +145,60 @@
                     <!-- Panel para el Historial clinico -->
                     <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="historial.html" />
+                            <sec:authorize url="/faces/historial.xhtml" var="isAuthorizedH">
+                                <ui:include src="historial.html" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedH}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel para los Usuarios -->
                     <p:panel id="panelUsuarios" header="Usuarios" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="usuarios.xhtml" />
+                            <sec:authorize url="/faces/usuarios.xhtml" var="isAuthorizedU">
+                                <ui:include src="usuarios.xhtml" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedU}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel para los Pacientes -->
                     <p:panel id="panelPacientes" header="Pacientes" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="pacientes.xhtml" />
+                            <sec:authorize url="/faces/pacientes.xhtml" var="isAuthorizedP">
+                                <ui:include src="pacientes.xhtml" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedP}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel formulario de Paciente -->
                     <p:panel id="panelFormPaciente" header="Paciente" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="nuevoPaciente.xhtml" />
+                            <sec:authorize url="/faces/nuevoPaciente.xhtml" var="isAuthorizedNP">
+                                <ui:include src="nuevoPaciente.xhtml" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedNP}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel formulario de Usuario -->
                     <p:panel id="panelFormUsuario" header="Formulario Usuario" style="display: none;">
                         <h:panelGroup>
-                            <ui:include src="nuevoUsuario.xhtml" />
+                            <sec:authorize url="/faces/nuevoUsuario.xhtml" var="isAuthorizedNU">
+                                <ui:include src="nuevoUsuario.xhtml" />
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedNU}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     
