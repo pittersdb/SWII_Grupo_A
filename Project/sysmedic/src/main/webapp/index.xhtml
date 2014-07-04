@@ -22,9 +22,7 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>SysMedic</title>
                 <script type="text/javascript">
-                    function mostrarNuevaMedicina(){
-                        document.getElementById("nuevaMedicina").show();
-                    }
+                    
                     function mostrarInventario(){
                         ocultarTodo();
                         document.getElementById("panelInventario").style.display="block";
@@ -41,22 +39,14 @@
                         ocultarTodo();
                         document.getElementById("panelPacientes").style.display="block";
                     }
-                    function mostrarFormPaciente(){
-                        ocultarTodo();
-                        document.getElementById("panelFormPaciente").style.display="block";
-                    }
-                    function mostrarFormUsuario(){
-                        ocultarTodo();
-                        document.getElementById("panelFormUsuario").style.display="block";
-                    }
+                    
                     function ocultarTodo(){
                         document.getElementById("panelInicio").style.display="none";
                         document.getElementById("panelInventario").style.display="none";
                         document.getElementById("panelHistorial").style.display="none";
                         document.getElementById("panelUsuarios").style.display="none";
                         document.getElementById("panelPacientes").style.display="none";
-                        document.getElementById("panelFormPaciente").style.display="none";
-                        document.getElementById("panelFormUsuario").style.display="none";
+                        
                     }
                 </script>
             </f:facet>
@@ -86,7 +76,7 @@
                         
                         <p:menuitem value="Agenda" url="#" />
                         <p:menuitem value="Facturaci&oacute;n" url="#" />
-                        <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()"/>
+                        <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()" style="display: none;"/>
                         <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
                         <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
                         <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
@@ -106,7 +96,7 @@
                                 <ul>
                                     <li><a href="#">Agenda de citas</a></li>
                                     <li><a href="#">Facturaci&oacute;n</a></li>
-                                    <li><a href="#">Historial Cl&iacute;nico</a></li>
+                                    <!--<li><a href="#" onclick="mostrarHistorial()">Historial Cl&iacute;nico</a></li>-->
                                     <li><a href="#">Inventario</a></li>
                                 </ul>
                             </div>
@@ -118,21 +108,7 @@
                         <h:panelGroup>
                             <sec:authorize url="/faces/inventario.xhtml" var="isAuthorizedI">
                                 <ui:include src="inventario.xhtml" /><br />
-                                <!-- Pop up para nueva medicina-->
-                                <p:confirmDialog id="confirmDialog" 
-                                                widgetVar="confirmDeleteMultiple" 
-                                                message="Ingresar los datos" 
-                                                header="Nueva Medicina" 
-                                                severity="alert" 
-                                                closeOnEscape="true" 
-                                                appendTo="@(body)"
-                                                closable="true">
-                                                <ui:include src="nuevaMedicina.html" />
-                                </p:confirmDialog>
-
-                                <p:commandButton oncomplete="confirmDeleteMultiple.show()" 
-                                                update=":confirmDialog" 
-                                                ajax="true" type="submit" value="Nueva Medicina" />
+                                
                             </sec:authorize>
                             <c:if test="${!isAuthorizedI}">
                                 <ui:include src="NoAutorizacionMensaje.xhtml" />
@@ -140,13 +116,11 @@
                         </h:panelGroup>
                     </p:panel>
                     
-                    
-                    
                     <!-- Panel para el Historial clinico -->
                     <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/historial.xhtml" var="isAuthorizedH">
-                                <ui:include src="historial.html" />
+                                <ui:include src="historial.xhtml" />
                             </sec:authorize>
                             <c:if test="${!isAuthorizedH}">
                                 <ui:include src="NoAutorizacionMensaje.xhtml" />
@@ -178,30 +152,7 @@
                         </h:panelGroup>
                     </p:panel>
                     
-                    <!-- Panel formulario de Paciente -->
-                    <p:panel id="panelFormPaciente" header="Paciente" style="display: none;">
-                        <h:panelGroup>
-                            <sec:authorize url="/faces/nuevoPaciente.xhtml" var="isAuthorizedNP">
-                                <ui:include src="nuevoPaciente.xhtml" />
-                            </sec:authorize>
-                            <c:if test="${!isAuthorizedNP}">
-                                <ui:include src="NoAutorizacionMensaje.xhtml" />
-                            </c:if>
-                        </h:panelGroup>
-                    </p:panel>
-                    
-                    <!-- Panel formulario de Usuario -->
-                    <p:panel id="panelFormUsuario" header="Formulario Usuario" style="display: none;">
-                        <h:panelGroup>
-                            <sec:authorize url="/faces/nuevoUsuario.xhtml" var="isAuthorizedNU">
-                                <ui:include src="nuevoUsuario.xhtml" />
-                            </sec:authorize>
-                            <c:if test="${!isAuthorizedNU}">
-                                <ui:include src="NoAutorizacionMensaje.xhtml" />
-                            </c:if>
-                        </h:panelGroup>
-                    </p:panel>
-                    
+
                 </p:layoutUnit>
 
             </p:layout>

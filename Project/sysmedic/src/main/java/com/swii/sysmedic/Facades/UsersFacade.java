@@ -7,6 +7,7 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +39,9 @@ public class UsersFacade extends AbstractFacade<Users> {
        
     }
     
-    
+    public List<Users> findAll() {
+        List<Users> contacts = em.createNamedQuery("Users.findAll", Users.class).getResultList();
+        return contacts;
+    }
     
 }

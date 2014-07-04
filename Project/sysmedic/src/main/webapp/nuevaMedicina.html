@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -14,16 +15,19 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
+    
     <h:form>
-        <label>Nombre:</label>
-        <input type="text" />
-        <br />
-        <label>Precio:</label>
-        <input type="text" />
-        <br />
-        
-        <input type="submit" value="Guardar"/>
-        <button>Cancelar</button><br />
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nombre_medicina" value="Nombre: " />
+            <p:inputText id="nombre_medicina" required="true" label="nombre_medicina" />
+            
+            <h:outputLabel for="precio_medicina" value="Precio: " />
+            <p:inputText id="precio_medicina" required="true" label="precio_medicina" />
+            
+
+            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
+            <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+        </h:panelGrid>
     </h:form>
 
 </html>

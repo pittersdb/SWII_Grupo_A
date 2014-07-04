@@ -7,7 +7,9 @@
 package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.UsersFacade;
+import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -35,6 +37,10 @@ public class UsersView {
     public String Name(){
         FacesContext facesContext = FacesContext.getCurrentInstance();       
         return this.usersFacade.GetUser(facesContext.getExternalContext().getRemoteUser()).getName();
+    }
+    
+    public List<Users> all(){
+        return this.usersFacade.findAll();
     }
     
     public void LogOut(){

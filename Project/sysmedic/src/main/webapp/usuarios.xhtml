@@ -21,28 +21,32 @@
                                     
           <p:growl id="msgs" showDetail="true" />
                                     
-          <p:dataTable id="users" var="user" value="1" tableStyle="width:auto">
+          <p:dataTable id="users" var="user" value="#{User.all()}" tableStyle="width:auto">
   
               <p:column headerText="Nombre" style="width:100px">
-                  <h:outputText value="ExampleName" />
+                  <h:outputText value="#{user.name}" />
               </p:column>
                                         
               <p:column headerText="Usuario" style="width:100px">
-                  <h:outputText value="ExampleNickName" />
+                  <h:outputText value="#{user.nickname}" />
               </p:column>
                                         
               <p:column headerText="Password" style="width:100px">
-                  <h:outputText value="ExamplePassword" />
+                  <h:outputText value="#{user.password}" />
               </p:column>
                                         
               <p:column>
-                <a href="edit.faces?tid=ExampleUser id">Editar</a>
+                <a href="edit.faces?tid=#{user.id}">Editar</a>
               </p:column>
                                         
             </p:dataTable>
-            <center>
-                <h:commandButton value="Crear Nuevo Usuario" id="opFormUsuario" onclick="mostrarFormUsuario()"/>
-            </center>
+          
+            <!-- Pop up para nuevo usuario-->
+            <p:dialog header="Nuevo Usuario" widgetVar="dlgNuevoUsuario" minHeight="40" draggable="false" resizable="false">
+                <ui:include src="nuevoUsuario.xhtml" />
+            </p:dialog>
+            <p:commandButton value="Crear Nuevo Usuario" type="button" onclick="PF('dlgNuevoUsuario').show();" />
+                
           </h:form>                                                                
                                 
         </div>

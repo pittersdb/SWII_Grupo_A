@@ -14,24 +14,72 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
 
-    <form>
-        <label>Cuenta: </label>
-        <select>
-            <option value="0">Seleccionar una</option>
-            <option value="1">Ingreso</option>
-            <option value="2">Egreso</option>
-        </select><br />
-        <label>Medicina: </label>
-        <select>
-            <option></option>
-        </select><br />
-        <label>Cantidad: </label>
-        <input type="text" /><br />
-        <label>Fecha: </label>
-        <input type="date" /><br /><br />
-        <input type="submit" value="Guardar"/>
-        <button>Cancelar</button><br />
-    </form>
+    <p:tabView>
+        <p:tab title="Transacciones">
+            <h:form>
+                <p:growl id="growl" showDetail="true" life="2000" />
+                <h:panelGrid columns="2" cellpadding="5">
+                
+                    <p:outputLabel for="cuenta" value="Cuenta: "></p:outputLabel>
+                    <p:selectOneMenu id="cuenta" value="#{selectOneMenuView.console}" maxlength="20">
+                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                        <f:selectItem itemLabel="Ingreso" itemValue="Ingreso" />
+                        <f:selectItem itemLabel="Egreso" itemValue="Egreso" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="selectMedicina" value="Medicina: "></p:outputLabel>
+                    <p:selectOneMenu id="selectMedicina" value="#">
+                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="inputCantidad" value="Cantidad: "></p:outputLabel>
+                    <p:inputText  id="inputCantidad"/>
+                    
+                    <p:outputLabel for="inputFecha" value="Fecha: "></p:outputLabel>
+                    <p:calendar id="inputFecha" showOn="button"/>
+                    
+                    <p:commandButton value="Guardar" id="btnGuardarTrans" update="growl" actionListener="#" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Cancelar" id="btnCancelarTrans" actionListener="#" />
+                    
+                
+                </h:panelGrid>
+            </h:form>
+        </p:tab>
+        
+        <p:tab title="Medicinas">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+                <!-- Pop up para nueva medicina-->
+                <p:dialog header="Nueva Medicina" widgetVar="dlgNuevaMedicina" minHeight="40" draggable="false" resizable="false">
+                    <ui:include src="nuevaMedicina.html" />
+                </p:dialog>
+                <p:commandButton value="Nueva Medicina" type="button" onclick="PF('dlgNuevaMedicina').show();" />
+                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Reporte">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:dataTable var="car" value="#">
+                    <p:column headerText="Id">
+                        <h:outputText value="#" />
+                    </p:column>
+
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#" />
+                    </p:column>
+
+                    <p:column headerText="Fecha de regreso">
+                        <h:outputText value="#" />
+                    </p:column>
+
+                    <p:column headerText="Stock">
+                        <h:outputText value="#" />
+                    </p:column>
+                </p:dataTable>
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+
+    
 </html>
