@@ -14,77 +14,157 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+
+    <!--http://www.consultorio-virtual.com/manual-de-usuario/-->
     
-    
-    
-    <!-- Estos datos se extraen de la base de datos. Son datos del paciente. -->
-    <p:dataTable id="paciente" var="paciente" value="#" tableStyle="width:auto">
-        <p:column headerText="Nombres" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="Apellidos" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="C.I." style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="Fecha de Nacimiento" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="Sexo" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>                                
-
-        <p:column headerText="Lugar de Procedencia" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="Direccion" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
-
-        <p:column headerText="Telefono" style="width:100px">
-            <h:outputText value="#" />
-        </p:column>
+    <p:tabView>
+        <p:tab title="Informaci&oacute;n Personal">
+            <h:form>
+                <p:growl id="growl" showDetail="true" life="2000" />
+                
+                <!-- Estos datos se extraen de la base de datos. Son datos del paciente. -->
+                <h:panelGrid columns="4" cellpadding="5">
+                
+                    <p:outputLabel for="inputHistorial" value="Historial No.: "></p:outputLabel>
+                    <p:inputText id="inputHistorial" disabled="true" />
+                    
+                    <p:outputLabel for="inputProvincia" value="Provincia: "></p:outputLabel>
+                    <p:selectOneMenu id="inputProvincia" value="#" maxlength="20">
+                        <f:selectItem itemLabel="Guayas" itemValue="guayas" />
+                        <f:selectItem itemLabel="Pichincha" itemValue="pichincha" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="inputNombre" value="Nombre: "></p:outputLabel>
+                    <p:inputText id="inputNombre" />
+                    
+                    <p:outputLabel for="inputCiudad" value="Ciudad: "></p:outputLabel>
+                    <p:selectOneMenu id="inputCiudad" value="#" maxlength="20">
+                        <f:selectItem itemLabel="Guayaquil" itemValue="guayaquil" />
+                        <f:selectItem itemLabel="Quito" itemValue="quito" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="inputApellidos" value="Apellidos: "></p:outputLabel>
+                    <p:inputText id="inputApellidos" />
+                    
+                    <p:outputLabel for="txtaDireccion" value="Direcci&oacute;n: "></p:outputLabel>
+                    <p:inputTextarea id="txtaDireccion" maxlength="100" />
+                    
+                    <p:outputLabel for="inputCI" value="C&eacute;dula: "></p:outputLabel>
+                    <p:inputText id="inputCI" />
+                    
+                    <p:outputLabel for="inputTelefono" value="Tel&eacute;fono: "></p:outputLabel>
+                    <p:inputText id="inputTelefono" />
+                    
+                    <p:outputLabel for="inputSexo" value="Sexo: "></p:outputLabel>
+                    <p:selectOneMenu id="inputSexo" value="#" maxlength="20">
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="inputCelular" value="Celular: "></p:outputLabel>
+                    <p:inputText id="inputCelular" />
+                    
+                    <p:outputLabel for="inputNacimiento" value="Fecha de Nacimiento: "></p:outputLabel>
+                    <p:calendar id="inputNacimiento" value="#{calendarView.date5}" locale="de" navigator="true" pattern="dd-MMM-yyyy" />
+                    
+                    <p:outputLabel for="inputMail" value="Correo Electr&oacute;nico: "></p:outputLabel>
+                    <p:inputText id="inputMail" />
+                    
+                    <p:commandButton value="Guardar" id="btnGuardarTrans" update="growl" actionListener="#" styleClass="ui-priority-primary" />
+                
+                </h:panelGrid>
+            </h:form>
+        </p:tab>
         
-    </p:dataTable>
+        <p:tab title="Antecedentes">
+            <h:panelGrid columns="2" cellpadding="5">
 
-    <br />
-    <h:form>
-        <h:panelGrid columns="2" cellpadding="4">
-            <p:outputLabel for="txtaMotivo" value="Motivo de la consulta: " /><br />
-            <p:inputTextarea id="txtaMotivo" rows="6" cols="33" /><br />
-            
-            <p:separator /><p:separator />
-            
-            <p:outputLabel for="inputPeso" value="Peso: " />
-            <p:inputText id="inputPeso" />
-            
-            <p:outputLabel for="inputEstatura" value="Estatura: " />
-            <p:inputText id="inputEstatura" />
-            
-            <p:outputLabel for="inputGlucosa" value="Glucosa: " />
-            <p:inputText id="inputGlucosa" />
-            
-            <p:outputLabel for="inputPresion" value="Presi&oacute;n Arterial: " />
-            <p:inputText id="inputPresion" />
-            
-            <p:separator /><p:separator />
-            
-            <p:outputLabel for="txtaSintomas" value="Sintomatolog&iacute;a: " /><br />
-            <p:inputTextarea id="txtaSintomas" rows="6" cols="33" /><br />
-            
-            <p:outputLabel for="txtaPrescripcion" value="Prescripci&oacute;n: " /><br />
-            <p:inputTextarea id="txtaPrescripcion" rows="6" cols="33" /><br />
-        </h:panelGrid>
-        
-        <p:commandButton value="Guardar" id="btnGuardarConsulta" actionListener="#" />
-        <p:commandButton value="Cancelar" id="btnCancelarConsulta" actionListener="#" />
-    </h:form>
+                <p:outputLabel for="sangre" value="Tipo de Sangre: "></p:outputLabel>
+                <p:selectOneMenu id="sangre" value="#" maxlength="20">
+                    <f:selectItem itemLabel="A+" itemValue="Apositivo" />
+                    <f:selectItem itemLabel="A-" itemValue="Anegativo" />
+                    <f:selectItem itemLabel="B+" itemValue="Bpositivo" />
+                    <f:selectItem itemLabel="B-" itemValue="Bnegativo" />
+                    <f:selectItem itemLabel="O+" itemValue="Opositivo" />
+                    <f:selectItem itemLabel="O-" itemValue="Onegativo" />
+                    <f:selectItem itemLabel="AB+" itemValue="ABpositivo" />
+                    <f:selectItem itemLabel="AB-" itemValue="ABnegativo" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="tabaco" value="Tabaquismo: "></p:outputLabel>
+                <p:selectOneMenu id="tabaco" value="#" maxlength="20">
+                    <f:selectItem itemLabel="Nunca" itemValue="nunca" />
+                    <f:selectItem itemLabel="Casual" itemValue="casual" />
+                    <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
+                    <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="alcohol" value="Alcoholismo: "></p:outputLabel>
+                <p:selectOneMenu id="alcohol" value="#" maxlength="20">
+                    <f:selectItem itemLabel="Nunca" itemValue="nunca" />
+                    <f:selectItem itemLabel="Casual" itemValue="casual" />
+                    <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
+                    <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="diabetes" value="Diabetes: "></p:outputLabel>
+                <p:selectOneMenu id="diabetes" value="#" maxlength="20">
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                    <f:selectItem itemLabel="Tipo 1" itemValue="1" />
+                    <f:selectItem itemLabel="Tipo 2" itemValue="2" />
+                    <f:selectItem itemLabel="Gestacional" itemValue="gestacional" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="hipertension" value="Hipertensi&oacute;n arterial: "></p:outputLabel>
+                <p:selectOneMenu id="hipertension" value="#" maxlength="20">
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                    <f:selectItem itemLabel="Si" itemValue="si" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="infartos" value="Infartos: "></p:outputLabel>
+                <p:inputText id="infartos" alt="Ingrese un N&uacute;mero."/>
+
+                <p:commandButton value="Guardar" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
+                
+            </h:panelGrid>
+        </p:tab>
+
+        <p:tab title="Consultas">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:dataTable var="car" value="#">
+                    <p:column headerText="No.">
+                        <h:outputText value="#" />
+                    </p:column>
+
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#" />
+                    </p:column>
+                </p:dataTable>
+                
+                <p:commandButton value="Eliminar Consulta" id="btnEliminarConsulta" actionListener="#" styleClass="ui-priority-primary" />
+                
+                <p:panel header="Resumen">
+                    <h:panelGrid columns="1" cellpadding="3">
+                        <p:outputLabel for="txtaMot" value="Motivo de la consulta: "></p:outputLabel>
+                        <p:inputTextarea id="txtaMot" maxlength="100" />
+
+                        <p:outputLabel for="txtaSint" value="S&iacute;ntomas: "></p:outputLabel>
+                        <p:inputTextarea id="txtaSint" maxlength="100" />
+
+                        <p:outputLabel for="txtaEst" value="Estudios de laboratorio: "></p:outputLabel>
+                        <p:inputTextarea id="txtaEst" maxlength="100" />
+
+                        <p:outputLabel for="txtaDiag" value="Diagn&oacute;stico: "></p:outputLabel>
+                        <p:inputTextarea id="txtaDiag" maxlength="100" />
+
+                        <p:outputLabel for="txtaPres" value="Prescripci&oacute;n: "></p:outputLabel>
+                        <p:inputTextarea id="txtaPres" maxlength="100" />
+                    </h:panelGrid>
+                </p:panel>
+                
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+
     
-
 </html>
