@@ -40,12 +40,34 @@
                         document.getElementById("panelPacientes").style.display="block";
                     }
                     
+                    function mostrarAgenda(){
+                        ocultarTodo();
+                        document.getElementById("panelAgenda").style.display="block";
+                    }
+                    
+                    function mostrarInternalPanelAgenda(){
+                        document.getElementById("panelInternalAgenda").style.display="block";
+                    }
+                    
+                    function ocultarInternalPanelAgenda(){
+                        document.getElementById("panelInternalAgenda").style.display="none";
+                    }
+                    
+                    function mostrarConsulta(){
+                        document.getElementById("panelConsulta").style.display="block";
+                    }
+                    
+                    function ocultarConsulta(){
+                        document.getElementById("panelConsulta").style.display="none";
+                    }
+                    
                     function ocultarTodo(){
                         document.getElementById("panelInicio").style.display="none";
                         document.getElementById("panelInventario").style.display="none";
                         document.getElementById("panelHistorial").style.display="none";
                         document.getElementById("panelUsuarios").style.display="none";
                         document.getElementById("panelPacientes").style.display="none";
+                        document.getElementById("panelAgenda").style.display="none";
                         
                     }
                 </script>
@@ -74,7 +96,7 @@
                 <p:layoutUnit position="west" size="250" header="Opciones" collapsible="true">
                     <p:menu>
                         
-                        <p:menuitem value="Agenda" url="#" />
+                        <p:menuitem value="Agenda" url="#" onclick="mostrarAgenda()"/>
                         <p:menuitem value="Facturaci&oacute;n" url="#" />
                         <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()" style="display: none;"/>
                         <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
@@ -100,6 +122,19 @@
                                     <li><a href="#">Inventario</a></li>
                                 </ul>
                             </div>
+                        </h:panelGroup>
+                    </p:panel>
+                    
+                   <!-- Panel para la Agenda -->
+                    <p:panel id="panelAgenda" header="Agenda" style="display: none;">
+                        <h:panelGroup>
+                            <sec:authorize url="/faces/agenda.xhtml" var="isAuthorizedI">
+                                <ui:include src="agenda.xhtml" /><br />
+                                
+                            </sec:authorize>
+                            <c:if test="${!isAuthorizedI}">
+                                <ui:include src="NoAutorizacionMensaje.xhtml" />
+                            </c:if>
                         </h:panelGroup>
                     </p:panel>
                     

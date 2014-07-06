@@ -16,10 +16,10 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
 
     <!--http://www.consultorio-virtual.com/manual-de-usuario/-->
-    
+    <h:form>
     <p:tabView>
         <p:tab title="Informaci&oacute;n Personal">
-            <h:form>
+            
                 <p:growl id="growl" showDetail="true" life="2000" />
                 
                 <!-- Estos datos se extraen de la base de datos. Son datos del paciente. -->
@@ -73,7 +73,7 @@
                     <p:commandButton value="Guardar" id="btnGuardarTrans" update="growl" actionListener="#" styleClass="ui-priority-primary" />
                 
                 </h:panelGrid>
-            </h:form>
+            
         </p:tab>
         
         <p:tab title="Antecedentes">
@@ -124,7 +124,7 @@
                 <p:outputLabel for="infartos" value="Infartos: "></p:outputLabel>
                 <p:inputText id="infartos" alt="Ingrese un N&uacute;mero."/>
 
-                <p:commandButton value="Guardar" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
+                <p:commandButton value="Guardar" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
                 
             </h:panelGrid>
         </p:tab>
@@ -166,5 +166,5 @@
         </p:tab>
     </p:tabView>
 
-    
+    </h:form>
 </html>

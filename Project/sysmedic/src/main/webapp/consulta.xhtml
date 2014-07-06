@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
+    
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
@@ -17,36 +17,69 @@
     
     
     <h:form>
-        <h:panelGrid columns="2" cellpadding="4">
-            <p:outputLabel for="txtaMotivo" value="Motivo de la consulta: " /><br />
-            <p:inputTextarea id="txtaMotivo" rows="6" cols="33" /><br />
+        <p:dialog header="Informaci&oacute;n del Sistema" widgetVar="dlGuardadoCorrecto" minHeight="40" draggable="false" resizable="false">
+            <ui:include src="guardadoCorrectoMensaje.xhtml" />
+        </p:dialog>                   
+        
+        <p:dialog header="Esta a punto de cancelar esta Consulta" widgetVar="dlgCancelacionConsulta" minHeight="40" draggable="false" resizable="false">
+            <ui:include src="confirmacionDeAccion.xhtml" />
+        </p:dialog>
+        
+        
+        <h:panelGrid columns="2" cellpadding="3">
+            <h:panelGrid columns="1" cellpadding="4">
+                <h:panelGrid columns="2" cellpadding="4">
+                    <h:outputLabel for="nombre_paciente" value="Paciente: " style=" color : cadetblue ; font-size: 1.1em"/>
+                    <h:outputLabel for="nombre_paciente" value="Juan Perez" />
+                </h:panelGrid>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:outputLabel for="sintomatologia" value="Sintomatolog&iacute;a: " />
+                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" /><br />
+                    
+                    <p:outputLabel for="observaciones" value="Observaciones: " />
+                    <p:inputTextarea id="observaciones" rows="6" cols="33" /><br />
+                </h:panelGrid>
+                
+                
+            </h:panelGrid>
             
-            <p:separator /><p:separator />
-            
-            <p:outputLabel for="inputPeso" value="Peso: " />
-            <p:inputText id="inputPeso" />
-            
-            <p:outputLabel for="inputEstatura" value="Estatura: " />
-            <p:inputText id="inputEstatura" />
-            
-            <p:outputLabel for="inputGlucosa" value="Glucosa: " />
-            <p:inputText id="inputGlucosa" />
-            
-            <p:outputLabel for="inputPresion" value="Presi&oacute;n Arterial: " />
-            <p:inputText id="inputPresion" />
-            
-            <p:separator /><p:separator />
-            
-            <p:outputLabel for="txtaSintomas" value="Sintomatolog&iacute;a: " /><br />
-            <p:inputTextarea id="txtaSintomas" rows="6" cols="33" /><br />
-            
-            <p:outputLabel for="txtaPrescripcion" value="Prescripci&oacute;n: " /><br />
-            <p:inputTextarea id="txtaPrescripcion" rows="6" cols="33" /><br />
+            <h:panelGrid columns="1" cellpadding="3">
+                <h:panelGrid columns="2" cellpadding="4">
+                    
+                    <p:outputLabel value="Antecedentes: " />
+                    <p:commandButton value="Gestionar Antecedentes" id="btnAntecedentes" actionListener="#" />
+                    
+                </h:panelGrid>
+                <p:panel header="Prescripci&oacute;n: ">
+                    <h:panelGrid columns="1" cellpadding="3">
+                        <p:outputLabel for="consideraciones" value="Consideraciones Generales: "></p:outputLabel>
+                        <p:inputTextarea id="consideraciones" rows="3" cols="40" />   
+                        <p:dataTable var="car" value="#">
+                            <p:column headerText="Medicamento">
+                                <h:outputText value="Xanax" />
+                            </p:column>
+                            
+                            <p:column headerText="Instruccion">
+                                <h:outputText value="2 tabletas al dia" />
+                            </p:column>
+                            
+                            <p:column headerText="Acciones">
+                                <p:commandButton value="Modificar" id="btnModificarInstruccion" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;" />
+                                <p:commandButton value="Eliminar" id="btnEliminarInstruccion" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;"/>
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:commandButton value="Agregar Medicamento" id="btnAgregarMedicamento" actionListener="#" styleClass="ui-priority-primary" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:panelGrid>
         </h:panelGrid>
         
-        <p:commandButton value="Guardar" id="btnGuardarConsulta" actionListener="#" />
-        <p:commandButton value="Cancelar" id="btnCancelarConsulta" actionListener="#" />
+        
+        <p:commandButton value="Guardar" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton value="Imprimir Receta" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton value="Cancelar" id="btnCancelarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>            
     </h:form>
     
-
+    
 </html>
