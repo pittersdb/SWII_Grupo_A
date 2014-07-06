@@ -17,6 +17,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 /**
  *
  * @author LUCAS
@@ -34,9 +38,25 @@ public class UsersView {
         this.usersFacade = new UsersFacade();
     }
     
+    public String Hola(){
+        return "hola";
+    }
+    
     public String Name(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();       
-        return this.usersFacade.GetUser(facesContext.getExternalContext().getRemoteUser()).getName();
+        //FacesContext facesContext = FacesContext.getCurrentInstance();       
+        //return this.usersFacade.GetUser(facesContext.getExternalContext().getRemoteUser()).getName();
+        //return "Hola";
+        
+        UserDetails userDetails = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+               userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+               return this.usersFacade.GetUser(userDetails.getUsername()).getName();
+        }else {
+            return "none";
+        }
+        
+        
     }
     
     public List<Users> all(){
