@@ -20,66 +20,99 @@
             <h:form>
                 <p:growl id="growl" showDetail="true" life="2000" />
                 <h:panelGrid columns="2" cellpadding="5">
-                
-                    <p:outputLabel for="cuenta" value="Cuenta: "></p:outputLabel>
-                    <p:selectOneMenu id="cuenta" value="#{selectOneMenuView.console}" maxlength="20">
-                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
-                        <f:selectItem itemLabel="Ingreso" itemValue="Ingreso" />
-                        <f:selectItem itemLabel="Egreso" itemValue="Egreso" />
-                    </p:selectOneMenu>
                     
-                    <p:outputLabel for="selectMedicina" value="Medicina: "></p:outputLabel>
-                    <p:selectOneMenu id="selectMedicina" value="#">
-                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
-                    </p:selectOneMenu>
+                    <!-- Pop up para Ingreso de lote-->
+                    <p:dialog header="Ingreso de lote de medicinas" widgetVar="dlgNuevoLote" minHeight="40" draggable="false" resizable="false">
+
+                        <p:outputLabel for="selectMedicina" value="Medicina: "></p:outputLabel>
+                        <p:selectOneMenu id="selectMedicina" value="#">
+                            <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="inputFechaElab" value="Fecha de elaboraci&oacute;n: "></p:outputLabel>
+                        <p:calendar id="inputFechaElab" showOn="button"/>
+
+                        <p:outputLabel for="inputFechaCaduc" value="Fecha de caducidad: "></p:outputLabel>
+                        <p:calendar id="inputFechaCaduc" showOn="button"/>
+
+                        <p:outputLabel for="inputPrecio" value="Precio: "></p:outputLabel>
+                        <p:inputText  id="inputPrecio"/>
+
+                        <p:outputLabel for="inputCantidad" value="Cantidad: "></p:outputLabel>
+                        <p:inputText  id="inputCantidad"/>
+
+                        <p:outputLabel for="inputFecha" value="Fecha de ingreso: "></p:outputLabel>
+                        <p:calendar id="inputFecha" showOn="button"/>
+
+                        <p:commandButton value="Guardar" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
+                        <p:commandButton value="Cancelar" id="btnCancelarTrans" actionListener="#" />
+                    </p:dialog>
                     
-                    <p:outputLabel for="inputCantidad" value="Cantidad: "></p:outputLabel>
-                    <p:inputText  id="inputCantidad"/>
+                    <!-- Pop up para Devolucion de lote-->
+                    <p:dialog header="Devoluci&oacute;n de lote de medicinas" widgetVar="dlgDevolucionLote" minHeight="40" draggable="false" resizable="false">
+                        
+                        <p:outputLabel for="selectMedic" value="Medicina: "></p:outputLabel>
+                        <p:selectOneMenu id="selectMedic" value="#">
+                            <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="selectLote" value="Lote: "></p:outputLabel>
+                        <p:selectOneMenu id="selectLote" value="#">
+                            <f:selectItem itemLabel="Seleccionar uno" itemValue="" />
+                        </p:selectOneMenu>
+                        
+                        <p:commandButton value="Devolver" id="btnDevolverLote" actionListener="#" styleClass="ui-priority-primary" />
+                        <p:commandButton value="Cancelar" id="btnCancelarLote" actionListener="#" />
+                    </p:dialog>
                     
-                    <p:outputLabel for="inputFecha" value="Fecha: "></p:outputLabel>
-                    <p:calendar id="inputFecha" showOn="button"/>
+                    <!-- Pop up para nueva medicina-->
+                    <p:dialog header="Nueva Medicina" widgetVar="dlgNuevaMedicina" minHeight="40" draggable="false" resizable="false">
+                        <ui:include src="nuevaMedicina.html" />
+                    </p:dialog>
                     
-                    <p:commandButton value="Guardar" id="btnGuardarTrans" update="growl" actionListener="#" styleClass="ui-priority-primary" />
-                    <p:commandButton value="Cancelar" id="btnCancelarTrans" actionListener="#" />
+                    <p:commandButton value="Nueva Medicina" type="button" onclick="PF('dlgNuevaMedicina').show();" />
+                    <p:commandButton value="Ingresar nuevo lote" type="button" onclick="PF('dlgNuevoLote').show();" />
+                    <p:commandButton value="Devoluci&oacute;n de lote" type="button" onclick="PF('dlgDevolucionLote').show();" />
                     
-                
                 </h:panelGrid>
             </h:form>
         </p:tab>
         
-        <p:tab title="Medicinas">
-            <h:panelGrid columns="2" cellpadding="10">
-                
-                <!-- Pop up para nueva medicina-->
-                <p:dialog header="Nueva Medicina" widgetVar="dlgNuevaMedicina" minHeight="40" draggable="false" resizable="false">
-                    <ui:include src="nuevaMedicina.html" />
-                </p:dialog>
-                <p:commandButton value="Nueva Medicina" type="button" onclick="PF('dlgNuevaMedicina').show();" />
-                
-            </h:panelGrid>
-        </p:tab>
         <p:tab title="Reporte">
             <h:panelGrid columns="2" cellpadding="10">
                 <p:dataTable var="car" value="#">
-                    <p:column headerText="Id">
+                    
+                    <p:column headerText="C&oacute;digo de lote">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Medicina">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Fecha de regreso">
+                    <p:column headerText="Fecha de elaboraci&oacute;n">
+                        <h:outputText value="#" />
+                    </p:column>
+                    
+                    <p:column headerText="Fecha de caducidad">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Stock">
+                    <p:column headerText="Fecha de ingreso">
                         <h:outputText value="#" />
                     </p:column>
+                    
+                    <p:column headerText="Cantidad">
+                        <h:outputText value="#" />
+                    </p:column>
+                    
+                    <p:column headerText="Precio">
+                        <h:outputText value="#" />
+                    </p:column>
+                    
                 </p:dataTable>
             </h:panelGrid>
         </p:tab>
     </p:tabView>
 
-    
 </html>
