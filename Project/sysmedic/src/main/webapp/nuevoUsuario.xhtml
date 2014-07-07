@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
+    
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
@@ -15,24 +15,34 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
-
     
-        <h:form>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="nombre" value="Nombre:" />
-                <p:inputText value="#{Users.name}" id="nombre" required="true" label="nombre" />
-
-                <h:outputLabel for="nickname" value="Usuario:" />
-                <p:inputText value="#{Users.nickname}" id="nickname" required="true" label="nickname" />
-
-                <h:outputLabel for="password" value="Password:" />
-                <p:inputText value="#{Users.password}" id="password" required="true" label="password" />
-
-                <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
-                <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
-
-            </h:panelGrid>
-        </h:form>
+    
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nombre" value="Nombre:" />
+            <p:inputText value="#{Users.name}" id="nombre" required="true" label="nombre" />
+            
+            <h:outputLabel for="nickname" value="Usuario:" />
+            <p:inputText value="#{Users.nickname}" id="nickname" required="true" label="nickname" />
+            
+            
+            
+            <h:outputLabel for="password" value="Password:" />
+            <p:password value="#{Users.password}" id="password" required="true" label="password" />
+            
+            
+            <p:outputLabel for="rol" value="Rol: "></p:outputLabel>
+            <p:selectOneMenu id="rol" value="#" maxlength="50" >
+                <f:selectItem itemLabel="Administrador" itemValue="a" />
+                <f:selectItem itemLabel="Medico" itemValue="m" />
+                <f:selectItem itemLabel="Secretario" itemValue="s" />
+            </p:selectOneMenu>
+            
+            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
+            <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+            
+        </h:panelGrid>
+    </h:form>
     
 </html>
 

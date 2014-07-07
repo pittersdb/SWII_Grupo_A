@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
-    <div>
+    <div> 
       <h2>Lista de Usuarios</h2>
         <h:form id="formUser">
                                     
@@ -23,7 +23,7 @@
                                     
           <p:dataTable id="users" var="user" value="#{User.all()}" tableStyle="width:auto">
   
-              <p:column headerText="Nombre" style="width:100px">
+              <p:column headerText="Nombre" style="width:200px">
                   <h:outputText value="#{user.name}" />
               </p:column>
                                         
@@ -31,12 +31,13 @@
                   <h:outputText value="#{user.nickname}" />
               </p:column>
                                         
-              <p:column headerText="Password" style="width:100px">
-                  <h:outputText value="#{user.password}" />
+              <p:column headerText="Rol" style="width:100px">
+                        <h:outputText value="#{user.rol}" />
               </p:column>
                                         
               <p:column>
-                <a href="edit.faces?tid=#{user.id}">Editar</a>
+                <!--a href="edit.faces?tid=#{user.id}">Editar</a-->
+                  <p:commandButton value="Editar" type="button" onclick="PF('dlgEditarUsuario').show();" />
               </p:column>
                                         
             </p:dataTable>
@@ -46,7 +47,12 @@
                 <ui:include src="nuevoUsuario.xhtml" />
             </p:dialog>
             <p:commandButton value="Crear Nuevo Usuario" type="button" onclick="PF('dlgNuevoUsuario').show();" />
-                
+            
+            
+            <!-- Pop up para nuevo usuario-->
+            <p:dialog header="Editar Usuario" widgetVar="dlgEditarUsuario" minHeight="40" draggable="false" resizable="false">
+                <ui:include src="nuevoUsuario.xhtml" />
+            </p:dialog>
           </h:form>                                                                
                                 
         </div>

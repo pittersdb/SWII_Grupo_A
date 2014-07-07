@@ -49,6 +49,10 @@ public class Users implements Serializable {
     @Column(name = "name")
     private String name;
     
+    @Size(max = 1)
+    @Column(name = "rol")
+    private String rol;
+    
     
     public Users() {
     }
@@ -87,6 +91,20 @@ public class Users implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRol() {
+        if(rol.equalsIgnoreCase("a"))
+            return "Administrador";
+        if(rol.equalsIgnoreCase("S"))
+            return "Secretario";
+        if(rol.equalsIgnoreCase("m"))
+            return "Medico";
+        return "No rol";
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override
