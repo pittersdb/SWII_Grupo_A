@@ -1,4 +1,4 @@
-
+-- VERY VERY IMPORTANTISIMO: Leer el very very importantisimo de abajo
 -- SI NO LES CORRE DIRECTAMENTE TODO ESTE CODIGO HAGANLO POR PARTE, CADA PARTE ESTA CON UN COMENTARIO DE TITULO CON SU NUMERO, HAGANLO EN ORDEN PORFA.
 
 
@@ -8,16 +8,19 @@ CREATE DATABASE "SysMedic"
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
-       LC_COLLATE = 'English_United States.1252'
-       LC_CTYPE = 'English_United States.1252'
        CONNECTION LIMIT = -1;
 
+-- VERY VERY IMPORTANTISIMO: Antes de continuar hay que correr el resto de comandos 
+--				en el ambiente de la nueva base de datos, si se esta 
+--				usando pgAdmin se debe cerrar la actual ventana de querys y abrir otra con la nueva base de datos seleccionada.
 
 -- 2. CREANDO EL ESQUEMA DE BASE DE DATOS
 
 
+
 CREATE SCHEMA "SysMedic"
   AUTHORIZATION postgres;
+
   
   
   
@@ -29,6 +32,8 @@ CREATE SCHEMA "SysMedic"
   nickname character varying(20),
   password character varying(20),
   name character varying(40),
+  rol character varying(1),
+  enabled smallint,
   CONSTRAINT user_pk PRIMARY KEY (id)
 )
 WITH (
@@ -41,16 +46,16 @@ ALTER TABLE "SysMedic"."Users"
  -- 4. INSERTANDO DATOS
  
  INSERT INTO "SysMedic"."Users"(
-            nickname, password, name)
-    VALUES ('gChavez', 'mypassword1', 'Gabriel Chavez');
+            nickname, password, name, rol, enabled)
+    VALUES ('gChavez', 'mypassword1', 'Gabriel Chavez', 'a', 1);
 	
  INSERT INTO "SysMedic"."Users"(
-            nickname, password, name)
-    VALUES ('fSayay', 'mypassword2','Fabian Sayay');
+            nickname, password, name, rol, enabled)
+    VALUES ('fSayay', 'mypassword2','Fabian Sayay', 'm', 1);
  
  INSERT INTO "SysMedic"."Users"(
-            nickname, password, name)
-    VALUES ('plucas', 'mypassword3', 'Pedro Lucas');
+            nickname, password, name, rol, enabled)
+    VALUES ('plucas', 'mypassword3', 'Pedro Lucas', 's', 1);
 	
 -- 5. CREANDO EL USUARIO DE BASE DE DATOS QUE UTILIZA EL CAS
 
