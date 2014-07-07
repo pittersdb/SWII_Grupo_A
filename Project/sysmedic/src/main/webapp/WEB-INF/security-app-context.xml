@@ -118,7 +118,7 @@
     <!-- This filter redirects to the CAS Server to signal Single Logout should be performed -->
     <b:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter"
         p:filterProcessesUrl="/j_spring_cas_security_logout">
-        <b:constructor-arg value="https://${cas.server.host}/cas-server-webapp/logout"/>
+        <b:constructor-arg value="${cas.server.host}/cas-server-webapp/logout"/>
         <b:constructor-arg>
             <b:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
         </b:constructor-arg>
@@ -126,11 +126,11 @@
 
     <b:bean id="serviceProperties"
         class="org.springframework.security.cas.ServiceProperties"
-        p:service="https://${cas.service.host}/sysmedic/j_spring_cas_security_check"
+        p:service="${cas.service.host}/sysmedic/j_spring_cas_security_check"
         p:authenticateAllArtifacts="true"/>
     <b:bean id="casEntryPoint"
         class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
-        p:serviceProperties-ref="serviceProperties" p:loginUrl="https://${cas.server.host}/cas-server-webapp/login" />
+        p:serviceProperties-ref="serviceProperties" p:loginUrl="${cas.server.host}/cas-server-webapp/login" />
     <b:bean id="casFilter"
         class="org.springframework.security.cas.web.CasAuthenticationFilter"
         p:authenticationManager-ref="authManager"
@@ -163,9 +163,9 @@
             <b:bean
                 class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
                 p:acceptAnyProxy="true"
-                p:proxyCallbackUrl="https://${cas.service.host}/sysmedic/j_spring_cas_security_proxyreceptor"
+                p:proxyCallbackUrl="${cas.service.host}/sysmedic/j_spring_cas_security_proxyreceptor"
                 p:proxyGrantingTicketStorage-ref="pgtStorage">
-                <b:constructor-arg value="https://${cas.server.host}/cas-server-webapp" />
+                <b:constructor-arg value="${cas.server.host}/cas-server-webapp" />
             </b:bean>
         </b:property>
         <b:property name="statelessTicketCache">
@@ -192,8 +192,8 @@
     <!-- Configuration for the environment can be overriden by system properties -->
     <context:property-placeholder system-properties-mode="OVERRIDE" properties-ref="environment"/>
     <util:properties id="environment">
-        <b:prop key="cas.service.host">localhost:8181</b:prop>
-        <b:prop key="cas.server.host">localhost:8181</b:prop>
+        <b:prop key="cas.service.host">${server.https.name}</b:prop>
+        <b:prop key="cas.server.host">${server.https.name}</b:prop>
     </util:properties>
     
     
