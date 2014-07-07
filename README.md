@@ -87,9 +87,9 @@ Las herramientas de desarrollo que se estan utilizando son:
 	"WEB-INF" del proyecto Sysmedic. 
 	
 7.	Dentro de la ya creada carpeta classes crear un archivo .properties llamado
-	config.properties, este se puede crear utilizando las funcionalidades de Netbeans.
+	"config.properties", este se puede crear utilizando las funcionalidades de Netbeans.
 	
-8.	Agregar al archivo la siguiente linea:
+8.	Agregar al archivo las siguientes lineas:
 
 		server.https.name = https://localhost:8181
 		server.database.name = localhost:5432
@@ -103,9 +103,10 @@ Las herramientas de desarrollo que se estan utilizando son:
 	cambiarlas se esta configurando indirectamente a Spring que ya tiene integrada su comunicacion con CAS.
 	El siguiente paso es importante.
 	
-9. 	NO ejecutar inmediatamente, primero click derecho en el proyecto SysMedic -> Build
-	esto es para que server.https.name y server.database.name sean tomados en cuenta en los archivos de 
-	configuraciones respectivos	ya que un feature de Maven permite esto.
+9. 	NO ejecutar inmediatamente, primero hay que construir el proyecto, para este caso 
+ 	click derecho en el proyecto SysMedic -> Build	esto es para que server.https.name y 
+	server.database.name sean tomados en cuenta en los archivos de 
+	configuraciones respectivos ya que un feature de Maven permite esto.
 	
 10.	Ahora el proyecto ya puede ser ejecutado y se abrira el explorador mostrando
 	el servicio de autenticacion, ahora se puede ingresar a la aplicacion
