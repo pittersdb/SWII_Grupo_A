@@ -1,4 +1,4 @@
-
+-- VERY VERY IMPORTANTISIMO: Leer el very very importantisimo de abajo
 -- SI NO LES CORRE DIRECTAMENTE TODO ESTE CODIGO HAGANLO POR PARTE, CADA PARTE ESTA CON UN COMENTARIO DE TITULO CON SU NUMERO, HAGANLO EN ORDEN PORFA.
 
 
@@ -10,12 +10,17 @@ CREATE DATABASE "SysMedic"
        TABLESPACE = pg_default
        CONNECTION LIMIT = -1;
 
+-- VERY VERY IMPORTANTISIMO: Antes de continuar hay que correr el resto de comandos 
+--				en el ambiente de la nueva base de datos, si se esta 
+--				usando pgAdmin se debe cerrar la actual ventana de querys y abrir otra con la nueva base de datos seleccionada.
 
 -- 2. CREANDO EL ESQUEMA DE BASE DE DATOS
 
 
+
 CREATE SCHEMA "SysMedic"
   AUTHORIZATION postgres;
+
   
   
   
