@@ -7,7 +7,7 @@
       xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-
+    
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -88,43 +88,52 @@
                 </script>
             </f:facet>
         </h:head>
-
+        
         <h:body>
             
             <p:layout fullPage="true">
                 
                 
-
+                
                 <p:layoutUnit position="south" size="40" closable="true" collapsible="true">                    
                     <h:outputText value="&reg; Todos los derechos reservados." style="font-size: 0.8em"/>
                 </p:layoutUnit>
-
+                
                 <p:layoutUnit position="west" size="250"  >
                     <p:panel id="mainHeader" >
                         <h:panelGrid columns="1" cellpadding="0">
                             <!-- <p:graphicImage value="/Images/caduceusGold.png" /-->
                             <h:graphicImage value="/Images/systemLogo.png"/>
-                               
-                            <h:outputText value="Bienvenid@, #{User.Name()}" style="font-size: 0.8em"/>
+                            
+                            <h:outputText value="Bienvenid@, #{User.Name()} ,#{msg['test.name']}" style="font-size: 0.8em"/>
                             <h:panelGrid columns="2" cellpadding="0" style="float: right">
-                            <h:form>            
-                                <h:commandLink action="#{User.LogOut()}" value="Salir" style="font-size: 0.8em"/>                                
-                            </h:form>
-                                </h:panelGrid>
+                                <h:form>            
+                                    <h:commandLink action="#{User.LogOut()}" value="Salir" style="font-size: 0.8em"/>                                
+                                </h:form>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                
+                                Language : 
+                                <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+                                                 valueChangeListener="#{language.countryLocaleCodeChanged}">
+                                    <f:selectItems value="#{language.countriesInMap}" /> 
+                                </h:selectOneMenu>
+                                
+                            </h:panelGrid>
                         </h:panelGrid>
                     </p:panel>
                     <p:panel id="mainMenu" header="Opciones"  >
                         <p:menu style="width:190px">
-                        
-                        <p:menuitem  value="Agenda" url="#" onclick="mostrarAgenda()"/>
-                        <p:menuitem value="Facturaci&oacute;n" url="#" />
-                        <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
-                        <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
-                        <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
-                    </p:menu>
-                        </p:panel>
+                            
+                            <p:menuitem  value="Agenda" url="#" onclick="mostrarAgenda()"/>
+                            <p:menuitem value="Facturaci&oacute;n" url="#" />
+                            <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
+                            <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
+                            <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
+                        </p:menu>
+                    </p:panel>
                 </p:layoutUnit>
-
+                
                 <p:layoutUnit position="center">
                     <p:panel id="panelInicio" header="Inicio">
                         <h:panelGroup>
@@ -148,7 +157,7 @@
                         </h:panelGroup>
                     </p:panel>
                     
-                   <!-- Panel para la Agenda -->
+                    <!-- Panel para la Agenda -->
                     <p:panel id="panelAgenda" header="Agenda" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/agenda.xhtml" var="isAuthorizedI">
@@ -185,7 +194,7 @@
                             </c:if>
                         </h:panelGroup>
                     </p:panel>
-             
+                    
                     <!-- Panel para los Usuarios -->
                     <p:panel id="panelUsuarios" header="Usuarios" style="display: none;">
                         <h:panelGroup>
@@ -210,12 +219,12 @@
                         </h:panelGroup>
                     </p:panel>
                     
-
+                    
                 </p:layoutUnit>
-
+                
             </p:layout>
-
+            
         </h:body>
-
+        
     </f:view>
 </html>
