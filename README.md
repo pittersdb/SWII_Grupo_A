@@ -87,9 +87,9 @@ Las herramientas de desarrollo que se estan utilizando son:
 	"WEB-INF" del proyecto Sysmedic. 
 	
 7.	Dentro de la ya creada carpeta classes crear un archivo .properties llamado
-	config.properties, este se puede crear utilizando las funcionalidades de Netbeans.
+	"config.properties", este se puede crear utilizando las funcionalidades de Netbeans.
 	
-8.	Agregar al archivo la siguiente linea:
+8.	Agregar al archivo las siguientes linea:
 
 		server.https.name = https://localhost:8181
 		server.database.name = localhost:5432
