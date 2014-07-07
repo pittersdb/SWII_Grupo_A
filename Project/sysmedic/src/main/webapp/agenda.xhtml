@@ -42,15 +42,15 @@
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:dataTable var="car" value="#">
                         <p:column headerText="Paciente">
-                            <h:outputText value="#" />
+                            <h:outputText value="-" />
                         </p:column>
                             
                         <p:column headerText="Medico">
-                            <h:outputText value="#" />
+                            <h:outputText value="-" />
                         </p:column>
                             
                         <p:column headerText="Fecha de Cita">
-                            <h:outputText value="#" />
+                            <h:outputText value="-" />
                         </p:column>
                             
                         <p:column headerText="Acciones">
@@ -82,6 +82,7 @@
                         <ui:include src="proximaCita.xhtml" />
                     </p:dialog>
                     
+                    
                     <h:form>
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:panelGrid columns="1" cellpadding="5">
@@ -94,9 +95,9 @@
                                     
                                 </h:panelGrid>
                                 
-                                <h:panelGrid columns="1" cellpadding="5">   
+                                <h:panelGrid columns="1" cellpadding="1">   
                                     <h:outputLabel for="Acciones_turno" value="Acciones: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                    <p:commandButton id="btnInfoPaciente" value="Ver Historial Clinico" actionListener="#" style=" font-size: 12px !important;" />
+                                    <p:commandButton id="btnInfoPaciente" value="Ver Historial Clinico" actionListener="#" style=" font-size: 12px !important;" onclick="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();"/>
                                     <p:commandButton id="btnMediciones" value="Agregar o ver Mediciones" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
                                     <p:commandButton id="btnAtencion" value="Atender Consulta" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>
                                     <p:commandButton id="btnProgramarCita" value="Programar Proxima Cita" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
@@ -156,7 +157,17 @@
         <h:panelGroup>
             <ui:include src="consulta.xhtml" />
         </h:panelGroup>
+        <p:commandButton value="Guardar" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton value="Imprimir Receta" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton value="Volver a Turnos" id="btnVolverATurnosFromConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
     </p:panel>
+    <p:panel id="panelHistorialForAgenda" header="Historial" style="display: none;">
+        <h:panelGroup>
+            <ui:include src="historial.xhtml" />
+        </h:panelGroup>
+        <p:commandButton value="Volver a Turnos" id="btnVolverATurnosFromHistorial" type="button" onclick="ocultarInternalPanelHistorial(); mostrarInternalPanelAgenda(); "/>             
+    </p:panel>
+    
         
         
 </html>

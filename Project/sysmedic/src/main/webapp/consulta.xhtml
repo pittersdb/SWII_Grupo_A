@@ -25,6 +25,9 @@
             <ui:include src="confirmacionDeAccion.xhtml" />
         </p:dialog>
         
+        <p:dialog header="Antecedentes" widgetVar="dlgAntecedentesConsulta" draggable="false" resizable="false">
+            <ui:include src="antecedentes.xhtml" />
+        </p:dialog>
         
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
@@ -32,9 +35,9 @@
                     <h:outputLabel for="nombre_paciente" value="Paciente: " style=" color : cadetblue ; font-size: 1.1em"/>
                     <h:outputLabel for="nombre_paciente" value="Juan Perez" />
                 </h:panelGrid>
-                <h:panelGrid columns="1" cellpadding="4">
+                <h:panelGrid columns="1" cellpadding="1">
                     <p:outputLabel for="sintomatologia" value="Sintomatolog&iacute;a: " />
-                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" /><br />
+                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" />
                     
                     <p:outputLabel for="observaciones" value="Observaciones: " />
                     <p:inputTextarea id="observaciones" rows="6" cols="33" /><br />
@@ -47,7 +50,7 @@
                 <h:panelGrid columns="2" cellpadding="4">
                     
                     <p:outputLabel value="Antecedentes: " />
-                    <p:commandButton value="Gestionar Antecedentes" id="btnAntecedentes" actionListener="#" />
+                    <p:commandButton value="Gestionar Antecedentes" id="btnAntecedentes" onclick="PF('dlgAntecedentesConsulta').show();" />
                     
                 </h:panelGrid>
                 <p:panel header="Prescripci&oacute;n: ">
@@ -73,12 +76,10 @@
                     </h:panelGrid>
                 </p:panel>
             </h:panelGrid>
-        </h:panelGrid>
+        </h:panelGrid>  
         
         
-        <p:commandButton value="Guardar" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
-        <p:commandButton value="Imprimir Receta" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
-        <p:commandButton value="Volver a Turnos" id="btnVolverATurnos" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
+        
     </h:form>
     
     

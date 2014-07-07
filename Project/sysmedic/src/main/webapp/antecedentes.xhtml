@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+          
+          
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    
+    <h:panelGrid columns="2" cellpadding="1" >
+        <h:panelGrid columns="2" cellpadding="1">
+            
+            <p:outputLabel for="sangre" value="Tipo de Sangre: "></p:outputLabel>
+            <p:selectOneMenu id="sangre" value="#" maxlength="50" >
+                <f:selectItem itemLabel="A+" itemValue="Apositivo" />
+                <f:selectItem itemLabel="A-" itemValue="Anegativo" />
+                <f:selectItem itemLabel="B+" itemValue="Bpositivo" />
+                <f:selectItem itemLabel="B-" itemValue="Bnegativo" />
+                <f:selectItem itemLabel="O+" itemValue="Opositivo" />
+                <f:selectItem itemLabel="O-" itemValue="Onegativo" />
+                <f:selectItem itemLabel="AB+" itemValue="ABpositivo" />
+                <f:selectItem itemLabel="AB-" itemValue="ABnegativo" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="tabaco" value="Tabaquismo: "></p:outputLabel>
+            <p:selectOneMenu id="tabaco" value="#" maxlength="20">
+                <f:selectItem itemLabel="Nunca" itemValue="nunca" />
+                <f:selectItem itemLabel="Casual" itemValue="casual" />
+                <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
+                <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="alcohol" value="Alcoholismo: "></p:outputLabel>
+            <p:selectOneMenu id="alcohol" value="#" maxlength="20">
+                <f:selectItem itemLabel="Nunca" itemValue="nunca" />
+                <f:selectItem itemLabel="Casual" itemValue="casual" />
+                <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
+                <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="diabetes" value="Diabetes: "></p:outputLabel>
+            <p:selectOneMenu id="diabetes" value="#" maxlength="20">
+                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="Tipo 1" itemValue="1" />
+                <f:selectItem itemLabel="Tipo 2" itemValue="2" />
+                <f:selectItem itemLabel="Gestacional" itemValue="gestacional" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="hipertens" value="Hipertensi&oacute;n arterial: "></p:outputLabel>
+            <p:selectOneRadio id="hipertens" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="infartos" value="Infartos: "></p:outputLabel>
+            <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." />
+            
+            <p:outputLabel for="sida" value="SIDA: "></p:outputLabel>
+            <p:selectOneRadio id="sida" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>      
+ 
+            
+            <p:outputLabel for="sifilis" value="S&iacute;filis: "></p:outputLabel>
+            <p:selectOneRadio id="sifilis" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+                   </h:panelGrid>
+             
+        <h:panelGrid columns="2" cellpadding="1">
+            
+            <p:outputLabel for="hemopatias" value="Hemopat&iacute;as: "></p:outputLabel>
+            <p:selectOneRadio id="hemopatias" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="cardio" value="Cardiopat&iacute;as: "></p:outputLabel>
+            <p:selectOneRadio id="cardio" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="atero" value="Ateroesclerosis: "></p:outputLabel>
+            <p:selectOneRadio id="atero" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="neuro" value="Neuropat&iacute;as: "></p:outputLabel>
+            <p:selectOneRadio id="neuro" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="artro" value="Artropat&iacute;as: "></p:outputLabel>
+            <p:selectOneRadio id="artro" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="toxico" value="Toxicoman&iacute;as: "></p:outputLabel>
+            <p:selectOneRadio id="toxico" value="#{radioView.console}">
+                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                <f:selectItem itemLabel="No" itemValue="no" />
+            </p:selectOneRadio>
+            
+            <p:outputLabel for="alergias" value="Alergias: "></p:outputLabel>
+            <br/>
+            <p:inputTextarea id="alergias" maxlength="100" />
+            
+            <p:commandButton value="Guardar" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
+            
+        </h:panelGrid>
+    </h:panelGrid>
+</html>

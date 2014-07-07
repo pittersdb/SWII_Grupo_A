@@ -61,6 +61,14 @@
                         document.getElementById("panelConsulta").style.display="none";
                     }
                     
+                    function mostrarInternalPanelHistorial(){
+                        document.getElementById("panelHistorialForAgenda").style.display="block";
+                    }
+                    
+                    function ocultarInternalPanelHistorial(){
+                        document.getElementById("panelHistorialForAgenda").style.display="none";
+                    }         
+                    
                     function ocultarTodo(){
                         document.getElementById("panelInicio").style.display="none";
                         document.getElementById("panelInventario").style.display="none";
@@ -121,13 +129,13 @@
                                     la agenda de citas.
                                 </p>
                                 <h:graphicImage value="/Images/adnWall.jpg"  width="1035em" height="250em" />
-                                <h5>Contiene las siguientes opciones: </h5>
+                                <h5>Usted puede realizar actividades como: </h5>
                                 <ul>
                                     
-                                    <li><a href="#">Agenda de citas</a></li>
-                                    <li><a href="#">Facturaci&oacute;n</a></li>
+                                    <li>Agenda de citas</li>
+                                    <li>Facturaci&oacute;n</li>
                                     <!--<li><a href="#" onclick="mostrarHistorial()">Historial Cl&iacute;nico</a></li>-->
-                                    <li><a href="#">Inventario</a></li>
+                                    <li>Inventario de medicina</li>
                                 </ul>
                             </div>
                         </h:panelGroup>
