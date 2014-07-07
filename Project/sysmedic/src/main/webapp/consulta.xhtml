@@ -17,36 +17,32 @@
     
     
     <h:form>
-        <h:panelGrid columns="2" cellpadding="4">
-            <p:outputLabel for="txtaMotivo" value="Motivo de la consulta: " /><br />
-            <p:inputTextarea id="txtaMotivo" rows="6" cols="33" /><br />
+        <h:panelGrid columns="1" cellpadding="4">
+            <p:outputLabel for="numConsulta" value="No."></p:outputLabel>
+            <p:inputText id="numConsulta" disabled="true" />
             
-            <p:separator /><p:separator />
+            <p:outputLabel for="fechaCons" value="Fecha: "></p:outputLabel>
+            <p:calendar id="fechaCons" showOn="button"/>
             
-            <p:outputLabel for="inputPeso" value="Peso: " />
-            <p:inputText id="inputPeso" />
-            
-            <p:outputLabel for="inputEstatura" value="Estatura: " />
-            <p:inputText id="inputEstatura" />
-            
-            <p:outputLabel for="inputGlucosa" value="Glucosa: " />
-            <p:inputText id="inputGlucosa" />
-            
-            <p:outputLabel for="inputPresion" value="Presi&oacute;n Arterial: " />
-            <p:inputText id="inputPresion" />
-            
-            <p:separator /><p:separator />
-            
-            <p:outputLabel for="txtaSintomas" value="Sintomatolog&iacute;a: " /><br />
-            <p:inputTextarea id="txtaSintomas" rows="6" cols="33" /><br />
-            
-            <p:outputLabel for="txtaPrescripcion" value="Prescripci&oacute;n: " /><br />
-            <p:inputTextarea id="txtaPrescripcion" rows="6" cols="33" /><br />
+            <p:outputLabel for="txtMot" value="Motivo de la consulta: "></p:outputLabel>
+            <p:inputTextarea id="txtMot" maxlength="100" />
+
+            <p:outputLabel for="txtSint" value="S&iacute;ntomas: "></p:outputLabel>
+            <p:inputTextarea id="txtSint" maxlength="100" />
+
+            <p:outputLabel for="txtEst" value="Estudios de laboratorio: "></p:outputLabel>
+            <p:inputTextarea id="txtEst" maxlength="100" />
+
+            <p:outputLabel for="txtDiag" value="Diagn&oacute;stico: "></p:outputLabel>
+            <p:inputTextarea id="txtDiag" maxlength="100" />
+
+            <p:outputLabel for="txtPres" value="Prescripci&oacute;n: "></p:outputLabel>
+            <p:inputTextarea id="txtPres" maxlength="100" />
         </h:panelGrid>
         
         <p:commandButton value="Guardar" id="btnGuardarConsulta" actionListener="#" />
         <p:commandButton value="Cancelar" id="btnCancelarConsulta" actionListener="#" />
+        
     </h:form>
     
-
 </html>
