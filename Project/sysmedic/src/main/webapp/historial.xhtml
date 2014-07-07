@@ -115,14 +115,66 @@
                     <f:selectItem itemLabel="Gestacional" itemValue="gestacional" />
                 </p:selectOneMenu>
                 
-                <p:outputLabel for="hipertension" value="Hipertensi&oacute;n arterial: "></p:outputLabel>
-                <p:selectOneMenu id="hipertension" value="#" maxlength="20">
+                <p:outputLabel for="hipertens" value="Hipertensi&oacute;n arterial: "></p:outputLabel>
+                <p:selectOneRadio id="hipertens" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
                     <f:selectItem itemLabel="No" itemValue="no" />
-                    <f:selectItem itemLabel="Si" itemValue="si" />
-                </p:selectOneMenu>
+                </p:selectOneRadio>
                 
                 <p:outputLabel for="infartos" value="Infartos: "></p:outputLabel>
-                <p:inputText id="infartos" alt="Ingrese un N&uacute;mero."/>
+                <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." />
+                
+                <p:outputLabel for="sida" value="SIDA: "></p:outputLabel>
+                <p:selectOneRadio id="sida" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="sifilis" value="S&iacute;filis: "></p:outputLabel>
+                <p:selectOneRadio id="sifilis" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="hemopatias" value="Hemopat&iacute;as: "></p:outputLabel>
+                <p:selectOneRadio id="hemopatias" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="cardio" value="Cardiopat&iacute;as: "></p:outputLabel>
+                <p:selectOneRadio id="cardio" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="atero" value="Ateroesclerosis: "></p:outputLabel>
+                <p:selectOneRadio id="atero" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="neuro" value="Neuropat&iacute;as: "></p:outputLabel>
+                <p:selectOneRadio id="neuro" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="artro" value="Artropat&iacute;as: "></p:outputLabel>
+                <p:selectOneRadio id="artro" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="toxico" value="Toxicoman&iacute;as: "></p:outputLabel>
+                <p:selectOneRadio id="toxico" value="#{radioView.console}">
+                    <f:selectItem itemLabel="S&iacute;" itemValue="si" />
+                    <f:selectItem itemLabel="No" itemValue="no" />
+                </p:selectOneRadio>
+                
+                <p:outputLabel for="alergias" value="Alergias: "></p:outputLabel>
+                <br>
+                <p:inputTextarea id="alergias" maxlength="100" />
 
                 <p:commandButton value="Guardar" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
                 
