@@ -46,21 +46,11 @@
             <h:outputText value="#" />
           </p:column>
           
-          <p:column>
-              <a href="#" onclick="mostrarHistorial()">Historial</a>
-          </p:column>
-          
-          <p:column>
-              <a href="#" onclick="mostrarConsulta()">Nueva Consulta</a>
-          </p:column>
-            
-          <p:column>
-              <h:commandLink value="Eliminar" actionListener="#" />
-          </p:column>
-                                        
-          <p:column>
-            <a href="modificarPaciente.xhtml">Modificar</a>
-          </p:column>
+          <p:column headerText="Acciones" style="width:250px">
+                <p:commandButton value="Historial" type="button" onclick="mostrarHistorial()" style="font-size: 10px !important;" />
+                <p:commandButton value="Eliminar" type="button"  actionListener="#" style="font-size: 10px !important;" />
+                <p:commandButton value="Modificar" type="button" actionListener="#" style="font-size: 10px !important;" />
+            </p:column> 
                                         
         </p:dataTable>
         <center>

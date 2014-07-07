@@ -116,8 +116,6 @@
                         
                         <p:menuitem  value="Agenda" url="#" onclick="mostrarAgenda()"/>
                         <p:menuitem value="Facturaci&oacute;n" url="#" />
-                        <p:menuitem value="Historial Cl&iacute;nico" url="#" onclick="mostrarHistorial()" style="display: none;"/>
-                        <p:menuitem value="Consulta" url="#" onclick="mostrarConsulta()" style="display: none;"/>
                         <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
                         <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
                         <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
@@ -184,19 +182,7 @@
                             </c:if>
                         </h:panelGroup>
                     </p:panel>
-                    
-                    <!-- Panel para el Historial clinico -->
-                    <p:panel id="panelConsulta" header="Nueva Consulta" style="display: none;">
-                        <h:panelGroup>
-                            <sec:authorize url="/faces/consulta.xhtml" var="isAuthorizedH">
-                                <ui:include src="consulta.xhtml" />
-                            </sec:authorize>
-                            <c:if test="${!isAuthorizedH}">
-                                <ui:include src="NoAutorizacionMensaje.xhtml" />
-                            </c:if>
-                        </h:panelGroup>
-                    </p:panel>
-                    
+             
                     <!-- Panel para los Usuarios -->
                     <p:panel id="panelUsuarios" header="Usuarios" style="display: none;">
                         <h:panelGroup>
