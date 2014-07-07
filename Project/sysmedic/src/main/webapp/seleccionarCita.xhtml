@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+    
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-
-    
+    xmlns:p="http://primefaces.org/ui">
+          
+          
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -14,9 +15,26 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
-
+        
+        
     <h:form>
-        <label>Usted no esta autorizado para esta seccion</label>
+        <h:panelGrid columns="1" cellpadding="3">  
+            <p:dataTable var="car" value="#">
+                
+                <p:column headerText="CI Paciente Solicitante">
+                    <h:outputText value="0912563254" />
+                </p:column>
+                
+                <p:column headerText="Nombre">
+                    <h:outputText value="Jose Matamoros" />
+                </p:column>
+                                
+                <p:column headerText="Acciones">
+                    <p:commandButton value="Seleccionar" id="btnSeleccionarCita" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;" />                    
+                </p:column>
+            </p:dataTable>                           
+            
+        </h:panelGrid>
     </h:form>
+    
 </html>
