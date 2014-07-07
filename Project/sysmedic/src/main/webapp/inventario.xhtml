@@ -75,8 +75,12 @@
             <ui:include src="nuevaMedicina.html" />
         </p:tab>
         
-        <p:tab title="Reporte">
+        <p:tab title="Reportes">
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:commandButton value="Medicinas caducadas" id="btnMedicinasCaducadas" actionListener="#" />
+            </h:panelGrid>
             <h:panelGrid columns="2" cellpadding="10">
+                
                 <p:dataTable var="car" value="#">
                     
                     <p:column headerText="C&oacute;digo de lote">
