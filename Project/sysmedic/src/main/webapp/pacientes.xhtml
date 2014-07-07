@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
@@ -13,45 +13,55 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
-    
-    <h:form>
-        <h2>Lista de Pacientes</h2>
+
+      
+      <h:form>
+          <h2>Lista de Pacientes</h2>
         <p:dataTable id="paciente" var="paciente" value="#" tableStyle="width:auto">
-            <p:column headerText="Nombres" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
+          <p:column headerText="Nombres" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+                                        
+          <p:column headerText="Apellidos" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+                                        
+          <p:column headerText="C.I." style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+                                        
+          <p:column headerText="Fecha de Nacimiento" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+                                        
+          <p:column headerText="Sexo" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>                                
+                                        
+          <p:column headerText="Lugar de Procedencia" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+                                        
+          <p:column headerText="Direccion" style="width:100px">
+            <h:outputText value="#" />
+          </p:column>
+          
+          <p:column>
+              <a href="#" onclick="mostrarHistorial()">Historial</a>
+          </p:column>
+          
+          <p:column>
+              <a href="#" onclick="mostrarConsulta()">Nueva Consulta</a>
+          </p:column>
             
-            <p:column headerText="Apellidos" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
-            
-            <p:column headerText="C.I." style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
-            
-            <p:column headerText="Fecha de Nacimiento" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
-            
-            <p:column headerText="Sexo" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>                                
-            
-            <p:column headerText="Lugar de Procedencia" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
-            
-            <p:column headerText="Direccion" style="width:100px">
-                <h:outputText value="#" />
-            </p:column>
-            
-            <p:column headerText="Acciones" style="width:250px">
-                <p:commandButton value="Historial" type="button" onclick="mostrarHistorial()" style="font-size: 10px !important;" />
-                <p:commandButton value="Eliminar" type="button"  actionListener="#" style="font-size: 10px !important;" />
-                <p:commandButton value="Modificar" type="button" actionListener="#" style="font-size: 10px !important;" />
-            </p:column> 
-            
+          <p:column>
+              <h:commandLink value="Eliminar" actionListener="#" />
+          </p:column>
+                                        
+          <p:column>
+            <a href="modificarPaciente.xhtml">Modificar</a>
+          </p:column>
+                                        
         </p:dataTable>
         <center>
             <!-- Pop up para nuevo paciente-->
@@ -60,7 +70,7 @@
             </p:dialog>
             <p:commandButton value="Crear Nuevo Paciente" type="button" onclick="PF('dlgNuevoPaciente').show();" />
         </center>
-    </h:form>                                                                
-    
+      </h:form>                                                                
+
 </html>
 
