@@ -17,7 +17,7 @@
     
     
     <h:form>
-        <p:dialog header="Informaci&oacute;n del Sistema" widgetVar="dlGuardadoCorrecto" minHeight="40" draggable="false" resizable="false">
+        <p:dialog header="Informaci&oacute;n del Sistema" widgetVar="dlGuardadoCorrectoConsulta" minHeight="40" draggable="false" resizable="false">
             <ui:include src="guardadoCorrectoMensaje.xhtml" />
         </p:dialog>                   
         
@@ -78,7 +78,7 @@
         
         <p:commandButton value="Guardar" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
         <p:commandButton value="Imprimir Receta" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
-        <p:commandButton value="Cancelar" id="btnCancelarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>            
+        <p:commandButton value="Volver a Turnos" id="btnVolverATurnos" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
     </h:form>
     
     

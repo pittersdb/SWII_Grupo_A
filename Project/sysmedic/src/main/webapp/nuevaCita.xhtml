@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-          
-          
+        
+        
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -15,32 +15,55 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-        
-        
-    <h:form>
-        <h:panelGrid columns="3" cellpadding="5">
-            <h:outputLabel for="nombre_paciente" value="Paciente: " />
-            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" />
-            <p:commandButton id="btnPaciente" value="Buscar" actionListener="#" />
+    
+    
+    <script type="text/javascript">
+                    
+                                    
+                    function deshabilitarCI(){
+                        document.getElementById("ci_paciente").disabled=true;
+                        alert("I am an alert box!");
+                    }
+                    
+                    function habilitarCI(){
+                        document.getElementById("ci_paciente").disabled=false;
+                    }
+                    
+                    function deshabilitarNombre(){
+                        document.getElementById("nombre_paciente").disabled=true;
+                    }
+                    
+                    function habilitarNombre(){
+                        document.getElementById("nombre_paciente").disabled=false;
+                    }
+                </script>
+    
+    <h:form id="nuevaCitaForm">
+        <h:panelGrid columns="2" cellpadding="5">
             
+            <h:outputLabel for="ci_paciente" value="CI Paciente: " />
+            <p:inputText id="ci_paciente" required="true" label="nombre_paciente" size="15" onclick="deshabilitarCI();habilitarNombre()" onfocus="deshabilitarCI();habilitarNombre()"/>
+            
+            <h:outputLabel for="nombre_paciente" value="Nombre del Paciente: " />
+            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" onclick="habilitarCI();deshabilitarNombre()" onfocus="habilitarCI();deshabilitarNombre()"/>
+                
             <h:outputLabel for="nombre_medico" value="Medico: " />
-            <p:inputText id="nombre_medico" required="true" label="nombre_medico" />
-            <p:commandButton id="btnMedico" value="Buscar" actionListener="#" />
+            <p:inputText id="nombre_medico" required="true" label="nombre_medico" size="40"/>
         </h:panelGrid>
-        
+            
         <h:panelGrid columns="2" cellpadding="5">
             
             
             <p:outputLabel for="inputFecha" value="Fecha de la cita: "></p:outputLabel>
             <p:calendar id="inputFecha" showOn="button"/>
-                
-            <p:commandButton id="btnGuardar" value="Guardar" type="button" onclick="PF('dlgInfoSistema').show();" />
+            
+            <p:commandButton id="btnGuardar" value="Guardar" type="button" onclick="PF('dlgInfoSistemaNuevaCita').show();" />
             <p:commandButton id="btnImprimir" value="Imprimir" actionListener="#" />
+                
+            <p:dialog header="Informaci&oacute;n del sistema" widgetVar="dlgInfoSistemaNuevaCita" minHeight="40" draggable="false" resizable="false">
+                <ui:include src="guardadoCorrectoMensaje.xhtml" />
+            </p:dialog> 
         </h:panelGrid>
-    </h:form> 
-        
-    <p:dialog header="Informaci&oacute;n del sistema" widgetVar="dlgInfoSistema" minHeight="40" draggable="false" resizable="false">
-        <ui:include src="guardadoCorrectoMensaje.xhtml" />
-    </p:dialog>    
-                            
+            
+    </h:form>  
 </html>

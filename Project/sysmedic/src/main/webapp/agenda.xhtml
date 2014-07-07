@@ -14,8 +14,11 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-        
+    
     <p:panel id="panelInternalAgenda" style="display: block;">
+        <p:dialog header="Esta a punto de cancelar esta Cita" widgetVar="dlgCancelacionCita" minHeight="40" draggable="false" resizable="false">
+            <ui:include src="confirmacionDeAccion.xhtml" />
+        </p:dialog>
         <p:tabView>
             <p:tab title="Nueva Cita">
                 <h:panelGroup>
@@ -23,7 +26,7 @@
                     <ui:include src="nuevaCita.xhtml" />
                 </h:panelGroup>          
             </p:tab>
-            
+                
             <p:tab title="Citas Existentes">
                 <h:panelGrid columns="2" cellpadding="10">
                     
@@ -31,115 +34,129 @@
                     <p:dialog header="B&uacute;squeda de Cita Existente" widgetVar="dlgCitaExistente" minHeight="40" draggable="false" resizable="false">
                         <ui:include src="buscarCita.xhtml" />
                     </p:dialog>
-                    
+                        
                     <p:commandButton value="Buscar" type="button" onclick="PF('dlgCitaExistente').show();" />
                     <h:outputLabel for="citaFiltros" value="Esta busqueda consider&oacute;: (detalles de los filtros utilizados) " />
                 </h:panelGrid>
-                
+                    
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:dataTable var="car" value="#">
                         <p:column headerText="Paciente">
                             <h:outputText value="#" />
                         </p:column>
-                        
+                            
                         <p:column headerText="Medico">
                             <h:outputText value="#" />
                         </p:column>
-                        
+                            
                         <p:column headerText="Fecha de Cita">
                             <h:outputText value="#" />
                         </p:column>
-                        
+                            
                         <p:column headerText="Acciones">
                             <!-- Pop up para buscar cita-->                  
                             <p:commandButton id="btnModificarCita" value="Modificar" type="button" onclick="PF('dlgModificacionCita').show();" />
                             <!-- Pop up para cancelar cita--> 
                             <p:commandButton id="btnCancelarCita" value="Cancelar" type="button" onclick="PF('dlgCancelacionCita').show();" />
-                            
+                                
                         </p:column>
                     </p:dataTable>
-                    
+                        
                     <p:dialog header="Modificaci&oacute;n de Cita" widgetVar="dlgModificacionCita" minHeight="40" draggable="false" resizable="false">
                         <ui:include src="modificarCita.xhtml" />
                     </p:dialog>                   
-                    
-                    <p:dialog header="Esta a punto de cancelar esta Cita" widgetVar="dlgCancelacionCita" minHeight="40" draggable="false" resizable="false">
-                        <ui:include src="confirmacionDeAccion.xhtml" />
-                    </p:dialog>
-                    
+                        
+                        
+                        
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Turnos del dia">             
                 
                 
                 <p:panel id="panelSiguiente" header="Siguiente Paciente" style="border: cadetblue ; border-style: solid" toggleable="true">
-                    <p:dialog header="Ingreso de Mediciones" widgetVar="dlgMedicionesPacientes" minHeight="40" draggable="false" resizable="false">
+                    <p:dialog header="Mediciones" widgetVar="dlgMedicionesPacientes" minHeight="40" draggable="false" resizable="false">
                         <ui:include src="medicionesPaciente.xhtml" />
                     </p:dialog> 
-                    
+                        
                     <p:dialog header="Proxima Cita" widgetVar="dlgProximaCita" minHeight="40" draggable="false" resizable="false">
                         <ui:include src="proximaCita.xhtml" />
                     </p:dialog>
                     
                     <h:form>
-                        <h:panelGrid columns="4" cellpadding="5">
-                            <h:outputLabel for="numero_turno" value="Turno: " style=" color : cadetblue ; font-size: 1.1em"/>
-                            <h:outputLabel for="numero_turno_val" value="5" />
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <h:panelGrid columns="4" cellpadding="5">
+                                    <h:outputLabel for="numero_turno" value="Turno: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                    <h:outputLabel for="numero_turno_val" value="5" />
+                                    
+                                    <h:outputLabel for="turno_paciente" value="Paciente: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                    <h:outputLabel for="turno_paciente_val" value="Juan Perez" />
+                                    
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="1" cellpadding="5">   
+                                    <h:outputLabel for="Acciones_turno" value="Acciones: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                    <p:commandButton id="btnInfoPaciente" value="Ver Historial Clinico" actionListener="#" style=" font-size: 12px !important;" />
+                                    <p:commandButton id="btnMediciones" value="Agregar o ver Mediciones" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
+                                    <p:commandButton id="btnAtencion" value="Atender Consulta" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>
+                                    <p:commandButton id="btnProgramarCita" value="Programar Proxima Cita" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
+                                    <p:commandButton id="btnContinuar" value="Finalizar y pasar al siguiente" style=" font-size: 12px !important;" actionListener="#" />
+                                    <p:commandButton id="btnPosponer" value="Posponer al siguiente turno" style=" font-size: 12px !important;" actionListener="#" />
+                                    <p:commandButton id="btnCancelarTurno" value="Cancelar" actionListener="#" style=" font-size: 12px !important;"  onclick="PF('dlgCancelacionCita').show();" />                    
+                                </h:panelGrid>
+                            </h:panelGrid>
                             
-                            <h:outputLabel for="turno_paciente" value="Paciente: " style=" color : cadetblue ; font-size: 1.1em"/>
-                            <h:outputLabel for="turno_paciente_val" value="Juan Perez" />
+                            <h:graphicImage value="/Images/patientMale.ico"/>
                             
-                        </h:panelGrid>
-                        
-                        <h:panelGrid columns="1" cellpadding="5">   
-                            <h:outputLabel for="Acciones_turno" value="Acciones: " style=" color : cadetblue ; font-size: 1.1em"/>
-                            <p:commandButton id="btnInfoPaciente" value="Ver Historial Clinico" actionListener="#" style=" font-size: 12px !important;" />
-                            <p:commandButton id="btnMediciones" value="Ingresar Mediciones" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
-                            <p:commandButton id="btnAtencion" value="Atender Consulta" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>
-                            <p:commandButton id="btnProgramarCita" value="Programar Proxima Cita" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
-                            <p:commandButton id="btnContinuar" value="Finalizar y pasar al siguiente" style=" font-size: 12px !important;" actionListener="#" />
-                            <p:commandButton id="btnPosponer" value="Posponer al siguiente turno" style=" font-size: 12px !important;" actionListener="#" />
-                            <p:commandButton id="btnCancelarTurno" value="Cancelar" actionListener="#" style=" font-size: 12px !important;"  />
                         </h:panelGrid>
                     </h:form>
                 </p:panel>
                 
+                
+                <p:dialog header="Citas programadas para hoy" widgetVar="dlgSeleccionarCita" minHeight="40" draggable="false" resizable="false">
+                    <ui:include src="seleccionarCita.xhtml" />
+                </p:dialog>
+                    
                 <h:panelGrid columns="1" cellpadding="10">
                     <h:outputLabel for="turnos_hoy" value="Turnos para hoy 01 de julio de 2014" /> 
-                    <p:commandButton id="btnNuevoTurno" value="Nuevo Turno" actionListener="#" />
+                    <p:commandButton id="btnNuevoTurno" value="Nuevo Turno" onclick="PF('dlgSeleccionarCita').show();" />
                 </h:panelGrid>
-                
+                    
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:dataTable var="car" value="#">
                         <p:column headerText="Numero de turno">
-                            <h:outputText value="#" />
+                            <h:outputText value="6" />
                         </p:column>
-                        
-                        <p:column headerText="Paciente">
-                            <h:outputText value="#" />
+                            
+                        <p:column headerText="CI de Paciente">
+                            <h:outputText value="1304256851" />
                         </p:column>
-                        
-                        <p:column headerText="Informacion de Paciente">
-                            <p:commandButton id="btnInfoPaciente" value="Ver informacion" actionListener="#" />
+                            
+                        <p:column headerText="Nombre de Paciente">
+                            <h:outputText value="Maria Santana" />
+                        </p:column>
+                            
+                        <p:column headerText="Acciones">
+                            <p:commandButton value="Cancelar" id="btnCancelarCitaTurno" styleClass="ui-priority-primary" style="font-size: 10px !important;" onclick="PF('dlgCancelacionCita').show();" />                    
                         </p:column>
                     </p:dataTable>
-                    
-                    
+                        
+                        
                 </h:panelGrid>
-                
-                
-                
-                
+                    
+                    
+                    
+                    
             </p:tab>
         </p:tabView>
-        
+            
     </p:panel>
-        
+    
     <p:panel id="panelConsulta" header="Consulta" style="display: none;">
         <h:panelGroup>
             <ui:include src="consulta.xhtml" />
         </h:panelGroup>
     </p:panel>
-                
-                
+        
+        
 </html>

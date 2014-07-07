@@ -5,9 +5,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    
-    
+    xmlns:p="http://primefaces.org/ui">
+        
+        
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -18,18 +18,22 @@
     
     
     <h:form>
-        <h:panelGrid columns="3" cellpadding="5">
-            <h:outputLabel for="nombre_paciente" value="Paciente: " />
-            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" />
-            <p:commandButton id="btnPaciente" value="Buscar" actionListener="#" />
+        
+        <h:panelGrid columns="2" cellpadding="5">
+            
+            <h:outputLabel for="ci_paciente" value="CI Paciente: " />
+            <p:inputText id="ci_paciente" required="true" label="nombre_paciente" size="15" onclick="deshabilitarCI();habilitarNombre()" onfocus="deshabilitarCI();habilitarNombre()"/>
+            
+            <h:outputLabel for="nombre_paciente" value="Nombre del Paciente: " />
+            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" onclick="habilitarCI();deshabilitarNombre()" onfocus="habilitarCI();deshabilitarNombre()"/>
                 
             <h:outputLabel for="nombre_medico" value="Medico: " />
-            <p:inputText id="nombre_medico" required="true" label="nombre_medico" />
-            <p:commandButton id="btnMedico" value="Buscar" actionListener="#" />
-            
+            <p:inputText id="nombre_medico" required="true" label="nombre_medico" size="40"/>
+        </h:panelGrid>
+        <h:panelGrid columns="3" cellpadding="5">
             <p:outputLabel for="rangoFechaInf" value="Rango de fechas a buscar: "></p:outputLabel>
             <p:calendar id="rangoFechaInf" showOn="button"/>
-             <p:calendar id="rangoFechaSup" showOn="button"/>
+            <p:calendar id="rangoFechaSup" showOn="button"/>
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
