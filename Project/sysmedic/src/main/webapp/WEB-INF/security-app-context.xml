@@ -30,7 +30,7 @@
         <custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
         <custom-filter ref="casFilter" position="CAS_FILTER" />
         
-        <logout logout-success-url="/cas-logout.jsp"/>
+        <logout logout-success-url="${cas.server.host}/cas-server-webapp/logout?destination=${cas.server.host}/sysmedic"/>
     </http>
 
     <authentication-manager alias="authManager">
