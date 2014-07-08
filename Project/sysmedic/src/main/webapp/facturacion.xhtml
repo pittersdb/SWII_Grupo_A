@@ -22,17 +22,17 @@
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
-                    <h:outputLabel for="numero" value="No Factura:" />
+                    <h:outputLabel for="numero" value="#{msg['No_Factura']}:" />
                     <h:outputLabel value="#" />
                     
-                    <h:outputLabel for="autorizacionSRI" value="Autorizacion SRI:" />
+                    <h:outputLabel for="autorizacionSRI" value="#{msg['Autorizacion_SRI']}:" />
                     <h:outputLabel value="0602877664001" />
                     
-                    <h:outputLabel for="caducidadSRI" value="Caducidad SRI:" />
+                    <h:outputLabel for="caducidadSRI" value="#{msg['Caducidad_SRI']}:" />
                     <h:outputLabel value="nvnvnbvnbvbn" />
                     
                     
-                    <h:outputLabel for="fecha_pago" value="Fecha de pago:" />
+                    <h:outputLabel for="fecha_pago" value="#{msg['Fecha_de_pago']}:" />
                     <p:inputText type="date" value="dd/mm/aa" />
                     
                 </h:panelGrid>
@@ -43,25 +43,25 @@
         </h:panelGrid>    
         <!--    DATOS CLIENTE  -->
         <hr />        
-        <h4>Datos del Cliente </h4>
+        <h4>#{msg['Datos_Cliente']} </h4>
         <hr />
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
                     
-                    <h:outputLabel for="nombre" value="Nombre:" />
+                    <h:outputLabel for="nombre" value="#{msg['Nombre']}:" />
                     <h:inputText value="#" />
                     
-                    <h:outputLabel for="apellido" value="Apellido:" />
+                    <h:outputLabel for="apellido" value="#{msg['Apellido']}:" />
                     <h:inputText value="#" />
                     
                     <h:outputLabel for="ruc" value="R.U.C.:" />
                     <h:inputText value="#" />
                     
-                    <h:outputLabel for="telefono" value="Telefono:" />
+                    <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
                     <h:inputText value="#" />
                     
-                    <h:outputLabel for="direccion" value="Direccion:" />
+                    <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
                     <p:inputTextarea id="direccion" rows="6" cols="15" /><br />
                     
                 </h:panelGrid>
@@ -71,7 +71,7 @@
         
         <!--    DATOS CITA  -->
         <hr />        
-        <h4>Datos de la Cita</h4>
+        <h4>#{msg['Datos_Cita']}</h4>
         <hr />
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
@@ -79,14 +79,13 @@
                     <h:outputLabel for="cita" value="N. Cita:" />
                     <h:outputText value="#" />
                     
-                    <h:outputLabel for="servicio" value="Servicio:" />
+                    <h:outputLabel for="servicio" value="#{msg['Servicio']}:" />
                     <p:selectOneMenu id="servicio" value="#" maxlength="100">
-                        <f:selectItem itemLabel="general" itemValue="General" />
-                        <f:selectItem itemLabel="traumatologia" itemValue="Traumatologia" />
-                        <f:selectItem itemLabel="pediatria" itemValue="Pedriatria" />
+                        <f:selectItem itemLabel="#{msg['General']}" itemValue="General" />
+                        <f:selectItem itemLabel="#{msg['Diabetologia']}" itemValue="Diabetologia" />
                     </p:selectOneMenu>
                     
-                    <h:outputLabel for="costo" value="Costo:" />
+                    <h:outputLabel for="costo" value="#{msg['Costo']}:" />
                     <h:outputText value="#" />                   
                 </h:panelGrid>
             </h:panelGrid>
@@ -95,10 +94,10 @@
                     <h:outputLabel for="ivaConsulta" value="IVA 12% :" />
                     <h:outputText value="#" />
                     
-                    <h:outputLabel for="descuento" value="Descuento:" />
+                    <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
                     <h:outputText value="#" />
                     
-                    <h:outputLabel for="totalConsulta" value="TOTAL:" />
+                    <h:outputLabel for="totalConsulta" value="#{msg['Total']}:" />
                     <h:outputText value="#" />                                       
                 </h:panelGrid>
             </h:panelGrid>
@@ -106,19 +105,19 @@
         </h:panelGrid>
         <!-- DATOS DE MEDICAMENTOS  -->
         <hr />
-        <h4>Datos del Medicamento</h4>
+        <h4>#{msg['Datos_del_Medicamento']}</h4>
         <hr />
         <p:dataTable id="facturas" value="#" var="fact" rows="10" paginator="true" paginatorPosition="bottom">
 
             <p:column style="width: auto">
                     <f:facet name="header" >
-                            <h:outputText value="Cantidad" />
+                        <h:outputText value="#{msg['Cantidad']}" />
                     </f:facet>
                     <h:inputText value="#" />                                    
             </p:column>
             <p:column>
                     <f:facet name="header">
-                            <h:outputText value="Medicamento" />
+                        <h:outputText value="#{msg['Medicamento']}" />
                     </f:facet>
                     <h:inputText value="#" />
             </p:column>
@@ -131,45 +130,45 @@
             </p:column>
             <p:column>
                 <f:facet name="header" >
-                    <h:outputText value="Descripcion" style="width:100%" />
+                    <h:outputText value="#{msg['Descripcion']}" style="width:100%" />
                 </f:facet>
                 <h:outputText value="#" />                                    
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Precio Unitario" />
+                    <h:outputText value="#{msg['Precio_Unitario']}" />
                 </f:facet>
                 <h:outputText value="#" />
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Descuento" />
+                    <h:outputText value="#{msg['Descuento']}" />
                 </f:facet>
                 <h:outputText value="#" />                                    
             </p:column>
             <p:column>
                     <f:facet name="header">
-                            <h:outputText value="Total" />
+                            <h:outputText value="#{msg['Total']}" />
                     </f:facet>
                     <h:outputText value="#" />                                    
             </p:column>
 
         </p:dataTable>
         <hr />
-        <h4>Datos Generales de la Factura</h4>
+        <h4>#{msg['Datos_Factura']}</h4>
         <hr />
         <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
                     <h:outputLabel for="iva" value="IVA 12% :" />
                     <h:outputText value="#" />
                     
-                    <h:outputLabel for="descuento" value="Descuento:" />
+                    <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
                     <h:outputText value="#" />
                     
-                    <h:outputLabel for="total" value="TOTAL:" />
+                    <h:outputLabel for="total" value="#{msg['Total']}:" />
                     <h:outputText value="#" />                   
                     
-                    <h:outputLabel for="observacion" value="Observacion:" />
+                    <h:outputLabel for="observacion" value="#{msg['Observaciones']}:" />
                     <p:inputTextarea id="observacion" rows="6" cols="15" /><br />                    
                 </h:panelGrid>
             </h:panelGrid>
@@ -178,41 +177,41 @@
         <hr />
         <h:panelGrid columns="3" cellpadding="10">
             <h:panelGrid columns="1">
-                <p:commandButton id="btnGuardarFactura" value="Guardar" actionListener="#" />
+                <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}" actionListener="#" />
             </h:panelGrid>
             <h:panelGrid columns="1">
-                <p:commandButton id="btnImprimirFactura" value="Imprimir" actionListener="#" />
+                <p:commandButton id="btnImprimirFactura" value="#{msg['Imprimir']}" actionListener="#" />
             </h:panelGrid>
             <h:panelGrid columns="1">
-                <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+                <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
             </h:panelGrid>
             
-        <p:dialog header="Medicamentos" widgetVar="editMedicina" resizable="false" id="editMdc" >
+            <p:dialog header="#{msg['Medicamentos']}" widgetVar="editMedicina" resizable="false" id="editMdc" >
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
                     <p:dataTable id="factura" value="#" var="fact" rows="10" paginator="true" paginatorPosition="bottom">
 
                         <p:column>
                                 <f:facet name="header">
-                                        <h:outputText value="Medicamento" />
+                                    <h:outputText value="#{msg['Medicamento']}" />
                                 </f:facet>
                                 <h:inputText value="#" />
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
-                                <h:outputText value="Descripcion" style="width:100%" />
+                                <h:outputText value="#{msg['Descripcion']}" style="width:100%" />
                             </f:facet>
                             <h:outputText value="#" />                                    
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
-                                <h:outputText value="Stock" style="width:100%" />
+                                <h:outputText value="#{msg['Stock']}" style="width:100%" />
                             </f:facet>
                             <h:outputText value="#" />                                    
                         </p:column>
                         
                     </p:dataTable>
                     
-                    <p:commandButton value="Importar" />
+                <p:commandButton value="#{msg['Importar']}" />
                     
                 </h:panelGrid>
                 
