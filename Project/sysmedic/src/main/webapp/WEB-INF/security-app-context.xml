@@ -23,6 +23,7 @@
         <intercept-url pattern="/faces/historial.xhtml" access="hasAnyRole('a','m')" />
         <intercept-url pattern="/faces/inventario.xhtml" access="hasAnyRole('a','s')" />
         <intercept-url pattern="/faces/agenda.xhtml" access="hasAnyRole('m','a','s')" />
+        <intercept-url pattern="/faces/facturacion.xhtml" access="hasAnyRole('m','a','s')" />
         <intercept-url pattern="/**" access="isAuthenticated()" />
         
         <custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>

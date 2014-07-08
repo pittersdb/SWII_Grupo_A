@@ -46,7 +46,7 @@ public class LanguageBean implements Serializable{
  
 	//value change event listener
 	public void countryLocaleCodeChanged(ValueChangeEvent e){
- 
+                if(e == null) return;
 		String newLocaleValue = e.getNewValue().toString();
  
 		//loop country map to compare the locale code
