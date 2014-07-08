@@ -7,7 +7,7 @@
     <!--http://www.mkyong.com/jsf2/jsf-2-internationalization-example/-->
     <application>
      	   <locale-config>
-     	        <default-locale>en</default-locale>
+     	        <default-locale>es</default-locale>
      	   </locale-config>
 	   <resource-bundle>
 		<base-name>languages.messages</base-name>

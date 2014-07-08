@@ -101,72 +101,71 @@
                 
                 
                 <p:layoutUnit position="south" size="40" closable="true" collapsible="true">                    
-                    <h:outputText value="&reg; Todos los derechos reservados." style="font-size: 0.8em"/>
+                    <h:outputText value="&reg; #{msg['derechos_reservados']}." style="font-size: 0.8em"/>
                 </p:layoutUnit>
                 
                 <p:layoutUnit position="west" size="250"  >
                     <p:panel id="mainHeader" >
                         <h:panelGrid columns="1" cellpadding="0">
                             <!-- <p:graphicImage value="/Images/caduceusGold.png" /-->
-                            <h:graphicImage value="/Images/systemLogo.png"/>
+                            <h:graphicImage value="/Images/systemLogo.png"/> 
                             
-                            <h:outputText value="Bienvenid@, #{User.Name()} ,#{msg['test.name']}" style="font-size: 0.8em"/>
+                            <h:outputText value="#{msg['Bienvenido']}, #{User.Name()}" style="font-size: 0.8em"/>
                             <h:panelGrid columns="2" cellpadding="0" style="float: right">
                                 <h:form>            
-                                    <h:commandLink action="#{User.LogOut()}" value="Salir" style="font-size: 0.8em"/>                                
+                                    <h:commandLink action="#{User.LogOut()}" value="#{msg['Salir']}" style="font-size: 0.8em"/>                                
                                 </h:form>
                             </h:panelGrid>                         
                             
                         </h:panelGrid>
                     </p:panel>
-                    <p:panel id="mainMenu" header="Opciones"  >
+                    <p:panel id="mainMenu" header="#{msg['Opciones']}"  >
                         <p:menu style="width:190px">
                             
-                            <p:menuitem  value="Agenda" url="#" onclick="mostrarAgenda()"/>
-                            <p:menuitem value="Facturaci&oacute;n" url="#"  id="opFacturacion" onclick="mostrarFacturacion()"/>
-                            <p:menuitem value="Inventario" url="#" id="opInventario" onclick="mostrarInventario()"/>
-                            <p:menuitem value="Usuarios" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
-                            <p:menuitem value="Pacientes" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
+                            <p:menuitem  value="#{msg['Agenda']}" url="#" onclick="mostrarAgenda()"/>
+                            <p:menuitem value="#{msg['Facturacion']}" url="#"  id="opFacturacion" onclick="mostrarFacturacion()"/>
+                            <p:menuitem value="#{msg['Inventario']}" url="#" id="opInventario" onclick="mostrarInventario()"/>
+                            <p:menuitem value="#{msg['Usuarios']}" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
+                            <p:menuitem value="#{msg['Pacientes']}" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
                         </p:menu>
-                         <h:panelGrid columns="2">
-                                
-                                <h:outputText value="Language: " style="font-size: 0.8em"/>
-                                <h:form> 
-                                    <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
-                                                     valueChangeListener="#{language.countryLocaleCodeChanged}" style="font-size: 0.8em">
-                                        <f:selectItems value="#{language.countriesInMap}" /> 
-                                    </h:selectOneMenu>
-                                </h:form>
-                                
-                            </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            
+                            <h:outputText value="Languages: " style="font-size: 0.8em"/>
+                            
+                            <h:form> 
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:commandLink action="#{language.setLocaleCodeBySufix('es')}" value="Spanish" style="font-size: 0.8em"/>                                
+                                    <h:commandLink action="#{language.setLocaleCodeBySufix('en')}" value="English" style="font-size: 0.8em"/>                                
+                                </h:panelGrid>
+                            </h:form>
+                            
+                        </h:panelGrid>
                     </p:panel>
                 </p:layoutUnit>
                 
                 <p:layoutUnit position="center">
-                    <p:panel id="panelInicio" header="Inicio">
+                    <p:panel id="panelInicio" header="#{msg['Inicio']}">
                         <h:panelGroup>
                             <div>
-                                <p>SysMedic es una aplicaci&oacute;n web para facilitar 
-                                    la recolecci&oacute;n de datos de los pacientes, el 
-                                    proceso de facturaci&oacute;n y la revisi&oacute;n de 
-                                    la agenda de citas.
+                                <p>
+                                    #{msg['mensaje_inicio']}
                                 </p>
                                 <h:graphicImage value="/Images/adnWall.jpg"  width="1035em" height="250em" />
-                                <h5>Usted puede realizar actividades como: </h5>
+                                <h5>#{msg['Usted_puede_realizar_actividades_como']}: </h5>
                                 <ul>
                                     
-                                    <li>Agenda de citas</li>
-                                    <li>Facturaci&oacute;n</li>
+                                    <li>#{msg['Agenda']}</li>
+                                    <li>#{msg['Facturacion']}</li>
                                     <!--<li><a href="#" onclick="mostrarHistorial()">Historial Cl&iacute;nico</a></li>-->
-                                    <li>Inventario de medicina</li>
-                                    <li>Gesti&oacute;n de Pacientes</li>
+                                    <li>#{msg['Inventario']}</li>
+                                    <li>#{msg['Pacientes']}</li>
                                 </ul>
                             </div>
                         </h:panelGroup>
                     </p:panel>
                     
                     <!-- Panel para la Agenda -->
-                    <p:panel id="panelAgenda" header="Agenda" style="display: none;">
+                    <p:panel id="panelAgenda" header="#{msg['Agenda']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/agenda.xhtml" var="isAuthorizedI">
                                 <ui:include src="agenda.xhtml" /><br />
@@ -179,7 +178,7 @@
                     </p:panel>
                     
                     <!-- Panel para la Facturacion -->
-                    <p:panel id="panelFacturacion" header="Factura" style="display: none;">
+                    <p:panel id="panelFacturacion" header="#{msg['Facturacion']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/facturacion.xhtml" var="isAuthorizedH">
                                 <ui:include src="facturacion.xhtml" />
@@ -191,7 +190,7 @@
                     </p:panel>
                     
                     <!-- Panel para el Inventario -->
-                    <p:panel id="panelInventario" header="Inventario" style="display: none;">
+                    <p:panel id="panelInventario" header="#{msg['Inventario']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/inventario.xhtml" var="isAuthorizedI">
                                 <ui:include src="inventario.xhtml" /><br />
@@ -204,7 +203,7 @@
                     </p:panel>
                     
                     <!-- Panel para el Historial clinico -->
-                    <p:panel id="panelHistorial" header="Historial Cl&iacute;nico" style="display: none;">
+                    <p:panel id="panelHistorial" header="#{msg['Historial']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/historial.xhtml" var="isAuthorizedH">
                                 <ui:include src="historial.xhtml" />
@@ -216,7 +215,7 @@
                     </p:panel>
                     
                     <!-- Panel para los Usuarios -->
-                    <p:panel id="panelUsuarios" header="Usuarios" style="display: none;">
+                    <p:panel id="panelUsuarios" header="#{msg['Usuarios']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/usuarios.xhtml" var="isAuthorizedU">
                                 <ui:include src="usuarios.xhtml" />
@@ -228,7 +227,7 @@
                     </p:panel>
                     
                     <!-- Panel para los Pacientes -->
-                    <p:panel id="panelPacientes" header="Pacientes" style="display: none;">
+                    <p:panel id="panelPacientes" header="#{msg['Pacientes']}" style="display: none;">
                         <h:panelGroup>
                             <sec:authorize url="/faces/pacientes.xhtml" var="isAuthorizedP">
                                 <ui:include src="pacientes.xhtml" />

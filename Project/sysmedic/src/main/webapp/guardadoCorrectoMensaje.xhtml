@@ -19,11 +19,11 @@
     
     <h:form>
         <h:panelGrid columns="1" cellpadding="5">
-            <h:outputLabel for="mensaje_guardado" value="Los datos se han guardado exitosamente." />            
+            <h:outputLabel for="mensaje_guardado" value="#{msg['Los_datos_se_han_guardado_exitosamente']}" />            
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
-            <p:commandButton id="btnOk" value="Ok" actionListener="#" />
+            <p:commandButton id="btnOk" value="#{msg['Ok']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
         
