@@ -19,108 +19,108 @@
     <h:panelGrid columns="2" cellpadding="1" >
         <h:panelGrid columns="2" cellpadding="1">
             
-            <p:outputLabel for="sangre" value="Tipo de Sangre: "></p:outputLabel>
+            <p:outputLabel for="sangre" value="#{msg['Tipo_de_Sangre']}: "></p:outputLabel>
             <p:selectOneMenu id="sangre" value="#" maxlength="50" >
-                <f:selectItem itemLabel="A+" itemValue="Apositivo" />
-                <f:selectItem itemLabel="A-" itemValue="Anegativo" />
-                <f:selectItem itemLabel="B+" itemValue="Bpositivo" />
-                <f:selectItem itemLabel="B-" itemValue="Bnegativo" />
-                <f:selectItem itemLabel="O+" itemValue="Opositivo" />
-                <f:selectItem itemLabel="O-" itemValue="Onegativo" />
-                <f:selectItem itemLabel="AB+" itemValue="ABpositivo" />
-                <f:selectItem itemLabel="AB-" itemValue="ABnegativo" />
+                <f:selectItem itemLabel="A+" itemValue="Ap" />
+                <f:selectItem itemLabel="A-" itemValue="An" />
+                <f:selectItem itemLabel="B+" itemValue="Bp" />
+                <f:selectItem itemLabel="B-" itemValue="Bp" />
+                <f:selectItem itemLabel="O+" itemValue="Op" />
+                <f:selectItem itemLabel="O-" itemValue="On" />
+                <f:selectItem itemLabel="AB+" itemValue="ABp" />
+                <f:selectItem itemLabel="AB-" itemValue="ABn" />
             </p:selectOneMenu>
             
-            <p:outputLabel for="tabaco" value="Tabaquismo: "></p:outputLabel>
+            <p:outputLabel for="tabaco" value="#{msg['Tabaquismo']}: "></p:outputLabel>
             <p:selectOneMenu id="tabaco" value="#" maxlength="20">
-                <f:selectItem itemLabel="Nunca" itemValue="nunca" />
-                <f:selectItem itemLabel="Casual" itemValue="casual" />
-                <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
-                <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+                <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
             </p:selectOneMenu>
             
-            <p:outputLabel for="alcohol" value="Alcoholismo: "></p:outputLabel>
+            <p:outputLabel for="alcohol" value="#{msg['Alcoholismo']}: "></p:outputLabel>
             <p:selectOneMenu id="alcohol" value="#" maxlength="20">
-                <f:selectItem itemLabel="Nunca" itemValue="nunca" />
-                <f:selectItem itemLabel="Casual" itemValue="casual" />
-                <f:selectItem itemLabel="Frecuente" itemValue="frecuente" />
-                <f:selectItem itemLabel="Siempre" itemValue="siempre" />
+               <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
             </p:selectOneMenu>
             
-            <p:outputLabel for="diabetes" value="Diabetes: "></p:outputLabel>
+            <p:outputLabel for="diabetes" value="#{msg['Diabetes']}: "></p:outputLabel>
             <p:selectOneMenu id="diabetes" value="#" maxlength="20">
-                <f:selectItem itemLabel="No" itemValue="no" />
-                <f:selectItem itemLabel="Tipo 1" itemValue="1" />
-                <f:selectItem itemLabel="Tipo 2" itemValue="2" />
-                <f:selectItem itemLabel="Gestacional" itemValue="gestacional" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['Tipo']} 1" itemValue="1" />
+                <f:selectItem itemLabel="#{msg['Tipo']} 2" itemValue="2" />
+                <f:selectItem itemLabel="#{msg['Gestacional']}" itemValue="gestacional" />
             </p:selectOneMenu>
             
-            <p:outputLabel for="hipertens" value="Hipertensi&oacute;n arterial: "></p:outputLabel>
+            <p:outputLabel for="hipertens" value="#{msg['Hipertension_arterial']}: "></p:outputLabel>
             <p:selectOneRadio id="hipertens" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="infartos" value="Infartos: "></p:outputLabel>
+            <p:outputLabel for="infartos" value="#{msg['Infartos']}: "></p:outputLabel>
             <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." />
             
-            <p:outputLabel for="sida" value="SIDA: "></p:outputLabel>
+            <p:outputLabel for="sida" value="#{msg['SIDA']}: "></p:outputLabel>
             <p:selectOneRadio id="sida" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>      
  
             
-            <p:outputLabel for="sifilis" value="S&iacute;filis: "></p:outputLabel>
+            <p:outputLabel for="sifilis" value="#{msg['Sifilis']}: "></p:outputLabel>
             <p:selectOneRadio id="sifilis" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
                    </h:panelGrid>
              
         <h:panelGrid columns="2" cellpadding="1">
             
-            <p:outputLabel for="hemopatias" value="Hemopat&iacute;as: "></p:outputLabel>
+            <p:outputLabel for="hemopatias" value="#{msg['Hemopatias']}: "></p:outputLabel>
             <p:selectOneRadio id="hemopatias" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="cardio" value="Cardiopat&iacute;as: "></p:outputLabel>
+            <p:outputLabel for="cardio" value="#{msg['Cardiopatias']}: "></p:outputLabel>
             <p:selectOneRadio id="cardio" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="atero" value="Ateroesclerosis: "></p:outputLabel>
+            <p:outputLabel for="atero" value="#{msg['Ateroesclerosis']}: "></p:outputLabel>
             <p:selectOneRadio id="atero" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="neuro" value="Neuropat&iacute;as: "></p:outputLabel>
+            <p:outputLabel for="neuro" value="#{msg['Neuropatias']}: "></p:outputLabel>
             <p:selectOneRadio id="neuro" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="artro" value="Artropat&iacute;as: "></p:outputLabel>
+            <p:outputLabel for="artro" value="#{msg['Artropatias']}: "></p:outputLabel>
             <p:selectOneRadio id="artro" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="toxico" value="Toxicoman&iacute;as: "></p:outputLabel>
+            <p:outputLabel for="toxico" value="#{msg['Toxicomanias']}: "></p:outputLabel>
             <p:selectOneRadio id="toxico" value="#{radioView.console}">
-                <f:selectItem itemLabel="S&iacute;" itemValue="si" />
-                <f:selectItem itemLabel="No" itemValue="no" />
+                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
             </p:selectOneRadio>
             
-            <p:outputLabel for="alergias" value="Alergias: "></p:outputLabel>
+            <p:outputLabel for="alergias" value="#{msg['Alergias']}: "></p:outputLabel>
             <br/>
             <p:inputTextarea id="alergias" maxlength="100" />
             
-            <p:commandButton value="Guardar" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
+            <p:commandButton value="#{msg['Guardar']}" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
             
         </h:panelGrid>
     </h:panelGrid>

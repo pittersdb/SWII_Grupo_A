@@ -19,25 +19,25 @@
         
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="peso" value="Peso(lb): " />
+            <h:outputLabel for="peso" value="#{msg['Peso']}(lb): " />
             <p:inputText id="peso" required="true" label="peso" />
             
-            <h:outputLabel for="estatura" value="Estatura(m): " />
+            <h:outputLabel for="estatura" value="#{msg['Estatura']}(m): " />
             <p:inputText id="estatura" required="true" label="estatura" />
             
-            <h:outputLabel for="glucosa" value="Glucosa: " />
+            <h:outputLabel for="glucosa" value="#{msg['Glucosa']}: " />
             <p:inputText id="glucosa" required="true" label="glucosa" />
             
-            <h:outputLabel for="presion_arterial" value="Presion Arterial: " />
+            <h:outputLabel for="presion_arterial" value="#{msg['presion_arterial']}: " />
             <p:inputText id="presion_arterial" required="true" label="presion_arterial" />
         </h:panelGrid>
         
         <h:panelGrid columns="1" cellpadding="5">
-            <p:commandButton id="btnGuardar" value="Guardar" type="button" onclick="PF('dlgInfoSistema').show();" />            
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" type="button" onclick="PF('dlgInfoSistema').show();" />            
         </h:panelGrid>
     </h:form>
         
-    <p:dialog header="Informaci&oacute;n del sistema" widgetVar="dlgInfoSistema" minHeight="40" draggable="false" resizable="false">
+    <p:dialog header="#{msg['Informacion_del_Sistema']}" widgetVar="dlgInfoSistema" minHeight="40" draggable="false" resizable="false">
         <ui:include src="guardadoCorrectoMensaje.xhtml" />
     </p:dialog>    
                             

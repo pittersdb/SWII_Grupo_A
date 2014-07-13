@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.entities;
 
@@ -56,43 +56,43 @@ public class Users implements Serializable {
     
     public Users() {
     }
-
+    
     public Users(Integer id) {
         this.id = id;
     }
-
+    
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public String getNickname() {
         return nickname;
     }
-
+    
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
+    
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getRol() {
         if(rol.equalsIgnoreCase("a"))
             return "Administrador";
@@ -102,18 +102,18 @@ public class Users implements Serializable {
             return "Medico";
         return "No rol";
     }
-
+    
     public void setRol(String rol) {
         this.rol = rol;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -126,10 +126,10 @@ public class Users implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "com.swii.sysmedic.entities.Users[ id=" + id + " ]";
     }
-    
+
 }

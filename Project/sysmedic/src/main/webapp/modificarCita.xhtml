@@ -19,11 +19,11 @@
     
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="nombre_paciente" value="Paciente: " />
+            <h:outputLabel for="nombre_paciente" value=" #{msg['Paciente']} : " />
             <p:inputText id="nombre_paciente" required="true" label="nombre_paciente"  disabled="true"/>
             
                 
-            <h:outputLabel for="nombre_medico" value="Medico: " />
+            <h:outputLabel for="nombre_medico" value=" #{msg['Medico']}: " />
             <p:inputText id="nombre_medico" required="true" label="nombre_medico"  disabled="true"/>
             
         </h:panelGrid>
@@ -31,11 +31,11 @@
         <h:panelGrid columns="2" cellpadding="5">
             
             
-            <p:outputLabel for="inputFecha" value="Nueva Fecha de la cita: "></p:outputLabel>
-            <p:calendar id="inputFecha" showOn="button"/>
+            <p:outputLabel for="inputFecha" value="#{msg['Nueva_Fecha_cita']}: "></p:outputLabel>
+            <p:calendar id="inputFecha" showOn="button"/> 
             
-            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
-            <p:commandButton id="btnImprimir" value="Imprimir" actionListener="#" />
+            <p:commandButton id="btnGuardar" value=" #{msg['Guardar']}" actionListener="#" />
+            <p:commandButton id="btnImprimir" value=" #{msg['Imprimir']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
         

@@ -17,97 +17,97 @@
 
     <p:tabView>
         <!--Ingreso de medicinas por lote-->
-        <p:tab title="Ingreso de medicinas">
+        <p:tab title="#{msg['ingreso_medicinas']}">
             <h:form>
                 <p:growl id="growl" showDetail="true" life="2000" />
                 <h:panelGrid columns="2" cellpadding="5">
 
-                    <p:outputLabel for="selectMedicina" value="Medicina: "></p:outputLabel>
+                    <p:outputLabel for="selectMedicina" value="#{msg['Medicamento']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectMedicina" value="#">
-                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="inputFechaElab" value="Fecha de elaboraci&oacute;n: "></p:outputLabel>
+                    <p:outputLabel for="inputFechaElab" value="#{msg['fecha_elaboracion']}: "></p:outputLabel>
                     <p:calendar id="inputFechaElab" showOn="button"/>
 
-                    <p:outputLabel for="inputFechaCaduc" value="Fecha de caducidad: "></p:outputLabel>
+                    <p:outputLabel for="inputFechaCaduc" value="#{msg['fecha_caducidad']}: "></p:outputLabel>
                     <p:calendar id="inputFechaCaduc" showOn="button"/>
 
-                    <p:outputLabel for="inputPrecio" value="Precio: "></p:outputLabel>
+                    <p:outputLabel for="inputPrecio" value="#{msg['precio']}: "></p:outputLabel>
                     <p:inputText  id="inputPrecio"/>
 
-                    <p:outputLabel for="inputCantidad" value="Cantidad: "></p:outputLabel>
+                    <p:outputLabel for="inputCantidad" value="#{msg['Cantidad']}: "></p:outputLabel>
                     <p:inputText  id="inputCantidad"/>
 
-                    <p:outputLabel for="inputFecha" value="Fecha de ingreso: "></p:outputLabel>
+                    <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
                     <p:calendar id="inputFecha" showOn="button"/>
 
-                    <p:commandButton value="Guardar" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
-                    <p:commandButton value="Cancelar" id="btnCancelarTrans" actionListener="#" />
+                    <p:commandButton value="#{msg['Guardar']}" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
+                    <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarTrans" actionListener="#" />
                     
                 </h:panelGrid>
             </h:form>
         </p:tab>
         
         <!-- Devolucion de medicinas por lote-->
-        <p:tab title="Devoluci&oacute;n de medicinas">
+        <p:tab title="#{msg['devolucion_medicinas']}">
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
 
-                    <p:outputLabel for="selectMedic" value="Medicina: "></p:outputLabel>
+                    <p:outputLabel for="selectMedic" value="#{msg['Medicamento']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectMedic" value="#">
-                        <f:selectItem itemLabel="Seleccionar una" itemValue="" />
+                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="selectLote" value="Lote: "></p:outputLabel>
+                    <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectLote" value="#">
-                        <f:selectItem itemLabel="Seleccionar uno" itemValue="" />
+                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="" />
                     </p:selectOneMenu>
 
-                    <p:commandButton value="Devolver" id="btnDevolverLote" actionListener="#" styleClass="ui-priority-primary" />
-                    <p:commandButton value="Cancelar" id="btnCancelarLote" actionListener="#" />
+                    <p:commandButton value="#{msg['devolver']}" id="btnDevolverLote" actionListener="#" styleClass="ui-priority-primary" />
+                    <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarLote" actionListener="#" />
                 </h:panelGrid>
             </h:form>
         </p:tab>
 
         <!-- Crear nueva medicina-->
-        <p:tab title="Crear nueva medicina">
+        <p:tab title="#{msg['crear_nueva_medicina']}">
             <ui:include src="nuevaMedicina.html" />
         </p:tab>
         
-        <p:tab title="Reportes">
+        <p:tab title="#{msg['reportes']}">
             <h:panelGrid columns="2" cellpadding="5">
-                <p:commandButton value="Medicinas caducadas" id="btnMedicinasCaducadas" actionListener="#" />
+                <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#" />
             </h:panelGrid>
             <h:panelGrid columns="2" cellpadding="10">
                 
                 <p:dataTable var="car" value="#">
                     
-                    <p:column headerText="C&oacute;digo de lote">
+                    <p:column headerText="#{msg['codigo_lote']}">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Medicina">
+                    <p:column headerText="#{msg['Medicamento']}">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Fecha de elaboraci&oacute;n">
+                    <p:column headerText="#{msg['fecha_elaboracion']}">
                         <h:outputText value="#" />
                     </p:column>
                     
-                    <p:column headerText="Fecha de caducidad">
+                    <p:column headerText="#{msg['fecha_caducidad']}">
                         <h:outputText value="#" />
                     </p:column>
 
-                    <p:column headerText="Fecha de ingreso">
+                    <p:column headerText="#{msg['fecha_ingreso']}">
                         <h:outputText value="#" />
                     </p:column>
                     
-                    <p:column headerText="Cantidad">
+                    <p:column headerText="#{msg['Cantidad']}">
                         <h:outputText value="#" />
                     </p:column>
                     
-                    <p:column headerText="Precio">
+                    <p:column headerText="#{msg['precio']}">
                         <h:outputText value="#" />
                     </p:column>
                     

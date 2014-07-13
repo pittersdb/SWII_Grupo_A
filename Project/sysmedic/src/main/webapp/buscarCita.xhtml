@@ -21,23 +21,23 @@
         
         <h:panelGrid columns="2" cellpadding="5">
             
-            <h:outputLabel for="ci_paciente" value="CI Paciente: " />
+            <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
             <p:inputText id="ci_paciente" required="true" label="nombre_paciente" size="15" onclick="deshabilitarCI();habilitarNombre()" onfocus="deshabilitarCI();habilitarNombre()"/>
             
-            <h:outputLabel for="nombre_paciente" value="Nombre del Paciente: " />
+            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
             <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" onclick="habilitarCI();deshabilitarNombre()" onfocus="habilitarCI();deshabilitarNombre()"/>
                 
-            <h:outputLabel for="nombre_medico" value="Medico: " />
+            <h:outputLabel for="nombre_medico" value="#{msg['Medico']}: " />
             <p:inputText id="nombre_medico" required="true" label="nombre_medico" size="40"/>
         </h:panelGrid>
         <h:panelGrid columns="3" cellpadding="5">
-            <p:outputLabel for="rangoFechaInf" value="Rango de fechas a buscar: "></p:outputLabel>
+            <p:outputLabel for="rangoFechaInf" value="#{msg['Rango_de_fechas_a_buscar']} "></p:outputLabel>
             <p:calendar id="rangoFechaInf" showOn="button"/>
             <p:calendar id="rangoFechaSup" showOn="button"/>
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
-            <p:commandButton id="btnBuscar" value="Buscar" actionListener="#" />
+            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
         

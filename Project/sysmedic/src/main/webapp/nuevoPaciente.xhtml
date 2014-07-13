@@ -18,32 +18,32 @@
     
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="nombres" value="Nombres:" />
+            <h:outputLabel for="nombres" value="#{msg['Nombre']}:" />
             <p:inputText value="#{Paciente.nombres}" id="nombres" required="true" label="nombres" />
 
-            <h:outputLabel for="apellidos" value="Apellidos:" />
+            <h:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
             <p:inputText value="#{Paciente.apellidos}" id="apellidos" required="true" label="apellidos" />
 
-            <h:outputLabel for="ci" value="C.I.:" />
+            <h:outputLabel for="ci" value="#{msg['Cedula']}:" />
             <p:inputText value="#{Paciente.ci}" id="ci" required="true" label="ci" />
 
-            <h:outputLabel for="fecha_nacimiento" value="Fecha de Nacimiento:" />
+            <h:outputLabel for="fecha_nacimiento" value="#{msg['fecha_nacimiento']}:" />
             <p:inputText value="#{Paciente.fecha_nacimiento}" id="fecha_nacimiento" required="true" label="fecha_nacimiento" />
 
-            <h:outputLabel for="sexo" value="Sexo:" />
+            <h:outputLabel for="sexo" value="#{msg['Sexo']}:" />
             <h:selectOneMenu value="#{Paciente.sexo}" id="sexo" required="true" label="sexo">
-                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                <f:selectItem itemValue="M" itemLabel="#{msg['masculino']}"/>
+                <f:selectItem itemValue="F" itemLabel="#{msg['femenino']}"/>
             </h:selectOneMenu>
 
-            <h:outputLabel for="lugar_procedencia" value="Lugar de Procedencia:" />
+            <h:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
             <p:inputText value="#{Paciente.lugar_procedencia}" id="lugar_procedencia" required="true" label="lugar_procedencia" />
 
-            <h:outputLabel for="direccion" value="Direccion:" />
+            <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
             <p:inputText value="#{Paciente.direccion}" id="direccion" required="true" label="direccion" />
 
-            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
-            <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" actionListener="#" />
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
 

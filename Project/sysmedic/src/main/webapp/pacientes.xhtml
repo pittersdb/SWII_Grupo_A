@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
+    
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
@@ -13,54 +13,54 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-
-      
-      <h:form>
-          <h2>Lista de Pacientes</h2>
+    
+    
+    <h:form>
+        <h2>#{msg['lista_pacientes']}</h2>
         <p:dataTable id="paciente" var="paciente" value="#" tableStyle="width:auto">
-          <p:column headerText="Nombres" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-                                        
-          <p:column headerText="Apellidos" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-                                        
-          <p:column headerText="C.I." style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-                                        
-          <p:column headerText="Fecha de Nacimiento" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-                                        
-          <p:column headerText="Sexo" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>                                
-                                        
-          <p:column headerText="Lugar de Procedencia" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-                                        
-          <p:column headerText="Direccion" style="width:100px">
-            <h:outputText value="#" />
-          </p:column>
-          
-          <p:column headerText="Acciones" style="width:250px">
-                <p:commandButton value="Historial" type="button" onclick="mostrarHistorial()" style="font-size: 10px !important;" />
-                <p:commandButton value="Eliminar" type="button"  actionListener="#" style="font-size: 10px !important;" />
-                <p:commandButton value="Modificar" type="button" actionListener="#" style="font-size: 10px !important;" />
+            <p:column headerText="#{msg['Nombre']}" style="width:100px">
+                <h:outputText value="#" />
             </p:column> 
-                                        
+            
+            <p:column headerText="#{msg['Apellido']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>
+            
+            <p:column headerText="#{msg['Cedula']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>
+            
+            <p:column headerText="#{msg['fecha_nacimiento']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>
+            
+            <p:column headerText="#{msg['Sexo']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>                                
+            
+            <p:column headerText="#{msg['lugar_procedencia']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>
+            
+            <p:column headerText="#{msg['Direccion']}" style="width:100px">
+                <h:outputText value="#" />
+            </p:column>
+            
+            <p:column headerText="#{msg['Acciones']}" style="width:250px">
+                <p:commandButton value="#{msg['Historial']}" type="button" onclick="mostrarHistorial()" style="font-size: 10px !important;" />
+                <p:commandButton value="#{msg['Eliminar']}" type="button"  actionListener="#" style="font-size: 10px !important;" />
+                <p:commandButton value="#{msg['Modificar']}" type="button" actionListener="#" style="font-size: 10px !important;" />
+            </p:column> 
+            
         </p:dataTable>
         <center>
             <!-- Pop up para nuevo paciente-->
-            <p:dialog header="Nuevo Paciente" widgetVar="dlgNuevoPaciente" minHeight="40" draggable="false" resizable="false">
+            <p:dialog header="#{msg['nuevo_paciente']}" widgetVar="dlgNuevoPaciente" minHeight="40" draggable="false" resizable="false">
                 <ui:include src="nuevoPaciente.xhtml" />
             </p:dialog>
-            <p:commandButton value="Crear Nuevo Paciente" type="button" onclick="PF('dlgNuevoPaciente').show();" />
+            <p:commandButton value="#{msg['crear_nuevo_paciente']}" type="button" onclick="PF('dlgNuevoPaciente').show();" />
         </center>
-      </h:form>                                                                
-
+    </h:form>                                                                
+    
 </html>
 

@@ -9,6 +9,7 @@ package com.swii.sysmedic.Views;
 import com.swii.sysmedic.Facades.UsersFacade;
 import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,6 +75,19 @@ public class UsersView {
             externalContext.redirect( serverName + "/cas-server-webapp/logout" + "?destination="+serverName+"/sysmedic");            
         } catch (IOException ex) {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        
+    public void ShowSessionAttributes(){
+        HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+       HttpSession session = req.getSession();
+        Enumeration keys = session.getAttributeNames();
+        System.out.println("Atributos: ");
+        while (keys.hasMoreElements())
+        {
+            String key = (String)keys.nextElement();
+            System.out.println(key + ": " + session.getAttribute(key) + "<br>");
         }
     }
 }

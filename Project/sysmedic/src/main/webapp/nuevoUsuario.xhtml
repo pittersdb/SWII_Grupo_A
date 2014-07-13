@@ -19,27 +19,27 @@
     
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="nombre" value="Nombre:" />
+            <h:outputLabel for="nombre" value="#{msg['nombre_usuario']}:" />
             <p:inputText value="#{Users.name}" id="nombre" required="true" label="nombre" />
             
-            <h:outputLabel for="nickname" value="Usuario:" />
+            <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
             <p:inputText value="#{Users.nickname}" id="nickname" required="true" label="nickname" />
             
             
             
-            <h:outputLabel for="password" value="Password:" />
+            <h:outputLabel for="password" value="#{msg['password']}:" />
             <p:password value="#{Users.password}" id="password" required="true" label="password" />
             
             
-            <p:outputLabel for="rol" value="Rol: "></p:outputLabel>
+            <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>
             <p:selectOneMenu id="rol" value="#" maxlength="50" >
-                <f:selectItem itemLabel="Administrador" itemValue="a" />
-                <f:selectItem itemLabel="Medico" itemValue="m" />
-                <f:selectItem itemLabel="Secretario" itemValue="s" />
-            </p:selectOneMenu>
+                <f:selectItem itemLabel="#{msg['Administrador']}" itemValue="a" />
+                <f:selectItem itemLabel="#{msg['Medico']}" itemValue="m" />
+                <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" />
+            </p:selectOneMenu> 
             
-            <p:commandButton id="btnGuardar" value="Guardar" actionListener="#" />
-            <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#" />
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" actionListener="#" />
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
             
         </h:panelGrid>
     </h:form>
