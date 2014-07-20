@@ -33,6 +33,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UsersView {
     @EJB
     private UsersFacade usersFacade;
+    private Users user = new Users();
+    private String selectedRol;
 
     /**
      * Creates a new instance of UsersView
@@ -40,6 +42,25 @@ public class UsersView {
     public UsersView() {
         this.usersFacade = new UsersFacade();
     }
+    
+    public Users getUser(){
+        return this.user;
+    }
+
+    public String getSelectedRol() {
+        return selectedRol;
+    }
+
+    public void setSelectedRol(String selectedRol) {
+        this.selectedRol = selectedRol;
+    }
+    
+    public void Save(){
+        user.setRol(selectedRol);
+        user.setEnabled((short)1);
+        this.usersFacade.create(user);
+    }
+    
     
     public String Hola(){
         return "hola";
