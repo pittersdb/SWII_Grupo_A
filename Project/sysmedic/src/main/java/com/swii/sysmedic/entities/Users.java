@@ -200,6 +200,4 @@ public class Users implements Serializable {
     public String toString() {
         return "com.swii.sysmedic.entities.Users[ id=" + id + " ]";
     }
-
-    
 }
