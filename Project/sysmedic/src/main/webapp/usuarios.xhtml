@@ -43,15 +43,19 @@
             </p:dataTable>
           
             <!-- Pop up para nuevo usuario-->
-            <p:dialog header="#{msg['nuevo_usuario']}" widgetVar="dlgNuevoUsuario" minHeight="40" draggable="false" resizable="false">
-                <ui:include src="nuevoUsuario.xhtml" />
+            <p:dialog header="#{msg['nuevo_usuario']}" widgetVar="dlgNuevoUsuario" minHeight="40" draggable="false" resizable="false" >
+                <ui:include src="nuevoUsuario.xhtml" >
+                    <ui:param name="dialog" value="dlgNuevoUsuario" />
+                </ui:include>
             </p:dialog>
             <p:commandButton value="#{msg['crear_nuevo_usuario']}" type="button" onclick="PF('dlgNuevoUsuario').show();" />
             
             
             <!-- Pop up para nuevo usuario-->
             <p:dialog header="#{msg['Modificar']} #{msg['usuario']}" widgetVar="dlgEditarUsuario" minHeight="40" draggable="false" resizable="false">
-                <ui:include src="nuevoUsuario.xhtml" />
+                <ui:include src="nuevoUsuario.xhtml">
+                    <ui:param name="dialog" value="dlgEditarUsuario" />
+                </ui:include>
             </p:dialog>
           </h:form>                                                                
                                 

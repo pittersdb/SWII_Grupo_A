@@ -14,11 +14,13 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Validations.js" type="text/javascript" ></script>
     
     
     
     <h:form>
-        <h:panelGrid columns="2" cellpadding="5">
+         <p:growl id="messages" />
+        <h:panelGrid id = "panelNuevoUsuario" columns="2" cellpadding="5" >
             <h:outputLabel for="nombre" value="#{msg['nombre_usuario']}:" />
             <p:inputText value="#{User.user.name}" id="nombre" required="true" label="nombre" />
             
@@ -29,11 +31,11 @@
             <p:inputText value="#{User.user.direccion}" id="direccion" required="true" label="direccion" />
             
             <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
-            <p:inputText value="#{User.user.telefono}" id="telefono" required="true" label="telefono" />
+            <p:inputText value="#{User.user.telefono}" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
             
             <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
             <p:inputText value="#{User.user.nickname}" id="nickname" required="true" label="nickname" />
-                        
+            
             
             <h:outputLabel for="password" value="#{msg['password']}:" /> 
             <p:password value="#{User.user.password}" id="password" required="true" label="password" />
@@ -43,13 +45,30 @@
             <p:selectOneMenu id="rol" value="#{User.selectedRol}" maxlength="50" > 
                 <f:selectItem itemLabel="#{msg['Administrador']}" itemValue="a" />
                 <f:selectItem itemLabel="#{msg['Medico']}" itemValue="m" />
-                <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" />
+                <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" /> 
             </p:selectOneMenu> 
             
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" action="#{User.Save()}" />
-            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages" oncomplete="PF('confirmDlg').show()"  > 
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+            </p:commandButton>       
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#"  onclick=" PF('#{dialog}').hide()"/>  
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+               
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+            </p:confirmDialog>
+            
+            <p:confirmDialog header="Confirmation" widgetVar="confirmDlg" appendToBody="true">
+                <f:facet name="message">
+                    <h:outputText value='Data is saved'/> 
+                </f:facet>
+                <p:commandButton value="Ok" type="button" styleClass="ui-confirmdialog-yes" 
+                                 icon="ui-icon-check" onclick="PF('confirmDlg').hide(); PF('#{dialog}').hide()" />
+            </p:confirmDialog>
             
         </h:panelGrid>
+        
     </h:form>
     
 </html>
