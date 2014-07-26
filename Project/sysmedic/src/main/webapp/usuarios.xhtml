@@ -35,9 +35,10 @@
                   <h:outputText value="#{user.rolName}" />
               </p:column>
                                         
-              <p:column>
+              <p:column> 
                 <!--a href="edit.faces?tid=#{user.id}">Editar</a-->
-                  <p:commandButton value="#{msg['Modificar']}" type="button" onclick="PF('dlgEditarUsuario').show();" style="font-size: 10px !important;"/>
+                  <ui:param name="nicknameVar" value="#{user.nickname}" /> 
+                  <p:commandButton value="#{msg['Modificar']}"  actionListener="#{User.LoadUser(user.nickname)}" oncomplete="PF('dlgEditarUsuario').show();"  immediate="true" update=":formUser:msgs, :formUser:frmModificarUsuario" style="font-size: 10px !important;"/>
                   <p:commandButton value="#{msg['Eliminar']}" type="button" onclick="PF('dlgEditarUsuario').show();" style="font-size: 10px !important;"/>
               </p:column>
                                         

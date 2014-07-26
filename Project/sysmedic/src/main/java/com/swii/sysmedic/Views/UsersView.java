@@ -59,6 +59,11 @@ public class UsersView  {
         this.usersFacade = new UsersFacade();
     }
     
+    public void LoadUser(String nickname){
+        this.user = this.usersFacade.GetUser(nickname);
+        this.selectedRol = this.user.getRol();
+    }
+    
     public Users getUser(){
         return this.user;
     }
@@ -71,17 +76,8 @@ public class UsersView  {
         this.selectedRol = selectedRol;
     }
     
-    public void Test(){
-        FacesContext.getCurrentInstance().validationFailed();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"OKOKOKO", "El usuario "+user.getNickname()+" ya existe, por favor elija otro."));
-            
-        System.out.println("TEST1: ");
-        Users testUser = new Users();
-        testUser.setName("Juan");
-        testUser.setApellidos("Perez");
-        testUser.setRol("a");
-        this.all.add(testUser);
-        System.out.println("TEST: "+ testUser.getName());
+    public void Test(String test){
+        System.out.println("TEST: "+test);
     }
     
     public void Save(){
