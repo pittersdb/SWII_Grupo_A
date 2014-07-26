@@ -15,11 +15,34 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     <script src="js/Validations.js" type="text/javascript" ></script>
+    <script src="js/Usuarios.js" type="text/javascript" ></script>
     
+    <style>
+        .ui-growl-image {
+            display: none;
+        }   
+        .ui-growl-title {
+            font: 15px "Lucida Console", Monaco, monospace;
+            text-align: center;
+            
+        }
+        .ui-growl-message p {
+            font: 15px "Lucida Console", Monaco, monospace;
+            letter-spacing: -1px;
+        }
+        
+        .ui-growl {   
+            position:fixed; 
+            top: 5%;
+            left: 37%;
+            width: 290px;
+            height: 110px;
+            z-index:9999; 
+        }
+    </style>
     
-    
-    <h:form>
-         <p:growl id="messages" />
+    <h:form id="#{idForm}" > 
+        <p:growl id="messages"  showDetail="true"/>
         <h:panelGrid id = "panelNuevoUsuario" columns="2" cellpadding="5" >
             <h:outputLabel for="nombre" value="#{msg['nombre_usuario']}:" />
             <p:inputText value="#{User.user.name}" id="nombre" required="true" label="nombre" />
@@ -48,23 +71,23 @@
                 <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" /> 
             </p:selectOneMenu> 
             
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages" oncomplete="PF('confirmDlg').show()"  > 
-                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages, :formUser:usersTable" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
             </p:commandButton>       
-            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#"  onclick=" PF('#{dialog}').hide()"/>  
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" onclick=" PF('#{dialog}').hide()" />  
             
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-               
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
             </p:confirmDialog>
             
-            <p:confirmDialog header="Confirmation" widgetVar="confirmDlg" appendToBody="true">
+            <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
                 <f:facet name="message">
-                    <h:outputText value='Data is saved'/> 
+                    <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
                 </f:facet>
-                <p:commandButton value="Ok" type="button" styleClass="ui-confirmdialog-yes" 
-                                 icon="ui-icon-check" onclick="PF('confirmDlg').hide(); PF('#{dialog}').hide()" />
+                <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
+                                 icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
             </p:confirmDialog>
             
         </h:panelGrid>

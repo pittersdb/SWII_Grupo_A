@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.entities;
 
@@ -80,14 +80,14 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "enabled")
     private short enabled;
-
+    
     public Users() {
     }
-
+    
     public Users(Integer id) {
         this.id = id;
     }
-
+    
     public Users(Integer id, String nickname, String password, String name, String apellidos, String rol, short enabled) {
         this.id = id;
         this.nickname = nickname;
@@ -97,64 +97,78 @@ public class Users implements Serializable {
         this.rol = rol;
         this.enabled = enabled;
     }
-
+    
+    public Users(Users source) {
+        this.id = source.getId();
+        this.nickname = source.getNickname();
+        this.password = source.getPassword();
+        this.name = source.getName();
+        this.apellidos = source.getApellidos();
+        this.rol = source.getRol();
+        this.enabled = source.getEnabled();
+    }
+    
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public String getNickname() {
         return nickname;
     }
-
+    
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
+    
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getApellidos() {
         return apellidos;
     }
-
+    
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-
+    
     public String getDireccion() {
         return direccion;
     }
-
+    
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
     public String getTelefono() {
         return telefono;
     }
-
+    
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-       public String getRol() {
+    
+    public String getRol() {
+        return rol;
+    }
+    
+    public String getRolName(){
         if(rol.equalsIgnoreCase("a"))
             return "Administrador";
         if(rol.equalsIgnoreCase("S"))
@@ -163,26 +177,26 @@ public class Users implements Serializable {
             return "Medico";
         return "No rol";
     }
-
+    
     public void setRol(String rol) {
         this.rol = rol;
     }
-
+    
     public short getEnabled() {
         return enabled;
     }
-
+    
     public void setEnabled(short enabled) {
         this.enabled = enabled;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -195,7 +209,7 @@ public class Users implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "com.swii.sysmedic.entities.Users[ id=" + id + " ]";

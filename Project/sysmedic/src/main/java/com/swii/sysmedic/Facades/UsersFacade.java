@@ -34,9 +34,11 @@ public class UsersFacade extends AbstractFacade<Users> {
     public Users GetUser(String nickName) {
             TypedQuery<Users> query = em.createNamedQuery("Users.findByNickname", Users.class);
             query.setParameter("nickname", nickName.toLowerCase());
-            Users user = query.getResultList().get(0);
-            return user;
-       
+            List users = query.getResultList();
+            if(users == null || users.isEmpty()) 
+                return null;
+            else
+                return query.getResultList().get(0);          
     }
     
     public List<Users> findAll() {
