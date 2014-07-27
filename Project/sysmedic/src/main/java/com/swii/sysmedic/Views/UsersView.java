@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -76,6 +77,9 @@ public class UsersView {
     public void LoadUser(String nickname){
         this.user = this.usersFacade.GetUser(nickname);
         this.selectedRol = this.user.getRol();
+        if(selectedRol.equals("m")){
+            selectedEspecialidad = this.medicFacade.find(this.user.getId()).getEspecialidad().getId();
+        }
     }
     
     public Users getUser(){
@@ -130,12 +134,7 @@ public class UsersView {
     
     public void Update(){
         try{
-            user.setRol(selectedRol);
-            user.setEnabled((short)1);
-            Users originalUser = this.usersFacade.GetUser(user.getNickname());
-            originalUser.set(user);
-            //System.out.println("USER: "+originalUser.toString());
-            this.usersFacade.edit(originalUser);
+            Users originalUser = this.usersFacade.UpdateWithConstraints(user, selectedRol, selectedEspecialidad, medicFacade);
             int index = this.all.indexOf(originalUser);
             this.all.get(index).set(originalUser);
             this.Clear();

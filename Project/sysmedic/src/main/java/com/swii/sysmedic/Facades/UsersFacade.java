@@ -39,7 +39,35 @@ public class UsersFacade extends AbstractFacade<Users> {
     public UsersFacade() {
         super(Users.class);
         
-    }    
+    }
+    
+    @Transactional
+    public Users UpdateWithConstraints(Users user, String selectedRol, int selectedEspecialidad,  MedicoFacade medicFacade){
+        user.setRol(selectedRol);
+            user.setEnabled((short)1);
+            Users originalUser = this.GetUser(user.getNickname());
+            originalUser.set(user);
+            //System.out.println("USER: "+originalUser.toString());
+            this.edit(originalUser);
+            
+            Medico medico = medicFacade.find(user.getId());
+            if(medico != null && !user.getRol().equals("m")){
+                medicFacade.remove(medico); 
+            }
+            if(user.getRol().equals("m")){
+                if(medico == null){
+                    medico = new Medico();
+                    medico.setId(user.getId());
+                    medico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                    medico.setUsers(user);
+                    medicFacade.create(medico);
+                }else{
+                    medico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                    medicFacade.edit(medico);
+                }
+            }       
+            return originalUser;
+    }
     
     public Users GetUser(String nickName) {
         TypedQuery<Users> query = em.createNamedQuery("Users.findByNickname", Users.class);
