@@ -58,6 +58,11 @@
             <p:calendar id="inputFecha" showOn="button"/>
                 
             <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" type="button" onclick="PF('dlgInfoSistemaNuevaCita').show();" />
+             
+<!--            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="" update="" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                </p:commandButton>  -->
+            
             <p:commandButton id="btnImprimir" value="#{msg['Imprimir']}" actionListener="#" />
                 
             <p:dialog header="#{msg['Informacion_del_Sistema']}" widgetVar="dlgInfoSistemaNuevaCita" minHeight="40" draggable="false" resizable="false">

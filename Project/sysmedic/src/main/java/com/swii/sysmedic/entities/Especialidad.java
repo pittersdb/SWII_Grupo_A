@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author fabian
  */
 @Entity
-@Table(name = "especialidad")
+@Table(name = "\"SysMedic\".especialidad")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e"),

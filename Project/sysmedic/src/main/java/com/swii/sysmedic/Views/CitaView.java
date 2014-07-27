@@ -23,4 +23,6 @@ public class CitaView {
     public CitaView() {
     }
     
+    
+    
 }

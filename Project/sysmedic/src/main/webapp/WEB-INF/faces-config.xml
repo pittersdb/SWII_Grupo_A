@@ -18,4 +18,9 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <managed-bean>
+        <managed-bean-name>User</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.UsersView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

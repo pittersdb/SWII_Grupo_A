@@ -70,11 +70,23 @@
             </c:if>   
             
             <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>
-            <p:selectOneMenu id="rol" value="#{User.selectedRol}" maxlength="50" > 
+            <p:selectOneMenu id="rol" value="#{User.selectedRol}" > 
                 <f:selectItem itemLabel="#{msg['Administrador']}" itemValue="a" />
                 <f:selectItem itemLabel="#{msg['Medico']}" itemValue="m" />
                 <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" /> 
+                <f:ajax render="pgMedicoLabel" />
+                <f:ajax render="pgMedicoInput" />
             </p:selectOneMenu> 
+            
+            <h:panelGroup id="pgMedicoLabel" >
+                <p:outputLabel for="especialidad" value="#{msg['Especialidad']}: "  rendered="#{User.selectedRol == 'm'}"></p:outputLabel> 
+            </h:panelGroup>
+            
+            <h:panelGroup id="pgMedicoInput" >
+                <p:selectOneMenu id="especialidad" value="#{User.selectedEspecialidad}"     rendered="#{User.selectedRol == 'm'}" maxlength="50" > 
+                    <f:selectItems value="#{Especialidad.all}" var="especialidad" itemValue="#{especialidad.id}" itemLabel="#{especialidad.nombre}"/>
+                </p:selectOneMenu> 
+            </h:panelGroup>
             
             <c:if test="${actionDB == 'create'}">
                 <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages, :formUser:usersTable" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 

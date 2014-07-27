@@ -6,9 +6,13 @@
 
 package com.swii.sysmedic.Views;
 
+import com.swii.sysmedic.Facades.MedicoFacade;
 import com.swii.sysmedic.Facades.UsersFacade;
+import com.swii.sysmedic.entities.Especialidad;
+import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -18,7 +22,9 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -32,13 +38,15 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author LUCAS
  */
-@Named(value = "User")
-@RequestScoped
-public class UsersView  {
+
+public class UsersView {
     @EJB
     private UsersFacade usersFacade;
+    @EJB
+    private MedicoFacade medicFacade;
     private Users user = new Users();
     private String selectedRol;
+    private int selectedEspecialidad;
     private List<Users> all = new ArrayList<Users>();
     
     /**
@@ -48,12 +56,22 @@ public class UsersView  {
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        Collections.sort(all); 
+        Collections.sort(all);
     }
     
     public UsersView() {
         this.usersFacade = new UsersFacade();
     }
+    
+    public int getSelectedEspecialidad() {
+        return selectedEspecialidad;
+    }
+    
+    public void setSelectedEspecialidad(int selectedEspecialidad) {
+        this.selectedEspecialidad = selectedEspecialidad;
+    }
+    
+    
     
     public void LoadUser(String nickname){
         this.user = this.usersFacade.GetUser(nickname);
@@ -82,7 +100,20 @@ public class UsersView  {
             if(!existsUser){
                 user.setRol(selectedRol);
                 user.setEnabled((short)1);
-                this.usersFacade.create(user);
+                if(!selectedRol.equalsIgnoreCase("m")){
+                    this.usersFacade.create(user);
+                }else{
+                    this.usersFacade.create(user);
+                    try{
+                        Medico newMedico = new Medico();
+                        newMedico.setId(user.getId());
+                        newMedico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                        newMedico.setUsers(user);
+                        this.medicFacade.create(newMedico);
+                    }catch(Exception eMedic){
+                        this.usersFacade.remove(user);
+                    }
+                }
                 this.all.add(new Users(user));
                 this.Clear();
             }else{
@@ -101,7 +132,7 @@ public class UsersView  {
         try{
             user.setRol(selectedRol);
             user.setEnabled((short)1);
-            Users originalUser = this.usersFacade.GetUser(user.getNickname()); 
+            Users originalUser = this.usersFacade.GetUser(user.getNickname());
             originalUser.set(user);
             //System.out.println("USER: "+originalUser.toString());
             this.usersFacade.edit(originalUser);
@@ -116,8 +147,8 @@ public class UsersView  {
     }
     
     public void Delete(int id){
-          try{
-              Users userToDelete = this.usersFacade.find(id);
+        try{
+            Users userToDelete = this.usersFacade.find(id);
             this.usersFacade.remove( userToDelete);
             this.all.remove(userToDelete);
         }catch(Exception e){
@@ -157,7 +188,7 @@ public class UsersView  {
     public List<Users> getAll() {
         if(all.isEmpty()){
             all.addAll(allFromDB());
-            Collections.sort(all); 
+            Collections.sort(all);
         }
         return all;
     }
