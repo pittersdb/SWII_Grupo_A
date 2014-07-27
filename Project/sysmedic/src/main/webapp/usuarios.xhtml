@@ -5,8 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
-    
+          
+          
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -14,55 +14,56 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
+        
     <div> 
-      <h2>#{msg['lista_usuarios']}</h2>
+        <h2>#{msg['lista_usuarios']}</h2>
         <h:form id="formUser">
-                                    
-          <p:growl id="msgs" showDetail="true" /> 
-                                    
-          <p:dataTable id="usersTable" var="user" value="#{User.all}" tableStyle="width:auto">
-  
-              <p:column headerText="#{msg['nombre_usuario']}" style="width:200px">
-                  <h:outputText value="#{user.name}" />
-              </p:column>
-                                        
-              <p:column headerText="#{msg['usuario']}" style="width:100px">
-                  <h:outputText value="#{user.nickname}" />
-              </p:column>
-                                        
-              <p:column headerText="#{msg['rol']}" style="width:100px">
-                  <h:outputText value="#{user.rolName}" />
-              </p:column>
-                                        
-              <p:column> 
-                <!--a href="edit.faces?tid=#{user.id}">Editar</a-->
-                  <ui:param name="nicknameVar" value="#{user.nickname}" /> 
-                  <p:commandButton value="#{msg['Modificar']}"  actionListener="#{User.LoadUser(user.nickname)}" oncomplete="PF('dlgEditarUsuario').show();"  immediate="true" update=":formUser:msgs, :formUser:frmModificarUsuario" style="font-size: 10px !important;"/>
-                  <p:commandButton value="#{msg['Eliminar']}" type="button" onclick="PF('dlgEditarUsuario').show();" style="font-size: 10px !important;"/>
-              </p:column>
-                                        
+            
+            <p:growl id="msgs" showDetail="true" /> 
+                
+            <p:dataTable id="usersTable" var="user" value="#{User.all}" tableStyle="width:auto">
+                
+                <p:column headerText="#{msg['nombre_usuario']}" style="width:200px">
+                    <h:outputText value="#{user.name}" />
+                </p:column>
+                    
+                <p:column headerText="#{msg['usuario']}" style="width:100px">
+                    <h:outputText value="#{user.nickname}" />
+                </p:column>
+                    
+                <p:column headerText="#{msg['rol']}" style="width:100px">
+                    <h:outputText value="#{user.rolName}" />
+                </p:column>
+                    
+                <p:column> 
+                  <!--a href="edit.faces?tid=#{user.id}">Editar</a-->
+                    <p:commandButton value="#{msg['Modificar']}"  actionListener="#{User.LoadUser(user.nickname)}" oncomplete="PF('dlgEditarUsuario').show();"  immediate="true" update=":formUser:msgs, :frmModificarUsuario" style="font-size: 10px !important;"/>
+                    <p:commandButton value="#{msg['Eliminar']}" type="button" onclick="PF('dlgEditarUsuario').show();" style="font-size: 10px !important;"/>
+                </p:column> 
+                    
             </p:dataTable>
-          
-            <!-- Pop up para nuevo usuario-->
-            <p:dialog header="#{msg['nuevo_usuario']}" widgetVar="dlgNuevoUsuario" minHeight="40" draggable="false" resizable="false" >
-                <ui:include src="nuevoUsuario.xhtml" >
-                    <ui:param name="idForm" value="frmNuevoUsuario" />
-                    <ui:param name="dialog" value="dlgNuevoUsuario" />
-                </ui:include>
-            </p:dialog>
+                
+                
             <p:commandButton value="#{msg['crear_nuevo_usuario']}" type="button" onclick="PF('dlgNuevoUsuario').show();" />
+                
+        </h:form>                                                                
+        <!-- Pop up para nuevo usuario-->
+        <p:dialog header="#{msg['nuevo_usuario']}" widgetVar="dlgNuevoUsuario" minHeight="40" draggable="false" resizable="false" >
+            <ui:include src="nuevoUsuario.xhtml" >
+                <ui:param name="idForm" value="frmNuevoUsuario" />
+                <ui:param name="dialog" value="dlgNuevoUsuario" />
+                <ui:param name="actionDB" value="create" />
+            </ui:include>
+        </p:dialog>    
             
-            
-            <!-- Pop up para nuevo usuario-->
-            <p:dialog header="#{msg['Modificar']} #{msg['usuario']}" widgetVar="dlgEditarUsuario" minHeight="40" draggable="false" resizable="false">
-                <ui:include src="nuevoUsuario.xhtml">
-                    <ui:param name="idForm" value="frmModificarUsuario" />
-                    <ui:param name="dialog" value="dlgEditarUsuario" />
-                </ui:include>
-            </p:dialog>
-          </h:form>                                                                
-                                
-        </div>
-  
+        <!-- Pop up para nuevo usuario-->
+        <p:dialog header="#{msg['Modificar']} #{msg['usuario']}" widgetVar="dlgEditarUsuario" minHeight="40" draggable="false" resizable="false">
+            <ui:include src="nuevoUsuario.xhtml"> 
+                <ui:param name="idForm" value="frmModificarUsuario" />
+                <ui:param name="dialog" value="dlgEditarUsuario" />
+                <ui:param name="actionDB" value="update" />
+            </ui:include>
+        </p:dialog>
+    </div>
+        
 </html>

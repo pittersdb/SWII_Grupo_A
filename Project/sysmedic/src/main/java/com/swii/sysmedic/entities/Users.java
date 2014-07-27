@@ -7,6 +7,7 @@
 package com.swii.sysmedic.entities;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByTelefono", query = "SELECT u FROM Users u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Users.findByRol", query = "SELECT u FROM Users u WHERE u.rol = :rol"),
     @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled")})
-public class Users implements Serializable {
+public class Users implements Serializable, Comparable<Object>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,12 +89,14 @@ public class Users implements Serializable {
         this.id = id;
     }
     
-    public Users(Integer id, String nickname, String password, String name, String apellidos, String rol, short enabled) {
+    public Users(Integer id, String nickname, String password, String name, String apellidos, String direccion, String telefono, String rol, short enabled) {
         this.id = id;
         this.nickname = nickname;
         this.password = password;
         this.name = name;
         this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
         this.rol = rol;
         this.enabled = enabled;
     }
@@ -104,7 +107,29 @@ public class Users implements Serializable {
         this.password = source.getPassword();
         this.name = source.getName();
         this.apellidos = source.getApellidos();
+        this.direccion = source.getDireccion();
+        this.telefono = source.getTelefono();
         this.rol = source.getRol();
+        this.enabled = source.getEnabled();
+    }
+    
+    public void set(Users source){
+        if(source.getId() != null && source.getId() != 0)
+            this.id = source.getId();
+        if(source.getNickname() != null)
+            this.nickname = source.getNickname();
+        if(source.getPassword() != null)
+            this.password = source.getPassword();
+        if(source.getName() != null)
+            this.name = source.getName();
+        if(source.getApellidos() != null)
+            this.apellidos = source.getApellidos();
+        if(source.getDireccion() != null)
+            this.direccion = source.getDireccion();
+        if(source.getTelefono() != null)
+            this.telefono = source.getTelefono();
+        if(source.getRol() != null)
+            this.rol = source.getRol();
         this.enabled = source.getEnabled();
     }
     
@@ -212,6 +237,15 @@ public class Users implements Serializable {
     
     @Override
     public String toString() {
-        return "com.swii.sysmedic.entities.Users[ id=" + id + " ]";
+        return "Users{" + "id=" + id + ", nickname=" + nickname + ", password=" + password + ", name=" + name + ", apellidos=" + apellidos + ", direccion=" + direccion + ", telefono=" + telefono + ", rol=" + rol + ", enabled=" + enabled + '}';
     }
+//
+//
+    @Override
+    public int compareTo(Object o) {
+        Users user1 = this;
+        Users user2 = (Users)o;        
+        return user1.getId().compareTo(user2.getId());
+    }
+    
 }

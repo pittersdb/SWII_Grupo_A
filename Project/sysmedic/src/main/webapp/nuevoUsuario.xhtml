@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
     
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
@@ -41,9 +42,13 @@
         }
     </style>
     
-    <h:form id="#{idForm}" > 
+    <h:form id="#{idForm}" >   
         <p:growl id="messages"  showDetail="true"/>
+        <c:if test="${actionDB == 'update'}">
+            <h:inputHidden value="#{User.user.nickname}" />
+        </c:if> 
         <h:panelGrid id = "panelNuevoUsuario" columns="2" cellpadding="5" >
+            
             <h:outputLabel for="nombre" value="#{msg['nombre_usuario']}:" />
             <p:inputText value="#{User.user.name}" id="nombre" required="true" label="nombre" />
             
@@ -56,13 +61,13 @@
             <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
             <p:inputText value="#{User.user.telefono}" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
             
-            <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
-            <p:inputText value="#{User.user.nickname}" id="nickname" required="true" label="nickname" />
-            
-            
-            <h:outputLabel for="password" value="#{msg['password']}:" /> 
-            <p:password value="#{User.user.password}" id="password" required="true" label="password" />
-            
+            <c:if test="${actionDB == 'create'}">
+                <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
+                <p:inputText value="#{User.user.nickname}" id="nickname" required="true" label="nickname" />            
+                
+                <h:outputLabel for="password" value="#{msg['password']}:" /> 
+                <p:password value="#{User.user.password}" id="password" required="true" label="password" />
+            </c:if>   
             
             <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>
             <p:selectOneMenu id="rol" value="#{User.selectedRol}" maxlength="50" > 
@@ -71,13 +76,21 @@
                 <f:selectItem itemLabel="#{msg['Secretario']}" itemValue="s" /> 
             </p:selectOneMenu> 
             
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages, :formUser:usersTable" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
-                <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
-            </p:commandButton>       
+            <c:if test="${actionDB == 'create'}">
+                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{User.Save()}" update="messages, :formUser:usersTable" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                </p:commandButton>   
+            </c:if>      
+            
+            <c:if test="${actionDB == 'update'}">
+                <p:commandButton id="btnGuardar" value="#{msg['Modificar']}"   actionListener="#{User.Update()}" update="messages, :formUser:usersTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                </p:commandButton>   
+            </c:if>   
+            
             <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" onclick=" PF('#{dialog}').hide()" />  
             
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
-                
+            <p:confirmDialog global="true" showEffect="fade" >                  
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
             </p:confirmDialog>

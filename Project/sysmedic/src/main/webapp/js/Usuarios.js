@@ -6,11 +6,11 @@
 
 
 function ClearUsuarios(){
-    document.getElementById("formUser:frmNuevoUsuario:nombre").value = "";
-    document.getElementById("formUser:frmNuevoUsuario:apellido").value = "";
-    document.getElementById("formUser:frmNuevoUsuario:direccion").value = "";
-    document.getElementById("formUser:frmNuevoUsuario:telefono").value = "";
-    document.getElementById("formUser:frmNuevoUsuario:nickname").value = "";
-    document.getElementById("formUser:frmNuevoUsuario:password").value = "";    
+    document.getElementById("frmNuevoUsuario:nombre").value = "";
+    document.getElementById("frmNuevoUsuario:apellido").value = "";
+    document.getElementById("frmNuevoUsuario:direccion").value = "";
+    document.getElementById("frmNuevoUsuario:telefono").value = "";
+    document.getElementById("frmNuevoUsuario:nickname").value = "";
+    document.getElementById("frmNuevoUsuario:password").value = "";    
 }
 

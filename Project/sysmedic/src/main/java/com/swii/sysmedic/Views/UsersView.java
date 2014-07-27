@@ -9,21 +9,16 @@ package com.swii.sysmedic.Views;
 import com.swii.sysmedic.Facades.UsersFacade;
 import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -50,9 +45,10 @@ public class UsersView  {
      * Creates a new instance of UsersView
      */
     
-     @PostConstruct
+    @PostConstruct
     public void init() {
         all.addAll(allFromDB());
+        Collections.sort(all); 
     }
     
     public UsersView() {
@@ -87,17 +83,35 @@ public class UsersView  {
                 user.setRol(selectedRol);
                 user.setEnabled((short)1);
                 this.usersFacade.create(user);
-                this.all.add(new Users(user));                
-                this.Clear();                
+                this.all.add(new Users(user));
+                this.Clear();
             }else{
                 FacesContext.getCurrentInstance().validationFailed();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "El usuario "+user.getNickname()+" ya existe, por favor elija otro."));
-            
+                
             }
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
-             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void Update(){
+        try{
+            user.setRol(selectedRol);
+            user.setEnabled((short)1);
+            Users originalUser = this.usersFacade.GetUser(user.getNickname()); 
+            originalUser.set(user);
+            //System.out.println("USER: "+originalUser.toString());
+            this.usersFacade.edit(originalUser);
+            int index = this.all.indexOf(originalUser);
+            this.all.get(index).set(originalUser);
+            this.Clear();
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
@@ -127,13 +141,15 @@ public class UsersView  {
         
         
     }
-
+    
     public List<Users> getAll() {
-        if(all.isEmpty())
+        if(all.isEmpty()){
             all.addAll(allFromDB());
+            Collections.sort(all); 
+        }
         return all;
     }
-
+    
     public void setAll(List<Users> all) {
         this.all = all;
     }
