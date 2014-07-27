@@ -7,9 +7,11 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Paciente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,13 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         super(Paciente.class);
     }
     
+    public Paciente GetPacienteByCi(String ci) {
+        TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findByCi", Paciente.class);
+        query.setParameter("ci", ci.toLowerCase());
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
+    }
 }

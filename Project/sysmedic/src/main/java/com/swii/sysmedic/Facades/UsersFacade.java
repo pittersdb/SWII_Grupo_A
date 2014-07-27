@@ -10,8 +10,6 @@ import com.swii.sysmedic.entities.Especialidad;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Users;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

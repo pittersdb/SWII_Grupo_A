@@ -32,19 +32,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author fabian
  */
 @Entity
-@Table(name = "paciente")
+@Table(name = "\"SysMedic\".paciente")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
     @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id"),
     @NamedQuery(name = "Paciente.findByNombres", query = "SELECT p FROM Paciente p WHERE p.nombres = :nombres"),
-    @NamedQuery(name = "Paciente.findByApellidos", query = "SELECT p FROM Paciente p WHERE p.apellidos = :apellidos"),
     @NamedQuery(name = "Paciente.findByCi", query = "SELECT p FROM Paciente p WHERE p.ci = :ci"),
     @NamedQuery(name = "Paciente.findByFechaNacimiento", query = "SELECT p FROM Paciente p WHERE p.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Paciente.findBySexo", query = "SELECT p FROM Paciente p WHERE p.sexo = :sexo"),
     @NamedQuery(name = "Paciente.findByLugarProcedencia", query = "SELECT p FROM Paciente p WHERE p.lugarProcedencia = :lugarProcedencia"),
     @NamedQuery(name = "Paciente.findByDirecion", query = "SELECT p FROM Paciente p WHERE p.direcion = :direcion")})
-public class Paciente implements Serializable {
+public class Paciente implements Serializable { 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,11 +55,6 @@ public class Paciente implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "nombres")
     private String nombres;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "apellidos")
-    private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -100,10 +94,9 @@ public class Paciente implements Serializable {
         this.id = id;
     }
 
-    public Paciente(Integer id, String nombres, String apellidos, String ci, Date fechaNacimiento, String sexo, String lugarProcedencia, String direcion) {
+    public Paciente(Integer id, String nombres, String ci, Date fechaNacimiento, String sexo, String lugarProcedencia, String direcion) {
         this.id = id;
         this.nombres = nombres;
-        this.apellidos = apellidos;
         this.ci = ci;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
@@ -125,14 +118,6 @@ public class Paciente implements Serializable {
 
     public void setNombres(String nombres) {
         this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
     }
 
     public String getCi() {

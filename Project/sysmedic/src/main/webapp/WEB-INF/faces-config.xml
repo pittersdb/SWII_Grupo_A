@@ -6,21 +6,34 @@
 
     <!--http://www.mkyong.com/jsf2/jsf-2-internationalization-example/-->
     <application>
-     	   <locale-config>
-     	        <default-locale>es</default-locale>
-     	   </locale-config>
-	   <resource-bundle>
-		<base-name>languages.messages</base-name>
-		<var>msg</var>
-	   </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>languages.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
     </application>
+    
     <managed-bean>
         <managed-bean-name>User</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.UsersView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>Cita</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.CitaView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>Paciente</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.PacienteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

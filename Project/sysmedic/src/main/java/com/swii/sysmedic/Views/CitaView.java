@@ -6,23 +6,25 @@
 
 package com.swii.sysmedic.Views;
 
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import com.swii.sysmedic.Facades.CitaFacade;
+import javax.ejb.EJB;
+
 
 /**
  *
  * @author fabian
  */
-@Named(value = "Cita")
-@RequestScoped
+
 public class CitaView {
 
+    @EJB
+    private CitaFacade citaFacade;
+    
     /**
      * Creates a new instance of CitaView
      */
     public CitaView() {
     }
-    
-    
+   
     
 }
