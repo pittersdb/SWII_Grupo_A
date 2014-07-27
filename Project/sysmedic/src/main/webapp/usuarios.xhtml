@@ -18,7 +18,9 @@
     <div> 
         <h2>#{msg['lista_usuarios']}</h2>
         <h:form id="formUser">
-            
+             <p:commandButton value="#{msg['crear_nuevo_usuario']}" type="button" onclick="PF('dlgNuevoUsuario').show();" />
+             <br/>
+             <br/>
             <p:growl id="msgs" showDetail="true" /> 
                 
             <p:dataTable id="usersTable" var="user" value="#{User.all}" tableStyle="width:auto">
@@ -36,15 +38,21 @@
                 </p:column>
                     
                 <p:column> 
-                  <!--a href="edit.faces?tid=#{user.id}">Editar</a-->
+                  <!--a href="edit.faces?tid=#{user.id}">Editar</a-->                    
                     <p:commandButton value="#{msg['Modificar']}"  actionListener="#{User.LoadUser(user.nickname)}" oncomplete="PF('dlgEditarUsuario').show();"  immediate="true" update=":formUser:msgs, :frmModificarUsuario" style="font-size: 10px !important;"/>
-                    <p:commandButton value="#{msg['Eliminar']}" type="button" onclick="PF('dlgEditarUsuario').show();" style="font-size: 10px !important;"/>
+                    <p:commandButton value="#{msg['Eliminar']}" actionListener="#{User.Delete(user.id)}" oncomplete=""  immediate="true" update=":formUser:msgs, :formUser:usersTable" style="font-size: 10px !important;">
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                    </p:commandButton>   
+                    <p:confirmDialog global="true" showEffect="fade" >                  
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+                    </p:confirmDialog>
                 </p:column> 
                     
             </p:dataTable>
                 
                 
-            <p:commandButton value="#{msg['crear_nuevo_usuario']}" type="button" onclick="PF('dlgNuevoUsuario').show();" />
+           
                 
         </h:form>                                                                
         <!-- Pop up para nuevo usuario-->

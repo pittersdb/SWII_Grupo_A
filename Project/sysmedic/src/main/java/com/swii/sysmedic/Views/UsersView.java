@@ -115,6 +115,18 @@ public class UsersView  {
         }
     }
     
+    public void Delete(int id){
+          try{
+              Users userToDelete = this.usersFacade.find(id);
+            this.usersFacade.remove( userToDelete);
+            this.all.remove(userToDelete);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
     public void destroyWorld(){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Empty fields!", "Insert something in at least one input!"));
         
