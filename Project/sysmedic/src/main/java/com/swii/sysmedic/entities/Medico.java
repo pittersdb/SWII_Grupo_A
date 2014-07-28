@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m"),
-    @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
+    @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id"),
+    @NamedQuery(name = "Medico.findByName", query = "SELECT m FROM Medico m JOIN Users u WHERE m.id = u.id AND (lower(u.name) LIKE :name OR lower(u.apellidos) LIKE :apellidos)")})
 public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

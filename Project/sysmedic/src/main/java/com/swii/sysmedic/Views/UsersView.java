@@ -80,6 +80,12 @@ public class UsersView {
         return this.user;
     }
     
+    public String getUserName(int id){
+        //int ident = Integer.parseInt(id);
+        Users u = this.usersFacade.find(id);
+        return u.getName() + " " +u.getApellidos();
+    }
+    
     public String getSelectedRol() {
         return selectedRol;
     }

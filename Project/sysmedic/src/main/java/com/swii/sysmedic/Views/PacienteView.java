@@ -47,7 +47,7 @@ public class PacienteView {
              paciente = pacienteByCi; 
             results.add(pacienteByCi.getCi());
         }else{
-             paciente = new Paciente(0, "", "", null, "", "", "");
+             paciente = new Paciente(0, "", "","", null, "", "", "");
         }
        
          
@@ -59,10 +59,10 @@ public class PacienteView {
          System.out.println("SELECT PACIENTE");
     }
      
-     public void onCiSelect(AjaxBehaviorEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         paciente = new Paciente(0, "", "", null, "", "", "");
-    }
+//     public void onCiSelect(AjaxBehaviorEvent event) {
+//        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
+//         paciente = new Paciente(0, "", "","", null, "", "", "");
+//    }
     
     
     
