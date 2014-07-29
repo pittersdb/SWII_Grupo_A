@@ -66,8 +66,6 @@ public class UsersView {
         this.selectedEspecialidad = selectedEspecialidad;
     }
     
-    
-    
     public void LoadUser(String nickname){
         this.user = this.usersFacade.GetUser(nickname);
         this.selectedRol = this.user.getRol();

@@ -77,9 +77,9 @@ public class UsersFacade extends AbstractFacade<Users> {
             return query.getResultList().get(0);
     }
     
+    @Override
     public List<Users> findAll() {
         List<Users> contacts = em.createNamedQuery("Users.findAll", Users.class).getResultList();
         return contacts;
     }
-    
 }

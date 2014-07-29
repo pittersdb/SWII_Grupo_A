@@ -95,6 +95,16 @@ public class Paciente implements Serializable {
 
     public Paciente() {
     }
+    
+    public Paciente(Paciente paciente){
+        this.id = paciente.getId();
+        this.nombres = paciente.getNombres();
+        this.apellidos = paciente.getApellidos();
+        this.ci = paciente.getCi();
+        this.direcion = paciente.getDirecion();
+        this.lugarProcedencia = paciente.getLugarProcedencia();
+        this.fechaNacimiento = paciente.getFechaNacimiento();
+    }
 
     public Paciente(Integer id) {
         this.id = id;
