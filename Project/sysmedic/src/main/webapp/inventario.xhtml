@@ -23,8 +23,8 @@
                 <h:panelGrid columns="2" cellpadding="5">
 
                     <p:outputLabel for="selectMedicina" value="#{msg['Medicamento']}: "></p:outputLabel>
-                    <p:selectOneMenu id="selectMedicina" value="#">
-                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="" />
+                    <p:selectOneMenu id="selectMedicina" value="#{Medicamento}">
+                        <f:selectItems value="#{Medicamento.all}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="inputFechaElab" value="#{msg['fecha_elaboracion']}: "></p:outputLabel>
@@ -89,7 +89,7 @@
                     </p:column>
 
                     <p:column headerText="#{msg['Medicamento']}">
-                        <h:outputText value="#" />
+                        <h:outputText value="#{medicamento.nombre}" />
                     </p:column>
 
                     <p:column headerText="#{msg['fecha_elaboracion']}">

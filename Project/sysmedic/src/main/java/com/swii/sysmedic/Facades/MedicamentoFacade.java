@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class MedicamentoFacade extends AbstractFacade<Medicamento> {
 
-    private Medicamento medicamento = new Medicamento();
+    //private Medicamento medicamento = new Medicamento();
     @PersistenceContext(unitName = "com.swii_sysmedic_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -34,13 +34,21 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
     }
     
     public Medicamento GetMedicamento(String name) {
-        TypedQuery<Medicamento> query = em.createNamedQuery("Medicamento.findByName", Medicamento.class);
+        TypedQuery<Medicamento> query = em.createNamedQuery("Medicamento.findByNombre", Medicamento.class);
         query.setParameter("nombre", name.toLowerCase());
         List medicamento = query.getResultList();
         if(medicamento == null || medicamento.isEmpty())
             return null;
         else
             return query.getResultList().get(0);
+    }
+    
+    public boolean existsMedicamento(String name){
+        return GetMedicamento(name) != null;
+    }
+    
+    public void Save(Medicamento medicamento){
+        create(medicamento);
     }
     
     @Override

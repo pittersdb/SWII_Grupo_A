@@ -12,8 +12,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -23,15 +28,21 @@ import javax.ejb.EJB;
 public class MedicamentoView {
     @EJB
     private MedicamentoFacade medicamentoFacade;
-    @EJB
-    private Medicamento medicamento;
+
+    private Medicamento medicamento = new Medicamento();
     private List<Medicamento> all = new ArrayList<Medicamento>();
+    private String selectedItem; // +getter +setter
+    private List<SelectItem> availableItems; // +getter (no setter necessary)
     /**
      * Creates a new instance of MedicamentoView
      */
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
+        availableItems = new ArrayList<SelectItem>();
+        availableItems.add(new SelectItem("foo", "Foo label"));
+        availableItems.add(new SelectItem("bar", "Bar label"));
+        availableItems.add(new SelectItem("baz", "Baz label"));
     }
     
     public MedicamentoView() {
@@ -51,6 +62,29 @@ public class MedicamentoView {
     
     public List<Medicamento> allFromDB(){
         return this.medicamentoFacade.findAll();
-    } 
+    }
     
+    public void Save(){
+        try{
+            if(!this.medicamentoFacade.existsMedicamento(medicamento.getNombre())){
+                this.medicamentoFacade.Save(medicamento);
+                this.all.add(new Medicamento(medicamento));
+                this.Clear();
+            }else{
+                FacesContext.getCurrentInstance().validationFailed();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "El medicamento "+medicamento.getNombre()+" ya existe, por favor elija otro."));
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    
+    
+    private void Clear(){
+        medicamento.setNombre(null);
+        medicamento.setDescripcion(null);
+    }
 }
