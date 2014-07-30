@@ -8,7 +8,6 @@ package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Medicamento;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,20 +33,20 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
         super(Medicamento.class);
     }
     
-    public Medicamento GetMedicamento(int id) {
-        TypedQuery<Medicamento> query = em.createNamedQuery("Medicamento.findById", Medicamento.class);
-        query.setParameter("id", (int) id);
-        List medicamentos = query.getResultList();
-        
-        if(medicamentos == null || medicamentos.isEmpty())
+    public Medicamento GetMedicamento(String name) {
+        TypedQuery<Medicamento> query = em.createNamedQuery("Medicamento.findByName", Medicamento.class);
+        query.setParameter("nombre", name.toLowerCase());
+        List medicamento = query.getResultList();
+        if(medicamento == null || medicamento.isEmpty())
             return null;
         else
             return query.getResultList().get(0);
     }
     
+    @Override
     public List<Medicamento> findAll() {
-        List<Medicamento> medicamentos = em.createNamedQuery("Medicamento.findAll", Medicamento.class).getResultList();
-        return medicamentos;
+        List<Medicamento> contacts = em.createNamedQuery("Medicamento.findAll", Medicamento.class).getResultList();
+        return contacts;
     }
     
 }

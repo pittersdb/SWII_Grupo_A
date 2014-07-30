@@ -92,6 +92,29 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.direcion = direcion;
     }
+    
+    public Cliente(Cliente cliente){
+        this.id = cliente.getId();
+        this.nombres = cliente.getNombres();
+        this.apellidos = cliente.getApellidos();
+        this.ruc = cliente.getRuc();
+        this.telefono = cliente.getTelefono();
+        this.direcion = cliente.getDirecion();
+    }
+    
+    public void set(Cliente source){
+        if(source.getId() != null && source.getId() != 0)
+            this.id = source.getId();
+        if(source.getNombres() != null)
+            this.nombres = source.getNombres();
+        if(source.getApellidos() != null)
+            this.apellidos = source.getApellidos();
+        if(source.getDirecion() != null)
+            this.direcion = source.getDirecion();
+        if(source.getTelefono() != null)
+            this.telefono = source.getTelefono();
+        
+    }
 
     public Integer getId() {
         return id;
