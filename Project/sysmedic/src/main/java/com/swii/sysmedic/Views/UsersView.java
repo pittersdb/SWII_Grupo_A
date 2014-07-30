@@ -121,7 +121,6 @@ public class UsersView {
             }else{
                 FacesContext.getCurrentInstance().validationFailed();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "El usuario "+user.getNickname()+" ya existe, por favor elija otro."));
-                
             }
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();

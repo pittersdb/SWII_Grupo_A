@@ -29,7 +29,7 @@
                     <h:outputLabel value="0602877664001" />
                     
                     <h:outputLabel for="caducidadSRI" value="#{msg['Caducidad_SRI']}:" />
-                    <h:outputLabel value="nvnvnbvnbvbn" />
+                    <h:outputLabel value="2018 - 05 - 27" />
                     
                     
                     <h:outputLabel for="fecha_pago" value="#{msg['Fecha_de_pago']}:" />
@@ -50,16 +50,16 @@
                 <h:panelGrid columns="2" cellpadding="4">
                     
                     <h:outputLabel for="nombre" value="#{msg['Nombre']}:" />
-                    <h:inputText value="#" />
+                    <p:inputText value="#" id="nombre" required="true" label="nombre" />
                     
                     <h:outputLabel for="apellido" value="#{msg['Apellido']}:" />
                     <h:inputText value="#" />
                     
                     <h:outputLabel for="ruc" value="R.U.C.:" />
-                    <h:inputText value="#" />
+                    <p:inputText value="#" id="ruc" required="true" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
-                    <h:inputText value="#" />
+                    <p:inputText value="#" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
                     <p:inputTextarea id="direccion" rows="6" cols="15" /><br />
@@ -188,25 +188,25 @@
             
             <p:dialog header="#{msg['Medicamentos']}" widgetVar="editMedicina" resizable="false" id="editMdc" >
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
-                    <p:dataTable id="factura" value="#" var="fact" rows="10" paginator="true" paginatorPosition="bottom">
-
+                <p:dataTable id="medicamentoTable" value="#{Medicamento.all}" var="medicamento" rows="10" paginator="true" paginatorPosition="bottom" tableStyle="width:auto">
+                    
                         <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['Medicamento']}" />
                                 </f:facet>
-                                <h:inputText value="#" />
+                            <h:inputText value="#{medicamento.nombre}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
                                 <h:outputText value="#{msg['Descripcion']}" style="width:100%" />
                             </f:facet>
-                            <h:outputText value="#" />                                    
+                            <h:outputText value="#{medicamento.descripcion}" />                                    
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
                                 <h:outputText value="#{msg['Stock']}" style="width:100%" />
                             </f:facet>
-                            <h:outputText value="#" />                                    
+                            <h:outputText value="100" />                                    
                         </p:column>
                         
                     </p:dataTable>

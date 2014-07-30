@@ -48,7 +48,6 @@
             </p:column>
             
             <p:column headerText="#{msg['Acciones']}" style="width:250px">
-                    <p:commandButton value="#{msg['Historial']}" type="button" onclick="mostrarHistorial()" style="font-size: 10px !important;" />
                     <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
                     <p:commandButton value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />

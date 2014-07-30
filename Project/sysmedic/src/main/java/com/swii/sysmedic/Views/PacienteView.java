@@ -8,9 +8,7 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.PacienteFacade;
 import com.swii.sysmedic.entities.Paciente;
-import com.swii.sysmedic.entities.Users;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +19,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 /**
  *
- * @author LUCAS
+ * @author fabian
  */
 public class PacienteView {
     
@@ -79,7 +77,6 @@ public class PacienteView {
     
     public List<String> matchCi(String query) {
         
-       //List<Paciente> results = this.pacienteFacade.GetPacientesByCi(query);
         List<String> results = new ArrayList<String>();
         Paciente pacienteByCi = this.pacienteFacade.GetPacienteByCi(query);
         if(pacienteByCi != null){      
@@ -107,12 +104,19 @@ public class PacienteView {
         boolean existPaciente =  this.pacienteFacade.GetPacienteByCi(paciente.getCi()) != null;
         try{
             if(!existPaciente){
+                this.pacienteFacade.create(paciente);
                 this.all.add(new Paciente(paciente));
                 this.Clear();
             }
+            else{
+                FacesContext.getCurrentInstance().validationFailed();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "El paciente con el numero de cedula "+paciente.getCi()+" ya existe, por favor elija otro."));
+            }
                            
         }catch(Exception e){
-            
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, e);            
         }
     }
     
@@ -136,7 +140,7 @@ public class PacienteView {
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
-            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PacienteView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
