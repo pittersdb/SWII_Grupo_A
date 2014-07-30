@@ -8,12 +8,17 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.PacienteFacade;
 import com.swii.sysmedic.entities.Paciente;
+import com.swii.sysmedic.entities.Users;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
-
 /**
  *
  * @author LUCAS
@@ -23,11 +28,45 @@ public class PacienteView {
     @EJB
     private PacienteFacade pacienteFacade;
     private Paciente paciente = new Paciente();
+    private List<Paciente> all = new ArrayList<Paciente>();
+    
     
     /**
      * Creates a new instance of PacienteView
      */
-    public PacienteView() {
+    
+    @PostConstruct
+    public void init() {
+        all.addAll(allFromDB());
+        
+    }
+    
+    public PacienteView(){
+        this.pacienteFacade = new PacienteFacade();        
+    }
+            
+    public PacienteFacade getPacienteFacade() {
+        return pacienteFacade;
+    }
+
+    public void setPacienteFacade(PacienteFacade pacienteFacade) {
+        this.pacienteFacade = pacienteFacade;
+    }
+
+    public List<Paciente> getAll() {
+        if(all.isEmpty()){
+            all.addAll(allFromDB());
+            
+        }
+        return all;
+    }
+
+    public void setAll(List<Paciente> all) {
+        this.all = all;
+    }
+    
+    public List<Paciente> allFromDB(){
+        return this.pacienteFacade.findAll();
     }
 
     public Paciente getPaciente() {              
@@ -59,12 +98,56 @@ public class PacienteView {
          System.out.println("SELECT PACIENTE");
     }
      
-//     public void onCiSelect(AjaxBehaviorEvent event) {
-//        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-//         paciente = new Paciente(0, "", "","", null, "", "", "");
-//    }
+    public void LoadPaciente(String ci){
+        this.paciente = this.pacienteFacade.GetPacienteByCi(ci);
+        
+    }
+     
+     public void Insert(){
+        boolean existPaciente =  this.pacienteFacade.GetPacienteByCi(paciente.getCi()) != null;
+        try{
+            if(!existPaciente){
+                this.all.add(new Paciente(paciente));
+                this.Clear();
+            }
+                           
+        }catch(Exception e){
+            
+        }
+    }
     
+    public void Update(){
+        try{
+            Paciente originalpaciente = this.pacienteFacade.UpdateWithConstraints(paciente);
+            int index = this.all.indexOf(originalpaciente);
+            this.Clear();
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(PacienteView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     
+    public void Delete(int id){
+        try{
+            Paciente pacienteToDelete = this.pacienteFacade.find(id);
+            this.pacienteFacade.remove( pacienteToDelete);
+            this.all.remove(pacienteToDelete);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     
+    private void Clear(){
+        paciente.setNombres(null);
+        paciente.setApellidos(null);
+        paciente.setCi(null);
+        paciente.setDirecion(null);
+        paciente.setFechaNacimiento(null);
+        paciente.setLugarProcedencia(null);
+        
+    }
     
 }

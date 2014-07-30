@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -31,6 +32,13 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         super(Paciente.class);
     }
     
+    @Transactional
+    public Paciente UpdateWithConstraints(Paciente paciente){
+        Paciente originalPaciente = paciente;
+        
+        return originalPaciente;
+    }
+    
     public Paciente GetPacienteByCi(String ci) {
         TypedQuery<Paciente> query = em.createNamedQuery("Paciente.findByCi", Paciente.class);
         query.setParameter("ci", ci.toLowerCase());
@@ -39,5 +47,11 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
             return null;
         else
             return query.getResultList().get(0);
+    }
+      
+    @Override
+    public List<Paciente> findAll() {
+        List<Paciente> contacts = em.createNamedQuery("Paciente.findAll", Paciente.class).getResultList();
+        return contacts;
     }
 }

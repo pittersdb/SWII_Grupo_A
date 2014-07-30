@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
@@ -16,34 +16,64 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     
-    <h:form>
+    <h:form id="#{idForm}">
+        
+        <p:growl id="messages"  showDetail="true"/>
+        <c:if test="${actionDB == 'update'}">
+            <h:inputHidden value="#{Paciente.paciente.id}" />
+        </c:if>
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="nombres" value="#{msg['Nombre']}:" />
-            <p:inputText value="#" id="nombres" required="true" label="nombres" />
+            <p:inputText value="#{Paciente.paciente.nombres}" id="nombres" required="true" label="nombres" />
 
             <h:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
-            <p:inputText value="#" id="apellidos" required="true" label="apellidos" />
+            <p:inputText value="#{Paciente.paciente.apellidos}" id="apellidos" required="true" label="apellidos" />
 
             <h:outputLabel for="ci" value="#{msg['Cedula']}:" />
-            <p:inputText value="#" id="ci" required="true" label="ci" />
+            <p:inputText value="#{Paciente.paciente.ci}" id="ci" required="true" label="ci" />
 
             <h:outputLabel for="fecha_nacimiento" value="#{msg['fecha_nacimiento']}:" />
-            <p:inputText value="#" id="fecha_nacimiento" required="true" label="fecha_nacimiento" />
+            <p:inputText type="date" value="#{Paciente.paciente.fechaNacimiento}" id="fecha_nacimiento" required="true" label="fecha_nacimiento" />
 
             <h:outputLabel for="sexo" value="#{msg['Sexo']}:" />
-            <h:selectOneMenu value="#" id="sexo" required="true" label="sexo">
+            <h:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
                 <f:selectItem itemValue="M" itemLabel="#{msg['masculino']}"/>
                 <f:selectItem itemValue="F" itemLabel="#{msg['femenino']}"/>
             </h:selectOneMenu> 
 
             <h:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
-            <p:inputText value="#" id="lugar_procedencia" required="true" label="lugar_procedencia" />
+            <p:inputText value="#{Paciente.paciente.lugarProcedencia}" id="lugar_procedencia" required="true" label="lugar_procedencia" />
 
             <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
-            <p:inputText value="#" id="direccion" required="true" label="direccion" />
-
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" actionListener="#" />
-            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
+            <p:inputText value="#{Paciente.paciente.direcion}" id="direccion" required="true" label="direccion" />
+                      
+            <c:if test="${actionDB == 'create'}">
+                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Paciente.Insert()}" update="messages, :formPaciente:pacienteTable" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearPacientes();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                </p:commandButton>   
+            </c:if>      
+            
+            <c:if test="${actionDB == 'update'}">
+                <p:commandButton id="btnGuardar" value="#{msg['Modificar']}"   actionListener="#{Paciente.Update()}" update="messages, :formPaciente:pacienteTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                </p:commandButton>   
+            </c:if>   
+            
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" onclick=" PF('#{dialog}').hide()" />  
+            
+            <p:confirmDialog global="true" showEffect="fade" >                  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+            </p:confirmDialog>
+            
+            <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
+                <f:facet name="message">
+                    <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
+                </f:facet>
+                <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
+                                 icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
+            </p:confirmDialog>
+            
         </h:panelGrid>
     </h:form>
 
