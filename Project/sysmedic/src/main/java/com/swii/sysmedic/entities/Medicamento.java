@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author fabian
  */
 @Entity
-@Table(name = "medicamento")
+@Table(name = "\"SysMedic\".\"medicamento\"")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m"),
@@ -57,6 +57,12 @@ public class Medicamento implements Serializable {
     private Collection<Medicacion> medicacionCollection;
 
     public Medicamento() {
+    }
+    
+    public Medicamento(Medicamento source) {
+        this.id = source.getId();
+        this.nombre = source.getNombre();
+        this.descripcion = source.getDescripcion();
     }
 
     public Medicamento(Integer id) {

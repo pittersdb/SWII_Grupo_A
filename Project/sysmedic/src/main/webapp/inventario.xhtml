@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
 
-    <p:tabView>
+    <p:tabView id="inventario">
         <!--Ingreso de medicinas por lote-->
         <p:tab title="#{msg['ingreso_medicinas']}">
             <h:form>
@@ -72,16 +72,17 @@
 
         <!-- Crear nueva medicina-->
         <p:tab title="#{msg['crear_nueva_medicina']}">
-            <ui:include src="nuevaMedicina.html" />
+            <ui:include src="nuevaMedicina.xhtml" />
         </p:tab>
         
+        <!-- Reportes de medicinas-->
         <p:tab title="#{msg['reportes']}">
             <h:panelGrid columns="2" cellpadding="5">
                 <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#" />
             </h:panelGrid>
             <h:panelGrid columns="2" cellpadding="10">
                 
-                <p:dataTable var="car" value="#">
+                <p:dataTable id="medicamentosTable" var="medicamento" value="#{Medicamento.all}">
                     
                     <p:column headerText="#{msg['codigo_lote']}">
                         <h:outputText value="#" />
