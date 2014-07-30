@@ -14,7 +14,6 @@ import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +22,12 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  *
  * @author LUCAS
@@ -37,8 +36,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UsersView {
     @EJB
     private UsersFacade usersFacade;
-    @EJB
-    private MedicoFacade medicFacade;
+    
     private Users user = new Users();
     private String selectedRol;
     private int selectedEspecialidad;
@@ -67,11 +65,9 @@ public class UsersView {
     }
     
     public void LoadUser(String nickname){
-        this.user = this.usersFacade.GetUser(nickname);
+        this.user = this.usersFacade.LoadCompleteUser(nickname);
         this.selectedRol = this.user.getRol();
-        if(selectedRol.equals("m")){
-            selectedEspecialidad = this.medicFacade.find(this.user.getId()).getEspecialidad().getId();
-        }
+        this.selectedEspecialidad = this.user.getEspecialidad();
     }
     
     public Users getUser(){
@@ -79,7 +75,6 @@ public class UsersView {
     }
     
     public String getUserName(int id){
-        //int ident = Integer.parseInt(id);
         Users u = this.usersFacade.find(id);
         return u.getName() + " " +u.getApellidos();
     }
@@ -92,30 +87,12 @@ public class UsersView {
         this.selectedRol = selectedRol;
     }
     
-    public void Test(String test){
-        System.out.println("TEST: "+test);
-    }
-    
+   
     public void Save(){
-        boolean existsUser =  this.usersFacade.GetUser(user.getNickname()) != null;
         try{
-            if(!existsUser){
-                user.setRol(selectedRol);
-                user.setEnabled((short)1);
-                if(!selectedRol.equalsIgnoreCase("m")){
-                    this.usersFacade.create(user);
-                }else{
-                    this.usersFacade.create(user);
-                    try{
-                        Medico newMedico = new Medico();
-                        newMedico.setId(user.getId());
-                        newMedico.setEspecialidad(new Especialidad(selectedEspecialidad));
-                        newMedico.setUsers(user);
-                        this.medicFacade.create(newMedico);
-                    }catch(Exception eMedic){
-                        this.usersFacade.remove(user);
-                    }
-                }
+            if(!this.usersFacade.existsUser(user.getNickname())){
+                this.usersFacade.Save(user, selectedRol);
+                this.usersFacade.SaveAsMedic(user, selectedEspecialidad);
                 this.all.add(new Users(user));
                 this.Clear();
             }else{
@@ -131,7 +108,7 @@ public class UsersView {
     
     public void Update(){
         try{
-            Users originalUser = this.usersFacade.UpdateWithConstraints(user, selectedRol, selectedEspecialidad, medicFacade);
+            Users originalUser = this.usersFacade.UpdateWithConstraints(user, selectedRol, selectedEspecialidad);
             int index = this.all.indexOf(originalUser);
             this.all.get(index).set(originalUser);
             this.Clear();
@@ -154,31 +131,16 @@ public class UsersView {
         }
     }
     
-    public void destroyWorld(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Empty fields!", "Insert something in at least one input!"));
-        
-        System.out.println("HOLA");
-    }
-    
-    public String Hola(){
-        return "hola";
-    }
-    
     public String Name(){
-        //FacesContext facesContext = FacesContext.getCurrentInstance();
-        //return this.usersFacade.GetUser(facesContext.getExternalContext().getRemoteUser()).getName();
-        //return "Hola";
-        
         UserDetails userDetails = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return this.usersFacade.GetUser(userDetails.getUsername()).getName();
+            Users userSession =  this.usersFacade.GetUser(userDetails.getUsername());
+            return userSession.getName() + " " + userSession.getApellidos();
         }else {
             return "none";
         }
-        
-        
     }
     
     public List<Users> getAll() {
@@ -206,19 +168,6 @@ public class UsersView {
             externalContext.redirect( serverName + "/cas-server-webapp/logout" + "?destination="+serverName+"/sysmedic");
         } catch (IOException ex) {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
-    public void ShowSessionAttributes(){
-        HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpSession session = req.getSession();
-        Enumeration keys = session.getAttributeNames();
-        System.out.println("Atributos: ");
-        while (keys.hasMoreElements())
-        {
-            String key = (String)keys.nextElement();
-            System.out.println(key + ": " + session.getAttribute(key) + "<br>");
         }
     }
     

@@ -15,7 +15,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -39,33 +38,7 @@ public class UsersFacade extends AbstractFacade<Users> {
         
     }
     
-    @Transactional
-    public Users UpdateWithConstraints(Users user, String selectedRol, int selectedEspecialidad,  MedicoFacade medicFacade){
-        user.setRol(selectedRol);
-            user.setEnabled((short)1);
-            Users originalUser = this.GetUser(user.getNickname());
-            originalUser.set(user);
-            //System.out.println("USER: "+originalUser.toString());
-            this.edit(originalUser);
-            
-            Medico medico = medicFacade.find(user.getId());
-            if(medico != null && !user.getRol().equals("m")){
-                medicFacade.remove(medico); 
-            }
-            if(user.getRol().equals("m")){
-                if(medico == null){
-                    medico = new Medico();
-                    medico.setId(user.getId());
-                    medico.setEspecialidad(new Especialidad(selectedEspecialidad));
-                    medico.setUsers(user);
-                    medicFacade.create(medico);
-                }else{
-                    medico.setEspecialidad(new Especialidad(selectedEspecialidad));
-                    medicFacade.edit(medico);
-                }
-            }       
-            return originalUser;
-    }
+    //DATABASE custom operations
     
     public Users GetUser(String nickName) {
         TypedQuery<Users> query = em.createNamedQuery("Users.findByNickname", Users.class);
@@ -77,9 +50,69 @@ public class UsersFacade extends AbstractFacade<Users> {
             return query.getResultList().get(0);
     }
     
+    public Users LoadCompleteUser(String nickname){
+        Users user = GetUser(nickname);
+        if(user.getRol().equals("m")){
+            user.setEspecialidad( this.medicoFacade.find(user.getId()).getEspecialidad().getId());
+        }
+        return user;
+    }
+    
+    public boolean existsUser(String nickname){
+        return GetUser(nickname) != null;
+    }
+    
+    public void Save(Users user, String selectedRol){
+        user.setRol(selectedRol);
+        user.setEnabled((short)1);
+        create(user);
+        
+    }
+    
+    public void SaveAsMedic(Users user, int selectedEspecialidad){
+        if(user.getRol().equalsIgnoreCase("m")){
+            try{
+                Medico newMedico = new Medico();
+                newMedico.setId(user.getId());
+                newMedico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                newMedico.setUsers(user);
+                this.medicoFacade.create(newMedico);
+            }catch(Exception eMedic){
+                remove(user);
+            }
+        }
+    }
+    
+    public Users UpdateWithConstraints(Users user, String selectedRol, int selectedEspecialidad){
+        user.setRol(selectedRol);
+        user.setEnabled((short)1);
+        Users originalUser = this.GetUser(user.getNickname());
+        originalUser.set(user);
+        this.edit(originalUser);
+        
+        Medico medico = medicoFacade.find(user.getId());
+        if(medico != null && !user.getRol().equals("m")){
+            medicoFacade.remove(medico);
+        }
+        if(user.getRol().equals("m")){
+            if(medico == null){
+                medico = new Medico();
+                medico.setId(user.getId());
+                medico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                medico.setUsers(user);
+                medicoFacade.create(medico);
+            }else{
+                medico.setEspecialidad(new Especialidad(selectedEspecialidad));
+                medicoFacade.edit(medico);
+            }
+        }
+        return originalUser;
+    }
+    
     @Override
     public List<Users> findAll() {
         List<Users> contacts = em.createNamedQuery("Users.findAll", Users.class).getResultList();
         return contacts;
-    }
+    }  
+    
 }
