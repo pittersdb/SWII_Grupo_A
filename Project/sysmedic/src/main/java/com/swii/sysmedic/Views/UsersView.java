@@ -14,7 +14,6 @@ import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +22,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  *
  * @author LUCAS
@@ -154,32 +152,17 @@ public class UsersView {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    public void destroyWorld(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Empty fields!", "Insert something in at least one input!"));
-        
-        System.out.println("HOLA");
-    }
-    
-    public String Hola(){
-        return "hola";
-    }
-    
+   
     public String Name(){
-        //FacesContext facesContext = FacesContext.getCurrentInstance();
-        //return this.usersFacade.GetUser(facesContext.getExternalContext().getRemoteUser()).getName();
-        //return "Hola";
-        
         UserDetails userDetails = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return this.usersFacade.GetUser(userDetails.getUsername()).getName();
+            Users userSession =  this.usersFacade.GetUser(userDetails.getUsername());
+            return userSession.getName() + " " + userSession.getApellidos();
         }else {
             return "none";
         }
-        
-        
     }
     
     public List<Users> getAll() {
@@ -207,19 +190,6 @@ public class UsersView {
             externalContext.redirect( serverName + "/cas-server-webapp/logout" + "?destination="+serverName+"/sysmedic");
         } catch (IOException ex) {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
-    public void ShowSessionAttributes(){
-        HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpSession session = req.getSession();
-        Enumeration keys = session.getAttributeNames();
-        System.out.println("Atributos: ");
-        while (keys.hasMoreElements())
-        {
-            String key = (String)keys.nextElement();
-            System.out.println(key + ": " + session.getAttribute(key) + "<br>");
         }
     }
     

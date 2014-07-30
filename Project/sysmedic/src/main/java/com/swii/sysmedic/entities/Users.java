@@ -7,7 +7,6 @@
 package com.swii.sysmedic.entities;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

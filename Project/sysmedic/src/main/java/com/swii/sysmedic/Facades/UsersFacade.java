@@ -45,7 +45,6 @@ public class UsersFacade extends AbstractFacade<Users> {
             user.setEnabled((short)1);
             Users originalUser = this.GetUser(user.getNickname());
             originalUser.set(user);
-            //System.out.println("USER: "+originalUser.toString());
             this.edit(originalUser);
             
             Medico medico = medicFacade.find(user.getId());
