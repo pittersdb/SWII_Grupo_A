@@ -36,8 +36,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UsersView {
     @EJB
     private UsersFacade usersFacade;
-    @EJB
-    private MedicoFacade medicFacade;
     
     private Users user = new Users();
     private String selectedRol;
@@ -110,7 +108,7 @@ public class UsersView {
     
     public void Update(){
         try{
-            Users originalUser = this.usersFacade.UpdateWithConstraints(user, selectedRol, selectedEspecialidad, medicFacade);
+            Users originalUser = this.usersFacade.UpdateWithConstraints(user, selectedRol, selectedEspecialidad);
             int index = this.all.indexOf(originalUser);
             this.all.get(index).set(originalUser);
             this.Clear();
