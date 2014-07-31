@@ -53,8 +53,8 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
     
     @Override
     public List<Medicamento> findAll() {
-        List<Medicamento> contacts = em.createNamedQuery("Medicamento.findAll", Medicamento.class).getResultList();
-        return contacts;
+        List<Medicamento> medicamentos = em.createNamedQuery("Medicamento.findAll", Medicamento.class).getResultList();
+        return medicamentos;
     }
     
 }

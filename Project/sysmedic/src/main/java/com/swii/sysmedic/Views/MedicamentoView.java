@@ -11,6 +11,7 @@ import com.swii.sysmedic.entities.Medicamento;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,17 +33,15 @@ public class MedicamentoView {
     private Medicamento medicamento = new Medicamento();
     private List<Medicamento> all = new ArrayList<Medicamento>();
     private String selectedItem; // +getter +setter
-    private List<SelectItem> availableItems; // +getter (no setter necessary)
+    private List<SelectItem> availableMedicamentos; // +getter (no setter necessary)
+    private List<SelectItem> availableMedicamentosDev; // +getter (no setter necessary)
     /**
      * Creates a new instance of MedicamentoView
      */
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        availableItems = new ArrayList<SelectItem>();
-        availableItems.add(new SelectItem("foo", "Foo label"));
-        availableItems.add(new SelectItem("bar", "Bar label"));
-        availableItems.add(new SelectItem("baz", "Baz label"));
+        availableMedicamentos = new ArrayList<SelectItem>();
     }
     
     public MedicamentoView() {
@@ -51,6 +50,22 @@ public class MedicamentoView {
     
     public Medicamento getMedicamento(){
         return this.medicamento;
+    }
+    
+    public String getSelectedMedicamento() {
+        return selectedItem;
+    }
+
+    public void setSelectMedicamento(String selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+    
+    public List<SelectItem> getAvailableMedicamentos() {
+        for (Iterator<Medicamento> it = all.iterator(); it.hasNext();) {
+            Medicamento medicamento1 = it.next();
+            availableMedicamentos.add(new SelectItem(medicamento1.getNombre()));
+        }
+        return availableMedicamentos;
     }
     
     public List<Medicamento> getAll() {
