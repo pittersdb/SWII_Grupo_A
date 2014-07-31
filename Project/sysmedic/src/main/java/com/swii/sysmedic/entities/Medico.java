@@ -7,9 +7,7 @@
 package com.swii.sysmedic.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,37 +17,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabian
+ * @author LUCAS
  */
 @Entity
 @Table(name = "\"SysMedic\".medico")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m"),
-    @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id"),
-    @NamedQuery(name = "Medico.findByName", query = "SELECT m FROM Medico m JOIN Users u WHERE m.id = u.id AND (lower(u.name) LIKE :name OR lower(u.apellidos) LIKE :apellidos)")})
+    @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
 public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medico")
-    private Collection<Cita> citaCollection;
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    @ManyToOne
+    private Users users;
     @JoinColumn(name = "especialidad_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Especialidad especialidad;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Users users;
 
     public Medico() {
     }
@@ -66,13 +59,12 @@ public class Medico implements Serializable {
         this.id = id;
     }
 
-    @XmlTransient
-    public Collection<Cita> getCitaCollection() {
-        return citaCollection;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setCitaCollection(Collection<Cita> citaCollection) {
-        this.citaCollection = citaCollection;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public Especialidad getEspecialidad() {
@@ -81,14 +73,6 @@ public class Medico implements Serializable {
 
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
     }
 
     @Override

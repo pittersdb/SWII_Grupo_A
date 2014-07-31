@@ -6,10 +6,7 @@
 
 package com.swii.sysmedic.Views;
 
-import com.swii.sysmedic.Facades.MedicoFacade;
 import com.swii.sysmedic.Facades.UsersFacade;
-import com.swii.sysmedic.entities.Especialidad;
-import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Users;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +19,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.transaction.Transactional;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -91,8 +87,7 @@ public class UsersView {
     public void Save(){
         try{
             if(!this.usersFacade.existsUser(user.getNickname())){
-                this.usersFacade.Save(user, selectedRol);
-                this.usersFacade.SaveAsMedic(user, selectedEspecialidad);
+                this.usersFacade.Save(user, selectedRol, selectedEspecialidad);
                 this.all.add(new Users(user));
                 this.Clear();
             }else{

@@ -62,25 +62,18 @@ public class UsersFacade extends AbstractFacade<Users> {
         return GetUser(nickname) != null;
     }
     
-    public void Save(Users user, String selectedRol){
+    public void Save(Users user, String selectedRol, int selectedEspecialidad){
         user.setRol(selectedRol);
         user.setEnabled((short)1);
         create(user);
         
-    }
-    
-    public void SaveAsMedic(Users user, int selectedEspecialidad){
-        if(user.getRol().equalsIgnoreCase("m")){
-            try{
-                Medico newMedico = new Medico();
-                newMedico.setId(user.getId());
-                newMedico.setEspecialidad(new Especialidad(selectedEspecialidad));
-                newMedico.setUsers(user);
-                this.medicoFacade.create(newMedico);
-            }catch(Exception eMedic){
-                remove(user);
-            }
-        }
+         if(user.getRol().equalsIgnoreCase("m")){
+            Medico newMedico = new Medico();
+            newMedico.setEspecialidad(new Especialidad(selectedEspecialidad));
+            newMedico.setUsers(user);
+            this.medicoFacade.create(newMedico);
+         }
+        
     }
     
     public Users UpdateWithConstraints(Users user, String selectedRol, int selectedEspecialidad){
@@ -113,6 +106,6 @@ public class UsersFacade extends AbstractFacade<Users> {
     public List<Users> findAll() {
         List<Users> contacts = em.createNamedQuery("Users.findAll", Users.class).getResultList();
         return contacts;
-    }  
+    }
     
 }

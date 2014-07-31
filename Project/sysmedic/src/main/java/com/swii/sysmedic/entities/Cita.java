@@ -78,7 +78,7 @@ public class Cita implements Serializable {
     private Medico medico;
     @JoinColumn(name = "generador_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Users users;
+    private Users users; 
 
     public Cita() {
     }

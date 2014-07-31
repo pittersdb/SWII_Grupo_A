@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabian
+ * @author LUCAS
  */
 @Entity
 @Table(name = "\"SysMedic\".especialidad")
