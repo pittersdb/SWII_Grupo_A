@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.embeddable.EJBContainer;
+import javax.sql.DataSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -24,6 +25,198 @@ import org.junit.Test;
  * @author LUCAS
  */
 public class UsersFacadeTest {
+//    
+//    public UsersFacadeTest() {
+//    }
+//    
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
+//    
+//    @Before
+//    public void setUp() {
+//    }
+//    
+//    @After
+//    public void tearDown() {
+//    }
+//
+//    /**
+//     * Test of create method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testCreate() throws Exception {
+//        System.out.println("create");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.create(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of edit method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testEdit() throws Exception {
+//        System.out.println("edit");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.edit(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of remove method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testRemove() throws Exception {
+//        System.out.println("remove");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.remove(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of find method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testFind() throws Exception {
+//        System.out.println("find");
+//        Object id = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        Users expResult = null;
+//        Users result = instance.find(id);
+//        assertEquals(expResult, result);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of findRange method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testFindRange() throws Exception {
+//        System.out.println("findRange");
+//        int[] range = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        List<Users> expResult = null;
+//        List<Users> result = instance.findRange(range);
+//        assertEquals(expResult, result);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//    
+//    public UsersFacadeTest() {
+//    }
+//    
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
+//    
+//    @Before
+//    public void setUp() {
+//    }
+//    
+//    @After
+//    public void tearDown() {
+//    }
+//
+//    /**
+//     * Test of create method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testCreate() throws Exception {
+//        System.out.println("create");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.create(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of edit method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testEdit() throws Exception {
+//        System.out.println("edit");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.edit(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of remove method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testRemove() throws Exception {
+//        System.out.println("remove");
+//        Users entity = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        instance.remove(entity);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of find method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testFind() throws Exception {
+//        System.out.println("find");
+//        Object id = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        Users expResult = null;
+//        Users result = instance.find(id);
+//        assertEquals(expResult, result);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of findRange method, of class UsersFacade.
+//     */
+//    @Test
+//    public void testFindRange() throws Exception {
+//        System.out.println("findRange");
+//        int[] range = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+//        List<Users> expResult = null;
+//        List<Users> result = instance.findRange(range);
+//        assertEquals(expResult, result);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
 //    
 //    public UsersFacadeTest() {
 //    }
@@ -142,21 +335,27 @@ public class UsersFacadeTest {
 //    /**
 //     * Test of GetUser method, of class UsersFacade.
 //     */
-//    @Test
-//    public void testGetUser() throws Exception {
-//        System.out.println("GetUser");
-//        String nickName = "gchavez";
-//        Map properties = new HashMap(); 
-//        properties.put(EJBContainer.MODULES, new File("D:\\ESPOL\\SEMESTRE XIII\\INGENIERIA DE SOFTWARE II\\SWII_Grupo_A\\Project\\sysmedic\\target\\sysmedic-1.0-SNAPSHOT\\WEB-INF\\classes\\com\\swii\\sysmedic\\Facades"));
-//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(properties); 
-//        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
-//        String expResultName = "Gabriel";
-//        String resultName = instance.GetUser(nickName).getName();
-//        assertEquals(expResultName, resultName);
-//        container.close();
-//        // TODO review the generated test code and remove the default call to fail.
+    @Test
+    public void testGetUser() throws Exception {
+        System.out.println("GetUser");
+        String nickName = "gchavez";
+        Map<String, Object> props = new HashMap<String, Object>();
+
+        //properties.put(EJBContainer.MODULES, new File("D:\\ESPOL\\SEMESTRE XIII\\INGENIERIA DE SOFTWARE II\\SWII_Grupo_A\\Project\\sysmedic\\target\\sysmedic-1.0-SNAPSHOT\\WEB-INF\\classes\\com\\swii\\sysmedic\\Facades"));
+        props.put(EJBContainer.MODULES, new File("target/classes"));
+        props.put("org.glassfish.ejb.embedded.glassfish.installation.root", "C:\\Users\\software\\GlassFish_Server\\glassfish");
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(props);
+
+        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+        System.out.println("Inserting entities...");
+
+        String expResultName = "Gabriel";
+        String resultName = instance.GetUser(nickName).getName();
+        assertEquals(expResultName, resultName);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
 //        fail("Data cannot be retrieved.");
-//    }
+    }
 //
 //    /**
 //     * Test of LoadCompleteUser method, of class UsersFacade.
