@@ -1,23 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.Facades;
 
-import com.swii.sysmedic.entities.Users;
+import com.swii.sysmedic.Util.Config;
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.ejb.embeddable.EJBContainer;
-import javax.sql.DataSource;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -25,22 +19,22 @@ import org.junit.Test;
  * @author LUCAS
  */
 public class UsersFacadeTest {
-//    
+//
 //    public UsersFacadeTest() {
 //    }
-//    
+//
 //    @BeforeClass
 //    public static void setUpClass() {
 //    }
-//    
+//
 //    @AfterClass
 //    public static void tearDownClass() {
 //    }
-//    
+//
 //    @Before
 //    public void setUp() {
 //    }
-//    
+//
 //    @After
 //    public void tearDown() {
 //    }
@@ -121,22 +115,22 @@ public class UsersFacadeTest {
 //        assertEquals(expResult, result);
 //        container.close();
 //        // TODO review the generated test code and remove the default call to fail.
-//    
+//
 //    public UsersFacadeTest() {
 //    }
-//    
+//
 //    @BeforeClass
 //    public static void setUpClass() {
 //    }
-//    
+//
 //    @AfterClass
 //    public static void tearDownClass() {
 //    }
-//    
+//
 //    @Before
 //    public void setUp() {
 //    }
-//    
+//
 //    @After
 //    public void tearDown() {
 //    }
@@ -217,22 +211,22 @@ public class UsersFacadeTest {
 //        assertEquals(expResult, result);
 //        container.close();
 //        // TODO review the generated test code and remove the default call to fail.
-//    
+//
 //    public UsersFacadeTest() {
 //    }
-//    
+//
 //    @BeforeClass
 //    public static void setUpClass() {
 //    }
-//    
+//
 //    @AfterClass
 //    public static void tearDownClass() {
 //    }
-//    
+//
 //    @Before
 //    public void setUp() {
 //    }
-//    
+//
 //    @After
 //    public void tearDown() {
 //    }
@@ -337,18 +331,17 @@ public class UsersFacadeTest {
 //     */
     @Test
     public void testGetUser() throws Exception {
-        System.out.println("GetUser");
         String nickName = "gchavez";
+        
         Map<String, Object> props = new HashMap<String, Object>();
-
-        //properties.put(EJBContainer.MODULES, new File("D:\\ESPOL\\SEMESTRE XIII\\INGENIERIA DE SOFTWARE II\\SWII_Grupo_A\\Project\\sysmedic\\target\\sysmedic-1.0-SNAPSHOT\\WEB-INF\\classes\\com\\swii\\sysmedic\\Facades"));
+        
         props.put(EJBContainer.MODULES, new File("target/classes"));
-        props.put("org.glassfish.ejb.embedded.glassfish.installation.root", "C:\\Users\\software\\GlassFish_Server\\glassfish");
+        props.put("org.glassfish.ejb.embedded.glassfish.configuration.file", Config.getInstance().getProperty("server.config.file"));
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(props);
-
+        
         UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
         System.out.println("Inserting entities...");
-
+        
         String expResultName = "Gabriel";
         String resultName = instance.GetUser(nickName).getName();
         assertEquals(expResultName, resultName);
