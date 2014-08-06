@@ -25,11 +25,10 @@
             <p:inputTextarea id="descripcion_medicina" maxlength="150" value="#{Medicamento.medicamento.descripcion}"/>
             
 
-            <p:commandButton id="btnGuardarMed" value="#{msg['Guardar']}"   actionListener="#{Medicamento.Save()}" update=":inventario:medicamentosTable" > 
+            <p:commandButton id="btnGuardarMed" value="#{msg['Guardar']}"   actionListener="#{Medicamento.Save()}" update=":inventario:medicamentosTable, :inventario:formDevMedicinas:selectMedic, :inventario:formIngMedicinas:selectMedicina" > 
                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
             </p:commandButton>
             
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" actionListener="#" />
             <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
         </h:panelGrid>
     </h:form>

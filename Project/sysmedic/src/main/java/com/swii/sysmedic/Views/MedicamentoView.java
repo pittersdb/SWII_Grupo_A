@@ -34,14 +34,14 @@ public class MedicamentoView {
     private List<Medicamento> all = new ArrayList<Medicamento>();
     private String selectedItem; // +getter +setter
     private List<SelectItem> availableMedicamentos; // +getter (no setter necessary)
-    private List<SelectItem> availableMedicamentosDev; // +getter (no setter necessary)
+
     /**
      * Creates a new instance of MedicamentoView
      */
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        availableMedicamentos = new ArrayList<SelectItem>();
+        availableMedicamentos = medicamentoFacade.list();
     }
     
     public MedicamentoView() {
@@ -61,10 +61,6 @@ public class MedicamentoView {
     }
     
     public List<SelectItem> getAvailableMedicamentos() {
-        for (Iterator<Medicamento> it = all.iterator(); it.hasNext();) {
-            Medicamento medicamento1 = it.next();
-            availableMedicamentos.add(new SelectItem(medicamento1.getNombre()));
-        }
         return availableMedicamentos;
     }
     
@@ -95,8 +91,6 @@ public class MedicamentoView {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    
     
     private void Clear(){
         medicamento.setNombre(null);

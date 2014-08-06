@@ -18,7 +18,7 @@
     <p:tabView id="inventario">
         <!--Ingreso de medicinas por lote-->
         <p:tab title="#{msg['ingreso_medicinas']}">
-            <h:form>
+            <h:form id="formIngMedicinas">
                 <p:growl id="growl" showDetail="true" life="2000" />
                 <h:panelGrid columns="2" cellpadding="5">
 
@@ -43,6 +43,10 @@
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
                     <p:calendar id="inputFecha" showOn="button"/>
 
+                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update=":inventario:medicamentosTable" > 
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                    </p:commandButton>
+                    
                     <p:commandButton value="#{msg['Guardar']}" id="btnGuardarTrans" actionListener="#" styleClass="ui-priority-primary" />
                     <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarTrans" actionListener="#" />
                     
@@ -52,12 +56,13 @@
         
         <!-- Devolucion de medicinas por lote-->
         <p:tab title="#{msg['devolucion_medicinas']}">
-            <h:form>
+            <h:form id="formDevMedicinas">
                 <h:panelGrid columns="2" cellpadding="5">
 
                     <p:outputLabel for="selectMedic" value="#{msg['Medicamento']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectMedic" value="#{Medicamento.selectedMedicamento}">
-                        <f:selectItem itemLabel="#{msg['seleccionar_uno']}" itemValue="#{null}" />
+                        <f:selectItem itemValue="#{null}" itemLabel="selecciona uno" />
+                        <f:selectItems value="#{Medicamento.availableMedicamentos}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
