@@ -7,8 +7,10 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Medicamento;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -49,6 +51,17 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
     
     public void Save(Medicamento medicamento){
         create(medicamento);
+    }
+    
+    public List<SelectItem> list(){
+        List<SelectItem> listMedicamentos = new ArrayList<SelectItem>();
+        List<Medicamento> medicamentos = em.createNamedQuery("Medicamento.findAll", Medicamento.class).getResultList();
+        
+        for (Medicamento medicamento : medicamentos) {
+            listMedicamentos.add(new SelectItem(medicamento.getNombre()));
+        }
+        
+        return listMedicamentos;
     }
     
     @Override

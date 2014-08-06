@@ -7,9 +7,11 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.MedicamentoLote;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,21 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
         super(MedicamentoLote.class);
     }
     
+    public MedicamentoLote GetLote(Long lote) {
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByCodigoLote", MedicamentoLote.class);
+        query.setParameter("codigoLote", lote);
+        List lotes = query.getResultList();
+        if(lotes == null || lotes.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
+    }
+    
+    public boolean existsLote(Long lote){
+        return GetLote(lote) != null;
+    }
+    
+    public void SaveLote(MedicamentoLote lote){
+        create(lote);
+    }
 }
