@@ -39,9 +39,22 @@ public class MedicamentoLoteView {
 
     }
     
+    public MedicamentoLote getMedicamentoLote() {              
+        return lote;
+    }
+
+    public void setMedicamentoLote(MedicamentoLote lote) {
+        this.lote = lote;
+    }
+    
     public void Save(){
         try{
-            if(!this.medicamentoLoteFacade.existsLote(lote.getCodigoLote())){
+            if(!this.medicamentoLoteFacade.existsLote(lote.getCodigoLote(), lote.getMedicamento().getId())){
+                long newCodigo = this.medicamentoLoteFacade.getNewCodigoLote(lote.getMedicamento().getId());
+                this.lote.setCodigoLote(newCodigo);
+                this.lote.setEstado("d");
+                this.lote.setMedicamento(lote.getMedicamento());
+                
                 this.medicamentoLoteFacade.SaveLote(lote);
 //                this.all.add(new Medicamento(medicamento));
 //                this.Clear();

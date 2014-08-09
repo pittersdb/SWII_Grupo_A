@@ -48,7 +48,7 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>medicamentoLoteView</managed-bean-name>
+        <managed-bean-name>MedicamentoLote</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.MedicamentoLoteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>

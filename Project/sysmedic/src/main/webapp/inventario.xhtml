@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
@@ -29,19 +30,19 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="inputFechaElab" value="#{msg['fecha_elaboracion']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaElab" showOn="button"/>
+                    <p:calendar id="inputFechaElab" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaElaboracion}"/>
 
                     <p:outputLabel for="inputFechaCaduc" value="#{msg['fecha_caducidad']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaCaduc" showOn="button"/>
+                    <p:calendar id="inputFechaCaduc" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaCaducidad}"/>
 
                     <p:outputLabel for="inputPrecio" value="#{msg['precio']}: "></p:outputLabel>
-                    <p:inputText  id="inputPrecio"/>
+                    <p:inputText  id="inputPrecio" value="#{MedicamentoLote.medicamentoLote.precio}"/>
 
                     <p:outputLabel for="inputCantidad" value="#{msg['Cantidad']}: "></p:outputLabel>
-                    <p:inputText  id="inputCantidad"/>
+                    <p:inputText  id="inputCantidad" value="#{MedicamentoLote.medicamentoLote.cantidadDisponible}"/>
 
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
-                    <p:calendar id="inputFecha" showOn="button"/>
+                    <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}"/>
 
                     <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update=":inventario:medicamentosTable" > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
