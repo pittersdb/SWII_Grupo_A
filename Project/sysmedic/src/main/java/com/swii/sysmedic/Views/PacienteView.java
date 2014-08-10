@@ -28,7 +28,7 @@ public class PacienteView {
     private Paciente paciente = new Paciente();
     private List<Paciente> all = new ArrayList<Paciente>();
     
-    
+    private static PacienteView instance;
     /**
      * Creates a new instance of PacienteView
      */
@@ -36,13 +36,19 @@ public class PacienteView {
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        
+        instance = this;
     }
     
     public PacienteView(){
-        this.pacienteFacade = new PacienteFacade();        
+        this.pacienteFacade = new PacienteFacade();      
+    }
+
+    public static PacienteView getInstance() {
+        return instance;
     }
             
+    
+    
     public PacienteFacade getPacienteFacade() {
         return pacienteFacade;
     }

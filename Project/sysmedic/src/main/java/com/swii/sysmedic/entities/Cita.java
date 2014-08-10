@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.entities;
 
@@ -43,6 +43,31 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cita.findByFechaConsultaActual", query = "SELECT c FROM Cita c WHERE c.fechaConsultaActual = :fechaConsultaActual"),
     @NamedQuery(name = "Cita.findByEstado", query = "SELECT c FROM Cita c WHERE c.estado = :estado")})
 public class Cita implements Serializable {
+    
+    public enum Estado {
+        Postergado("p"), 
+        Cancelado("c"), 
+        Terminado("t"), 
+        Pendiente("d");
+        
+        private final String text;
+        
+        /**
+         * @param text
+         */
+        private Estado(final String text) {
+            this.text = text;
+        }
+        
+        /* (non-Javadoc)
+        * @see java.lang.Enum#toString()
+        */
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,112 +103,112 @@ public class Cita implements Serializable {
     private Medico medico;
     @JoinColumn(name = "generador_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Users users; 
-
+    private Users users;
+    
     public Cita() {
     }
-
+    
     public Cita(Integer id) {
         this.id = id;
     }
-
+    
     public Cita(Integer id, Date fechaGeneracion, Date fechaConsultaActual, String estado) {
         this.id = id;
         this.fechaGeneracion = fechaGeneracion;
         this.fechaConsultaActual = fechaConsultaActual;
         this.estado = estado;
     }
-
+    
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public Date getFechaGeneracion() {
         return fechaGeneracion;
     }
-
+    
     public void setFechaGeneracion(Date fechaGeneracion) {
         this.fechaGeneracion = fechaGeneracion;
     }
-
+    
     public Date getFechaConsultaActual() {
         return fechaConsultaActual;
     }
-
+    
     public void setFechaConsultaActual(Date fechaConsultaActual) {
         this.fechaConsultaActual = fechaConsultaActual;
     }
-
+    
     public String getEstado() {
         return estado;
     }
-
+    
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
+    
     @XmlTransient
     public Collection<Consulta> getConsultaCollection() {
         return consultaCollection;
     }
-
+    
     public void setConsultaCollection(Collection<Consulta> consultaCollection) {
         this.consultaCollection = consultaCollection;
     }
-
+    
     @XmlTransient
     public Collection<Consulta> getConsultaCollection1() {
         return consultaCollection1;
     }
-
+    
     public void setConsultaCollection1(Collection<Consulta> consultaCollection1) {
         this.consultaCollection1 = consultaCollection1;
     }
-
+    
     @XmlTransient
     public Collection<CitaCancelada> getCitaCanceladaCollection() {
         return citaCanceladaCollection;
     }
-
+    
     public void setCitaCanceladaCollection(Collection<CitaCancelada> citaCanceladaCollection) {
         this.citaCanceladaCollection = citaCanceladaCollection;
     }
-
+    
     public Paciente getPaciente() {
         return paciente;
     }
-
+    
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-
+    
     public Medico getMedico() {
         return medico;
     }
-
+    
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-
+    
     public Users getUsers() {
         return users;
     }
-
+    
     public void setUsers(Users users) {
         this.users = users;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -196,7 +221,7 @@ public class Cita implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "com.swii.sysmedic.entities.Cita[ id=" + id + " ]";

@@ -179,6 +179,10 @@ public class Users implements Serializable, Comparable<Object>{
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+    
+    public String getCompleteName(){
+        return this.getName() + " " + this.getApellidos();
+    }
 
     public String getDireccion() {
         return direccion;

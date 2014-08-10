@@ -38,6 +38,8 @@ public class UsersView {
     private int selectedEspecialidad;
     private List<Users> all = new ArrayList<Users>();
     
+    private static Users loggedUser;
+    
     /**
      * Creates a new instance of UsersView
      */
@@ -46,6 +48,10 @@ public class UsersView {
     public void init() {
         all.addAll(allFromDB());
         Collections.sort(all);
+    }
+     
+    public static Users getLoggedUser(){
+        return loggedUser;
     }
     
     public UsersView() {
@@ -132,6 +138,7 @@ public class UsersView {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Users userSession =  this.usersFacade.GetUser(userDetails.getUsername());
+            loggedUser = userSession;
             return userSession.getName() + " " + userSession.getApellidos();
         }else {
             return "none";

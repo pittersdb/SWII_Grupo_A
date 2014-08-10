@@ -1,36 +1,36 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.convert;
 
- 
+
+import com.swii.sysmedic.Views.MedicoView;
 import com.swii.sysmedic.entities.Medico;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
- 
 
- 
+
+
 @FacesConverter("medicoConverter")
 public class MedicoConverter implements Converter {
- 
+    
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-//        if(value != null && value.trim().length() > 0) {
-//            ThemeService service = (ThemeService) fc.getExternalContext().getApplicationMap().get("themeService");
-//            return service.getThemes().get(Integer.parseInt(value));
-//        }
-//        else {
-//            return null;
-//        }
-        System.out.println("CONVERT OBJ: "+ value);
-        return null;
+        if(value != null && value.trim().length() > 0) {
+            MedicoView medicoBean = MedicoView.getInstance();
+            Medico medico = medicoBean.getMedico(Integer.parseInt(value)); 
+            return medico;
+        }
+        else {
+            return null;
+        }
     }
- 
+    
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         
@@ -43,5 +43,5 @@ public class MedicoConverter implements Converter {
         else {
             return null;
         }
-    }   
+    }
 }  

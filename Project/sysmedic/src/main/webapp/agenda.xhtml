@@ -19,10 +19,9 @@
         <p:dialog header="#{msg['Esta_a_punto_de_cancelar_esta_Cita']}" widgetVar="dlgCancelacionCita" minHeight="40" draggable="false" resizable="false">
             <ui:include src="confirmacionDeAccion.xhtml" />
         </p:dialog>
-        <p:tabView>
-            <p:tab title="#{msg['nueva_cita']}">
-                <h:panelGroup>
-                    
+        <p:tabView id= "tabViewAgenda">
+            <p:tab  title="#{msg['nueva_cita']}">
+                <h:panelGroup>                    
                     <ui:include src="nuevaCita.xhtml" />
                 </h:panelGroup>          
             </p:tab>

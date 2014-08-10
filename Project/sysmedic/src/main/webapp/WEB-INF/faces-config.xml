@@ -45,7 +45,7 @@
     <managed-bean>
         <managed-bean-name>Medico</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.MedicoView</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>medicamentoLoteView</managed-bean-name>

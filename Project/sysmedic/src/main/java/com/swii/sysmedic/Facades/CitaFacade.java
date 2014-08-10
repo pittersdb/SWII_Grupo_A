@@ -28,5 +28,6 @@ public class CitaFacade extends AbstractFacade<Cita> {
     public CitaFacade() {
         super(Cita.class);
     }
+       
     
 }

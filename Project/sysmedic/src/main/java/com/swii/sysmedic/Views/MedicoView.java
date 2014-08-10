@@ -11,6 +11,7 @@ import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Users;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import org.primefaces.event.SelectEvent;
 
@@ -23,14 +24,30 @@ public class MedicoView {
     @EJB
     private MedicoFacade medicFacade;
     private Medico medico = new Medico();
+    
+    private static MedicoView instance;
+    
     /**
      * Creates a new instance of MedicoView
      */
     public MedicoView() {
     }
+    
+      @PostConstruct
+    public void init() {
+        instance = this;
+    }
+    
+   public static MedicoView getInstance() {
+        return instance;
+    }
 
     public Medico getMedico() {
         return medico;
+    }
+    
+    public Medico getMedico(int id) {
+        return this.medicFacade.find(id);        
     }
 
     public void setMedico(Medico medico) {
