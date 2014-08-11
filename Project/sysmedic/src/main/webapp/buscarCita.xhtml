@@ -17,28 +17,42 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     
-    <h:form>
-        
-        <h:panelGrid columns="2" cellpadding="5">
+    <h:form id="frmBuscarCita">
+        <p:growl id="messages"  showDetail="true"/>
+        <h:panelGrid columns="2" cellpadding="5" >
+           
             
-            <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
-            <p:inputText id="ci_paciente" required="true" label="nombre_paciente" size="15" onclick="deshabilitarCI();habilitarNombre()" onfocus="deshabilitarCI();habilitarNombre()"/>
-            
-            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
-            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente" onclick="habilitarCI();deshabilitarNombre()" onfocus="habilitarCI();deshabilitarNombre()"/>
+          <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
+          <p:autoComplete id="ci_paciente" value="#{Cita.ciPaciente}" completeMethod="#{Paciente.matchCi}" maxlength="10" label="ci_paciente"  forceSelection="true" >
+                <p:ajax event="itemSelect" listener="#{Paciente.onCiSelect}" update="nombre_paciente" oncomplete=""/> 
+            </p:autoComplete> 
                 
-            <h:outputLabel for="nombre_medico" value="#{msg['Medico']}: " />
-            <p:inputText id="nombre_medico" required="true" label="nombre_medico" size="40"/>
+            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
+            <p:inputText id="nombre_paciente" value= "#{Paciente.paciente.nombres} #{Paciente.paciente.apellidos}" label="nombre_paciente" readonly="true" disabled="true"/>
+                
+             <h:outputLabel for="nombre_medico" value="#{msg['Medico']}: " />                
+            <p:autoComplete id="nombre_medico" value="#{Medico.medico}" completeMethod="#{Medico.completeMedico}"  label="nombre_medico"
+                            var="medico" itemLabel="#{medico.users.completeName}" itemValue="#{medico}" converter="medicoConverter" forceSelection="true" />    
+               
+            <p:outputLabel for="estado" value="#{msg['Estado']}: "></p:outputLabel>
+            <p:selectOneMenu id="estado" value="#{Cita.selectedEstado}" > 
+                <f:selectItem itemLabel="#{msg['Ninguno']}" itemValue="n" />
+                <f:selectItem itemLabel="#{msg['Postergado']}" itemValue="p" />
+                <f:selectItem itemLabel="#{msg['Cancelado']}" itemValue="c" /> 
+                <f:selectItem itemLabel="#{msg['Terminado']}" itemValue="t" />
+                <f:selectItem itemLabel="#{msg['Pendiente']}" itemValue="d" />
+            </p:selectOneMenu>  
+            
         </h:panelGrid>
         <h:panelGrid columns="3" cellpadding="5">
             <p:outputLabel for="rangoFechaInf" value="#{msg['Rango_de_fechas_a_buscar']} "></p:outputLabel>
-            <p:calendar id="rangoFechaInf" showOn="button"/>
-            <p:calendar id="rangoFechaSup" showOn="button"/>
+            <p:calendar id="rangoFechaInf" showOn="button" value="#{Cita.fechaInf}" />
+            <p:calendar id="rangoFechaSup" showOn="button" value="#{Cita.fechaSup}" />
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
-            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}" actionListener="#" />
-        </h:panelGrid>
+            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}"   actionListener="#{Cita.Buscar()}" update="messages"   /> 
+        </h:panelGrid> 
     </h:form>
         
 </html>

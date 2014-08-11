@@ -41,6 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cita.findById", query = "SELECT c FROM Cita c WHERE c.id = :id"),
     @NamedQuery(name = "Cita.findByFechaGeneracion", query = "SELECT c FROM Cita c WHERE c.fechaGeneracion = :fechaGeneracion"),
     @NamedQuery(name = "Cita.findByFechaConsultaActual", query = "SELECT c FROM Cita c WHERE c.fechaConsultaActual = :fechaConsultaActual"),
+    @NamedQuery(name = "Cita.generalFinder", query = "" 
+            + "SELECT c FROM Cita c "
+            + "WHERE ("
+            + "((:idPaciente IS NULL) OR (:idPaciente IS NOT NULL AND c.paciente.id = CAST(:idPaciente INTEGER))) AND"
+            + "((:idMedico IS NULL) OR  (:idMedico IS NOT NULL AND c.medico.id = CAST(:idMedico INTEGER))) AND "
+            + "(c.fechaConsultaActual BETWEEN :fechaInf AND :fechaSup )  AND "
+            + "((:estado IS NULL) OR (:estado IS NOT NULL AND c.estado = :estado ) )"
+            + ")"),
     @NamedQuery(name = "Cita.findByEstado", query = "SELECT c FROM Cita c WHERE c.estado = :estado")})
 public class Cita implements Serializable {
     
@@ -48,7 +56,8 @@ public class Cita implements Serializable {
         Postergado("p"), 
         Cancelado("c"), 
         Terminado("t"), 
-        Pendiente("d");
+        Pendiente("d"),
+        Ninguno("n");
         
         private final String text;
         

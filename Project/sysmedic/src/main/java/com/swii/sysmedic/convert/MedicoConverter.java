@@ -22,9 +22,14 @@ public class MedicoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0) {
-            MedicoView medicoBean = MedicoView.getInstance();
-            Medico medico = medicoBean.getMedico(Integer.parseInt(value)); 
-            return medico;
+            try{
+                MedicoView medicoBean = MedicoView.getInstance();
+                Medico medico = medicoBean.getMedico(Integer.parseInt(value)); 
+                return medico;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                return null;
+            }
         }
         else {
             return null;
@@ -37,11 +42,12 @@ public class MedicoConverter implements Converter {
         
         if(object != null) {
             String id = String.valueOf(((Medico) object).getId());
-            return id;
+            
+            return id != null ? id: "";
             
         }
         else {
-            return null;
+            return "";
         }
     }
 }  
