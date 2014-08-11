@@ -17,14 +17,14 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     
-    <h:form>
+    <h:form id = "frmModificarCita">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="nombre_paciente" value=" #{msg['Paciente']} : " />
-            <p:inputText id="nombre_paciente" required="true" label="nombre_paciente"  disabled="true"/>
+            <p:inputText id="nombre_paciente" value="#{Cita.cita.paciente.nombres} #{Cita.cita.paciente.apellidos}" required="true" label="nombre_paciente"  disabled="true"/>
             
                 
             <h:outputLabel for="nombre_medico" value=" #{msg['Medico']}: " />
-            <p:inputText id="nombre_medico" required="true" label="nombre_medico"  disabled="true"/>
+            <p:inputText id="nombre_medico" value="#{Cita.cita.medico.users.name} #{Cita.cita.medico.users.apellidos}" required="true" label="nombre_medico"  disabled="true"/>
             
         </h:panelGrid>
             
@@ -32,7 +32,7 @@
             
             
             <p:outputLabel for="inputFecha" value="#{msg['Nueva_Fecha_cita']}: "></p:outputLabel>
-            <p:calendar id="inputFecha" showOn="button"/> 
+            <p:calendar id="inputFecha" value="#{Cita.cita.fechaConsultaActual}" showOn="button"/> 
             
             <p:commandButton id="btnGuardar" value=" #{msg['Guardar']}" actionListener="#" />
             <p:commandButton id="btnImprimir" value=" #{msg['Imprimir']}" actionListener="#" />

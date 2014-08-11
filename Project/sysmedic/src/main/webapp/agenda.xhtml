@@ -5,8 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
-    
+          
+          
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -14,7 +14,7 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
+        
     <p:panel id="panelInternalAgenda" style="display: block;">
         <p:dialog header="#{msg['Esta_a_punto_de_cancelar_esta_Cita']}" widgetVar="dlgCancelacionCita" minHeight="40" draggable="false" resizable="false">
             <ui:include src="confirmacionDeAccion.xhtml" />
@@ -38,36 +38,40 @@
                     <h:outputLabel for="citaFiltros" value="#{msg['Esta_busqueda_considero']}" />
                 </h:panelGrid>
                     
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="car" value="#">
-                        <p:column headerText="#{msg['Paciente']}">
-                            <h:outputText value="-" />
-                        </p:column>
-                            
-                        <p:column headerText="#{msg['Medico']}">
-                            <h:outputText value="-" />
-                        </p:column>
-                            
-                        <p:column headerText="#{msg['fecha_cita']}">
-                            <h:outputText value="-" />
-                        </p:column>
-                            
-                        <p:column headerText="#{msg['Acciones']}">
-                            <!-- Pop up para buscar cita-->                  
-                            <p:commandButton id="btnModificarCita" value="#{msg['Modificar']}" type="button" onclick="PF('dlgModificacionCita').show();" />
-                            <!-- Pop up para cancelar cita--> 
-                            <p:commandButton id="btnCancelarCita" value="#{msg['Cancelar']}" type="button" onclick="PF('dlgCancelacionCita').show();" />
+                <h:form id="frmCitas">
+                    <p:growl id="messages"  showDetail="true"/>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="citasTable" var="cita" value="#{Cita.resultSet}" tableStyle="width:auto">
+                            <p:column headerText="#{msg['Paciente']}">
+                                <h:outputText value="#{cita.paciente.nombres} #{cita.paciente.apellidos}" />
+                            </p:column>
                                 
-                        </p:column>
-                    </p:dataTable>
-                        
-                    <p:dialog header="#{msg['Modificacion_de_Cita']}" widgetVar="dlgModificacionCita" minHeight="40" draggable="false" resizable="false">
-                        <ui:include src="modificarCita.xhtml" />
-                    </p:dialog>                   
-                        
-                        
-                        
-                </h:panelGrid>
+                            <p:column headerText="#{msg['Medico']}">
+                                <h:outputText value="#{cita.medico.users.name} #{cita.medico.users.apellidos}" />
+                            </p:column>
+                                
+                            <p:column headerText="#{msg['fecha_cita']}">
+                                <h:outputText value="#{cita.fechaConsultaActual}" />
+                            </p:column>
+                                
+                            <p:column headerText="#{msg['Estado']}">
+                                <h:outputText value="#{cita.estadoName}" />
+                            </p:column> 
+                                
+                            <p:column headerText="#{msg['Acciones']}">                
+                                <p:commandButton  id="btnModificarCita" value="#{msg['Modificar']}"  actionListener="#{Cita.setCita(cita,true)}" oncomplete="PF('dlgModificacionCita').show();"  immediate="true" update=":tabViewAgenda:frmCitas:messages, :tabViewAgenda:frmModificarCita" style="font-size: 10px !important;"/>
+                                <p:commandButton id="btnCancelarCita" value="#{msg['Eliminar']}" type="button" onclick="PF('dlgCancelacionCita').show();" style="font-size: 10px !important;" />
+                            </p:column>
+                        </p:dataTable>
+                            
+                                 
+                            
+                    </h:panelGrid>
+                </h:form>
+                
+                <p:dialog header="#{msg['Modificacion_de_Cita']}" widgetVar="dlgModificacionCita" minHeight="40" draggable="false" resizable="false">
+                            <ui:include src="modificarCita.xhtml" />
+                        </p:dialog> 
             </p:tab>
             <p:tab title="#{msg['turnos_dia']}">             
                 
@@ -80,20 +84,20 @@
                     <p:dialog header="#{msg['Proxima_Cita']}" widgetVar="dlgProximaCita" minHeight="40" draggable="false" resizable="false">
                         <ui:include src="proximaCita.xhtml" />
                     </p:dialog>
-                    
-                    
+                        
+                        
                     <h:form>
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:panelGrid columns="1" cellpadding="5">
                                 <h:panelGrid columns="4" cellpadding="5">
                                     <h:outputLabel for="numero_turno" value="#{msg['Turno']}: " style=" color : cadetblue ; font-size: 1.1em"/>
                                     <h:outputLabel for="numero_turno_val" value="5" />
-                                    
+                                        
                                     <h:outputLabel for="turno_paciente" value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
                                     <h:outputLabel for="turno_paciente_val" value="Juan Perez" />
-                                    
+                                        
                                 </h:panelGrid>
-                                
+                                    
                                 <h:panelGrid columns="1" cellpadding="1">   
                                     <h:outputLabel for="Acciones_turno" value="#{msg['Acciones']}: " style=" color : cadetblue ; font-size: 1.1em"/>
                                     <p:commandButton id="btnInfoPaciente" value="#{msg['Ver_Historial_Clinico']}" actionListener="#" style=" font-size: 12px !important;" onclick="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();"/>
@@ -105,14 +109,14 @@
                                     <p:commandButton id="btnCancelarTurno" value="#{msg['Cancelar']}" actionListener="#" style=" font-size: 12px !important;"  onclick="PF('dlgCancelacionCita').show();" />                    
                                 </h:panelGrid>
                             </h:panelGrid>
-                            
+                                
                             <h:graphicImage value="/Images/patientMale.ico"/>
-                            
+                                
                         </h:panelGrid>
                     </h:form>
                 </p:panel>
-                
-                
+                    
+                    
                 <p:dialog header="#{msg['Citas_programadas_para_hoy']}" widgetVar="dlgSeleccionarCita" minHeight="40" draggable="false" resizable="false">
                     <ui:include src="seleccionarCita.xhtml" />
                 </p:dialog>
@@ -139,19 +143,15 @@
                         <p:column headerText="#{msg['Acciones']}">
                             <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarCitaTurno" styleClass="ui-priority-primary" style="font-size: 10px !important;" onclick="PF('dlgCancelacionCita').show();" />                    
                         </p:column>
+                        
                     </p:dataTable>
-                        
-                        
+                    
                 </h:panelGrid>
-                    
-                    
-                    
-                    
             </p:tab>
         </p:tabView>
             
     </p:panel>
-    
+        
     <p:panel id="panelConsulta" header="#{msg['Consulta']}" style="display: none;">
         <h:panelGroup>
             <ui:include src="consulta.xhtml" />
@@ -166,7 +166,7 @@
         </h:panelGroup>
         <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromHistorial" type="button" onclick="ocultarInternalPanelHistorial(); mostrarInternalPanelAgenda(); "/>             
     </p:panel>
-    
+        
         
         
 </html>

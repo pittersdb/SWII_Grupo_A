@@ -160,6 +160,18 @@ public class Cita implements Serializable {
         this.estado = estado;
     }
     
+    public String getEstadoName(){
+        if(estado.equalsIgnoreCase(Cita.Estado.Postergado.toString()))
+            return "Postergado";
+        if(estado.equalsIgnoreCase(Cita.Estado.Cancelado.toString()))
+            return "Cancelado";
+        if(estado.equalsIgnoreCase(Cita.Estado.Pendiente.toString()))
+            return "Pendiente";
+        if(estado.equalsIgnoreCase(Cita.Estado.Terminado.toString()))
+            return "Terminado";
+        return "Ninguno";
+    }
+    
     @XmlTransient
     public Collection<Consulta> getConsultaCollection() {
         return consultaCollection;

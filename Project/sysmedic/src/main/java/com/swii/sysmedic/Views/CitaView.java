@@ -52,6 +52,7 @@ public class CitaView {
         fechaSup = Calendar.getInstance().getTime();
     }
     
+    
     @PostConstruct
     public void init() {
     }
@@ -91,6 +92,12 @@ public class CitaView {
     
     public void setCita(Cita cita) {
         this.cita = cita;
+    }
+    
+    public void setCita(Cita cita, boolean  resetDateToday) {
+       setCita(cita);
+       cita.setFechaGeneracion(Calendar.getInstance().getTime());
+        cita.setFechaConsultaActual(Calendar.getInstance().getTime());
     }
     
     public Date getFechaInf() {
@@ -150,11 +157,7 @@ public class CitaView {
                 if(selectedEstado.equals(Cita.Estado.Ninguno.toString())) selectedEstado = null;
                 
                 this.resultSet = this.citaFacade.GeneralSearching(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(), fechaInf, fechaSup, selectedEstado);
-                
-                System.out.println("QUERY CITA: ");
-                for (Cita cita1 : resultSet) {
-                    System.out.println("cita: "+ cita1.getId());
-                }
+              
             }
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
