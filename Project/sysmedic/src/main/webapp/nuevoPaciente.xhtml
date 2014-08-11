@@ -24,28 +24,28 @@
             <h:inputHidden value="#{Paciente.paciente.id}" />
         </c:if>
         <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="nombres" value="#{msg['Nombre']}:" />
+            <p:outputLabel for="nombres" value="#{msg['Nombre']}:" />
             <p:inputText value="#{Paciente.paciente.nombres}" id="nombres" required="true" label="nombres" />
 
-            <h:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
+            <p:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
             <p:inputText value="#{Paciente.paciente.apellidos}" id="apellidos" required="true" label="apellidos" />
 
-            <h:outputLabel for="ci" value="#{msg['Cedula']}:" />
+            <p:outputLabel for="ci" value="#{msg['Cedula']}:" />
             <p:inputText value="#{Paciente.paciente.ci}" id="ci" required="true" label="ci" />
 
             <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
             <p:calendar id="inputFechaNacimiento" showOn="button" value="#{Paciente.paciente.fechaNacimiento}"/>
             
-            <h:outputLabel for="sexo" value="#{msg['Sexo']}:" />
-            <h:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
+            <p:outputLabel for="sexo" value="#{msg['Sexo']}:" />
+            <p:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
                 <f:selectItem itemValue="M" itemLabel="#{msg['masculino']}"/>
                 <f:selectItem itemValue="F" itemLabel="#{msg['femenino']}"/>
-            </h:selectOneMenu> 
+            </p:selectOneMenu> 
 
-            <h:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
+            <p:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
             <p:inputText value="#{Paciente.paciente.lugarProcedencia}" id="lugar_procedencia" required="true" label="lugar_procedencia" />
 
-            <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
+            <p:outputLabel for="direccion" value="#{msg['Direccion']}:" />
             <p:inputText value="#{Paciente.paciente.direcion}" id="direccion" required="true" label="direccion" />
                       
             <c:if test="${actionDB == 'create'}">

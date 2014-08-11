@@ -104,6 +104,7 @@ public class Paciente implements Serializable {
         this.direcion = paciente.getDirecion();
         this.lugarProcedencia = paciente.getLugarProcedencia();
         this.fechaNacimiento = paciente.getFechaNacimiento();
+        this.sexo = paciente.getSexo();
     }
 
     public Paciente(Integer id) {

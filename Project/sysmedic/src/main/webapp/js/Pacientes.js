@@ -6,11 +6,11 @@
 
 
 function ClearPacientes(){
-    document.getElementById("frmNuevoPaciente:nombre").value = "";
-    document.getElementById("frmNuevoPaciente:apellido").value = "";
+    document.getElementById("frmNuevoPaciente:nombres").value = "";
+    document.getElementById("frmNuevoPaciente:apellidos").value = "";
     document.getElementById("frmNuevoPaciente:direccion").value = "";
-    document.getElementById("frmNuevoPaciente:telefono").value = "";
-    document.getElementById("frmNuevoPaciente:lugarProcedencia").value = "";
+    document.getElementById("frmNuevoPaciente:inputFechaNacimiento").value = "";
+    document.getElementById("frmNuevoPaciente:lugar_procedencia").value = "";
     document.getElementById("frmNuevoPaciente:sexo").value = "";
     document.getElementById("frmNuevoPaciente:ci").value = "";
 }

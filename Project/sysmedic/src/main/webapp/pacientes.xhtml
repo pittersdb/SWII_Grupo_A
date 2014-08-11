@@ -63,7 +63,7 @@
         <center>
             <br/>
             <br/>
-            <p:commandButton value="#{msg['crear_nuevo_paciente']}" type="button" onclick="PF('dlgNuevoPaciente').show();" />
+            <p:commandButton value="#{msg['crear_nuevo_paciente']}" actionListener="#{Paciente.InstancePaciente()}" onclick="PF('dlgNuevoPaciente').show();" />
             <p:growl id="msgs" showDetail="true" />
             
         </center>

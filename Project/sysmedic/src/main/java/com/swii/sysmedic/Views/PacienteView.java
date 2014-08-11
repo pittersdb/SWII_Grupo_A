@@ -81,6 +81,10 @@ public class PacienteView {
         this.paciente = paciente;
     }
     
+    public void InstancePaciente(){
+        this.paciente = new Paciente();        
+    }
+    
     public List<String> matchCi(String query) {
         
         List<String> results = new ArrayList<String>();
