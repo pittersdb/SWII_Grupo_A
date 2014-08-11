@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+    
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    
-    
+    xmlns:p="http://primefaces.org/ui">
+          
+          
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -15,28 +15,32 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
-    
+        
+        
     <h:form id = "frmModificarCita">
+        <p:growl id="messages"  showDetail="true"/>
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="nombre_paciente" value=" #{msg['Paciente']} : " />
             <p:inputText id="nombre_paciente" value="#{Cita.cita.paciente.nombres} #{Cita.cita.paciente.apellidos}" required="true" label="nombre_paciente"  disabled="true"/>
-            
                 
+            
             <h:outputLabel for="nombre_medico" value=" #{msg['Medico']}: " />
             <p:inputText id="nombre_medico" value="#{Cita.cita.medico.users.name} #{Cita.cita.medico.users.apellidos}" required="true" label="nombre_medico"  disabled="true"/>
-            
+                
         </h:panelGrid>
-            
+        
         <h:panelGrid columns="2" cellpadding="5">
             
             
             <p:outputLabel for="inputFecha" value="#{msg['Nueva_Fecha_cita']}: "></p:outputLabel>
             <p:calendar id="inputFecha" value="#{Cita.cita.fechaConsultaActual}" showOn="button"/> 
             
-            <p:commandButton id="btnGuardar" value=" #{msg['Guardar']}" actionListener="#" />
+            <p:commandButton id="btnGuardar" value="#{msg['Modificar']}"   actionListener="#" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('dlgModificacionCita').hide(); }"  > 
+                <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+            </p:commandButton> 
+                    
             <p:commandButton id="btnImprimir" value=" #{msg['Imprimir']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
-        
+    
 </html>

@@ -38,14 +38,20 @@ public class CitaFacade extends AbstractFacade<Cita> {
     public List<Cita> GeneralSearching(Paciente paciente, Medico medico, Date fechaInf, Date fechaSup, String estado) {
         TypedQuery<Cita> query = em.createNamedQuery("Cita.generalFinder", Cita.class);
         
-        Integer idPaciente = paciente != null ? paciente.getId(): null;
-        Integer idMedico = medico != null ?  medico.getId(): null;
+    
+        paciente = paciente != null ? paciente : new Paciente();
+        medico = medico != null ? medico : new Medico();
+                
+        boolean nullPaciente = paciente.getId() == null;
+        boolean nullMedico = medico.getId() == null;
         
-        query.setParameter("idPaciente", idPaciente );
-        query.setParameter("idMedico", idMedico);
+        query.setParameter("nullPaciente", nullPaciente );
+        query.setParameter("nullMedico", nullMedico );
+        query.setParameter("paciente", paciente );
+        query.setParameter("medico", medico);
         query.setParameter("fechaInf", fechaInf, TemporalType.DATE);
         query.setParameter("fechaSup", fechaSup, TemporalType.DATE);
-        query.setParameter("estado", estado);
+        query.setParameter("estado", estado); 
         
         return query.getResultList();
     }

@@ -330,7 +330,7 @@ public class UsersFacadeTest {
 //    /**
 //     * Test of GetUser method, of class UsersFacade.
 //     */
-    @Ignore
+    @Test
     public void testGetUser() throws Exception {
         String nickName = "gchavez";
         

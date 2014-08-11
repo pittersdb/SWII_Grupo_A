@@ -44,10 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cita.generalFinder", query = "" 
             + "SELECT c FROM Cita c "
             + "WHERE ("
-            + "((:idPaciente IS NULL) OR (:idPaciente IS NOT NULL AND c.paciente.id = CAST(:idPaciente INTEGER))) AND"
-            + "((:idMedico IS NULL) OR  (:idMedico IS NOT NULL AND c.medico.id = CAST(:idMedico INTEGER))) AND "
+            //+ "((:idPaciente IS NULL) OR (:idPaciente IS NOT NULL AND c.paciente.id = CAST(:idPaciente INTEGER))) AND"
+            + "((:nullPaciente = TRUE) OR (:nullPaciente = FALSE AND c.paciente = :paciente)) AND"             
+            + "((:nullMedico = TRUE) OR (:nullMedico = FALSE AND c.medico = :medico)) AND"   
             + "(c.fechaConsultaActual BETWEEN :fechaInf AND :fechaSup )  AND "
-            + "((:estado IS NULL) OR (:estado IS NOT NULL AND c.estado = :estado ) )"
+            + "((:estado IS NULL) OR (:estado IS NOT NULL AND c.estado = :estado ) )" 
             + ")"),
     @NamedQuery(name = "Cita.findByEstado", query = "SELECT c FROM Cita c WHERE c.estado = :estado")})
 public class Cita implements Serializable {
