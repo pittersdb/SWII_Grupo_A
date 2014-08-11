@@ -14,7 +14,8 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-    
+    <script src="js/Validations.js" type="text/javascript" ></script>
+    <script src="js/Pacientes.js" type="text/javascript" ></script>
     
     <h:form id="#{idForm}">
         
@@ -32,9 +33,9 @@
             <h:outputLabel for="ci" value="#{msg['Cedula']}:" />
             <p:inputText value="#{Paciente.paciente.ci}" id="ci" required="true" label="ci" />
 
-            <h:outputLabel for="fecha_nacimiento" value="#{msg['fecha_nacimiento']}:" />
-            <p:inputText type="date" value="#{Paciente.paciente.fechaNacimiento}" id="fecha_nacimiento" required="true" label="fecha_nacimiento" />
-
+            <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
+            <p:calendar id="inputFechaNacimiento" showOn="button" value="#{Paciente.paciente.fechaNacimiento}"/>
+            
             <h:outputLabel for="sexo" value="#{msg['Sexo']}:" />
             <h:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
                 <f:selectItem itemValue="M" itemLabel="#{msg['masculino']}"/>

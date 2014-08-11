@@ -32,5 +32,31 @@
             <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
         </h:panelGrid>
     </h:form>
+    <div> 
+        <h2>#{msg['lista_medicina']}</h2>
+        <h:form id="formMedicamento">
+                             
+            <p:dataTable id="medicinaTable" var="medicina" value="#{Medicamento.all}" tableStyle="width:auto">
+                
+                <p:column headerText="#{msg['nombre_medicina']}" style="width:200px">
+                    <h:outputText value="#{medicina.nombre}" />
+                </p:column>
+                    
+                <p:column headerText="#{msg['Descripcion']}" style="width:100px">
+                    <h:outputText value="#{medicina.descripcion}" />
+                </p:column>
+                    
+                <p:column> 
+                    <p:commandButton value="#{msg['Modificar']}"  actionListener="#" oncomplete=""  />
+                    <p:confirmDialog global="true" showEffect="fade" >                  
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+                    </p:confirmDialog>
+                </p:column> 
+                    
+            </p:dataTable>  
+                
+        </h:form>      
+    </div>
 
 </html>

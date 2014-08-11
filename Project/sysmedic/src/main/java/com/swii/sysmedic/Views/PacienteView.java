@@ -28,7 +28,7 @@ public class PacienteView {
     private Paciente paciente = new Paciente();
     private List<Paciente> all = new ArrayList<Paciente>();
     
-    
+    private static PacienteView instance;
     /**
      * Creates a new instance of PacienteView
      */
@@ -36,13 +36,19 @@ public class PacienteView {
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        
+        instance = this;
     }
     
     public PacienteView(){
-        this.pacienteFacade = new PacienteFacade();        
+        this.pacienteFacade = new PacienteFacade();      
+    }
+
+    public static PacienteView getInstance() {
+        return instance;
     }
             
+    
+    
     public PacienteFacade getPacienteFacade() {
         return pacienteFacade;
     }
@@ -78,10 +84,9 @@ public class PacienteView {
     public List<String> matchCi(String query) {
         
         List<String> results = new ArrayList<String>();
-        Paciente pacienteByCi = this.pacienteFacade.GetPacienteByCi(query);
-        if(pacienteByCi != null){      
-             paciente = pacienteByCi; 
-            results.add(pacienteByCi.getCi());
+        paciente = this.pacienteFacade.GetPacienteByCi(query);
+        if(paciente != null){      
+            results.add(paciente.getCi());
         }else{
              paciente = new Paciente(0, "", "","", null, "", "", "");
         }
@@ -93,6 +98,7 @@ public class PacienteView {
      public void onCiSelect(SelectEvent event) {
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
          System.out.println("SELECT PACIENTE");
+         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
     }
      
     public void LoadPaciente(String ci){

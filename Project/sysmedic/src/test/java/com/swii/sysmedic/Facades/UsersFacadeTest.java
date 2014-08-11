@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.embeddable.EJBContainer;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -329,7 +330,7 @@ public class UsersFacadeTest {
 //    /**
 //     * Test of GetUser method, of class UsersFacade.
 //     */
-    @Test
+    @Ignore
     public void testGetUser() throws Exception {
         String nickName = "gchavez";
         

@@ -15,7 +15,8 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-        
+    
+     <script src="js/Citas.js" type="text/javascript" ></script>       
         
     <script type="text/javascript">
         
@@ -38,40 +39,38 @@
         }
     </script>
         
-    <h:form id="nuevaCitaForm"> 
+    <h:form id="frmNuevaCita"> 
+        <p:growl id="messages"  showDetail="true"/>
         <h:panelGrid columns="2" cellpadding="5">
             
             <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
-            <p:autoComplete id="ci_paciente" value="#{Paciente.paciente.ci}" completeMethod="#{Paciente.matchCi}" maxlength="10" >
-                <p:ajax event="itemSelect" listener="#{Paciente.onCiSelect}" update="nombre_paciente" oncomplete="alert('yeah')"/> 
+            <p:autoComplete id="ci_paciente" value="#{Paciente.paciente.ci}" completeMethod="#{Paciente.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
+                <p:ajax event="itemSelect" listener="#{Paciente.onCiSelect}" update="nombre_paciente" oncomplete=""/> 
             </p:autoComplete> 
-            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
-            <p:inputText id="nombre_paciente" value= "#{Paciente.paciente.nombres} #{Paciente.paciente.apellidos}" required="true" label="nombre_paciente" onclick="habilitarCI();deshabilitarNombre()" onfocus="habilitarCI();deshabilitarNombre()"/>
                 
-            <h:outputLabel for="nombre_medico" value="#{msg['Medico']}: " />
-       
-            <p:autoComplete id="nombre_medico" value="#{Medico.medico}" completeMethod="#{Medico.completeMedico}"
-                        var="medico" itemLabel="#{medico.users.name} #{medico.users.apellidos}" itemValue="#{medico}" converter="medicoConverter" forceSelection="true" />
- 
+            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
+            <p:inputText id="nombre_paciente" value= "#{Paciente.paciente.nombres} #{Paciente.paciente.apellidos}" required="true" label="nombre_paciente" readonly="true" disabled="true"/>
+                
+            <h:outputLabel for="nombre_medico" value="#{msg['Medico']}: " />                
+            <p:autoComplete id="nombre_medico" value="#{Medico.medico}" completeMethod="#{Medico.completeMedico}"  label="nombre_medico" required="true" requiredMessage="Debe ingresar al medico encargado."
+                            var="medico" itemLabel="#{medico.users.completeName}" itemValue="#{medico}" converter="medicoConverter" forceSelection="true" />    
+                                
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">
             
             
             <p:outputLabel for="inputFecha" value="#{msg['fecha_cita']}: "></p:outputLabel>
-            <p:calendar id="inputFecha" showOn="button"/>
+            <p:calendar id="inputFecha" showOn="button" value="#{Cita.cita.fechaConsultaActual}"/>
                 
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" type="button" onclick="PF('dlgInfoSistemaNuevaCita').show();" />
                 
-<!--            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="" update="" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearUsuarios();PF('confirmDlg').show(); PF('#{dialog}').hide(); }"  > 
-                   <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
-               </p:commandButton>  -->
-                   
+        
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Cita.Save()}" update="messages, frmNuevaCita" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); }"  > 
+                <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+            </p:commandButton>  
+                
             <p:commandButton id="btnImprimir" value="#{msg['Imprimir']}" actionListener="#" />
-                
-            <p:dialog header="#{msg['Informacion_del_Sistema']}" widgetVar="dlgInfoSistemaNuevaCita" minHeight="40" draggable="false" resizable="false">
-                <ui:include src="guardadoCorrectoMensaje.xhtml" />
-            </p:dialog> 
+
         </h:panelGrid>
             
     </h:form>  
