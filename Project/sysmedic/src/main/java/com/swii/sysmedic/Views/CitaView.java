@@ -56,11 +56,11 @@ public class CitaView {
     @PostConstruct
     public void init() {
     }
-
+    
     public String getCiPaciente() {
         return ciPaciente;
     }
-
+    
     public void setCiPaciente(String ciPaciente) {
         this.ciPaciente = ciPaciente;
     }
@@ -95,8 +95,8 @@ public class CitaView {
     }
     
     public void setCita(Cita cita, boolean  resetDateToday) {
-       setCita(cita);
-       cita.setFechaGeneracion(Calendar.getInstance().getTime());
+        setCita(cita);
+        cita.setFechaGeneracion(Calendar.getInstance().getTime());
         cita.setFechaConsultaActual(Calendar.getInstance().getTime());
     }
     
@@ -124,7 +124,7 @@ public class CitaView {
         this.resultSet = resultSet;
     }
     
-
+    
     
     
     
@@ -150,9 +150,10 @@ public class CitaView {
     public void Update(){
         //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
         try{
-            
-            this.citaFacade.edit(cita);
-             int index = this.resultSet.indexOf(this.cita);
+            this.cita.setEstado(Cita.Estado.Postergado.toString());
+            this.citaFacade.edit(this.cita);
+            int index = this.resultSet.indexOf(this.cita);
+             this.resultSet.get(index).setEstado(this.cita.getEstado());
             this.resultSet.get(index).setFechaConsultaActual(this.cita.getFechaConsultaActual());
             //this.Clear();
         }catch(Exception e){
@@ -162,8 +163,36 @@ public class CitaView {
         }
     }
     
+    public void Delete(int id){
+        try{
+            Cita citaToDelete = this.citaFacade.find(id);
+            this.citaFacade.remove( citaToDelete);
+            this.resultSet.remove(citaToDelete);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(CitaView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void Cancel(int id){
+        try{
+            
+            Cita citaToCancel = this.citaFacade.find(id);
+            citaToCancel.setEstado(Cita.Estado.Cancelado.toString());
+            this.citaFacade.edit(citaToCancel);
+            int index = this.resultSet.indexOf(citaToCancel);
+            this.resultSet.get(index).setEstado(citaToCancel.getEstado());
+            
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(CitaView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
     public void Buscar(){
-        try{            
+        try{
             if( this.fechaSup.before(this.fechaInf)) {
                 FacesContext.getCurrentInstance().validationFailed();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "La fecha final es menor a la inicial. Ingrese un rango valido correcto"));
@@ -172,7 +201,7 @@ public class CitaView {
                 if(selectedEstado.equals(Cita.Estado.Ninguno.toString())) selectedEstado = null;
                 
                 this.resultSet = this.citaFacade.GeneralSearching(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(), fechaInf, fechaSup, selectedEstado);
-              
+                
             }
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
