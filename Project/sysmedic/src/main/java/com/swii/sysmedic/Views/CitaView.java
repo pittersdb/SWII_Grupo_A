@@ -147,6 +147,21 @@ public class CitaView {
         }
     }
     
+    public void Update(){
+        //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
+        try{
+            
+            this.citaFacade.edit(cita);
+             int index = this.resultSet.indexOf(this.cita);
+            this.resultSet.get(index).setFechaConsultaActual(this.cita.getFechaConsultaActual());
+            //this.Clear();
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(CitaView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
     public void Buscar(){
         try{            
             if( this.fechaSup.before(this.fechaInf)) {

@@ -129,6 +129,13 @@ public class Cita implements Serializable {
         this.estado = estado;
     }
     
+    public void set(Cita cita) {
+        this.id = cita.getId();
+        this.fechaGeneracion = cita.getFechaGeneracion();
+        this.fechaConsultaActual = cita.getFechaGeneracion();
+        this.estado = cita.getEstado();
+    }
+    
     public Integer getId() {
         return id;
     }
