@@ -35,7 +35,7 @@
             <p:outputLabel for="inputFecha" value="#{msg['Nueva_Fecha_cita']}: "></p:outputLabel>
             <p:calendar id="inputFecha" value="#{Cita.cita.fechaConsultaActual}" showOn="button"/> 
             
-            <p:commandButton id="btnGuardar" value="#{msg['Modificar']}"   actionListener="#" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('dlgModificacionCita').hide(); }"  > 
+            <p:commandButton id="btnGuardar" value="#{msg['Modificar']}"   actionListener="#{Cita.Update()}" update="messages, :tabViewAgenda:frmCitas:citasTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('dlgModificacionCita').hide(); }"  > 
                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
             </p:commandButton> 
                     

@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
           
           
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
@@ -58,20 +58,23 @@
                                 <h:outputText value="#{cita.estadoName}" />
                             </p:column> 
                                 
-                            <p:column headerText="#{msg['Acciones']}">                
-                                <p:commandButton  id="btnModificarCita" value="#{msg['Modificar']}"  actionListener="#{Cita.setCita(cita,true)}" oncomplete="PF('dlgModificacionCita').show();"  immediate="true" update=":tabViewAgenda:frmCitas:messages, :tabViewAgenda:frmModificarCita" style="font-size: 10px !important;"/>
-                                <p:commandButton id="btnCancelarCita" value="#{msg['Eliminar']}" type="button" onclick="PF('dlgCancelacionCita').show();" style="font-size: 10px !important;" />
+                            <p:column headerText="#{msg['Acciones']}">      
+                                <p:commandButton  rendered="#{cita.estado == 'p' || cita.estado == 'd'}" value="#{msg['Modificar']}"  actionListener="#{Cita.setCita(cita,true)}" oncomplete="PF('dlgModificacionCita').show();"  immediate="true" update=":tabViewAgenda:frmCitas:messages, :tabViewAgenda:frmModificarCita" style="font-size: 10px !important;"/>
+                                    <!--<p:commandButton id="btnCancelarCita" value="#{msg['Eliminar']}" type="button" onclick="PF('dlgCancelacionCita').show();" style="font-size: 10px !important;" />-->
+                                <p:commandButton rendered="#{cita.estado == 'p' || cita.estado == 'd'}" value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Cita.Cancel(cita.id)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmCitas:messages, :tabViewAgenda:frmCitas:citasTable" style="font-size: 10px !important;">
+                                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                </p:commandButton>   
                             </p:column>
                         </p:dataTable>
                             
-                                 
+                        
                             
                     </h:panelGrid>
                 </h:form>
                 
                 <p:dialog header="#{msg['Modificacion_de_Cita']}" widgetVar="dlgModificacionCita" minHeight="40" draggable="false" resizable="false">
-                            <ui:include src="modificarCita.xhtml" />
-                        </p:dialog> 
+                    <ui:include src="modificarCita.xhtml" />
+                </p:dialog> 
             </p:tab>
             <p:tab title="#{msg['turnos_dia']}">             
                 
