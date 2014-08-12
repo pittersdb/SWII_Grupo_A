@@ -25,7 +25,7 @@ public class FacturaView {
     @EJB
     private FacturaFacade facturaFacade;
     @EJB
-    private Factura factura;
+    private Factura factura =new Factura();
     private List<Factura> all = new ArrayList<Factura>();
     
     /**
