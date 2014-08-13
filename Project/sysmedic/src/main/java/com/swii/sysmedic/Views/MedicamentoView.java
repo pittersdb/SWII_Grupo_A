@@ -33,7 +33,7 @@ public class MedicamentoView {
     private Medicamento medicamento = new Medicamento();
     private List<Medicamento> all = new ArrayList<Medicamento>();
     private String selectedItem; // +getter +setter
-    private List<SelectItem> availableMedicamentos; // +getter (no setter necessary)
+//    private List<SelectItem> availableMedicamentos; // +getter (no setter necessary)
 
     /**
      * Creates a new instance of MedicamentoView
@@ -41,7 +41,7 @@ public class MedicamentoView {
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        availableMedicamentos = medicamentoFacade.list();
+//        availableMedicamentos = medicamentoFacade.list();
     }
     
     public MedicamentoView() {
@@ -60,9 +60,9 @@ public class MedicamentoView {
         this.selectedItem = selectedItem;
     }
     
-    public List<SelectItem> getAvailableMedicamentos() {
-        return availableMedicamentos;
-    }
+//    public List<SelectItem> getAvailableMedicamentos() {
+//        return availableMedicamentos;
+//    }
     
     public List<Medicamento> getAll() {
         if(all.isEmpty()){

@@ -8,7 +8,11 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.MedicamentoFacade;
 import com.swii.sysmedic.Facades.MedicamentoLoteFacade;
+import com.swii.sysmedic.entities.Medicamento;
 import com.swii.sysmedic.entities.MedicamentoLote;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -26,6 +30,8 @@ public class MedicamentoLoteView {
     private MedicamentoLoteFacade medicamentoLoteFacade;
 
     private MedicamentoLote lote = new MedicamentoLote();
+    private int selectedMedicamento, selectedMedicamentoDev;
+    private List<MedicamentoLote> all = new ArrayList<MedicamentoLote>();
     
     /**
      * Creates a new instance of MedicamentoLoteView
@@ -36,7 +42,38 @@ public class MedicamentoLoteView {
     
     @PostConstruct
     public void init() {
-
+        all.addAll(allFromDB());
+    }
+    
+    public List<MedicamentoLote> getAll() {
+        if(all.isEmpty()){
+            all.addAll(allFromDB());
+        }
+        return all;
+    }
+    
+    public void setAll(List<MedicamentoLote> all) {
+        this.all = all;
+    }
+    
+    public List<MedicamentoLote> allFromDB(){
+        return this.medicamentoLoteFacade.findAll();
+    }
+    
+    public int getSelectedMedicamento(){
+        return this.selectedMedicamento;
+    }
+    
+    public void setSelectedMedicamento(int selectedMedicamento){
+        this.selectedMedicamento = selectedMedicamento;
+    }
+    
+    public int getSelectedMedicamentoDev(){
+        return this.selectedMedicamentoDev;
+    }
+    
+    public void setSelectedMedicamentoDev(int selectedMedicamento){
+        this.selectedMedicamentoDev = selectedMedicamento;
     }
     
     public MedicamentoLote getMedicamentoLote() {              
@@ -49,19 +86,17 @@ public class MedicamentoLoteView {
     
     public void Save(){
         try{
-            if(!this.medicamentoLoteFacade.existsLote(lote.getCodigoLote(), lote.getMedicamento().getId())){
-                long newCodigo = this.medicamentoLoteFacade.getNewCodigoLote(lote.getMedicamento().getId());
-                this.lote.setCodigoLote(newCodigo);
-                this.lote.setEstado("d");
-                this.lote.setMedicamento(lote.getMedicamento());
-                
-                this.medicamentoLoteFacade.SaveLote(lote);
+            System.out.println("This is the selectedMedicamento: " + selectedMedicamento);
+            long newCodigo = this.medicamentoLoteFacade.getNewCodigoLote(selectedMedicamento);
+            this.lote.setCodigoLote(newCodigo);
+            this.lote.setEstado("d");
+            this.lote.setMedicamento(new Medicamento(selectedMedicamento));
+            this.all.add(new MedicamentoLote(lote));
+            
+            this.medicamentoLoteFacade.SaveLote(lote);
 //                this.all.add(new Medicamento(medicamento));
 //                this.Clear();
-            }else{
-                FacesContext.getCurrentInstance().validationFailed();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "El lote "+lote.getCodigoLote() +" del medicamento "+lote.getMedicamento().getNombre()+" ya existe, por favor elija otro."));
-            }
+            
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
