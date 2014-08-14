@@ -41,6 +41,7 @@
                 <f:selectItem itemLabel="#{msg['Cancelado']}" itemValue="c" /> 
                 <f:selectItem itemLabel="#{msg['Terminado']}" itemValue="t" />
                 <f:selectItem itemLabel="#{msg['Pendiente']}" itemValue="d" />
+                <f:selectItem itemLabel="#{msg['Esperando']}" itemValue="d" />
             </p:selectOneMenu>  
             
         </h:panelGrid>
@@ -51,7 +52,7 @@
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
-            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}"   actionListener="#{Cita.Buscar()}" update="messages, :tabViewAgenda:frmCitas:citasTable"  oncomplete="if (args &amp;&amp; !args.validationFailed){PF('dlgCitaExistente').hide(); }" /> 
+            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}"   actionListener="#{Cita.Search()}" update="messages, :tabViewAgenda:frmCitas:citasTable"  oncomplete="if (args &amp;&amp; !args.validationFailed){PF('dlgCitaExistente').hide(); }" /> 
         </h:panelGrid> 
     </h:form>
         

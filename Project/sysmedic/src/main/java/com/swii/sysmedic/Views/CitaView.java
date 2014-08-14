@@ -8,6 +8,8 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Medico;
+import com.swii.sysmedic.entities.Paciente;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -41,6 +43,7 @@ public class CitaView {
     
     
     private List<Cita> resultSet = new ArrayList<Cita>();
+    private List<Cita> todaySet = new ArrayList<Cita>();
     
     /**
      * Creates a new instance of CitaView
@@ -123,6 +126,14 @@ public class CitaView {
     public void setResultSet(List<Cita> resultSet) {
         this.resultSet = resultSet;
     }
+
+    public List<Cita> getTodaySet() {
+        return todaySet;
+    }
+
+    public void setTodaySet(List<Cita> todaySet) {
+        this.todaySet = todaySet;
+    }
     
     
     
@@ -191,16 +202,31 @@ public class CitaView {
         }
     }
     
-    public void Buscar(){
-        try{
+    public void Search(){
+       this.resultSet = Search(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(),fechaInf, fechaSup, selectedEstado);
+    }
+    
+    public void SearchToday(){
+        
+        List<Cita> postergadas, pendientes;
+        postergadas = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Pendiente.toString());
+        pendientes = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Postergado.toString());
+        
+        this.todaySet = new ArrayList<>(pendientes);
+        this.todaySet.addAll(postergadas);        
+        
+    }
+    
+    private List<Cita> Search(Paciente paciente, Medico medico, Date dateInf, Date dateSup, String estado){
+         try{
             if( this.fechaSup.before(this.fechaInf)) {
                 FacesContext.getCurrentInstance().validationFailed();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "La fecha final es menor a la inicial. Ingrese un rango valido correcto"));
             }else{
                 System.out.println("SELECTED ESTADO: "+ fechaInf);
-                if(selectedEstado.equals(Cita.Estado.Ninguno.toString())) selectedEstado = null;
+                if(estado.equals(Cita.Estado.Ninguno.toString())) estado = null;
                 
-                this.resultSet = this.citaFacade.GeneralSearching(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(), fechaInf, fechaSup, selectedEstado);
+                return this.citaFacade.GeneralSearching(paciente, medico, dateInf, dateSup, estado);
                 
             }
         }catch(Exception e){
@@ -208,6 +234,8 @@ public class CitaView {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
             Logger.getLogger(CitaView.class.getName()).log(Level.SEVERE, null, e);
         }
+         
+         return new ArrayList<>();
     }
     
     void Clear(){
