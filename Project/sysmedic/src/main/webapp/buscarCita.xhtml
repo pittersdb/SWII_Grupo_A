@@ -51,7 +51,7 @@
         </h:panelGrid>
             
         <h:panelGrid columns="2" cellpadding="5">            
-            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}"   actionListener="#{Cita.Buscar()}" update="messages, :tabViewAgenda:frmCitas:citasTable"  oncomplete="if (args &amp;&amp; !args.validationFailed){PF('dlgCitaExistente').hide(); }" /> 
+            <p:commandButton id="btnBuscar" value="#{msg['Buscar']}"   actionListener="#{Cita.Search()}" update="messages, :tabViewAgenda:frmCitas:citasTable"  oncomplete="if (args &amp;&amp; !args.validationFailed){PF('dlgCitaExistente').hide(); }" /> 
         </h:panelGrid> 
     </h:form>
         
