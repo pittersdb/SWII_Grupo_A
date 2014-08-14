@@ -57,4 +57,9 @@
         <managed-bean-class>com.swii.sysmedic.Views.FacturaView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Turno</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.TurnoView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

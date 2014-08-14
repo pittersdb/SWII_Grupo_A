@@ -132,17 +132,17 @@
                     </h:panelGrid>
                     
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable var="car" value="#">
+                        <p:dataTable id="turnosTable" var="turno" value="#{Turno.resultSet}" tableStyle="width:auto">
                             <p:column headerText="#{msg['numero_turno']}">
-                                <h:outputText value="6" />
+                                <h:outputText value="#{turno.orden}" />
                             </p:column>
                             
                             <p:column headerText="#{msg['CI_Paciente']}">
-                                <h:outputText value="1304256851" />
+                                <h:outputText value="#{turno.cita.paciente.ci}" />
                             </p:column>
                             
                             <p:column headerText="#{msg['Nombre_del_Paciente']}">
-                                <h:outputText value="Maria Santana" />
+                                <h:outputText value="#{turno.cita.paciente.nombres} #{turno.cita.paciente.apellidos}" />
                             </p:column>
                             
                             <p:column headerText="#{msg['Acciones']}">
