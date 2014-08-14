@@ -65,9 +65,32 @@
                 <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
                 <p:inputText value="#{User.user.nickname}" id="nickname" required="true" label="nickname" />            
                 
-                <h:outputLabel for="password" value="#{msg['password']}:" /> 
-                <p:password value="#{User.user.password}" id="password" required="true" label="password" />
-            </c:if>   
+                <h:outputLabel value="#{msg['password']}:" /> 
+                <p:password value="#{User.user.password}" binding="#{pass}" id="password" required="true" validator="passwordValidator"/>
+                <p:message for="password" />
+                
+                <h:outputLabel value="#{msg['repetir_password']}:" /> 
+                <p:password id="repeatPassword" required="true" validator="repeatPasswordValidator" label="repeatPassword" >
+                    <f:attribute name="password" value="#{pass.value}" />
+                    
+                </p:password>    
+                    
+            </c:if> 
+            
+            <!--h:outputText value="Contraseña:"/>
+            <p:password binding="#{pass}"
+                        id="password"
+                        validator="passwordValidator"
+                        value="#{myBean.password}"
+                        required="true"/>
+            <p:message for="password"/>
+
+            <h:outputText value="Repita Contraseña:"/>
+            <p:password id="repeatPassword"
+                        validator="repeatPasswordValidator"
+                        required="true">
+            <f:attribute name="password" value="#{pass.value}"/>
+            </p:password-->
             
             <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>
             <p:selectOneMenu id="rol" value="#{User.selectedRol}" > 

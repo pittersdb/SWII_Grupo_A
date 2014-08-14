@@ -9,13 +9,16 @@ package com.swii.sysmedic.Facades;
 import com.swii.sysmedic.entities.Especialidad;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Users;
+
+
+import java.security.MessageDigest; 
 import java.util.List;
+import static java.util.Objects.hash;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 /**
  *
  * @author LUCAS
@@ -65,6 +68,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     public void Save(Users user, String selectedRol, int selectedEspecialidad){
         user.setRol(selectedRol);
         user.setEnabled((short)1);
+        user.setPassword(encriptarMD5(user.getPassword()));
         create(user);
         
          if(user.getRol().equalsIgnoreCase("m")){
@@ -74,6 +78,22 @@ public class UsersFacade extends AbstractFacade<Users> {
             this.medicoFacade.create(newMedico);
          }
         
+    }
+    
+    /** 
+    * Encripta un String con el algoritmo MD5. 
+    * @return El algoritmo encriptado 
+    * @param palabra 
+    */ 
+    public String encriptarMD5(String palabra){ 
+        String pe=""; 
+        try { 
+            pe = Integer.toString(hash(palabra)); 
+        } 
+        catch (Exception e) { 
+            throw new Error("Error: Al encriptar el password"); 
+        } 
+        return pe; 
     }
     
     public Users UpdateWithConstraints(Users user, String selectedRol, int selectedEspecialidad){

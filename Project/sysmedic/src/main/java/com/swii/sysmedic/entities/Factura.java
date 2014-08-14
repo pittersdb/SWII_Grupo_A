@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 package com.swii.sysmedic.entities;
 
 import java.io.Serializable;
@@ -35,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author fabian
  */
 @Entity
-@Table(name = "factura")
+@Table(name = "\"SysMedic\".factura")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
@@ -123,6 +124,19 @@ public class Factura implements Serializable {
         this.total = total;
         this.fechaAutorizacionSri = fechaAutorizacionSri;
         this.fechaCaducidadSri = fechaCaducidadSri;
+    }
+    
+    public Factura(Factura source){
+        this.id = source.getId();
+        this.numero = source.getNumero();
+        this.fechaHoraPago = source.getFechaHoraPago();
+        this.observacion = source.getObservacion();
+        this.formaPago = source.getFormaPago();
+        this.descuentoTotal = source.getDescuentoTotal();
+        this.iva = source.getIva();
+        this.total = source.getTotal();
+        this.fechaAutorizacionSri = source.getFechaAutorizacionSri();
+        this.fechaCaducidadSri = source.getFechaCaducidadSri();
     }
 
     public Integer getId() {

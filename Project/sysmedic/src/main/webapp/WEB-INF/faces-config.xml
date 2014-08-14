@@ -57,4 +57,21 @@
         <managed-bean-class>com.swii.sysmedic.Views.FacturaView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Cliente</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.ClienteView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <validator>
+       <validator-class>com.swii.sysmedic.Validators.passwordValidator</validator-class>
+       <validator-id>passwordValidator</validator-id>
+    </validator>
+    
+    <validator>
+       <validator-class>com.swii.sysmedic.Validators.repeatpasswordValidator</validator-class>
+       <validator-id>repeatpasswordValidator</validator-id>
+    </validator>
+    
 </faces-config>

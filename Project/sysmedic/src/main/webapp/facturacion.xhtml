@@ -35,6 +35,7 @@
                     <h:outputLabel for="fecha_pago" value="#{msg['Fecha_de_pago']}:" />
                     <p:inputText type="date" value="dd/mm/aa" />
                     
+                    
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid columns="1" cellpadding="4">
@@ -50,19 +51,19 @@
                 <h:panelGrid columns="2" cellpadding="4">
                     
                     <h:outputLabel for="nombre" value="#{msg['Nombre']}:" />
-                    <p:inputText value="#" id="nombre" required="true" label="nombre" />
+                    <p:inputText value="#{Cliente.cliente.nombres}" id="nombre" required="true" label="nombre" />
                     
                     <h:outputLabel for="apellido" value="#{msg['Apellido']}:" />
-                    <h:inputText value="#" />
+                    <h:inputText value="#{Cliente.cliente.apellidos}" />
                     
                     <h:outputLabel for="ruc" value="R.U.C.:" />
-                    <p:inputText value="#" id="ruc" required="true" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    <p:inputText value="#{Cliente.cliente.ruc}" id="ruc" required="true" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
-                    <p:inputText value="#" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    <p:inputText value="#{Cliente.cliente.telefono}" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
-                    <p:inputTextarea id="direccion" rows="6" cols="15" /><br />
+                    <p:inputTextarea value="#{Cliente.cliente.direcion}" id="direccion" rows="6" cols="15" /><br />
                     
                 </h:panelGrid>
             </h:panelGrid>
@@ -77,13 +78,13 @@
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
                     <h:outputLabel for="cita" value="N. Cita:" />
-                    <h:outputText value="#" />
+                    <h:outputText value="#{Cita.cita.id}" />
                     
                     <h:outputLabel for="servicio" value="#{msg['Servicio']}:" />
-                    <p:selectOneMenu id="servicio" value="#" maxlength="100">
-                        <f:selectItem itemLabel="#{msg['General']}" itemValue="General" />
-                        <f:selectItem itemLabel="#{msg['Diabetologia']}" itemValue="Diabetologia" />
-                    </p:selectOneMenu>
+                    <p:selectOneRadio id="servicio" value="#" required="True" label="servicio">  
+                        <f:selectItem itemLabel="#{msg['General']}" itemValue="G" />
+                        <f:selectItem itemLabel="#{msg['Pediatria']}" itemValue="P" />
+                    </p:selectOneRadio>
                     
                     <h:outputLabel for="costo" value="#{msg['Costo']}:" />
                     <h:outputText value="#" />                   
@@ -124,7 +125,7 @@
             <p:column>
                 <p:column>
                   <p:commandButton id="combutton" update=":formulario:display" oncomplete="editMedicina.show()" icon="ui-icon-search" title="Edit" >
-                      <!--f:setPropertyActionListener value="#" target="#" /-->
+                  
                   </p:commandButton>
                 </p:column>
             </p:column>
@@ -166,10 +167,13 @@
                     <h:outputText value="#" />
                     
                     <h:outputLabel for="total" value="#{msg['Total']}:" />
-                    <h:outputText value="#" />                   
+                    <h:outputText value="#" />
+                    
+                    <h:outputLabel for="formaPago" value="#{msg['forma_pago']}:" />
+                    <h:outputText value="#" />
                     
                     <h:outputLabel for="observacion" value="#{msg['Observaciones']}:" />
-                    <p:inputTextarea id="observacion" rows="6" cols="15" /><br />                    
+                    <p:inputTextarea id="observacion" rows="3" cols="15" /><br />                    
                 </h:panelGrid>
             </h:panelGrid>
         
@@ -194,7 +198,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['Medicamento']}" />
                                 </f:facet>
-                            <h:inputText value="#{medicamento.nombre}" />
+                            <h:outputText value="#{medicamento.nombre}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
@@ -208,10 +212,15 @@
                             </f:facet>
                             <h:outputText value="100" />                                    
                         </p:column>
+                    
+                        <p:column>
+                            <f:facet name="header" >
+                                <h:outputText value="#{msg['Accion']}" style="width:100%" />
+                            </f:facet>
+                            <p:commandButton value="#{msg['Importar']}" />                                    
+                        </p:column>
                         
                     </p:dataTable>
-                    
-                <p:commandButton value="#{msg['Importar']}" />
                     
                 </h:panelGrid>
                 

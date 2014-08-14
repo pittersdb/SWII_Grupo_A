@@ -11,6 +11,7 @@ function ClearUsuarios(){
     document.getElementById("frmNuevoUsuario:direccion").value = "";
     document.getElementById("frmNuevoUsuario:telefono").value = "";
     document.getElementById("frmNuevoUsuario:nickname").value = "";
-    document.getElementById("frmNuevoUsuario:password").value = "";    
+    document.getElementById("frmNuevoUsuario:password").value = ""; 
+    document.getElementById("frmNuevoUsuario:repeatPassword").value = "";
 }
 

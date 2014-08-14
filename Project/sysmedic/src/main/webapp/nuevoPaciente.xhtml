@@ -33,19 +33,19 @@
             <p:outputLabel for="ci" value="#{msg['Cedula']}:" />
             <p:inputText value="#{Paciente.paciente.ci}" id="ci" required="true" label="ci" maxlength="10" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                 
-               
-            
-                         
-
             <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
             <p:calendar id="inputFechaNacimiento" showOn="button" value="#{Paciente.paciente.fechaNacimiento}"/>
             
             <p:outputLabel for="sexo" value="#{msg['Sexo']}:" />
-            <p:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
+            <!--p:selectOneMenu value="#{Paciente.paciente.sexo}" id="sexo" required="true" label="sexo">
                 <f:selectItem itemValue="M" itemLabel="#{msg['masculino']}"/>
                 <f:selectItem itemValue="F" itemLabel="#{msg['femenino']}"/>
-            </p:selectOneMenu> 
-
+            </p:selectOneMenu-->            
+            <p:selectOneRadio id="sexo" value="#{Paciente.paciente.sexo}" required="True" label="sexo">  
+                <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M" />
+                <f:selectItem itemLabel="#{msg['femenino']}" itemValue="F" />
+            </p:selectOneRadio>
+            
             <p:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
             <p:inputText value="#{Paciente.paciente.lugarProcedencia}" id="lugar_procedencia" required="true" label="lugar_procedencia" />
 
