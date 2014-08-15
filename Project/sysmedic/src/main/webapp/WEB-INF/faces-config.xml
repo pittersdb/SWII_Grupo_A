@@ -47,23 +47,30 @@
         <managed-bean-class>com.swii.sysmedic.Views.MedicoView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>MedicamentoLote</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.MedicamentoLoteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>Factura</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.FacturaView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
-<<<<<<< HEAD
         <managed-bean-name>Cliente</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.ClienteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     
+    <managed-bean>
+        <managed-bean-name>Turno</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.TurnoView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
     
     <validator>
        <validator-class>com.swii.sysmedic.Validators.passwordValidator</validator-class>
@@ -75,10 +82,6 @@
        <validator-id>repeatpasswordValidator</validator-id>
     </validator>
     
-=======
-        <managed-bean-name>Turno</managed-bean-name>
-        <managed-bean-class>com.swii.sysmedic.Views.TurnoView</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
->>>>>>> c6b7716bd20fcaf10926e230a66f8ebd22cda36c
+    
+    
 </faces-config>
