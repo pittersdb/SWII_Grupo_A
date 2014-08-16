@@ -71,21 +71,42 @@
         <!-- Devolucion de medicinas por lote-->
         <p:tab title="#{msg['devolucion_medicinas']}">
             <h:form id="formDevMedicinas">
+                <p:growl id="messages"  showDetail="true"/>
+                
                 <h:panelGrid columns="2" cellpadding="5">
 
                     <p:outputLabel for="selectMedic" value="#{msg['Medicamento']}: "></p:outputLabel>
-                    <p:selectOneMenu id="selectMedic" value="#{MedicamentoLote.selectedMedicamentoDev}">
-                        <f:selectItem itemValue="#{null}" itemLabel="selecciona uno" />
+                    <p:selectOneMenu id="selectMedic" value="#{MedicamentoLote.selectedMedicamentoDev}" valueChangeListener="#{MedicamentoLote.medicamentoLoteDevChanged}">
+                        <f:selectItem itemValue="-1" itemLabel="selecciona uno" />
                         <f:selectItems value="#{Medicamento.all}" var="medicamento" itemValue="#{medicamento.id}" itemLabel="#{medicamento.nombre}" />
+                        <p:ajax event="change" update="selectLote, :inventario:formDevMedicinas"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
-                    <p:selectOneMenu id="selectLote" value="#">
-                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="" />
+                    <p:selectOneMenu id="selectLote" value="#{MedicamentoLote.selectedLoteDev}" >
+                        <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="-1" />
+                        <f:selectItems value="#{MedicamentoLote.allLotes}" var="medicamentoLote" itemValue="#{medicamentoLote.id}" itemLabel="#{medicamentoLote.codigoLote}" />
+                        <p:ajax event="change" update=":inventario:formDevMedicinas"/>
                     </p:selectOneMenu>
 
-                    <p:commandButton value="#{msg['devolver']}" id="btnDevolverLote" actionListener="#" styleClass="ui-priority-primary" />
+                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete=""  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas">
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                    </p:commandButton>   
+                    
                     <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarLote" actionListener="#" />
+                    
+                    <p:confirmDialog global="true" showEffect="fade" >                  
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+                    </p:confirmDialog>
+
+                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
+                        <f:facet name="message">
+                            <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
+                        </f:facet>
+                        <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
+                                         icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
+                    </p:confirmDialog>
                 </h:panelGrid>
             </h:form>
         </p:tab>

@@ -47,7 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MedicamentoLote.findByPrecio", query = "SELECT m FROM MedicamentoLote m WHERE m.precio = :precio"),
     @NamedQuery(name = "MedicamentoLote.findByEstado", query = "SELECT m FROM MedicamentoLote m WHERE m.estado = :estado"),
     @NamedQuery(name = "MedicamentoLote.findByMedicamento", query = "SELECT m FROM MedicamentoLote m WHERE m.medicamento.id = :medicamentoId"),
-    @NamedQuery(name = "MedicamentoLote.findByMedicamentoAndLote", query = "SELECT m FROM MedicamentoLote m WHERE m.medicamento.id = :medicamentoId AND m.codigoLote = :codigoLote")
+    @NamedQuery(name = "MedicamentoLote.findByMedicamentoAndLote", query = "SELECT m FROM MedicamentoLote m WHERE m.medicamento.id = :medicamentoId AND m.codigoLote = :codigoLote"),
+    @NamedQuery(name = "MedicamentoLote.updateEstadoLote", query = "UPDATE MedicamentoLote m SET m.estado = \"b\" WHERE m.id = :id")
 })
 public class MedicamentoLote implements Serializable {
     private static final long serialVersionUID = 1L;
