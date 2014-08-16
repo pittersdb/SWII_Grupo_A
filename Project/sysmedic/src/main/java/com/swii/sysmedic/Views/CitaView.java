@@ -192,8 +192,11 @@ public class CitaView {
             Cita citaToCancel = this.citaFacade.find(id);
             citaToCancel.setEstado(Cita.Estado.Cancelado.toString());
             this.citaFacade.edit(citaToCancel);
-            int index = this.resultSet.indexOf(citaToCancel);
-            this.resultSet.get(index).setEstado(citaToCancel.getEstado());
+            if(this.resultSet != null){
+                int index = this.resultSet.indexOf(citaToCancel);
+                if(index >= 0)
+                    this.resultSet.get(index).setEstado(citaToCancel.getEstado());
+            }
             
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();

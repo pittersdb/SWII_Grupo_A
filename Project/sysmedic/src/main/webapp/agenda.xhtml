@@ -129,7 +129,7 @@
                     <h:panelGrid columns="1" cellpadding="10">
                         <h:outputLabel for="turnos_hoy" value="#{msg['Turnos_para_hoy']} 01 de julio de 2014" /> 
                         <p:commandButton id="btnNuevoTurno" value="#{msg['Nuevo_Turno']}"  actionListener="#{Cita.SearchToday()}" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmCitasHoy:citasHoyTable" onclick="PF('dlgSeleccionarCita').show();" />
-                    </h:panelGrid>
+                    </h:panelGrid> 
                     
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable id="turnosTable" var="turno" value="#{Turno.resultSet}" tableStyle="width:auto">
@@ -146,7 +146,9 @@
                             </p:column>
                             
                             <p:column headerText="#{msg['Acciones']}">
-                                <p:commandButton value="#{msg['Cancelar']} #{msg['Turno']}" id="btnCancelarCitaTurno" styleClass="ui-priority-primary" style="font-size: 10px !important;" onclick="PF('dlgCancelacionCita').show();" />                    
+                                <p:commandButton value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Turno.CancelCita(turno)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable" style="font-size: 10px !important;">
+                                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                </p:commandButton>  
                             </p:column>
                             
                         </p:dataTable>

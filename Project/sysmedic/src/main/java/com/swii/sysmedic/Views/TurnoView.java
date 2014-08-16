@@ -66,8 +66,19 @@ public class TurnoView {
     
     public void Assign(Cita cita){
           try{
-            Turno turno = this.turnoFacade.Assign(cita);
-            this.resultSet.add(turno);
+            Turno turnoToAssign = this.turnoFacade.Assign(cita);
+            this.resultSet.add(turnoToAssign);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(TurnoView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void CancelCita(Turno turn){
+          try{
+            this.turnoFacade.CancelTurno(turn,true);
+            this.resultSet.remove(turn);
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

@@ -8,6 +8,9 @@ package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Turno;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,7 +53,16 @@ public class TurnoFacade extends AbstractFacade<Turno> {
           create(turno);
           cita.setEstado(Cita.Estado.Esperando.toString());
           citaFacade.edit(cita);
-          return turno;
+          return turno; 
+    }
+    
+    public void CancelTurno(Turno turno, boolean cancelCita){
+        if(cancelCita){
+            Cita cita = turno.getCita();
+            cita.setEstado(Cita.Estado.Cancelado.toString());            
+            citaFacade.edit(cita);
+        }
+       this.remove(turno);   
     }
     
 }

@@ -178,6 +178,8 @@ public class Cita implements Serializable {
             return "Pendiente";
         if(estado.equalsIgnoreCase(Cita.Estado.Terminado.toString()))
             return "Terminado";
+         if(estado.equalsIgnoreCase(Cita.Estado.Esperando.toString()))
+            return "Esperando";
         return "Ninguno";
     }
     
