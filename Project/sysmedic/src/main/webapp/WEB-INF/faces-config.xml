@@ -18,7 +18,13 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
-    
+        
+    <managed-bean>
+        <managed-bean-name>CustomDate</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Util.CustomDate</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+        
     <managed-bean>
         <managed-bean-name>User</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.UsersView</managed-bean-class>
@@ -73,15 +79,13 @@
     </managed-bean>
     
     <validator>
-       <validator-class>com.swii.sysmedic.Validators.passwordValidator</validator-class>
-       <validator-id>passwordValidator</validator-id>
+        <validator-class>com.swii.sysmedic.Validators.passwordValidator</validator-class>
+        <validator-id>passwordValidator</validator-id>
     </validator>
     
     <validator>
-       <validator-class>com.swii.sysmedic.Validators.repeatpasswordValidator</validator-class>
-       <validator-id>repeatpasswordValidator</validator-id>
+        <validator-class>com.swii.sysmedic.Validators.repeatpasswordValidator</validator-class>
+        <validator-id>repeatpasswordValidator</validator-id>
     </validator>
-    
-    
     
 </faces-config>
