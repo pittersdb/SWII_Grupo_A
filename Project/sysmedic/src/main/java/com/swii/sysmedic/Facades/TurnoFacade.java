@@ -28,6 +28,8 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     
     @EJB
     private CitaFacade citaFacade;
+    
+    private int pospuestosCounter;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -36,6 +38,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
 
     public TurnoFacade() {
         super(Turno.class);
+        pospuestosCounter = 0;
     }
     
     public Turno Assign(Cita cita){
@@ -72,11 +75,21 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         
         this.remove(currentTurno);
         turnos.remove(currentTurno);
-        
+        pospuestosCounter = 0;
         if(!turnos.isEmpty())
             return turnos.get(0);
         else
             return null;        
+    }
+    
+    public void Posporner(List<Turno> turnos){
+        if(turnos.isEmpty() || turnos.size() == 1) return;    
+        pospuestosCounter++;        
+        if(pospuestosCounter == turnos.size())
+            pospuestosCounter= 1;
+        Turno turnoToPosposed = turnos.get(0);        
+        turnos.set(0, turnos.get(pospuestosCounter));        
+        turnos.set(pospuestosCounter, turnoToPosposed);               
     }
     
 }

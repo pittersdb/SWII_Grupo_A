@@ -109,8 +109,11 @@
                                         <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
                                             <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                         </p:commandButton>  
-                                                                            
-                                        <p:commandButton id="btnPosponer" value="#{msg['Posponer_al_siguiente_turno']}" style=" font-size: 12px !important;" actionListener="#" />
+                                        
+                                        <p:commandButton id="btnPosponer"  value="#{msg['Posponer_al_siguiente_turno']}"  actionListener="#{Turno.Posponer()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
+                                            <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                        </p:commandButton>                                                                              
+                                        
                                         <p:commandButton id="btnCancelarTurno" value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#" style=" font-size: 12px !important;"  onclick="PF('dlgCancelacionCita').show();" />                    
                                     </h:panelGrid>
                                 </h:panelGrid>
@@ -136,7 +139,7 @@
                     </h:panelGrid> 
                         
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="turnosTable" var="turno" value="#{Turno.resultSet}" tableStyle="width:auto">
+                        <p:dataTable id="turnosTable" var="turno" value="#{Turno.orderedTurnos}" tableStyle="width:auto">
                             <p:column headerText="#{msg['numero_turno']}">
                                 <h:outputText value="#{turno.orden}" />
                             </p:column>

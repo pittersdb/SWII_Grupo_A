@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.Views;
 
@@ -24,67 +24,67 @@ import javax.faces.context.FacesContext;
  * @author LUCAS
  */
 public class TurnoView {
-
+    
     
     @EJB
-    private TurnoFacade turnoFacade;    
+    private TurnoFacade turnoFacade;
     private Turno turno = new Turno();
-    private List<Turno> resultSet = new ArrayList<Turno>();
+    private List<Turno> orderedTurnos = new ArrayList<Turno>();
     private Turno current;
-     
+    
     
     /**
      * Creates a new instance of TurnoView
      */
     public TurnoView() {
-         
+        
     }
     
     @PostConstruct
     public void init() {
-        if(this.resultSet.isEmpty())
-            this.resultSet.addAll(this.turnoFacade.findAll());
+        if(this.orderedTurnos.isEmpty())
+            this.orderedTurnos.addAll(this.turnoFacade.findAll());
     }
-
+    
     public Turno getTurno() {
         return turno;
     }
-
+    
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
-
-    public List<Turno> getResultSet() {
-        if(this.resultSet.isEmpty())
-            this.resultSet.addAll(this.turnoFacade.findAll());
-        return resultSet;
+    
+    public List<Turno> getOrderedTurnos() {
+        if(this.orderedTurnos.isEmpty())
+            this.orderedTurnos.addAll(this.turnoFacade.findAll());
+        return orderedTurnos;
     }
-
-    public void setResultSet(List<Turno> resultSet) {
-        this.resultSet = resultSet;
+    
+    public void setOrderedTurnos(List<Turno> resultSet) {
+        this.orderedTurnos = resultSet;
     }
-
+    
     public Turno getCurrent() {
         if(current == null){
-            if(this.resultSet != null ){
-                if(!this.resultSet.isEmpty()){
-                    current = this.resultSet.get(0);
+            if(this.orderedTurnos != null ){
+                if(!this.orderedTurnos.isEmpty()){
+                    current = this.orderedTurnos.get(0);
                 }
             }
-         }
+        }
         return current;
     }
-
+    
     public void setCurrent(Turno current) {
         this.current = current;
     }
-  
+    
     public void Assign(Cita cita){
-          try{
+        try{
             Turno turnoToAssign = this.turnoFacade.Assign(cita);
-            this.resultSet.add(turnoToAssign);
-            if( !this.resultSet.isEmpty())
-                this.setCurrent(this.resultSet.get(0));
+            this.orderedTurnos.add(turnoToAssign);
+            if( !this.orderedTurnos.isEmpty())
+                this.setCurrent(this.orderedTurnos.get(0));
             else
                 this.setCurrent(null);
         }catch(Exception e){
@@ -95,11 +95,11 @@ public class TurnoView {
     }
     
     public void CancelCita(Turno turn){
-          try{
+        try{
             this.turnoFacade.CancelTurno(turn,true);
-            this.resultSet.remove(turn);
-            if( !this.resultSet.isEmpty())
-                this.setCurrent(this.resultSet.get(0));
+            this.orderedTurnos.remove(turn);
+            if( !this.orderedTurnos.isEmpty())
+                this.setCurrent(this.orderedTurnos.get(0));
             else
                 this.setCurrent(null);
         }catch(Exception e){
@@ -110,9 +110,26 @@ public class TurnoView {
     }
     
     public void FinishAndNext(){
-          try{
-              Turno nextTurno = this.turnoFacade.FinishCitaAndNextTurno(current, resultSet);
-              this.setCurrent(nextTurno);
+        try{
+            Turno nextTurno = this.turnoFacade.FinishCitaAndNextTurno(current, orderedTurnos);
+            this.setCurrent(nextTurno);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(TurnoView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void Posponer(){
+        try{
+            int index = this.orderedTurnos.indexOf(current);
+            if(index+1 == this.orderedTurnos.size()){//There is not a next turn
+                FacesContext.getCurrentInstance().validationFailed();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Este es el ultimo turno del dia por ahora"));
+            }else{
+                this.turnoFacade.Posporner(orderedTurnos);
+                this.setCurrent(this.orderedTurnos.get(0));
+            }
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
