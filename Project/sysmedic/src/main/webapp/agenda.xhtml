@@ -111,7 +111,8 @@
                                     </h:panelGrid>
                                 </h:panelGrid>
 
-                                <h:graphicImage value="/Images/patientMale.ico"/>
+                                <h:graphicImage rendered="#{Turno.current.cita.paciente.sexo == 'm'}" value="/Images/patientMale.ico"/>
+                                <h:graphicImage rendered="#{Turno.current.cita.paciente.sexo == 'f'}" value="/Images/patientFemale.ico"/>
 
                             </h:panelGrid>
                         </p:panel>
