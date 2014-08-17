@@ -29,8 +29,6 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     @EJB
     private CitaFacade citaFacade;
     
-    private int pospuestosCounter;
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -38,7 +36,6 @@ public class TurnoFacade extends AbstractFacade<Turno> {
 
     public TurnoFacade() {
         super(Turno.class);
-        pospuestosCounter = 0;
     }
     
     public Turno Assign(Cita cita){
@@ -52,7 +49,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
           }else{
               turno.setOrden(1);
               System.out.println("MAX ORDER NULL"); 
-          }
+          } 
           create(turno);
           cita.setEstado(Cita.Estado.Esperando.toString());
           citaFacade.edit(cita);
@@ -60,11 +57,13 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     }
     
     public void CancelTurno(Turno turno, boolean cancelCita){
-        if(cancelCita){
-            Cita cita = turno.getCita();
-            cita.setEstado(Cita.Estado.Cancelado.toString());            
-            citaFacade.edit(cita);
+         Cita cita = turno.getCita();
+        if(cancelCita){           
+            cita.setEstado(Cita.Estado.Cancelado.toString());                        
+        }else{
+            cita.setEstado(Cita.Estado.Pendiente.toString());          
         }
+        citaFacade.edit(cita);
        this.remove(turno);   
     }
     
@@ -75,21 +74,28 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         
         this.remove(currentTurno);
         turnos.remove(currentTurno);
-        pospuestosCounter = 0;
+        
         if(!turnos.isEmpty())
             return turnos.get(0);
         else
             return null;        
     }
     
-    public void Posporner(List<Turno> turnos){
-        if(turnos.isEmpty() || turnos.size() == 1) return;    
-        pospuestosCounter++;        
-        if(pospuestosCounter == turnos.size())
-            pospuestosCounter= 1;
-        Turno turnoToPosposed = turnos.get(0);        
-        turnos.set(0, turnos.get(pospuestosCounter));        
-        turnos.set(pospuestosCounter, turnoToPosposed);               
-    }
+//    public void Posporner(List<Turno> turnos){
+//        if(turnos.isEmpty() || turnos.size() == 1) return;    
+//        pospuestosCounter++;        
+//        if(pospuestosCounter == turnos.size())
+//            pospuestosCounter= 1;
+//        Turno turnoToPosposed = turnos.get(0);        
+//        turnos.set(0, turnos.get(pospuestosCounter));        
+//        turnos.set(pospuestosCounter, turnoToPosposed);       
+//        
+//        turnos.get(0).setRealOrden(0);
+//        turnos.get(pospuestosCounter).setRealOrden(pospuestosCounter);
+//        turnos.get(pospuestosCounter).setEstado(Turno.Estado.Postergado.toString());
+//        
+//        this.edit(turnos.get(0));
+//        this.edit(turnos.get(pospuestosCounter));
+//    }
     
 }

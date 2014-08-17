@@ -11,6 +11,7 @@ import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Turno;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,8 +43,6 @@ public class TurnoView {
     
     @PostConstruct
     public void init() {
-        if(this.orderedTurnos.isEmpty())
-            this.orderedTurnos.addAll(this.turnoFacade.findAll());
     }
     
     public Turno getTurno() {
@@ -55,8 +54,9 @@ public class TurnoView {
     }
     
     public List<Turno> getOrderedTurnos() {
-        if(this.orderedTurnos.isEmpty())
-            this.orderedTurnos.addAll(this.turnoFacade.findAll());
+        if(this.orderedTurnos.isEmpty()){
+            this.orderedTurnos.addAll(this.turnoFacade.findAll());            
+        }
         return orderedTurnos;
     }
     
@@ -67,6 +67,8 @@ public class TurnoView {
     public Turno getCurrent() {
         if(current == null){
             if(this.orderedTurnos != null ){
+                if(this.orderedTurnos.isEmpty())
+                    this.getOrderedTurnos();
                 if(!this.orderedTurnos.isEmpty()){
                     current = this.orderedTurnos.get(0);
                 }
@@ -97,6 +99,21 @@ public class TurnoView {
     public void CancelCita(Turno turn){
         try{
             this.turnoFacade.CancelTurno(turn,true);
+              this.orderedTurnos.remove(turn);
+            if( !this.orderedTurnos.isEmpty())
+                this.setCurrent(this.orderedTurnos.get(0));
+            else
+                this.setCurrent(null);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(TurnoView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void Descartar(Turno turn){
+        try{
+            this.turnoFacade.CancelTurno(turn,false);
             this.orderedTurnos.remove(turn);
             if( !this.orderedTurnos.isEmpty())
                 this.setCurrent(this.orderedTurnos.get(0));
@@ -120,20 +137,20 @@ public class TurnoView {
         }
     }
     
-    public void Posponer(){
-        try{
-            int index = this.orderedTurnos.indexOf(current);
-            if(index+1 == this.orderedTurnos.size()){//There is not a next turn
-                FacesContext.getCurrentInstance().validationFailed();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Este es el ultimo turno del dia por ahora"));
-            }else{
-                this.turnoFacade.Posporner(orderedTurnos);
-                this.setCurrent(this.orderedTurnos.get(0));
-            }
-        }catch(Exception e){
-            FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
-            Logger.getLogger(TurnoView.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
+//    public void Posponer(){
+//        try{
+//            int index = this.orderedTurnos.indexOf(current);
+//            if(index+1 == this.orderedTurnos.size()){//There is not a next turn
+//                FacesContext.getCurrentInstance().validationFailed();
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Este es el ultimo turno del dia por ahora"));
+//            }else{
+//                this.turnoFacade.Posporner(orderedTurnos);
+//                this.setCurrent(this.orderedTurnos.get(0));
+//            }
+//        }catch(Exception e){
+//            FacesContext.getCurrentInstance().validationFailed();
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+//            Logger.getLogger(TurnoView.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//    }
 }

@@ -109,8 +109,8 @@
                                         <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
                                             <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                         </p:commandButton>  
-                                        
-                                        <p:commandButton id="btnPosponer"  value="#{msg['Posponer_al_siguiente_turno']}"  actionListener="#{Turno.Posponer()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
+                                         
+                                        <p:commandButton id="btnDescartar"  value="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
                                             <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                         </p:commandButton>                                                                              
                                         
@@ -153,9 +153,16 @@
                             </p:column>
                                 
                             <p:column headerText="#{msg['Acciones']}">
+                                
+                                <p:commandButton value="#{msg['Descartar']} #{msg['Turno']}" actionListener="#{Turno.Descartar(turno)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 10px !important;">
+                                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                </p:commandButton>  
+                                
                                 <p:commandButton value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Turno.CancelCita(turno)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 10px !important;">
                                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                 </p:commandButton>  
+                                
+                               
                             </p:column>
                                 
                         </p:dataTable>
