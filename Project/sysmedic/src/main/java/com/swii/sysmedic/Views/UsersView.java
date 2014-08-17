@@ -173,6 +173,11 @@ public class UsersView {
         }
     }
     
+    
+    public String ShowIfLoggedUserIsMedic(String word){
+        return loggedUser.isMedic() ? word : "";
+    }
+    
     private void Clear(){
         user.setName(null);
         user.setApellidos(null);

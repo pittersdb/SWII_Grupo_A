@@ -20,6 +20,7 @@
         <intercept-url pattern="/faces/index.xhtml" access="isAuthenticated()" />
         <intercept-url pattern="/faces/usuarios.xhtml" access="hasRole('a')" />
         <intercept-url pattern="/faces/pacientes.xhtml" access="hasAnyRole('a','m', 's')" />
+        <intercept-url pattern="/faces/turnosDelDia.xhtml" access="hasAnyRole('m')" />
         <intercept-url pattern="/faces/historial.xhtml" access="hasAnyRole('a','m')" />
         <intercept-url pattern="/faces/inventario.xhtml" access="hasAnyRole('a','s')" />
         <intercept-url pattern="/faces/agenda.xhtml" access="hasAnyRole('m','a','s')" />

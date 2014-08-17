@@ -225,6 +225,12 @@ public class Users implements Serializable, Comparable<Object>{
     public void setEnabled(short enabled) {
         this.enabled = enabled;
     }
+    
+    public boolean isMedic(){
+        if(medicoCollection != null)
+            return !medicoCollection.isEmpty();
+        return false;
+    }
 
     @XmlTransient
     public Collection<Medico> getMedicoCollection() {
