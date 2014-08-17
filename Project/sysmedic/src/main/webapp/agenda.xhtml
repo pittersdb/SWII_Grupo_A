@@ -105,7 +105,11 @@
                                         <p:commandButton id="btnMediciones" value="#{msg['Agregar_o_ver_Mediciones']}" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
                                         <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>
                                         <p:commandButton id="btnProgramarCita" value="#{msg['Programar_Proxima_Cita']}" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
-                                        <p:commandButton id="btnContinuar" value="#{msg['Finalizar_y_pasar_al_siguiente']}" style=" font-size: 12px !important;" actionListener="#" />
+                                        
+                                        <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
+                                            <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                        </p:commandButton>  
+                                                                            
                                         <p:commandButton id="btnPosponer" value="#{msg['Posponer_al_siguiente_turno']}" style=" font-size: 12px !important;" actionListener="#" />
                                         <p:commandButton id="btnCancelarTurno" value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#" style=" font-size: 12px !important;"  onclick="PF('dlgCancelacionCita').show();" />                    
                                     </h:panelGrid>

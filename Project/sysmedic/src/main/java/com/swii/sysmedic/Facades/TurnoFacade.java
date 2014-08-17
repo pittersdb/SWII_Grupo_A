@@ -65,4 +65,18 @@ public class TurnoFacade extends AbstractFacade<Turno> {
        this.remove(turno);   
     }
     
+    public Turno FinishCitaAndNextTurno(Turno currentTurno, List<Turno> turnos){
+        Cita currentCita = currentTurno.getCita();
+        currentCita.setEstado(Cita.Estado.Terminado.toString());
+        this.citaFacade.edit(currentCita);
+        
+        this.remove(currentTurno);
+        turnos.remove(currentTurno);
+        
+        if(!turnos.isEmpty())
+            return turnos.get(0);
+        else
+            return null;        
+    }
+    
 }
