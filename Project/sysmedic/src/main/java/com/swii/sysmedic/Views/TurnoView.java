@@ -30,13 +30,14 @@ public class TurnoView {
     private TurnoFacade turnoFacade;    
     private Turno turno = new Turno();
     private List<Turno> resultSet = new ArrayList<Turno>();
-    
+    private Turno current;
+     
     
     /**
      * Creates a new instance of TurnoView
      */
     public TurnoView() {
-        
+         
     }
     
     @PostConstruct
@@ -62,12 +63,33 @@ public class TurnoView {
     public void setResultSet(List<Turno> resultSet) {
         this.resultSet = resultSet;
     }
+
+    public Turno getCurrent() {
+        if(current == null){
+            if(this.resultSet != null ){
+                if(!this.resultSet.isEmpty()){
+                    current = this.resultSet.get(0);
+                }
+            }
+         }
+        return current;
+    }
+
+    public void setCurrent(Turno current) {
+        this.current = current;
+    }
+    
+    
     
     
     public void Assign(Cita cita){
           try{
             Turno turnoToAssign = this.turnoFacade.Assign(cita);
             this.resultSet.add(turnoToAssign);
+            if( !this.resultSet.isEmpty())
+                this.setCurrent(this.resultSet.get(0));
+            else
+                this.setCurrent(null);
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
@@ -79,6 +101,10 @@ public class TurnoView {
           try{
             this.turnoFacade.CancelTurno(turn,true);
             this.resultSet.remove(turn);
+            if( !this.resultSet.isEmpty())
+                this.setCurrent(this.resultSet.get(0));
+            else
+                this.setCurrent(null);
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

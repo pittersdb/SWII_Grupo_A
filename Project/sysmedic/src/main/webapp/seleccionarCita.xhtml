@@ -31,7 +31,7 @@
                 </p:column>
                                 
                 <p:column headerText="#{msg['Acciones']}"> 
-                    <p:commandButton value="#{msg['AsignarTurno']}" id="btnAsignarTurno" actionListener="#{Turno.Assign(cita)}" update=":tabViewAgenda:frmCitasHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable" styleClass="ui-priority-primary" style="font-size: 10px !important;"  oncomplete="PF('dlgSeleccionarCita').hide();" />                    
+                    <p:commandButton value="#{msg['AsignarTurno']}" id="btnAsignarTurno" actionListener="#{Turno.Assign(cita)}" update=":tabViewAgenda:frmCitasHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable, :tabViewAgenda:panelPaciente" styleClass="ui-priority-primary" style="font-size: 10px !important;"  oncomplete="PF('dlgSeleccionarCita').hide();" />                    
                 </p:column>
             </p:dataTable>                            
             
