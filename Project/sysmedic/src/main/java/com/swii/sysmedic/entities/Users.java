@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -84,8 +85,8 @@ public class Users implements Serializable, Comparable<Object>{
     @NotNull
     @Column(name = "enabled")
     private short enabled;
-    @OneToMany(mappedBy = "users") 
-    private Collection<Medico> medicoCollection;
+    @OneToOne(mappedBy = "users") 
+    private Medico medico;
     @Transient
     private int especialidad;
 
@@ -227,18 +228,15 @@ public class Users implements Serializable, Comparable<Object>{
     }
     
     public boolean isMedic(){
-        if(medicoCollection != null)
-            return !medicoCollection.isEmpty();
-        return false;
+        return medico != null;
     }
 
-    @XmlTransient
-    public Collection<Medico> getMedicoCollection() {
-        return medicoCollection;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setMedicoCollection(Collection<Medico> medicoCollection) {
-        this.medicoCollection = medicoCollection;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public int getEspecialidad() {

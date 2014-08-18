@@ -54,6 +54,10 @@ public class UsersView {
         return loggedUser;
     }
     
+    public Users getSessionUser(){
+        return loggedUser; 
+    }
+    
     public UsersView() {
         this.usersFacade = new UsersFacade();
     }

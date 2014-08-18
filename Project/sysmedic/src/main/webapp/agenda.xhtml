@@ -94,7 +94,8 @@
                     
                     <h:panelGrid columns="3" cellpadding="10">
                         <p:outputLabel for="medicoDeTurnos" value="#{msg['Medico']} Dr.(a): "  ></p:outputLabel> 
-                        <p:selectOneMenu id="medicoDeTurnos" value="#{Turno.selectedMedicoId}"     maxlength="50" styleClass="noupdate" > 
+                        <p:inputText value="#{Turno.selectedMedico.users.name} #{Turno.selectedMedico.users.apellidos}"    rendered="#{User.sessionUser.medic}" disabled="true" readonly="true"></p:inputText> 
+                        <p:selectOneMenu id="medicoDeTurnos" value="#{Turno.selectedMedicoId}"     maxlength="50" styleClass="noupdate" rendered="#{!User.sessionUser.medic}"> 
                             <f:selectItems value="#{Medico.all}" var="medicoDeTurn" itemValue="#{medicoDeTurn.id}" itemLabel="#{medicoDeTurn.users.name} #{medicoDeTurn.users.apellidos}"/>
                             <f:ajax listener="#{Turno.UpdateOrderedTurnos()}" render="turnosTable :tabViewAgenda:dglSeleccionarCita" />   
                         </p:selectOneMenu>  

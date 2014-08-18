@@ -46,11 +46,18 @@ public class TurnoView {
     
     @PostConstruct
     public void init() {
-         List<Medico> allMedicos = MedicoView.getInstance().getAll();
-            if(!allMedicos.isEmpty()) {
-                  this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(allMedicos.get(0)));   
-                  this.selectedMedicoId = allMedicos.get(0).getId();
-            }
+        List<Medico> allMedicos = MedicoView.getInstance().getAll();
+        Medico medicoTarget = null;
+        if(!allMedicos.isEmpty() && !UsersView.getLoggedUser().isMedic())
+            medicoTarget = allMedicos.get(0);
+        
+        if(UsersView.getLoggedUser().isMedic())
+            medicoTarget = UsersView.getLoggedUser().getMedico();
+        
+        if(medicoTarget != null){
+            this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(medicoTarget));
+            this.selectedMedicoId = medicoTarget.getId();
+        }
     }
     
     public Turno getTurno() {
@@ -62,7 +69,7 @@ public class TurnoView {
     }
     
     public List<Turno> getOrderedTurnos() {
-        if(this.orderedTurnos.isEmpty()){                         
+        if(this.orderedTurnos.isEmpty()){
             this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(getSelectedMedico()));
         }
         return orderedTurnos;
@@ -88,24 +95,24 @@ public class TurnoView {
     public void setCurrent(Turno current) {
         this.current = current;
     }
-
+    
     public int getSelectedMedicoId() {
         return selectedMedicoId;
     }
-
+    
     public void setSelectedMedicoId(int selectedMedico) {
         this.selectedMedicoId = selectedMedico;
     }
-
+    
     public Medico getSelectedMedico() {
         selectedMedico = MedicoView.getInstance().getMedico(selectedMedicoId);
         return selectedMedico;
     }
-
+    
     public void setSelectedMedico(Medico selectedMedico) {
         this.selectedMedico = selectedMedico;
     }
-      
+    
     public void UpdateOrderedTurnos(){
         this.orderedTurnos.clear();
         this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(getSelectedMedico()));
@@ -129,7 +136,7 @@ public class TurnoView {
     public void CancelCita(Turno turn){
         try{
             this.turnoFacade.CancelTurno(turn,true);
-              this.orderedTurnos.remove(turn);
+            this.orderedTurnos.remove(turn);
             if( !this.orderedTurnos.isEmpty())
                 this.setCurrent(this.orderedTurnos.get(0));
             else
