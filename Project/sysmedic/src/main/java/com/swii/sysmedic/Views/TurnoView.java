@@ -8,6 +8,7 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.TurnoFacade;
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Turno;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +33,8 @@ public class TurnoView {
     private Turno turno = new Turno();
     private List<Turno> orderedTurnos = new ArrayList<Turno>();
     private Turno current;
+    private int selectedMedicoId;
+    private Medico selectedMedico;
     
     
     /**
@@ -43,6 +46,11 @@ public class TurnoView {
     
     @PostConstruct
     public void init() {
+         List<Medico> allMedicos = MedicoView.getInstance().getAll();
+            if(!allMedicos.isEmpty()) {
+                  this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(allMedicos.get(0)));   
+                  this.selectedMedicoId = allMedicos.get(0).getId();
+            }
     }
     
     public Turno getTurno() {
@@ -54,8 +62,8 @@ public class TurnoView {
     }
     
     public List<Turno> getOrderedTurnos() {
-        if(this.orderedTurnos.isEmpty()){
-            this.orderedTurnos.addAll(this.turnoFacade.findAll());            
+        if(this.orderedTurnos.isEmpty()){                         
+            this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(getSelectedMedico()));
         }
         return orderedTurnos;
     }
@@ -79,6 +87,28 @@ public class TurnoView {
     
     public void setCurrent(Turno current) {
         this.current = current;
+    }
+
+    public int getSelectedMedicoId() {
+        return selectedMedicoId;
+    }
+
+    public void setSelectedMedicoId(int selectedMedico) {
+        this.selectedMedicoId = selectedMedico;
+    }
+
+    public Medico getSelectedMedico() {
+        selectedMedico = MedicoView.getInstance().getMedico(selectedMedicoId);
+        return selectedMedico;
+    }
+
+    public void setSelectedMedico(Medico selectedMedico) {
+        this.selectedMedico = selectedMedico;
+    }
+      
+    public void UpdateOrderedTurnos(){
+        this.orderedTurnos.clear();
+        this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(getSelectedMedico()));
     }
     
     public void Assign(Cita cita){

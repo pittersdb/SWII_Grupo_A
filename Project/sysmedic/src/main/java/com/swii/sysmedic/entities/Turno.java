@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t"),
     @NamedQuery(name = "Turno.findById", query = "SELECT t FROM Turno t WHERE t.id = :id"),
-    @NamedQuery(name = "Turno.findLastOrden", query = "SELECT MAX(t.orden) FROM Turno t"),
+    @NamedQuery(name = "Turno.findLastOrden", query = "SELECT MAX(t.orden) FROM Turno t WHERE t.cita.medico = :medico"),
+    @NamedQuery(name = "Turno.findByMedico", query = "SELECT t FROM Turno t WHERE t.cita.medico = :medico"),
     @NamedQuery(name = "Turno.findByOrden", query = "SELECT t FROM Turno t WHERE t.orden = :orden")})
 public class Turno implements Serializable {
         

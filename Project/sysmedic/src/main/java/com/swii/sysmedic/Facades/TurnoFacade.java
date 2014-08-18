@@ -7,6 +7,7 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Turno;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,8 +39,15 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         super(Turno.class);
     }
     
+    public List<Turno> GetAllTurnosByMedico(Medico medico){
+        TypedQuery<Turno> query = em.createNamedQuery("Turno.findByMedico", Turno.class);     
+        query.setParameter("medico", medico);
+        return query.getResultList();
+    }
+    
     public Turno Assign(Cita cita){
-          TypedQuery<Integer> query = em.createNamedQuery("Turno.findLastOrden", Integer.class);          
+          TypedQuery<Integer> query = em.createNamedQuery("Turno.findLastOrden", Integer.class);     
+          query.setParameter("medico", cita.getMedico());
           Integer maxOrder = query.getSingleResult();        
           Turno turno = new Turno();
           turno.setCita(cita);

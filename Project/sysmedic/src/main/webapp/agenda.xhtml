@@ -81,20 +81,29 @@
             <p:tab title="#{msg['Assignacion_Turnos']}">      
                 
                 
-                <p:dialog header="#{msg['Citas_programadas_para_hoy']}" widgetVar="dlgSeleccionarCita" minHeight="40" draggable="false" resizable="false">
+                <p:dialog id="dglSeleccionarCita" header="#{msg['Citas_programadas_para_hoy']} Dr(a). #{Turno.selectedMedico.users.name} #{Turno.selectedMedico.users.apellidos}" widgetVar="dlgSeleccionarCita" minHeight="40" draggable="false" resizable="false">
                     <ui:include src="seleccionarCita.xhtml" />
                 </p:dialog>
                     
                 <h:form id="frmTurnosHoy">
-                    <p:growl id="messages"  showDetail="true"/>
+                    <p:growl id="messages"  showDetail="true"/>  
+                    
                     <h:panelGrid columns="1" cellpadding="10">
-                        <h:outputLabel for="turnos_hoy" value="#{msg['Turnos_para_hoy']} #{CustomDate.date} de #{CustomDate.monthName} de #{CustomDate.year}" /> 
-                        <p:commandButton id="btnNuevoTurno" value="#{msg['Nuevo_Turno']}"  actionListener="#{Cita.SearchToday()}" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmCitasHoy:citasHoyTable" onclick="PF('dlgSeleccionarCita').show();" />
+                        <h:outputLabel for="turnos_hoy" value="#{msg['Turnos_para_hoy']} #{CustomDate.date} de #{CustomDate.monthName} de #{CustomDate.year}" />                         
                     </h:panelGrid> 
+                    
+                    <h:panelGrid columns="3" cellpadding="10">
+                        <p:outputLabel for="medicoDeTurnos" value="#{msg['Medico']} Dr.(a): "  ></p:outputLabel> 
+                        <p:selectOneMenu id="medicoDeTurnos" value="#{Turno.selectedMedicoId}"     maxlength="50" styleClass="noupdate" > 
+                            <f:selectItems value="#{Medico.all}" var="medicoDeTurn" itemValue="#{medicoDeTurn.id}" itemLabel="#{medicoDeTurn.users.name} #{medicoDeTurn.users.apellidos}"/>
+                            <f:ajax listener="#{Turno.UpdateOrderedTurnos()}" render="turnosTable :tabViewAgenda:dglSeleccionarCita" />   
+                        </p:selectOneMenu>  
+                        <p:commandButton id="btnNuevoTurno" value="#{msg['Nuevo_Turno']}"  actionListener="#{Cita.SearchToday(Turno.selectedMedico)}" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmCitasHoy:citasHoyTable " onclick="PF('dlgSeleccionarCita').show();" />
+                    </h:panelGrid>
                         
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable id="turnosTable" var="turno" value="#{Turno.orderedTurnos}" tableStyle="width:auto">
-                            <p:column headerText="#{msg['numero_turno']}">
+                            <p:column headerText="#{msg['numero_turno']}"> 
                                 <h:outputText value="#{turno.orden}" />
                             </p:column>
                                 

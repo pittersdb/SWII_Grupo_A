@@ -209,11 +209,11 @@ public class CitaView {
        this.resultSet = Search(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(),fechaInf, fechaSup, selectedEstado);
     }
     
-    public void SearchToday(){
+    public void SearchToday(Medico medico){
         
         List<Cita> postergadas, pendientes;
-        postergadas = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Pendiente.toString());
-        pendientes = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Postergado.toString());
+        postergadas = Search(null, medico, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Pendiente.toString());
+        pendientes = Search(null, medico, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Postergado.toString());
         
         this.todaySet = new ArrayList<>(pendientes);
         this.todaySet.addAll(postergadas);        
