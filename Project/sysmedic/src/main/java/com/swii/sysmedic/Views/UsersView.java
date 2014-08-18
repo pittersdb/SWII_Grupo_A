@@ -54,6 +54,10 @@ public class UsersView {
         return loggedUser;
     }
     
+    public Users getSessionUser(){
+        return loggedUser; 
+    }
+    
     public UsersView() {
         this.usersFacade = new UsersFacade();
     }
@@ -171,6 +175,11 @@ public class UsersView {
         } catch (IOException ex) {
             Logger.getLogger(UsersView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public String ShowIfLoggedUserIsMedic(String word){
+        return loggedUser.isMedic() ? word : "";
     }
     
     private void Clear(){

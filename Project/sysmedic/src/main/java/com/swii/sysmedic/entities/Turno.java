@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,9 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t"),
     @NamedQuery(name = "Turno.findById", query = "SELECT t FROM Turno t WHERE t.id = :id"),
-    @NamedQuery(name = "Turno.findLastOrden", query = "SELECT MAX(t.orden) FROM Turno t"),
+    @NamedQuery(name = "Turno.findLastOrden", query = "SELECT MAX(t.orden) FROM Turno t WHERE t.cita.medico = :medico"),
+    @NamedQuery(name = "Turno.findByMedico", query = "SELECT t FROM Turno t WHERE t.cita.medico = :medico"),
     @NamedQuery(name = "Turno.findByOrden", query = "SELECT t FROM Turno t WHERE t.orden = :orden")})
 public class Turno implements Serializable {
+        
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,8 +85,7 @@ public class Turno implements Serializable {
 
     public void setCita(Cita cita) {
         this.cita = cita;
-    }
-    
+    }  
     
 
     @Override

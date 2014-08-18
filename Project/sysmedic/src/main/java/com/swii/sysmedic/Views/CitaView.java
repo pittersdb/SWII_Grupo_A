@@ -144,6 +144,8 @@ public class CitaView {
         //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
         try{
             this.cita.setEstado(Cita.Estado.Pendiente.toString());
+            if(UsersView.getLoggedUser().isMedic())
+                MedicoView.getInstance().setMedico(UsersView.getLoggedUser().getMedico());
             this.cita.setMedico(MedicoView.getInstance().getMedico());
             this.cita.setPaciente(PacienteView.getInstance().getPaciente());
             this.cita.setUsers(UsersView.getLoggedUser());
@@ -192,8 +194,11 @@ public class CitaView {
             Cita citaToCancel = this.citaFacade.find(id);
             citaToCancel.setEstado(Cita.Estado.Cancelado.toString());
             this.citaFacade.edit(citaToCancel);
-            int index = this.resultSet.indexOf(citaToCancel);
-            this.resultSet.get(index).setEstado(citaToCancel.getEstado());
+            if(this.resultSet != null){
+                int index = this.resultSet.indexOf(citaToCancel);
+                if(index >= 0)
+                    this.resultSet.get(index).setEstado(citaToCancel.getEstado());
+            }
             
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
@@ -206,11 +211,11 @@ public class CitaView {
        this.resultSet = Search(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(),fechaInf, fechaSup, selectedEstado);
     }
     
-    public void SearchToday(){
+    public void SearchToday(Medico medico){
         
         List<Cita> postergadas, pendientes;
-        postergadas = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Pendiente.toString());
-        pendientes = Search(null, null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Postergado.toString());
+        postergadas = Search(null, medico, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Pendiente.toString());
+        pendientes = Search(null, medico, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), Cita.Estado.Postergado.toString());
         
         this.todaySet = new ArrayList<>(pendientes);
         this.todaySet.addAll(postergadas);        

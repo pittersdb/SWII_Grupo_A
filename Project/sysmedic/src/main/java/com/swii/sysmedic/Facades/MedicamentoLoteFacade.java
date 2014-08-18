@@ -7,8 +7,10 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.MedicamentoLote;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -32,17 +34,17 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
     }
     
     
-    public MedicamentoLote GetLote(Long lote, int idMedicamento) {
-        //TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByCodigoLote", MedicamentoLote.class);
-        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamentoAndLote", MedicamentoLote.class);
-        query.setParameter("medicamentoId", idMedicamento);
-        query.setParameter("codigoLote", lote);
-        List lotes = query.getResultList();
-        if(lotes == null || lotes.isEmpty())
-            return null;
-        else
-            return query.getResultList().get(0);
-    }
+//    public MedicamentoLote getLote(Long lote, int idMedicamento) {
+//        //TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByCodigoLote", MedicamentoLote.class);
+//        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamentoAndLote", MedicamentoLote.class);
+//        query.setParameter("medicamentoId", idMedicamento);
+//        query.setParameter("codigoLote", lote);
+//        List lotes = query.getResultList();
+//        if(lotes == null || lotes.isEmpty())
+//            return null;
+//        else
+//            return query.getResultList().get(0);
+//    }
     
 //    public boolean existsLote(Long lote, int idMedicamento){
 //        return GetLote(lote, idMedicamento) != null;
@@ -56,9 +58,22 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
             return (long)1;
         }
         else{
-        //query.getResultList().get(lotes.size());
-            return 1;
+            return ((long) query.getResultList().get(lotes.size()-1).getCodigoLote()) + ((long) 1);
         }
+    }
+    
+    public List<MedicamentoLote> getLotesbyMedicamento(int idMed){
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamento", MedicamentoLote.class);
+        query.setParameter("medicamentoId", idMed);
+        List lotes = query.getResultList();
+        
+        return lotes;
+    }
+    
+    public void updateEstado(int id){
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.updateEstadoLote", MedicamentoLote.class);
+        query.setParameter("id", id);
+        int updated = query.executeUpdate();
     }
     
     public void SaveLote(MedicamentoLote lote){

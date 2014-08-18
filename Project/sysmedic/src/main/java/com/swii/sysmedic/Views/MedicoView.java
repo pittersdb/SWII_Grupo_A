@@ -24,6 +24,8 @@ public class MedicoView {
     @EJB
     private MedicoFacade medicFacade;
     private Medico medico = new Medico();
+    private Medico   medicoDeTurnos = new Medico();
+    private List<Medico> all = new ArrayList<Medico>();
     
     private static MedicoView instance;
     
@@ -53,6 +55,25 @@ public class MedicoView {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
+
+    public Medico getMedicoDeTurnos() {
+        return medicoDeTurnos;
+    }
+
+    public void setMedicoDeTurnos(Medico medicoDeTurnos) {
+        this.medicoDeTurnos = medicoDeTurnos;
+    }
+
+    public List<Medico> getAll() {
+        if(all.isEmpty())
+            all = this.medicFacade.findAll();
+        return all;
+    }
+
+    public void setAll(List<Medico> all) {
+        this.all = all;
+    }
+    
     
     
 //    

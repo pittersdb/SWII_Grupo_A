@@ -7,7 +7,11 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Turno;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +29,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     
     @EJB
     private CitaFacade citaFacade;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -35,8 +39,15 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         super(Turno.class);
     }
     
+    public List<Turno> GetAllTurnosByMedico(Medico medico){
+        TypedQuery<Turno> query = em.createNamedQuery("Turno.findByMedico", Turno.class);     
+        query.setParameter("medico", medico);
+        return query.getResultList();
+    }
+    
     public Turno Assign(Cita cita){
-          TypedQuery<Integer> query = em.createNamedQuery("Turno.findLastOrden", Integer.class);          
+          TypedQuery<Integer> query = em.createNamedQuery("Turno.findLastOrden", Integer.class);     
+          query.setParameter("medico", cita.getMedico());
           Integer maxOrder = query.getSingleResult();        
           Turno turno = new Turno();
           turno.setCita(cita);
@@ -46,11 +57,53 @@ public class TurnoFacade extends AbstractFacade<Turno> {
           }else{
               turno.setOrden(1);
               System.out.println("MAX ORDER NULL"); 
-          }
+          } 
           create(turno);
           cita.setEstado(Cita.Estado.Esperando.toString());
           citaFacade.edit(cita);
-          return turno;
+          return turno; 
     }
+    
+    public void CancelTurno(Turno turno, boolean cancelCita){
+         Cita cita = turno.getCita();
+        if(cancelCita){           
+            cita.setEstado(Cita.Estado.Cancelado.toString());                        
+        }else{
+            cita.setEstado(Cita.Estado.Pendiente.toString());          
+        }
+        citaFacade.edit(cita);
+       this.remove(turno);   
+    }
+    
+    public Turno FinishCitaAndNextTurno(Turno currentTurno, List<Turno> turnos){
+        Cita currentCita = currentTurno.getCita();
+        currentCita.setEstado(Cita.Estado.Terminado.toString());
+        this.citaFacade.edit(currentCita);
+        
+        this.remove(currentTurno);
+        turnos.remove(currentTurno);
+        
+        if(!turnos.isEmpty())
+            return turnos.get(0);
+        else
+            return null;        
+    }
+    
+//    public void Posporner(List<Turno> turnos){
+//        if(turnos.isEmpty() || turnos.size() == 1) return;    
+//        pospuestosCounter++;        
+//        if(pospuestosCounter == turnos.size())
+//            pospuestosCounter= 1;
+//        Turno turnoToPosposed = turnos.get(0);        
+//        turnos.set(0, turnos.get(pospuestosCounter));        
+//        turnos.set(pospuestosCounter, turnoToPosposed);       
+//        
+//        turnos.get(0).setRealOrden(0);
+//        turnos.get(pospuestosCounter).setRealOrden(pospuestosCounter);
+//        turnos.get(pospuestosCounter).setEstado(Turno.Estado.Postergado.toString());
+//        
+//        this.edit(turnos.get(0));
+//        this.edit(turnos.get(pospuestosCounter));
+//    }
     
 }

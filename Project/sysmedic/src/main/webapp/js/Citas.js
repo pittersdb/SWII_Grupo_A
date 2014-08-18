@@ -9,6 +9,7 @@
 function ClearCitas(){
     document.getElementById("tabViewAgenda:frmNuevaCita:ci_paciente").value = "";
     document.getElementById("tabViewAgenda:frmNuevaCita:nombre_paciente").value = "";
-    document.getElementById("tabViewAgenda:frmNuevaCita:nombre_medico").value = "";
+    if(document.getElementById("tabViewAgenda:frmNuevaCita:nombre_medico") !== null)
+        document.getElementById("tabViewAgenda:frmNuevaCita:nombre_medico").value = "";
     document.getElementById("tabViewAgenda:frmNuevaCita:inputFecha").value = ""; 
 }
