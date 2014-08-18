@@ -181,7 +181,7 @@
         <hr />
         <h:panelGrid columns="3" cellpadding="10">
             <h:panelGrid columns="1">
-                <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}" actionListener="#" />
+                <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}" actionListener="#{Cliente.insert()} #{Factura.insert()}" />
             </h:panelGrid>
             <h:panelGrid columns="1">
                 <p:commandButton id="btnImprimirFactura" value="#{msg['Imprimir']}" actionListener="#" />

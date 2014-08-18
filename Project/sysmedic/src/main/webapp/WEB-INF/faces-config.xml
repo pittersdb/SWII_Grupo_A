@@ -57,8 +57,8 @@
         <managed-bean-class>com.swii.sysmedic.Views.FacturaView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
     <managed-bean>
-<<<<<<< HEAD
         <managed-bean-name>Cliente</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.ClienteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
@@ -75,10 +75,10 @@
        <validator-id>repeatpasswordValidator</validator-id>
     </validator>
     
-=======
+    <managed-bean>
         <managed-bean-name>Turno</managed-bean-name>
         <managed-bean-class>com.swii.sysmedic.Views.TurnoView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
->>>>>>> c6b7716bd20fcaf10926e230a66f8ebd22cda36c
+
 </faces-config>

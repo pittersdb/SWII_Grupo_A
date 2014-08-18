@@ -55,4 +55,9 @@ public class FacturaView {
     public List<Factura> allFromDB(){
         return this.facturaFacade.findAll();
     }
+    
+    public void Insert(){
+        
+    }
+    
 }
