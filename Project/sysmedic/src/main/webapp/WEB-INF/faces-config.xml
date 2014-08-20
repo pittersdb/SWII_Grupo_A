@@ -87,6 +87,4 @@
         <validator-class>com.swii.sysmedic.Validators.repeatpasswordValidator</validator-class>
         <validator-id>repeatpasswordValidator</validator-id>
     </validator>
-    
-    </managed-bean>
 </faces-config>

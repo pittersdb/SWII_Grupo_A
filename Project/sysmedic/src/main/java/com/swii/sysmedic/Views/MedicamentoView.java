@@ -48,6 +48,10 @@ public class MedicamentoView {
         this.medicamentoFacade = new MedicamentoFacade();
     }
     
+    public void LoadMedicina(String nombre ){
+        this.medicamento = this.medicamentoFacade.LoadCompleteMedicina(nombre);
+    }
+    
     public Medicamento getMedicamento(){
         return this.medicamento;
     }

@@ -77,21 +77,6 @@
                     
             </c:if> 
             
-            <!--h:outputText value="Contraseña:"/>
-            <p:password binding="#{pass}"
-                        id="password"
-                        validator="passwordValidator"
-                        value="#{myBean.password}"
-                        required="true"/>
-            <p:message for="password"/>
-
-            <h:outputText value="Repita Contraseña:"/>
-            <p:password id="repeatPassword"
-                        validator="repeatPasswordValidator"
-                        required="true">
-            <f:attribute name="password" value="#{pass.value}"/>
-            </p:password-->
-            
             <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>
             <p:selectOneMenu id="rol" value="#{User.selectedRol}" > 
                 <f:selectItem itemLabel="#{msg['Administrador']}" itemValue="a" />

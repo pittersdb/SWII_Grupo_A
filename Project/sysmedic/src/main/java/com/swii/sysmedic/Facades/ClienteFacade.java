@@ -42,14 +42,22 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             return originalCliente;
     }
     
-    public Cliente GetCliente(String name) {
+    public Cliente GetCliente(String ruc) {
         TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findByRuc", Cliente.class);
-        query.setParameter("nombre", name.toLowerCase());
+        query.setParameter("ruc", ruc);
         List cliente = query.getResultList();
         if(cliente == null || cliente.isEmpty())
             return null;
         else
             return query.getResultList().get(0);
+    }
+    
+    public boolean existsCliente(String ruc){
+        return GetCliente(ruc) != null;
+    }
+    
+    public void Insert(Cliente cliente){
+        create(cliente);
     }
     
     @Override

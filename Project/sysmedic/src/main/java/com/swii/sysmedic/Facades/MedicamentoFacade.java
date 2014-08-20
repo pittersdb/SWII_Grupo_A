@@ -45,6 +45,12 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
             return query.getResultList().get(0);
     }
     
+    public Medicamento LoadCompleteMedicina(String nombre){
+        Medicamento medicina = GetMedicamento(nombre);
+        
+        return medicina;
+    }
+    
     public boolean existsMedicamento(String name){
         return GetMedicamento(name) != null;
     }
