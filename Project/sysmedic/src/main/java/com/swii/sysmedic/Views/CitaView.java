@@ -135,19 +135,16 @@ public class CitaView {
         this.todaySet = todaySet;
     }
     
+
     
-    
-    
-    
-    
-    public void Save(){
+    public void Save(Paciente targetPaciente){
         //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
         try{
             this.cita.setEstado(Cita.Estado.Pendiente.toString());
             if(UsersView.getLoggedUser().isMedic())
                 MedicoView.getInstance().setMedico(UsersView.getLoggedUser().getMedico());
             this.cita.setMedico(MedicoView.getInstance().getMedico());
-            this.cita.setPaciente(PacienteView.getInstance().getPaciente());
+            this.cita.setPaciente(targetPaciente);
             this.cita.setUsers(UsersView.getLoggedUser());
             
             this.citaFacade.create(cita);

@@ -23,7 +23,9 @@
         <p:tabView id= "tabViewAgenda">
             <p:tab  title="#{msg['nueva_cita']}">
                 <h:panelGroup>                    
-                    <ui:include src="nuevaCita.xhtml" />
+                     <ui:include src="nuevaCita.xhtml" > 
+                        <ui:param name="idFormCita" value="frmNuevaCita" />                        
+                    </ui:include>
                 </h:panelGroup>          
             </p:tab>
                 
@@ -143,7 +145,10 @@
                 </p:dialog> 
                         
                 <p:dialog header="#{msg['Proxima_Cita']}" widgetVar="dlgProximaCita" minHeight="40" draggable="false" resizable="false">
-                    <ui:include src="proximaCita.xhtml" />
+                    <ui:include src="nuevaCita.xhtml" > 
+                        <ui:param name="idFormCita" value="frmProximaCita" />
+                         <ui:param name="dialogCita" value="dlgProximaCita" />
+                    </ui:include>
                 </p:dialog> 
                         
                 <h:panelGroup id="panelPaciente">
