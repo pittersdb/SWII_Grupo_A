@@ -87,5 +87,9 @@
         <validator-class>com.swii.sysmedic.Validators.repeatpasswordValidator</validator-class>
         <validator-id>repeatpasswordValidator</validator-id>
     </validator>
-    
+    <managed-bean>
+        <managed-bean-name>Consulta</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.ConsultaView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
