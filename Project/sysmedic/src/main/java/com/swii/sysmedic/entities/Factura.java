@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
     @NamedQuery(name = "Factura.findById", query = "SELECT f FROM Factura f WHERE f.id = :id"),
     @NamedQuery(name = "Factura.findByNumero", query = "SELECT f FROM Factura f WHERE f.numero = :numero"),
-    @NamedQuery(name = "Factura.findByFechaHoraPago", query = "SELECT f FROM Factura f WHERE f.fechaHoraPago = :fechaHoraPago"),
+    @NamedQuery(name = "Factura.findByFechaPago", query = "SELECT f FROM Factura f WHERE f.fechaPago = :fechaPago"),
     @NamedQuery(name = "Factura.findByObservacion", query = "SELECT f FROM Factura f WHERE f.observacion = :observacion"),
     @NamedQuery(name = "Factura.findByFormaPago", query = "SELECT f FROM Factura f WHERE f.formaPago = :formaPago"),
     @NamedQuery(name = "Factura.findByDescuentoTotal", query = "SELECT f FROM Factura f WHERE f.descuentoTotal = :descuentoTotal"),
@@ -60,12 +60,12 @@ public class Factura implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "numero")
-    private int numero;
+    private int numero = 2222;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_hora_pago")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHoraPago;
+    @Column(name = "fecha_pago")
+    @Temporal(TemporalType.DATE)
+    private Date fechaPago;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)
@@ -92,12 +92,12 @@ public class Factura implements Serializable {
     @NotNull
     @Column(name = "fecha_autorizacion_sri")
     @Temporal(TemporalType.DATE)
-    private Date fechaAutorizacionSri;
+    private Date fechaAutorizacionSri = new java.util.Date();
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_caducidad_sri")
     @Temporal(TemporalType.DATE)
-    private Date fechaCaducidadSri;
+    private Date fechaCaducidadSri = new java.util.Date();
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "factura")
     private DetalleFacturaConsulta detalleFacturaConsulta;
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
@@ -113,10 +113,10 @@ public class Factura implements Serializable {
         this.id = id;
     }
 
-    public Factura(Integer id, int numero, Date fechaHoraPago, String observacion, String formaPago, double descuentoTotal, double iva, double total, Date fechaAutorizacionSri, Date fechaCaducidadSri) {
+    public Factura(Integer id, int numero, Date fechaPago, String observacion, String formaPago, double descuentoTotal, double iva, double total, Date fechaAutorizacionSri, Date fechaCaducidadSri) {
         this.id = id;
         this.numero = numero;
-        this.fechaHoraPago = fechaHoraPago;
+        this.fechaPago = fechaPago;
         this.observacion = observacion;
         this.formaPago = formaPago;
         this.descuentoTotal = descuentoTotal;
@@ -129,7 +129,7 @@ public class Factura implements Serializable {
     public Factura(Factura source){
         this.id = source.getId();
         this.numero = source.getNumero();
-        this.fechaHoraPago = source.getFechaHoraPago();
+        this.fechaPago = source.getFechaPago();
         this.observacion = source.getObservacion();
         this.formaPago = source.getFormaPago();
         this.descuentoTotal = source.getDescuentoTotal();
@@ -155,12 +155,12 @@ public class Factura implements Serializable {
         this.numero = numero;
     }
 
-    public Date getFechaHoraPago() {
-        return fechaHoraPago;
+    public Date getFechaPago() {
+        return fechaPago;
     }
 
-    public void setFechaHoraPago(Date fechaHoraPago) {
-        this.fechaHoraPago = fechaHoraPago;
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
     }
 
     public String getObservacion() {

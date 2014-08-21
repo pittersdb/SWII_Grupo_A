@@ -41,6 +41,10 @@ public class FacturaFacade extends AbstractFacade<Factura> {
             return query.getResultList().get(0);
     }
     
+    public void Insert(Factura factura){
+        create(factura);
+    }
+    
     @Override
     public List<Factura> findAll() {
         List<Factura> factura = em.createNamedQuery("Factura.findAll", Factura.class).getResultList();

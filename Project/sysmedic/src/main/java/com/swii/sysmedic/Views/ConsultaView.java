@@ -18,4 +18,6 @@ public class ConsultaView {
     public ConsultaView() {
     }
     
+    
+    
 }

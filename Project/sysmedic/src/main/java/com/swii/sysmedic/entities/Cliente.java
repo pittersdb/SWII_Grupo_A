@@ -67,11 +67,10 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "telefono")
-    @Temporal(TemporalType.DATE)
-    private Date telefono;
+    private String telefono;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 10)
     @Column(name = "direcion")
     private String direcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
@@ -84,7 +83,7 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public Cliente(Integer id, String nombres, String apellidos, String ruc, Date telefono, String direcion) {
+    public Cliente(Integer id, String nombres, String apellidos, String ruc, String telefono, String direcion) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -148,11 +147,11 @@ public class Cliente implements Serializable {
         this.ruc = ruc;
     }
 
-    public Date getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Date telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
