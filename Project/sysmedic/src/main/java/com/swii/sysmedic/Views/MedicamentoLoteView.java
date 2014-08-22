@@ -77,6 +77,11 @@ public class MedicamentoLoteView {
         //return allLotes;
     }
     
+    public void UpdateAllLotes(){
+        this.allLotes.clear();
+        this.allLotes.addAll(this.medicamentoLoteFacade.getLotesbyMedicamento(getSelectedMedicamentoDev()));
+    }
+    
     public void setAllLotes(List<MedicamentoLote> allLotes) {
         this.allLotes = allLotes;
     }

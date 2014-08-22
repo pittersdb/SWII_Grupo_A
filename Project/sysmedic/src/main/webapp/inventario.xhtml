@@ -45,7 +45,7 @@
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
                     <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}"/>
 
-                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }" > 
+                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable, , :inventario:formIngMedicinas:selectMedicina" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }" > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
                     </p:commandButton>
                     
@@ -79,7 +79,7 @@
                     <p:selectOneMenu id="selectMedic" value="#{MedicamentoLote.selectedMedicamentoDev}" valueChangeListener="#{MedicamentoLote.medicamentoLoteDevChanged}">
                         <f:selectItem itemValue="-1" itemLabel="selecciona uno" />
                         <f:selectItems value="#{Medicamento.all}" var="medicamento" itemValue="#{medicamento.id}" itemLabel="#{medicamento.nombre}" />
-                        <p:ajax event="change" update="selectLote, :inventario:formDevMedicinas"/>
+                        <p:ajax event="change" update=":inventario:formDevMedicinas:selectLote" listener="#{MedicamentoLote.UpdateAllLotes()}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
@@ -89,7 +89,7 @@
                         <p:ajax event="change" update=":inventario:formDevMedicinas"/>
                     </p:selectOneMenu>
 
-                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete=""  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas">
+                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete=""  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>   
                     
