@@ -63,7 +63,7 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
     }
     
     public List<MedicamentoLote> getLotesbyMedicamento(int idMed){
-        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamento", MedicamentoLote.class);
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamentoAndEstado", MedicamentoLote.class);
         query.setParameter("medicamentoId", idMed);
         List lotes = query.getResultList();
         

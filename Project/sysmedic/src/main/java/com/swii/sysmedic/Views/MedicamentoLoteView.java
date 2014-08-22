@@ -135,6 +135,7 @@ public class MedicamentoLoteView {
             this.all.add(new MedicamentoLote(lote));
             
             this.medicamentoLoteFacade.SaveLote(lote);
+            //this.UpdateAllLotes();
 //                this.Clear();
             
         }catch(Exception e){

@@ -45,7 +45,7 @@
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
                     <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}"/>
 
-                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable, , :inventario:formIngMedicinas:selectMedicina" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }" > 
+                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }" > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
                     </p:commandButton>
                     
@@ -79,17 +79,17 @@
                     <p:selectOneMenu id="selectMedic" value="#{MedicamentoLote.selectedMedicamentoDev}" valueChangeListener="#{MedicamentoLote.medicamentoLoteDevChanged}">
                         <f:selectItem itemValue="-1" itemLabel="selecciona uno" />
                         <f:selectItems value="#{Medicamento.all}" var="medicamento" itemValue="#{medicamento.id}" itemLabel="#{medicamento.nombre}" />
-                        <p:ajax event="change" update=":inventario:formDevMedicinas:selectLote" listener="#{MedicamentoLote.UpdateAllLotes()}"/>
+                        <p:ajax event="change" update=":inventario:formDevMedicinas:selectLote" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectLote" value="#{MedicamentoLote.selectedLoteDev}" >
                         <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="-1" />
                         <f:selectItems value="#{MedicamentoLote.allLotes}" var="medicamentoLote" itemValue="#{medicamentoLote.id}" itemLabel="#{medicamentoLote.codigoLote}" />
-                        <p:ajax event="change" update=":inventario:formDevMedicinas"/>
+                        <p:ajax listener="#{MedicamentoLote.UpdateAllLotes()}" />
                     </p:selectOneMenu>
 
-                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete=""  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote">
+                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg1').show(); }"  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>   
                     
@@ -100,12 +100,12 @@
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
                     </p:confirmDialog>
 
-                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
+                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg1" appendToBody="true" >
                         <f:facet name="message">
-                            <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
+                            <h:outputText value="#{msg['La_devolucion_se_ha_realizado_exitosamente']}" /> 
                         </f:facet>
                         <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
-                                         icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
+                                         icon="ui-icon-check" onclick="PF('confirmDlg1').hide()"  />
                     </p:confirmDialog>
                 </h:panelGrid>
             </h:form>
@@ -123,7 +123,7 @@
             </h:panelGrid>
             <h:panelGrid columns="2" cellpadding="10">
                 
-                <p:dataTable id="medicamentosTable" var="medicamento" value="#{Medicamento.all}">
+                <p:dataTable id="medicamentosTable" var="medicamento" value="#{MedicamentoLote.all}">
                     
                     <p:column headerText="#{msg['codigo_lote']}">
                         <h:outputText value="#" />
