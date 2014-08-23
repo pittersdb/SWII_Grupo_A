@@ -15,6 +15,7 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Clear.js" type="text/javascript" ></script>
 
     <p:tabView id="inventario">
         <!--Ingreso de medicinas por lote-->
@@ -31,22 +32,22 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="inputFechaElab" value="#{msg['fecha_elaboracion']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaElab" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaElaboracion}"/>
+                    <p:calendar id="inputFechaElab" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaElaboracion}" maxdate="#{MedicamentoLote.today}"/>
 
                     <p:outputLabel for="inputFechaCaduc" value="#{msg['fecha_caducidad']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaCaduc" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaCaducidad}"/>
+                    <p:calendar id="inputFechaCaduc" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaCaducidad}" mindate="#{MedicamentoLote.today}"/>
 
                     <p:outputLabel for="inputPrecio" value="#{msg['precio']}: "></p:outputLabel>
-                    <p:inputText  id="inputPrecio" value="#{MedicamentoLote.medicamentoLote.precio}"/>
+                    <p:inputText  id="inputPrecio" value="#{MedicamentoLote.medicamentoLote.precio}" maxlength="7" />
 
                     <p:outputLabel for="inputCantidad" value="#{msg['Cantidad']}: "></p:outputLabel>
-                    <p:inputText  id="inputCantidad" value="#{MedicamentoLote.medicamentoLote.cantidadDisponible}"/>
+                    <p:inputText  id="inputCantidad" value="#{MedicamentoLote.medicamentoLote.cantidadDisponible}" maxlength="5" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"/>
 
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
-                    <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}"/>
+                    <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}" maxdate="#{MedicamentoLote.today}"/>
 
-                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialog}').hide(); }" > 
-                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }" > 
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>
                     
                     <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarTrans" actionListener="#" />
@@ -79,17 +80,17 @@
                     <p:selectOneMenu id="selectMedic" value="#{MedicamentoLote.selectedMedicamentoDev}" valueChangeListener="#{MedicamentoLote.medicamentoLoteDevChanged}">
                         <f:selectItem itemValue="-1" itemLabel="selecciona uno" />
                         <f:selectItems value="#{Medicamento.all}" var="medicamento" itemValue="#{medicamento.id}" itemLabel="#{medicamento.nombre}" />
-                        <p:ajax event="change" update="selectLote, :inventario:formDevMedicinas"/>
+                        <p:ajax event="change" update=":inventario:formDevMedicinas:selectLote" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="selectLote" value="#{msg['lote']}: "></p:outputLabel>
                     <p:selectOneMenu id="selectLote" value="#{MedicamentoLote.selectedLoteDev}" >
                         <f:selectItem itemLabel="#{msg['seleccionar_una']}" itemValue="-1" />
                         <f:selectItems value="#{MedicamentoLote.allLotes}" var="medicamentoLote" itemValue="#{medicamentoLote.id}" itemLabel="#{medicamentoLote.codigoLote}" />
-                        <p:ajax event="change" update=":inventario:formDevMedicinas"/>
+                        <p:ajax listener="#{MedicamentoLote.UpdateAllLotes()}" />
                     </p:selectOneMenu>
 
-                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete=""  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas">
+                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg1').show(); }"  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>   
                     
@@ -100,12 +101,12 @@
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
                     </p:confirmDialog>
 
-                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
+                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg1" appendToBody="true" >
                         <f:facet name="message">
-                            <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
+                            <h:outputText value="#{msg['La_devolucion_se_ha_realizado_exitosamente']}" /> 
                         </f:facet>
                         <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
-                                         icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
+                                         icon="ui-icon-check" onclick="PF('confirmDlg1').hide()"  />
                     </p:confirmDialog>
                 </h:panelGrid>
             </h:form>
@@ -119,41 +120,92 @@
         <!-- Reportes de medicinas-->
         <p:tab title="#{msg['reportes']}">
             <h:panelGrid columns="2" cellpadding="5">
-                <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#" />
+                <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#{MedicamentoLote.AllCaducado()}" update=":inventario:caducadosTable" onclick="PF('dlgCaducados').show();"/>
+                <br/>
+                <p:outputLabel value="#{msg['ordenar_por']}"/>
+                <br/>
+                <p:commandLink actionListener="#{MedicamentoLote.OrderAllFecha()}" update=":inventario:medicamentosTable" value="#{msg['fecha_ingreso']}" style="color: cornflowerblue;"/>
+                <br/>
+                <p:commandLink actionListener="#{MedicamentoLote.OrderAllMedicamento()}" update=":inventario:medicamentosTable" value="#{msg['Medicamento']}"  style="color: cornflowerblue;"/>
+                
+                
             </h:panelGrid>
             <h:panelGrid columns="2" cellpadding="10">
                 
-                <p:dataTable id="medicamentosTable" var="medicamento" value="#{Medicamento.all}">
+                <p:dataTable widgetVar="dataTableWidgetVar" id="medicamentosTable" var="medicamentolote" value="#{MedicamentoLote.allStock}" paginator="true" rows="15">
+                    
+                    <p:column headerText="#{msg['fecha_ingreso']}">
+                        <h:outputText value="#{medicamentolote.fechaIngreso}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="#{msg['Medicamento']}">
+                        <h:outputText value="#{medicamentolote.medicamento.nombre}" />
+                    </p:column>
                     
                     <p:column headerText="#{msg['codigo_lote']}">
-                        <h:outputText value="#" />
-                    </p:column>
-
-                    <p:column headerText="#{msg['Medicamento']}">
-                        <h:outputText value="#{medicamento.nombre}" />
+                        <h:outputText value="#{medicamentolote.codigoLote}" />
                     </p:column>
 
                     <p:column headerText="#{msg['fecha_elaboracion']}">
-                        <h:outputText value="#" />
+                        <h:outputText value="#{medicamentolote.fechaElaboracion}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                        </h:outputText>
                     </p:column>
                     
                     <p:column headerText="#{msg['fecha_caducidad']}">
-                        <h:outputText value="#" />
+                        <h:outputText value="#{medicamentolote.fechaCaducidad}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                        </h:outputText>
                     </p:column>
 
-                    <p:column headerText="#{msg['fecha_ingreso']}">
-                        <h:outputText value="#" />
-                    </p:column>
-                    
-                    <p:column headerText="#{msg['Cantidad']}">
-                        <h:outputText value="#" />
-                    </p:column>
-                    
                     <p:column headerText="#{msg['precio']}">
-                        <h:outputText value="#" />
+                        <h:outputText value="#{medicamentolote.precio}" />
+                    </p:column>
+
+                    <p:column headerText="#{msg['Cantidad']}">
+                        <h:outputText value="#{medicamentolote.cantidadDisponible}" />
+                    </p:column>
+                    
+                    <p:column headerText="#{msg['Estado']}">
+                        <h:outputText value="#{medicamentolote.estado}" />
                     </p:column>
                     
                 </p:dataTable>
+                
+                <p:dialog header="#{msg['medicinas_caducadas']}" widgetVar="dlgCaducados" minHeight="40" draggable="false" resizable="false" >
+                    <p:dataTable id="caducadosTable" var="medicamentolote" value="#{MedicamentoLote.allCaducado}" paginator="true" rows="15">
+                        <p:column headerText="#{msg['Medicamento']}">
+                            <h:outputText value="#{medicamentolote.medicamento.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['codigo_lote']}">
+                            <h:outputText value="#{medicamentolote.codigoLote}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['fecha_caducidad']}">
+                            <h:outputText value="#{medicamentolote.fechaCaducidad}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['precio']}">
+                            <h:outputText value="#{medicamentolote.precio}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['Cantidad']}">
+                            <h:outputText value="#{medicamentolote.cantidadDisponible}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['Estado']}">
+                            <h:outputText value="#{medicamentolote.estado}" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:dialog>
+                
+                
             </h:panelGrid>
         </p:tab>
     </p:tabView>
