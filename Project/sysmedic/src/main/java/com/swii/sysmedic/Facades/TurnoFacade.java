@@ -79,6 +79,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
             cita.setEstado(Cita.Estado.Pendiente.toString());          
         }
         citaFacade.edit(cita);
+        cita.setConsulta(this.consultaFacade.GetByCita(turno.getCita()));
        this.remove(turno);   
     }
     

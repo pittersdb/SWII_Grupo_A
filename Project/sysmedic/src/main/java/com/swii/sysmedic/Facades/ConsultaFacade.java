@@ -58,7 +58,7 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
         try{
             return query.getSingleResult();    
         }catch(javax.persistence.NoResultException e){
-            return null;
+            return new Consulta();
         }
     }
     

@@ -20,6 +20,38 @@
             display: none;
         }
     </style>
+     <script type="text/javascript">
+            var colapsed = #{!Consulta.isReadyToStart(Turno.current)};
+            function doCollapsed(){
+                var element =  document.getElementById('tabViewAgenda:frmPaciente:panelSiguiente_content');
+                if(element !== null)
+                    colapsed = element.style.display === 'none';
+                else
+                    colapsed = true;
+                if(!colapsed){
+                    PF('panelConsulta').toggle();
+                }
+            }
+
+            function doExpand(){
+                 var element =  document.getElementById('tabViewAgenda:frmPaciente:panelSiguiente_content');
+                if(element !== null)
+                    colapsed = element.style.display === 'none';
+                else
+                    colapsed = true;
+                if(colapsed){
+                    PF('panelConsulta').toggle();
+                }
+            }
+
+            function toggleLayout(){
+                if(colapsed){
+                    colapsed = false;
+                } else {
+                    colapsed = true;
+                }
+            }
+        </script>
         
     <p:panel id="panelInternalAgenda" style="display: block;">
         <p:dialog header="#{msg['Esta_a_punto_de_cancelar_esta_Cita']}" widgetVar="dlgCancelacionCita" minHeight="40" draggable="false" resizable="false">
@@ -125,11 +157,11 @@
                                 
                             <p:column headerText="#{msg['Acciones']}">
                                 
-                                <p:commandButton value="#{msg['Descartar']} #{msg['Turno']}" actionListener="#{Turno.Descartar(turno)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  #{User.ShowIfLoggedUserIsMedic(':tabViewAgenda:panelPaciente')}" style="font-size: 10px !important;">
+                                <p:commandButton value="#{msg['Descartar']} #{msg['Turno']}" actionListener="#{Turno.Descartar(turno)}" oncomplete="manipulatePacientePanel();"  update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  #{User.ShowIfLoggedUserIsMedic(':tabViewAgenda:panelPaciente')}" style="font-size: 10px !important;">
                                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                 </p:commandButton>  
                                 
-                                <p:commandButton value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Turno.CancelCita(turno)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  #{User.ShowIfLoggedUserIsMedic(':tabViewAgenda:panelPaciente')}" style="font-size: 10px !important;">
+                                <p:commandButton value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Turno.CancelCita(turno)}" oncomplete="manipulatePacientePanel();" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  #{User.ShowIfLoggedUserIsMedic(':tabViewAgenda:panelPaciente')}" style="font-size: 10px !important;">
                                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                 </p:commandButton>  
                                 
@@ -165,21 +197,22 @@
                         <h:form id="frmPaciente" rendered="#{Turno.current != null}">
                             <p:growl id="messages"  showDetail="true"/>  
                             
-                            <p:panel id="panelSiguiente" widgetVar="panelConsulta"  header="#{msg['Siguiente_Paciente']}: #{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" style="border: cadetblue ; border-style: solid" collapsed="true" toggleable="true" >
+                            <p:panel id="panelSiguiente" widgetVar="panelConsulta"  header="#{msg['Siguiente_Paciente']}: #{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" style="border: cadetblue ; border-style: solid" collapsed="#{!Consulta.isReadyToStart(Turno.current)}" toggleable="true" closable="false">
                                 
                                 <f:facet name="header" >
-                                    <h:outputLabel value="#{msg['Siguiente_Paciente']}: "   style=" font-size: 1em !important; color:#1d79aa;"/>
+                                    <h:outputLabel rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="#{msg['Siguiente_Paciente']}: "   style=" font-size: 1em !important; color:#1d79aa;"/>
+                                    <h:outputLabel rendered= "#{Consulta.isReadyToStart(Turno.current)}" value="#{msg['Paciente_Consulta']}: "   style=" font-size: 1em !important; color:#1d79aa;"/>
                                     <h:outputLabel value="#{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}"   style=" font-size: 1em !important; "/>                                     
                                     <h:outputLabel value="#{msg['Turno']}: "   style=" font-size: 1em !important; color:#1d79aa; margin-left: 1em"/>
                                     <h:outputLabel value="#{Turno.current.orden}"   style=" font-size: 1em !important; "/>       
                                 </f:facet>
                                     
                                 <f:facet name="actions" >      
-                                    <p:commandButton  title="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" icon="ui-icon-circle-arrow-e" style="float: right; font-size: 12px !important; margin-left: 1em">
-                                        <p:confirm header="#{msg['Decartar_Turno_Continuar']}" message="#{msg['Esta_segura_de_esta_accion']}. #{msg['Decartar_Turno_Continuar']} ?" icon="ui-icon-alert" />       
+                                    <p:commandButton    rendered= "#{!Consulta.isReadyToStart(Turno.current)}" title="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" oncomplete="manipulatePacientePanel();"  update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" icon="ui-icon-circle-arrow-e" style="float: right; font-size: 12px !important; margin-left: 1em">
+                                        <p:confirm header="#{msg['Decartar_Turno_Continuar']}" message="#{msg['Esta_segura_de_esta_accion']}. #{msg['Decartar_Turno_Continuar']} ?" icon="ui-icon-alert" />                                          
                                     </p:commandButton>  
-                                    <p:commandButton value="2. #{msg['Iniciar_Consulta']}" style=" float: right; font-size: 12px !important; color: darkblue; border-color:  darkcyan" actionListener="#{Consulta.StartConsulta(Turno.current)}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('panelConsulta').toggle();}"/>                                                                          
-                                    <p:commandButton value="1. #{msg['Agregar_Mediciones']}" style=" float: right; font-size: 12px !important; color: darkolivegreen; border-color:  darkseagreen" actionListener="#" update=":tabViewAgenda:frmMediciones" oncomplete="PF('dlgMedicionesPacientes').show();" />                                    
+                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="2. #{msg['Iniciar_Consulta']}" style=" float: right; font-size: 12px !important; color: darkblue; border-color:  darkcyan" actionListener="#{Consulta.StartConsulta(Turno.current)}" update="messages, :tabViewAgenda:panelPaciente" oncomplete="if (args &amp;&amp; !args.validationFailed){doExpand;}"/>                                                                          
+                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="1. #{msg['Agregar_Mediciones']}" style=" float: right; font-size: 12px !important; color: darkolivegreen; border-color:  darkseagreen" actionListener="#" update=":tabViewAgenda:frmMediciones" oncomplete="PF('dlgMedicionesPacientes').show();" />                                    
                                 </f:facet>                           
                                     
                                     
@@ -201,18 +234,23 @@
                                             <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>
                                             <p:commandButton id="btnProgramarCita" value="#{msg['Programar_Proxima_Cita']}" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
                                                 
-                                            <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
+                                            <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete="" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
                                                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                             </p:commandButton>  
                                                 
-                                            <p:commandButton id="btnDescartar"  value="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
+                                            <p:commandButton id="btnDescartar"  value="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" action="#{Consulta.isReadyToStart(Turno.current)}" oncomplete="manipulatePacientePanel();"  update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente, :tabViewAgenda:frmPaciente:panelSiguiente" style="font-size: 12px !important;">
                                                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                             </p:commandButton>                                                                              
                                                 
                                             <p:commandButton  id="btnCancelarCita"  value="#{msg['Cancelar']} #{msg['Cita']}" actionListener="#{Turno.CancelCita(Turno.current)}" oncomplete=""  immediate="true" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
                                                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                             </p:commandButton>  
-                                                
+                                            <h:outputScript>
+                                                function manipulatePacientePanel() { 
+                                                     if(!#{User.sessionUser.medic}) return;
+                                                     if (#{Consulta.isReadyToStart(Turno.current)}){ doExpand();}else{ doCollapsed();}
+                                                }
+                                            </h:outputScript>
                                         </h:panelGrid>
                                     </h:panelGrid> 
                                         

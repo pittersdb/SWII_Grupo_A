@@ -6,6 +6,7 @@
 
 package com.swii.sysmedic.Views;
 
+import com.swii.sysmedic.Facades.MedicoFacade;
 import com.swii.sysmedic.Facades.TurnoFacade;
 import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Consulta;
@@ -31,9 +32,12 @@ public class TurnoView {
     
     @EJB
     private TurnoFacade turnoFacade;
+    @EJB
+    private MedicoFacade medicoFacade;
     private Turno turno = new Turno();
     private List<Turno> orderedTurnos = new ArrayList<Turno>();
     private Turno current;
+    private Turno next;
     private int selectedMedicoId;
     private Medico selectedMedico;
     
@@ -47,7 +51,7 @@ public class TurnoView {
     
     @PostConstruct
     public void init() {
-        List<Medico> allMedicos = MedicoView.getInstance().getAll();
+        List<Medico> allMedicos = this.medicoFacade.findAll();
         Medico medicoTarget = null;
         if(!allMedicos.isEmpty() && !UsersView.getLoggedUser().isMedic())
             medicoTarget = allMedicos.get(0);
@@ -97,6 +101,26 @@ public class TurnoView {
     
     public void setCurrent(Turno current) {
         this.current = current;
+    }
+    
+    public Turno getNext() {
+        if(next == null){
+            if(this.orderedTurnos != null ){
+                if(this.orderedTurnos.isEmpty())
+                    this.getOrderedTurnos();
+                if(!this.orderedTurnos.isEmpty()){
+                    if(this.orderedTurnos.size() >= 2)
+                        next = this.orderedTurnos.get(1);
+                }
+            }
+        }
+        if(next != null && next.getCita().getConsulta() == null)
+            next.getCita().setConsulta(new Consulta());
+        return next;
+    }
+    
+    public void setNext(Turno next) {
+        this.next = next;
     }
     
     public int getSelectedMedicoId() {
@@ -158,7 +182,8 @@ public class TurnoView {
             if( !this.orderedTurnos.isEmpty())
                 this.setCurrent(this.orderedTurnos.get(0));
             else
-                this.setCurrent(null);
+                this.setCurrent(null); 
+            //System.out.println("CONSULTA DESC: "+ this.getCurrent().getCita().getPaciente().getNombres());
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

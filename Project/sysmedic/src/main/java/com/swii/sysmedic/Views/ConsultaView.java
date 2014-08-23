@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.ToggleEvent;
+import org.primefaces.model.Visibility;
 
 /**
  *
@@ -65,12 +67,24 @@ public class ConsultaView {
     public void StartConsulta(Turno turno){
         if(!isReadyToStart(turno)){
                  FacesContext.getCurrentInstance().validationFailed();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Debe primero ingresar la MEDICIONES para poder iniciar la consulta"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Debe primero ingresar las MEDICIONES para poder iniciar la consulta"));
         }
     }
     
     
-    private boolean isReadyToStart(Turno turno){
-        return  turno.getCita().getConsulta() != null  && turno.getCita().getConsulta().getId() != null;
+    public boolean isReadyToStart(Turno turno){
+        return  turno != null && turno.getCita().getConsulta() != null  && turno.getCita().getConsulta().getId() != null;
+    }
+    
+    public void onToggle(ToggleEvent event) {
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, event.getComponent().getId() + " toggled", "Status:" + event.getVisibility().name());
+//        FacesContext.getCurrentInstance().addMessage(null, message);
+        this.isToggled = event.getVisibility() == Visibility.VISIBLE;
+    }
+    
+    private boolean isToggled;
+    
+    public boolean isToggled(){
+        return isToggled;
     }
 }
