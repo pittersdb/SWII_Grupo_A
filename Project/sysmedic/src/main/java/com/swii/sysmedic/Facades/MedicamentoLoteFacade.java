@@ -33,23 +33,6 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
         super(MedicamentoLote.class);
     }
     
-    
-//    public MedicamentoLote getLote(Long lote, int idMedicamento) {
-//        //TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByCodigoLote", MedicamentoLote.class);
-//        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamentoAndLote", MedicamentoLote.class);
-//        query.setParameter("medicamentoId", idMedicamento);
-//        query.setParameter("codigoLote", lote);
-//        List lotes = query.getResultList();
-//        if(lotes == null || lotes.isEmpty())
-//            return null;
-//        else
-//            return query.getResultList().get(0);
-//    }
-    
-//    public boolean existsLote(Long lote, int idMedicamento){
-//        return GetLote(lote, idMedicamento) != null;
-//    }
-//    
     public long getNewCodigoLote(int idMedicamento){
         TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByMedicamento", MedicamentoLote.class);
         query.setParameter("medicamentoId", idMedicamento);
@@ -70,8 +53,17 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
         return lotes;
     }
     
-    public void updateEstado(int id){
-        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.updateEstadoLote", MedicamentoLote.class);
+    public List<MedicamentoLote> getLotesbyEstado(String a){
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.findByEstado", MedicamentoLote.class);
+        query.setParameter("estado", a);
+        List lotes = query.getResultList();
+        
+        return lotes;
+    }
+        
+    public void updateEstadoA(String estado, int id){
+        TypedQuery<MedicamentoLote> query = em.createNamedQuery("MedicamentoLote.updateEstadoLoteA", MedicamentoLote.class);
+        query.setParameter("estado", estado);
         query.setParameter("id", id);
         int updated = query.executeUpdate();
     }

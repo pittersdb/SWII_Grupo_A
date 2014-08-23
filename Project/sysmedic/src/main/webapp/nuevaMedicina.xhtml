@@ -14,12 +14,13 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Clear.js" type="text/javascript" ></script>
     
     
-    <h:form>
+    <h:form id="formNuevoMedicamento">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="nombre_medicina" value="#{msg['nombre_medicina']}: " />
-            <p:inputText id="nombre_medicina" required="true" label="nombre_medicina" value="#{Medicamento.medicamento.nombre}" />
+            <p:inputText id="nombre_medicina" required="true" label="nombre_medicina" value="#{Medicamento.medicamento.nombre}" maxlength="4"/>
             
             <h:outputLabel for="descripcion_medicina" value="#{msg['Descripcion']}: " />
             <p:inputTextarea id="descripcion_medicina" maxlength="150" value="#{Medicamento.medicamento.descripcion}"/>
@@ -45,15 +46,7 @@
                 <p:column headerText="#{msg['Descripcion']}" style="width:100px">
                     <h:outputText value="#{medicina.descripcion}" />
                 </p:column>
-                    
-                <p:column> 
-                    <p:commandButton value="#{msg['Modificar']}"  actionListener="#" oncomplete=""  />
-                    <p:confirmDialog global="true" showEffect="fade" >                  
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                    </p:confirmDialog>
-                </p:column> 
-                    
+
             </p:dataTable>  
                 
         </h:form>      
