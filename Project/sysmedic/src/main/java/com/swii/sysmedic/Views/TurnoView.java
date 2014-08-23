@@ -8,6 +8,7 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.TurnoFacade;
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Turno;
 import java.util.ArrayList;
@@ -89,6 +90,8 @@ public class TurnoView {
                 }
             }
         }
+        if(current != null && current.getCita().getConsulta() == null)
+            current.getCita().setConsulta(new Consulta());
         return current;
     }
     

@@ -84,12 +84,10 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "direcion")
+    @Column(name = "direcion") 
     private String direcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
-    private Collection<Consulta> consultaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
-    private Collection<Cita> citaCollection;
+    private Collection<Cita> citaCollection; 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
     private Collection<PacienteAntecedente> pacienteAntecedenteCollection;
 
@@ -184,15 +182,6 @@ public class Paciente implements Serializable {
 
     public void setDirecion(String direcion) {
         this.direcion = direcion;
-    }
-
-    @XmlTransient
-    public Collection<Consulta> getConsultaCollection() {
-        return consultaCollection;
-    }
-
-    public void setConsultaCollection(Collection<Consulta> consultaCollection) {
-        this.consultaCollection = consultaCollection;
     }
 
     @XmlTransient
