@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m"),
     @NamedQuery(name = "Medicamento.findById", query = "SELECT m FROM Medicamento m WHERE m.id = :id"),
     @NamedQuery(name = "Medicamento.findByNombre", query = "SELECT m FROM Medicamento m WHERE m.nombre = :nombre"),
+    @NamedQuery(name = "Medicamento.findByNombreCercano", query = "SELECT m FROM Medicamento m WHERE (lower(m.nombre) LIKE :nombre)"),
     @NamedQuery(name = "Medicamento.findByDescripcion", query = "SELECT m FROM Medicamento m WHERE m.descripcion = :descripcion")})
 public class Medicamento implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,7 +46,7 @@ public class Medicamento implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
+    @Size(min = 1, max = 40)
     @Column(name = "nombre")
     private String nombre;
     @Size(max = 200)

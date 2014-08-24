@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+          
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+        
+    <h:form id="frmInstruccionMedicacion"> 
+        <p:growl id="messages"  showDetail="true"/>
+            <h:panelGrid columns="2" cellpadding="5">   
+                
+            <h:outputLabel for="medicamento" value="#{msg['Medicamento']}: "   />                
+            <p:autoComplete id="medicamento" value="#{Medicacion.medicacion.medicamento}"   completeMethod="#{Medicamento.completeMedicamento}"  label="medicamento" required="true" requiredMessage="Debe ingresar el medicamento recetar."
+            var="medicamento" itemLabel="#{medicamento.nombre}" itemValue="#{medicamento}" converter="medicamentoConverter" forceSelection="true" />    
+                
+            <h:outputLabel for="instruccion" value="#{msg['Instruccion']}:" />
+            <p:inputText id="instruccion" value="#{Medicacion.medicacion.instruccion}"  required="true" label="instruccion" size="60" />
+            
+        </h:panelGrid>
+        
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:commandButton id="btnAgregar" value="#{msg['Agregar']}"  actionListener="#{Consulta.AddInstruccionMedicacion(Turno.current, Medicacion.medicacion)}" update="messages, frmInstruccionMedicacion, :frmConsulta:medicacionTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('dlgInstruccionMedicacion').hide(); }"  />
+        </h:panelGrid> 
+            
+    </h:form>  
+</html>

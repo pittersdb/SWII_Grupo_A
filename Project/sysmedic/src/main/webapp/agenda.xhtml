@@ -264,12 +264,9 @@
     </p:panel>
     
     <p:panel id="panelConsulta" header="#{msg['Consulta']}" style="display: none;">
-        <h:panelGroup>
+        
             <ui:include src="consulta.xhtml" />
-        </h:panelGroup>
-        <p:commandButton value="#{msg['Guardar']}" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
-        <p:commandButton value="#{msg['Imprimir_Receta']}" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
-        <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
+        
     </p:panel>
     <p:panel id="panelHistorialForAgenda" header="#{msg['Historial']}" style="display: none;">
         <h:panelGroup>

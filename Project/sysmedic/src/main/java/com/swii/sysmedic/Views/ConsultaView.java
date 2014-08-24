@@ -8,16 +8,16 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.Facades.ConsultaFacade;
-import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Consulta;
+import com.swii.sysmedic.entities.Medicacion;
+import com.swii.sysmedic.entities.MedicacionPK;
 import com.swii.sysmedic.entities.Turno;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.ToggleEvent;
-import org.primefaces.model.Visibility;
 
 /**
  *
@@ -84,6 +84,26 @@ public class ConsultaView {
     
     public boolean isReadyToStart(Turno turno){
         return  turno != null && turno.getCita().getConsulta() != null  && turno.getCita().getConsulta().getId() != null;
+    }
+    
+    public void AddInstruccionMedicacion(Turno turno, Medicacion medicacion){
+         try{            
+             
+             Consulta consultaToPrescribe = turno.getCita().getConsulta();
+             
+             if(consultaToPrescribe.getMedicacionCollection() == null)
+                 consultaToPrescribe.setMedicacionCollection(new ArrayList<Medicacion>());
+            
+             medicacion.setConsulta(consultaToPrescribe);             
+             consultaToPrescribe.getMedicacionCollection().add( new Medicacion(medicacion));
+             
+             medicacion.Clear();
+             
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
     
 }
