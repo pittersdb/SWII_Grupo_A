@@ -73,7 +73,7 @@ public class Consulta implements Serializable {
     @Column(name = "sintomatologia")
     private String sintomatologia;
     @Basic(optional = false)
-    @Size(min = 1, max = 5000)
+    @Size(max = 5000)
     @Column(name = "prescripcion_medica")
     private String prescripcionMedica;
     @Size(max = 5000)

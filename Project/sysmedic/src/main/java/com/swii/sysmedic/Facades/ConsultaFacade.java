@@ -58,7 +58,7 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
             this.create(consulta);
     }
     
-    public void SaveConsulta(Consulta consulta){
+    public void SaveCompleteConsulta(Consulta consulta){
         this.edit(consulta);
     }
     

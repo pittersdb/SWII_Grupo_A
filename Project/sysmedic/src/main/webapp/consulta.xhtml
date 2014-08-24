@@ -36,7 +36,8 @@
         <!--<ui:include src="antecedentes.xhtml" />-->
     </p:dialog>
     
-    <h:form id = "frmConsulta">       
+    <h:form id = "frmConsulta">      
+        <p:growl id="messages"  showDetail="true"/>
         <h:panelGroup>
             <h:panelGrid columns="2" cellpadding="3">
                 <h:panelGrid columns="1" cellpadding="4">
@@ -74,11 +75,11 @@
                             <p:outputLabel value="#{msg['Instruccionnes_Por_Medicacion']}: " />
                             <p:dataTable id="medicacionTable" var="medicacion" value="#{Turno.current.cita.consulta.medicacionCollection}" resizableColumns="true">
                                 <p:column headerText="#{msg['Medicamento']}">
-                                    <h:outputText value="#{medicacion.medicamento.nombre}" />
+                                    <h:outputText value="#{medicacion.medicamento.nombre}" title="#{medicacion.medicamento.nombre}" />
                                 </p:column>
                                 
                                 <p:column headerText="#{msg['Instruccion']}" >
-                                    <h:outputText value="#{medicacion.instruccion}" />
+                                    <h:outputText value="#{medicacion.instruccion}" title="#{medicacion.instruccion}" />
                                 </p:column>
                                 
                                 <p:column headerText="#{msg['Acciones']}">
@@ -95,7 +96,10 @@
             </h:panelGrid>             
         </h:panelGroup>
         
-        <p:commandButton value="#{msg['Guardar']}" id="btnGuardarConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton id="btnGuardarConsulta" value="#{msg['Guardar']}"   actionListener="#{Consulta.SaveCompleteConsulta(Turno.current.cita.consulta)}" update="messages, frmConsulta" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); ocultarConsulta(); mostrarInternalPanelAgenda();}"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+         </p:commandButton>           
+              
         <p:commandButton value="#{msg['Imprimir_Receta']}" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
         <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
     </h:form>

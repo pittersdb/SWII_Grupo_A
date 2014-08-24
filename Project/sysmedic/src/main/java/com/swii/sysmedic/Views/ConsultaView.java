@@ -29,20 +29,10 @@ public class ConsultaView {
     @EJB
     private ConsultaFacade consultaFacade;    
     
-    private Consulta consulta = new Consulta();
-    
     /**
      * Creates a new instance of ConsultaView
      */
     public ConsultaView() {
-    }
-    
-    public Consulta getConsulta() {
-        return consulta;
-    }
-    
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
     }
     
     
@@ -56,10 +46,9 @@ public class ConsultaView {
         }
     }
     
-    public void SaveConsulta(){
+    public void SaveCompleteConsulta(Consulta consult){
         try{
-            this.consultaFacade.SaveConsulta(this.getConsulta());
-            this.setConsulta(new Consulta());
+            this.consultaFacade.SaveCompleteConsulta(consult);
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
