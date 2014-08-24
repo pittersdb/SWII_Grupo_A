@@ -94,8 +94,12 @@ public class ConsultaView {
              if(consultaToPrescribe.getMedicacionCollection() == null)
                  consultaToPrescribe.setMedicacionCollection(new ArrayList<Medicacion>());
             
-             medicacion.setConsulta(consultaToPrescribe);             
+             medicacion.setMedicacionPK(new MedicacionPK(consultaToPrescribe.getId(), medicacion.getMedicamento().getId()));
+             medicacion.setConsulta(consultaToPrescribe);     
+             
              consultaToPrescribe.getMedicacionCollection().add( new Medicacion(medicacion));
+             
+             this.consultaFacade.edit(consultaToPrescribe);
              
              medicacion.Clear();
              
