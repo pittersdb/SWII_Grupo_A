@@ -82,8 +82,10 @@
                                 </p:column>
                                 
                                 <p:column headerText="#{msg['Acciones']}">
-                                    <p:commandButton value="#{msg['Modificar']}" id="btnModificarInstruccion" actionListener="#{Medicacion.setMedicacion(medicacion)}" styleClass="ui-priority-primary" style="font-size: 10px !important;" immediate="true" update=":frmModificarInstruccionMedicacion" oncomplete="PF('dlgModificarInstruccionMedicacion').show(); "/>
-                                    <p:commandButton value="#{msg['Eliminar']}" id="btnEliminarInstruccion" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;"/>
+                                    <p:commandButton value="#{msg['Modificar']}" id="btnModificarInstruccion" actionListener="#{Medicacion.setMedicacion(medicacion)}" styleClass="ui-priority-primary" style="font-size: 10px !important;" immediate="true" update=":frmModificarInstruccionMedicacion" oncomplete="PF('dlgModificarInstruccionMedicacion').show(); "/>                                    
+                                    <p:commandButton value="#{msg['Eliminar']}" id="btnEliminarInstruccion"  actionListener="#{Consulta.DeleteInstruccionMedicacion(Turno.current, medicacion)}" oncomplete=""  immediate="true" update=":frmConsulta:medicacionTable" styleClass="ui-priority-primary" style="font-size: 10px !important;">
+                                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                    </p:commandButton>   
                                 </p:column>
                             </p:dataTable> 
                             

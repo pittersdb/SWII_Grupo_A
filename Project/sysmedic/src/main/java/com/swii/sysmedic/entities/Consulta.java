@@ -87,7 +87,7 @@ public class Consulta implements Serializable {
     @JoinColumn(name = "cita_id", referencedColumnName = "id")
     @OneToOne(optional = false)
     private Cita cita;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta", orphanRemoval = true)
     private Collection<Medicacion> medicacionCollection;
 
     public Consulta() {

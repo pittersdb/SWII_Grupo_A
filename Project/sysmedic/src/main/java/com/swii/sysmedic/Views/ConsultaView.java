@@ -8,6 +8,7 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.Facades.ConsultaFacade;
+import com.swii.sysmedic.Facades.MedicacionFacade;
 import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medicacion;
 import com.swii.sysmedic.entities.MedicacionPK;
@@ -26,9 +27,7 @@ import javax.faces.context.FacesContext;
 public class ConsultaView {
     
     @EJB
-    private ConsultaFacade consultaFacade;
-    @EJB
-    private CitaFacade citaFacade;
+    private ConsultaFacade consultaFacade;    
     
     private Consulta consulta = new Consulta();
     
@@ -90,7 +89,7 @@ public class ConsultaView {
         try{            
             //COnsidering that medicacion is inside the collecton, we can update the collection
              Consulta consultaToPrescribe = turno.getCita().getConsulta();             
-             this.consultaFacade.edit(consultaToPrescribe);                                      
+             this.consultaFacade.EditMedicacion(consultaToPrescribe);                                      
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
@@ -107,14 +106,24 @@ public class ConsultaView {
                  consultaToPrescribe.setMedicacionCollection(new ArrayList<Medicacion>());
             
              medicacion.setMedicacionPK(new MedicacionPK(consultaToPrescribe.getId(), medicacion.getMedicamento().getId()));
-             medicacion.setConsulta(consultaToPrescribe);     
+             medicacion.setConsulta(consultaToPrescribe);                 
              
-             consultaToPrescribe.getMedicacionCollection().add( new Medicacion(medicacion));
-             
-             this.consultaFacade.edit(consultaToPrescribe);
+             this.consultaFacade.AddMedicacion(consultaToPrescribe,  new Medicacion(medicacion));
              
              medicacion.Clear();
              
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void DeleteInstruccionMedicacion(Turno turno, Medicacion medicacion){
+        try{            
+            //COnsidering that medicacion is inside the collecton, we can update the collection
+             Consulta consultaToPrescribe = turno.getCita().getConsulta();           
+             this.consultaFacade.DeleteMedicacion(consultaToPrescribe, medicacion);                                      
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
