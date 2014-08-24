@@ -71,6 +71,13 @@ public class Medicacion implements Serializable {
         this.medicamento = medicacion.getMedicamento();
     }
     
+    public void Copy(Medicacion medicacion){
+        this.medicacionPK = medicacion.getMedicacionPK();
+        this.consulta = medicacion.getConsulta();
+        this.instruccion = medicacion.getInstruccion();
+        this.medicamento = medicacion.getMedicamento();
+    }
+    
     
     public MedicacionPK getMedicacionPK() {
         return medicacionPK;

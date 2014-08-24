@@ -33,5 +33,9 @@ public class MedicacionView {
         this.medicacion = medicacion;
     }
     
+    public void Instatiate(){
+        this.medicacion = new Medicacion();
+    }
+    
     
 }

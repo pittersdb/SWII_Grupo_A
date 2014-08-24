@@ -86,6 +86,18 @@ public class ConsultaView {
         return  turno != null && turno.getCita().getConsulta() != null  && turno.getCita().getConsulta().getId() != null;
     }
     
+    public void ModifyInstruccionMedicacion(Turno turno, Medicacion medicacion){
+        try{            
+            //COnsidering that medicacion is inside the collecton, we can update the collection
+             Consulta consultaToPrescribe = turno.getCita().getConsulta();             
+             this.consultaFacade.edit(consultaToPrescribe);                                      
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
     public void AddInstruccionMedicacion(Turno turno, Medicacion medicacion){
          try{            
              
