@@ -8,8 +8,10 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Paciente;
+import com.swii.sysmedic.entities.Turno;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -135,9 +137,15 @@ public class CitaView {
         this.todaySet = todaySet;
     }
     
-
+    public void SaveProxima(Turno turno){
+        Save(turno.getCita().getPaciente(), turno.getCita().getConsulta());
+    }
     
     public void Save(Paciente targetPaciente){
+        Save(targetPaciente, null);
+    }
+    
+    public void Save(Paciente targetPaciente, Consulta consulta){
         //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
         try{
             this.cita.setEstado(Cita.Estado.Pendiente.toString());
@@ -147,7 +155,10 @@ public class CitaView {
             this.cita.setPaciente(targetPaciente);
             this.cita.setUsers(UsersView.getLoggedUser());
             
-            this.citaFacade.create(cita);
+            if(consulta == null)
+                this.citaFacade.create(cita);
+            else
+                this.citaFacade.SaveProxima(cita, consulta);
             
             this.Clear();
         }catch(Exception e){

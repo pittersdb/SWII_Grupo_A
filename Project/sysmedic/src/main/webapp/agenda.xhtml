@@ -189,7 +189,7 @@
                     </h:outputScript>
                     <sec:authorize url="/faces/turnosDelDia.xhtml" var="isAuthorizedI">
                         
-                        <h:outputLabel for="turnos_hoy" value="#{msg['No_Turnos_assignados']}" rendered="#{Turno.current == null}"/> 
+                        <h:outputLabel value="#{msg['No_Turnos_assignados']}" rendered="#{Turno.current == null}"/> 
                         
                         <h:form id="frmPaciente" rendered="#{Turno.current != null}">
                             <p:growl id="messages"  showDetail="true"/>  
@@ -205,10 +205,10 @@
                                 </f:facet>
                                 
                                 <f:facet name="actions" >      
-                                    <p:commandButton    rendered= "#{!Consulta.isReadyToStart(Turno.current)}" title="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}" oncomplete="manipulatePacientePanel();"  update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" icon="ui-icon-circle-arrow-e" style="float: right; font-size: 12px !important; margin-left: 1em">
+                                    <p:commandButton    rendered= "#{!Consulta.isReadyToStart(Turno.current)}" title="#{msg['Decartar_Turno_Continuar']}"  actionListener="#{Turno.Descartar(Turno.current)}"  oncomplete="manipulatePacientePanel();"  update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" icon="ui-icon-circle-arrow-e" style="float: right; font-size: 12px !important; margin-left: 1em">
                                         <p:confirm header="#{msg['Decartar_Turno_Continuar']}" message="#{msg['Esta_segura_de_esta_accion']}. #{msg['Decartar_Turno_Continuar']} ?" icon="ui-icon-alert" />                                          
                                     </p:commandButton>  
-                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="2. #{msg['Iniciar_Consulta']}" style=" float: right; font-size: 12px !important; color: darkblue; border-color:  darkcyan" actionListener="#{Consulta.StartConsulta(Turno.current)}" update="messages, :tabViewAgenda:panelPaciente" oncomplete="if (args &amp;&amp; !args.validationFailed){doExpand;}"/>                                                                          
+                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="2. #{msg['Iniciar_Consulta']}" style=" float: right; font-size: 12px !important; color: darkblue; border-color:  darkcyan" actionListener="#{Consulta.StartConsulta(Turno.current)}" immediate="true" update="messages, :tabViewAgenda:panelPaciente" oncomplete="if (args &amp;&amp; !args.validationFailed){ PF('panelConsulta').toggle();}"/>                                                                          
                                     <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="1. #{msg['Agregar_Mediciones']}" style=" float: right; font-size: 12px !important; color: darkolivegreen; border-color:  darkseagreen" actionListener="#" update=":tabViewAgenda:frmMediciones" oncomplete="PF('dlgMedicionesPacientes').show();" />                                    
                                 </f:facet>                           
                                 
@@ -216,16 +216,16 @@
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:panelGrid columns="1" cellpadding="5">
                                         <h:panelGrid columns="4" cellpadding="5">
-                                            <h:outputLabel for="numero_turno" value="#{msg['Turno']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                            <h:outputLabel for="numero_turno_val" value="#{Turno.current.orden}" />
+                                            <h:outputLabel value="#{msg['Turno']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                            <h:outputLabel value="#{Turno.current.orden}" />
                                             
-                                            <h:outputLabel for="turno_paciente" value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                            <h:outputLabel for="turno_paciente_val" value="#{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" />
+                                            <h:outputLabel  value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                            <h:outputLabel  value="#{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" />
                                             
                                         </h:panelGrid>
                                         
                                         <h:panelGrid columns="1" cellpadding="1">   
-                                            <h:outputLabel for="Acciones_turno" value="#{msg['Acciones']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                            <h:outputLabel value="#{msg['Acciones']}: " style=" color : cadetblue ; font-size: 1.1em"/>
                                             <p:commandButton id="btnInfoPaciente" value="#{msg['Ver_Historial_Clinico']}" actionListener="#" style=" font-size: 12px !important;" onclick="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();"/>
                                             <p:commandButton id="btnMediciones" value="#{msg['Agregar_o_ver_Mediciones']}" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
                                             <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" type="button" style=" font-size: 12px !important;" onclick="mostrarConsulta(); ocultarInternalPanelAgenda();"/>

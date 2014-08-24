@@ -61,6 +61,7 @@ public class Cita implements Serializable {
         Terminado("t"), 
         Pendiente("d"),
         Esperando("e"),
+        EnProgreso("g"),
         Ninguno("n");
         
         private final String text;

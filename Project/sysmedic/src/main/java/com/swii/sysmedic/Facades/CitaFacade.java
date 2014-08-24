@@ -7,10 +7,12 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Paciente;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +27,10 @@ import javax.persistence.TypedQuery;
 public class CitaFacade extends AbstractFacade<Cita> {
     @PersistenceContext(unitName = "com.swii_sysmedic_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-
+    
+    @EJB
+    private ConsultaFacade consultaFacade;
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -54,6 +59,24 @@ public class CitaFacade extends AbstractFacade<Cita> {
         query.setParameter("estado", estado); 
         
         return query.getResultList();
+    }
+    
+    public void SaveProxima(Cita proximaCita, Consulta consulta){
+        if(consulta.getProximaCita() == null){
+           this.create(proximaCita);         
+           consulta.setProximaCita(proximaCita); 
+           this.consultaFacade.edit(consulta);
+        }else{
+            Integer prxoCitaID = consulta.getProximaCita().getId();
+            if(!(prxoCitaID != null && prxoCitaID != 0)){
+                Consulta consultaWithProx = this.consultaFacade.find(consulta.getId());
+                consulta.setProximaCita(consultaWithProx.getProximaCita());
+            }
+            System.out.println("THE MIS ID: "+ consulta.getProximaCita().getId());
+            consulta.getProximaCita().setFechaConsultaActual(proximaCita.getFechaConsultaActual());
+            this.edit(consulta.getProximaCita());
+        }
+         
     }
        
     

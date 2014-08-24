@@ -26,6 +26,8 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
 
     @EJB
     private TurnoFacade turnoFacade;
+    @EJB
+    private CitaFacade citaFacade;
     
     @Override
     protected EntityManager getEntityManager() {
@@ -39,13 +41,18 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
     public void SaveMediciones(Turno turno){
         Consulta consulta = turno.getCita().getConsulta();
         consulta.setCita(turno.getCita());
+        boolean isEditable = false;
         if(!consulta.getCita().getEstado().equals(Cita.Estado.Terminado.toString())){
-            if(consulta.getId() != null){
-                this.edit(consulta);
-                return; 
+            if(consulta.getId() != null){                
+                isEditable = true;
             }
         }
-       this.create(consulta);
+        consulta.getCita().setEstado(Cita.Estado.EnProgreso.toString());
+       this.citaFacade.edit(consulta.getCita());
+        if(isEditable)
+            this.edit(consulta);
+        else
+            this.create(consulta);
     }
     
     public void SaveConsulta(Consulta consulta){

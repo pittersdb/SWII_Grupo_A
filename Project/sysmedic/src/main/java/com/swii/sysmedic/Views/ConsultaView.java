@@ -1,11 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.Views;
 
+import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.Facades.ConsultaFacade;
 import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Consulta;
@@ -23,9 +24,12 @@ import org.primefaces.model.Visibility;
  * @author LUCAS
  */
 public class ConsultaView {
-
+    
     @EJB
     private ConsultaFacade consultaFacade;
+    @EJB
+    private CitaFacade citaFacade;
+    
     private Consulta consulta = new Consulta();
     
     /**
@@ -33,11 +37,11 @@ public class ConsultaView {
      */
     public ConsultaView() {
     }
-
+    
     public Consulta getConsulta() {
         return consulta;
     }
-
+    
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
     }
@@ -53,7 +57,7 @@ public class ConsultaView {
         }
     }
     
-     public void SaveConsulta(){
+    public void SaveConsulta(){
         try{
             this.consultaFacade.SaveConsulta(this.getConsulta());
             this.setConsulta(new Consulta());
@@ -65,9 +69,15 @@ public class ConsultaView {
     }
     
     public void StartConsulta(Turno turno){
-        if(!isReadyToStart(turno)){
-                 FacesContext.getCurrentInstance().validationFailed();
+        try{            
+            if(!isReadyToStart(turno)){
+                FacesContext.getCurrentInstance().validationFailed();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Atencion", "Debe primero ingresar las MEDICIONES para poder iniciar la consulta"));
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
@@ -76,15 +86,4 @@ public class ConsultaView {
         return  turno != null && turno.getCita().getConsulta() != null  && turno.getCita().getConsulta().getId() != null;
     }
     
-    public void onToggle(ToggleEvent event) {
-//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, event.getComponent().getId() + " toggled", "Status:" + event.getVisibility().name());
-//        FacesContext.getCurrentInstance().addMessage(null, message);
-        this.isToggled = event.getVisibility() == Visibility.VISIBLE;
-    }
-    
-    private boolean isToggled;
-    
-    public boolean isToggled(){
-        return isToggled;
-    }
 }

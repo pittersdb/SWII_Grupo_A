@@ -66,7 +66,8 @@ public class TurnoFacade extends AbstractFacade<Turno> {
           } 
           turno.getCita().setConsulta(this.consultaFacade.GetByCita(turno.getCita()));
           create(turno);
-          cita.setEstado(Cita.Estado.Esperando.toString());
+          if(!(turno.getCita().getConsulta() != null && turno.getCita().getConsulta().getId() != null))
+            cita.setEstado(Cita.Estado.Esperando.toString());
           citaFacade.edit(cita);
           return turno; 
     }
