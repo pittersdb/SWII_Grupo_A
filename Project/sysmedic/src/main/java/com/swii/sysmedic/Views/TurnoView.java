@@ -62,6 +62,7 @@ public class TurnoView {
         if(medicoTarget != null){
             this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(medicoTarget));
             this.selectedMedicoId = medicoTarget.getId();
+            this.setSelectedMedico(medicoTarget);
         }
     }
     
@@ -132,7 +133,8 @@ public class TurnoView {
     }
     
     public Medico getSelectedMedico() {
-        selectedMedico = MedicoView.getInstance().getMedico(selectedMedicoId);
+         if(selectedMedico == null || (selectedMedico != null && selectedMedico.getId() != selectedMedicoId))      
+            selectedMedico = this.medicoFacade.find(selectedMedicoId);
         return selectedMedico;
     }
     

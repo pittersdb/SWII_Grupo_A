@@ -71,8 +71,7 @@ public class CitaFacade extends AbstractFacade<Cita> {
             if(!(prxoCitaID != null && prxoCitaID != 0)){
                 Consulta consultaWithProx = this.consultaFacade.find(consulta.getId());
                 consulta.setProximaCita(consultaWithProx.getProximaCita());
-            }
-            System.out.println("THE MIS ID: "+ consulta.getProximaCita().getId());
+            }             
             consulta.getProximaCita().setFechaConsultaActual(proximaCita.getFechaConsultaActual());
             this.edit(consulta.getProximaCita());
         }
