@@ -70,9 +70,35 @@ public class FacturaView {
     private Paciente paciente = new Paciente();
     private Consulta consulta = new Consulta();
     private Tarifario tarifario = new Tarifario();
+    private DetalleFacturaConsulta dfc = new DetalleFacturaConsulta();
+
+    public DetalleFacturaConsulta getDfc() {
+        return dfc;
+    }
+
+    public void setDfc(DetalleFacturaConsulta dfc) {
+        this.dfc = dfc;
+    }
     
     private List<Factura> all = new ArrayList<Factura>();
-    private Double descuento_Consulta ;
+    private int descuento_Consulta =0;
+    private Double total_Consulta = 0.0;
+
+    public Double getTotal_Consulta() {
+        return total_Consulta;
+    }
+
+    public void setTotal_Consulta(Double total_Consulta) {
+        this.total_Consulta = total_Consulta;
+    }
+
+    public int getDescuento_Consulta() {
+        return descuento_Consulta;
+    }
+
+    public void setDescuento_Consulta(int descuento_Consulta) {
+        this.descuento_Consulta = descuento_Consulta;
+    }
 
     @PostConstruct
     public void init() {
@@ -87,6 +113,7 @@ public class FacturaView {
         this.citaFacade = new CitaFacade();
         this.medicoFacade = new MedicoFacade();
         this.especialidadFacade = new EspecialidadFacade();
+        this.tarifarioFacade = new TarifarioFacade();
     }
     
     public List<String> matchCi(String query) {
@@ -96,50 +123,24 @@ public class FacturaView {
         
         //consulta = this.consultaFacade.GetConsultaByIdPaciente(paciente); 
         consulta = this.consultaFacade.GetConsultaById(1); 
-        cita = this.citaFacade.GetCitaById(consulta.getCita().getId());
-        medico = this.medicoFacade.GetMedicoById(cita.getMedico().getId());
-        especialidad = this.especialidadFacade.GetEspecialidadById(medico.getEspecialidad().getId());
-        //tarifario = this.tarifarioFacade.GetTarifarioByEspecialidad(especialidad.getNombre());
+        cita = consulta.getCita();
+        medico = consulta.getCita().getMedico();
+        especialidad = medico.getEspecialidad();
+        tarifario = this.tarifarioFacade.GetTarifarioByEspecialidad(especialidad.getNombre());
         
+        int descuento = (int) (tarifario.getPrecio()*0.20);
+        double total = tarifario.getPrecio() - descuento;
+        this.setDescuento_Consulta(descuento);
+        this.setTotal_Consulta(total);
+        
+        this.dfc.setDFC(descuento, total, tarifario, consulta);
+         
         if(paciente != null){      
             results.add(paciente.getCi());
         }else{
              paciente = new Paciente(0, "", "","", null, "", "", "");
         }
-       
-         
         return results;
-    }
-    
-     public void onCiSelect(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
-    }
-     
-    public void onCita(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         //if(cita == null) cita = new Cita(0, null, null, "");
-         if(consulta == null) consulta = new Consulta(0, 0, 0, 0, 0, "", "");
-    }
-    
-    public void onEspecialidad(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
-    }
-    
-    public void onTarifario(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
-    }
-    
-    public void onFactura(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
     }
        
     public Integer getProximoNumero(){
@@ -284,19 +285,15 @@ public class FacturaView {
         this.paciente = paciente;
     }
     
+//    
+    
     public void Insert(){
         //this.clienteFacade.Insert(cliente);
+        
         try{
-            if(!this.clienteFacade.existsCliente(cliente.getRuc())){
-                this.clienteFacade.Insert(cliente);
-                this.factura.setCliente(cliente);
-                this.facturaFacade.Insert(factura);
-                this.Clear();
-            }
-            else{
-                this.factura.setCliente(cliente);
-                this.facturaFacade.Insert(factura);
-            }
+            this.facturaFacade.Insert(cliente, factura, dfc);
+            this.Clear();
+            
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

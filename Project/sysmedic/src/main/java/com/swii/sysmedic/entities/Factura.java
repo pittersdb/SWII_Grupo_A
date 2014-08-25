@@ -98,7 +98,7 @@ public class Factura implements Serializable {
     @Column(name = "fecha_caducidad_sri")
     @Temporal(TemporalType.DATE)
     private Date fechaCaducidadSri = new java.util.Date();
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "factura")
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "factura")
     private DetalleFacturaConsulta detalleFacturaConsulta;
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

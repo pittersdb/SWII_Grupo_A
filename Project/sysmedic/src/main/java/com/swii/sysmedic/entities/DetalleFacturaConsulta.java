@@ -52,7 +52,7 @@ public class DetalleFacturaConsulta implements Serializable {
     @JoinColumn(name = "tarifario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tarifario tarifario;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "factura_id", referencedColumnName = "id" )
     @OneToOne(optional = false)
     private Factura factura;
     @JoinColumn(name = "consulta_id", referencedColumnName = "id")
@@ -70,6 +70,21 @@ public class DetalleFacturaConsulta implements Serializable {
         this.id = id;
         this.descuento = descuento;
         this.total = total;
+    }
+    
+    public DetalleFacturaConsulta(Integer id, int descuento, double total, Tarifario tarifario, Consulta consulta) {
+        this.id = id;
+        this.descuento = descuento;
+        this.total = total;
+        this.tarifario = tarifario;
+        this.consulta = consulta;
+    }
+    
+    public void setDFC(int descuento, double total, Tarifario tarifario, Consulta consulta){
+        this.descuento = descuento;
+        this.total = total;
+        this.tarifario = tarifario;
+        this.consulta = consulta;
     }
 
     public Integer getId() {

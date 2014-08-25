@@ -19,6 +19,7 @@
     
 
     <h:form id="formulario">
+        <p:growl id="messages"  showDetail="true"/>
         <h:panelGrid columns="1" cellpadding="3"> 
                 
         <h:panelGrid columns="2" cellpadding="3">
@@ -71,19 +72,13 @@
         <hr />        
         <h4>#{msg['Detalle_Consulta_Realizada']}</h4>
         <hr />
-        <h:panelGrid columns="2" cellpadding="3">
+        <h:panelGrid columns="2" cellpadding="3"  id="panelPacienteFac" >
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
                                         
                     <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
                     <p:autoComplete id="ci_paciente" value="#{Factura.paciente.ci}" completeMethod="#{Factura.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
-                        <p:ajax event="itemSelect" listener="#{Factura.onCiSelect}" update="nombre_paciente" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onCita}" update="numero_cita" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onCita}" update="estado_cita" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onTarifario}" update="tipo_consulta" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onTarifario}" update="valor_consulta" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onFactura}" update="descuento_consulta" oncomplete=""/> 
-                        <p:ajax event="itemSelect" listener="#{Factura.onFactura}" update="total_consulta" oncomplete=""/> 
+                        <p:ajax event="itemSelect" update="panelPacienteFac" oncomplete=""/> 
                     </p:autoComplete>                 
                     
                     <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
@@ -104,13 +99,13 @@
                     <p:inputText id="tipo_consulta" value= "#{Factura.especialidad.nombre}" required="true" label="tipo_consulta" readonly="true" disabled="true"/>             
                     
                     <h:outputLabel for="valor_consulta" value="#{msg['valor_consulta']}: " />
-                    <p:inputText id="valor_consulta" value= "#" required="true" label="valor_consulta" readonly="true" disabled="true"/>             
+                    <p:inputText id="valor_consulta" value= "#{Factura.tarifario.precio}" required="true" label="valor_consulta" readonly="true" disabled="true"/>             
                     
                     <h:outputLabel for="descuento_consulta" value="#{msg['descuento_consulta']}: " />
-                    <p:inputText id="descuento_consulta" value= "#" required="true" label="descuento_consulta" readonly="true" disabled="true"/>             
+                    <p:inputText id="descuento_consulta" value= "#{Factura.descuento_Consulta}" required="true" label="descuento_consulta" readonly="true" disabled="true"/>             
                     
                     <h:outputLabel for="total_consulta" value="#{msg['total_consulta']}: " />
-                    <p:inputText id="total_consulta" value= "#" required="true" label="total_consulta" readonly="true" disabled="true"/>             
+                    <p:inputText id="total_consulta" value= "#{Factura.total_Consulta}" required="true" label="total_consulta" readonly="true" disabled="true"/>             
                     
                     
                 </h:panelGrid>
@@ -203,7 +198,9 @@
         <hr />
         <h:panelGrid columns="3" cellpadding="10">
             <h:panelGrid columns="1">
-                <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}" actionListener="#{Factura.Insert()}" />
+                <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}"   actionListener="#{Factura.Insert()}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                </p:commandButton>  
             </h:panelGrid>
             <h:panelGrid columns="1">
                 <p:commandButton id="btnImprimirFactura" value="#{msg['Imprimir']}" actionListener="#" />

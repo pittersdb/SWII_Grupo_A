@@ -32,12 +32,9 @@ public class TarifarioFacade extends AbstractFacade<Tarifario> {
     }
     
     public Tarifario GetTarifarioByEspecialidad(String nombreServicio){
-        TypedQuery<Tarifario> query = em.createNamedQuery("Consulta.findByNombreServicio", Tarifario.class);
+        TypedQuery<Tarifario> query = em.createNamedQuery("Tarifario.findByNombreServicio", Tarifario.class);
         
-//        paciente = paciente!=null ? paciente:new Paciente();
-//        boolean nullPaciente = paciente.getId()==null;
-//        query.setParameter("nullPaciente", nullPaciente);
-        query.setParameter("nombreServicio", nombreServicio);
+        query.setParameter("nombreServicio","%"+nombreServicio.toLowerCase()+"%");
         List matches = query.getResultList();
         if(matches == null || matches.isEmpty())
             return null;
