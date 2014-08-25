@@ -82,8 +82,10 @@
                                 <h:outputText value="#{cita.medico.users.name} #{cita.medico.users.apellidos}" />
                             </p:column>
                             
-                            <p:column headerText="#{msg['fecha_cita']}">
-                                <h:outputText value="#{cita.fechaConsultaActual}" />
+                            <p:column headerText="#{msg['fecha_cita']} (dd/mm/aaaa)">
+                                <h:outputText value="#{cita.fechaConsultaActual}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                                </h:outputText>
                             </p:column>
                             
                             <p:column headerText="#{msg['Estado']}">
@@ -226,7 +228,7 @@
                                         
                                         <h:panelGrid columns="1" cellpadding="1">   
                                             <h:outputLabel value="#{msg['Acciones']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                            <p:commandButton id="btnInfoPaciente" value="#{msg['Ver_Historial_Clinico']}" actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup)}" update=":frmHistorialFromConsulta" oncomplete="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
+                                            <p:commandButton id="btnInfoPaciente" value="#{msg['Ver_Historial_Clinico']}" actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup) }" action="#{Consulta.setConsulta(null)}" update=":frmHistorialFromConsulta" oncomplete="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
                                             <p:commandButton id="btnMediciones" value="#{msg['Agregar_o_ver_Mediciones']}" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
                                             <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" actionListener="#" update=":frmConsulta" oncomplete="mostrarConsulta(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
                                             <p:commandButton id="btnProgramarCita" value="#{msg['Programar_Proxima_Cita']}" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
@@ -268,7 +270,7 @@
             <ui:include src="consulta.xhtml" />
         
     </p:panel>
-    <p:panel id="panelHistorialForAgenda" header="#{msg['Historial']}" style="display: none;">
+    <p:panel id="panelHistorialForAgenda" header="#{msg['Historial']}: #{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" style="display: none;">
         <h:panelGroup>
             <ui:include src="historial.xhtml" > 
                 <ui:param name="frmHistorial" value="frmHistorialFromConsulta" />     

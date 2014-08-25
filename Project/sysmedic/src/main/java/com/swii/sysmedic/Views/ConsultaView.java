@@ -27,12 +27,20 @@ public class ConsultaView {
     @EJB
     private ConsultaFacade consultaFacade;    
     
+    private Consulta consulta;
     /**
      * Creates a new instance of ConsultaView
      */
     public ConsultaView() {
     }
-    
+
+    public Consulta getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
+    }
     
     public void SaveMediciones(Turno turno){
         try{

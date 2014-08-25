@@ -8,6 +8,7 @@ package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.PacienteFacade;
 import com.swii.sysmedic.entities.AntecedentesGroup;
+import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Paciente;
 import java.util.ArrayList;
 import java.util.List;
@@ -183,6 +184,17 @@ public class PacienteView {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
             Logger.getLogger(PacienteView.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+    
+    public List<Consulta> getConsultas(Paciente pacienteTarget){
+        try{            
+             return this.pacienteFacade.getConsultas(pacienteTarget);
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
+            Logger.getLogger(PacienteView.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
     }
     
 }

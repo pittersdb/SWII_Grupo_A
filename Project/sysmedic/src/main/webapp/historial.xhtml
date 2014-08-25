@@ -17,7 +17,7 @@
     
     <!--http://www.consultorio-virtual.com/manual-de-usuario/-->
     <h:form id="#{frmHistorial}" > 
-        <p:tabView>
+        <p:tabView id = "tabViewHistorial" >
             <p:tab title="#{msg['informacion_personal']}">
                 
                 <p:growl id="growl" showDetail="true" life="2000" />
@@ -36,7 +36,7 @@
                     <p:inputText value="#{paciente.apellidos}" id="apellidos" disabled="true" label="apellidos" readonly="true" />
                     
                     <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaNacimiento" value="#{paciente.fechaNacimiento}" readonly="true"  disabled="true"/>
+                    <p:calendar id="inputFechaNacimiento" value="#{paciente.fechaNacimiento}" readonly="true"  disabled="true"/>                    
                     
                     <p:outputLabel for="sexo" value="#{msg['Sexo']}:" />        
                     <p:inputText value="#{paciente.sexo}" id="sexo" disabled="true" label="ci" maxlength="5" readonly="true"  size="10" />
@@ -164,59 +164,68 @@
             
             <p:tab title="#{msg['Consultas']}">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="car" value="#">
-                        <p:column headerText="No.">
-                            <h:outputText value="#" />
+                    <p:dataTable var="consulta" value="#{Paciente.getConsultas(paciente)}">
+                        <p:column headerText="Cod.">
+                            <h:outputText value="#{consulta.id}" />
                         </p:column>
                         
-                        <p:column headerText="#{msg['fecha']}">
-                            <h:outputText value="#" />
+                        <p:column headerText="#{msg['fecha']} (dd/mm/aaaa)">
+                            <h:outputText value="#{consulta.cita.fechaConsultaActual}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                            </h:outputText>
                         </p:column>
                         
                         <p:column headerText="#{msg['Acciones']}">
-                            <p:commandButton value="#{msg['mostrar_datos']}" id="btnMostrarDatosCOnsulta" styleClass="ui-priority-primary" style="font-size: 10px !important; "  />                    
+                            <p:commandButton value="#{msg['mostrar_datos']}" id="btnMostrarDatosCOnsulta" actionListener="#{Consulta.setConsulta(consulta)}" update=":#{frmHistorial}:tabViewHistorial:panelConsultaHistorial" styleClass="ui-priority-primary" style="font-size: 10px !important; "  />
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
-                <!--p:commandButton value="Eliminar Consulta" id="btnEliminarConsulta" actionListener="#" styleClass="ui-priority-primary" /-->
                 <br/>  
-                <p:panel header="#{msg['datos_consulta_N']} #">
-                    <h:panelGrid columns="2" cellpadding="3">
-                        <h:panelGrid columns="1" cellpadding="4">
-                            <h:panelGrid columns="2" cellpadding="4">
-                                <h:outputLabel for="nombre_paciente" value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                <h:outputLabel for="nombre_paciente" value="Juan Perez" />
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellpadding="1">
-                                <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
-                                <p:inputTextarea id="sintomatologia" rows="6" cols="33" disabled="true"/>
-                                
-                                <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
-                                <p:inputTextarea id="observaciones" rows="6" cols="33" disabled="true"/><br />
-                            </h:panelGrid>
-                            
-                            
-                        </h:panelGrid>
-                        
-                        <h:panelGrid columns="1" cellpadding="3">
-                            <p:panel header="#{msg['Prescripcion']}: ">
-                                <h:panelGrid columns="1" cellpadding="3">
-                                    <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}s: "></p:outputLabel>
-                                    <p:inputTextarea id="consideraciones" rows="3" cols="40" disabled="true"/>   
-                                    <p:dataTable var="car" value="#">
-                                        <p:column headerText="#{msg['Medicamento']}">
-                                            <h:outputText value="Xanax" />
-                                        </p:column>
-                                        
-                                        <p:column headerText="#{msg['Instruccion']}">
-                                            <h:outputText value="2 tabletas al dia" />
-                                        </p:column>
-                                    </p:dataTable>                        
-                                    
+                <p:panel id="panelConsultaHistorial" header="#{msg['datos_consulta_N']} #{Consulta.consulta.id}"  >
+                    <h:panelGroup rendered="#{Consulta.consulta != null}" >
+                        <h:panelGrid columns="2" cellpadding="3">
+                            <h:panelGrid columns="1" cellpadding="4">
+                                <h:panelGrid columns="2" cellpadding="4">
+                                    <h:outputLabel value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                    <h:outputLabel  value="#{paciente.nombres} #{paciente.apellidos}" />
                                 </h:panelGrid>
-                            </p:panel>
-                        </h:panelGrid>
-                    </h:panelGrid>  
+                                
+                                <h:panelGrid columns="1" cellpadding="1">
+                                    <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
+                                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" value="#{Consulta.consulta.sintomatologia}" disabled="true" />
+                                    
+                                    <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
+                                    <p:inputTextarea id="observaciones" rows="6" cols="33" value="#{Consulta.consulta.observaciones}"  disabled="true" />
+                                    <br />
+                                </h:panelGrid>
+                                
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="1" cellpadding="3">
+                                
+                                <p:panel header="#{msg['Prescripcion']}: ">
+                                    <h:panelGrid columns="1" cellpadding="3">
+                                        <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}: "></p:outputLabel>
+                                        <p:inputTextarea id="consideraciones" rows="3" cols="40" value="#{Consulta.consulta.prescripcionMedica}" disabled="true" />                                  
+                                        
+                                        
+                                        <p:outputLabel value="#{msg['Instruccionnes_Por_Medicacion']}: " />
+                                        <p:dataTable id="medicacionTable" var="medicacion" value="#{Consulta.consulta.medicacionCollection}" resizableColumns="true">
+                                            <p:column headerText="#{msg['Medicamento']}">
+                                                <h:outputText value="#{medicacion.medicamento.nombre}" title="#{medicacion.medicamento.nombre}" />
+                                            </p:column>
+                                            
+                                            <p:column headerText="#{msg['Instruccion']}" >
+                                                <h:outputText value="#{medicacion.instruccion}" title="#{medicacion.instruccion}" />
+                                            </p:column>
+                                            
+                                        </p:dataTable> 
+                                        
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+                        </h:panelGrid>             
+                    </h:panelGroup>
                 </p:panel>
             </p:tab>
         </p:tabView>
