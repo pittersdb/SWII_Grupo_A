@@ -235,6 +235,26 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>2.42.2</version>
+        <scope>test</scope>
+    </dependency> 
+    
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server</artifactId>
+        <version>2.42.2</version>
+        <scope>test</scope>
+        <exclusions>
+        <exclusion>
+	<groupId>javax.servlet</groupId>
+	<artifactId>servlet-api-2.5</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>  
+      
+    <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
       <version>0.7-groovy-2.0</version>
