@@ -29,4 +29,6 @@ public class DetalleFacturaConsultaFacade extends AbstractFacade<DetalleFacturaC
         super(DetalleFacturaConsulta.class);
     }
     
+  
+    
 }

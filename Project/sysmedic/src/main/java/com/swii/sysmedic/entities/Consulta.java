@@ -42,6 +42,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Consulta.findByPresionArterial", query = "SELECT c FROM Consulta c WHERE c.presionArterial = :presionArterial"),
     @NamedQuery(name = "Consulta.findBySintomatologia", query = "SELECT c FROM Consulta c WHERE c.sintomatologia = :sintomatologia"),
     @NamedQuery(name = "Consulta.findByPrescripcionMedica", query = "SELECT c FROM Consulta c WHERE c.prescripcionMedica = :prescripcionMedica"),
+//    @NamedQuery(name = "Consulta.findPacienteById", query = ""
+//                        + "SELECT c FROM Consulta c"
+//                        + "WHERE ("
+//                        + "((:nullPaciente = TRUE ) OR (:nullPaciente = FALSE AND c.paciente =:paciente))"
+//                        + ")"),
+    @NamedQuery(name = "Consulta.findPacienteById", query = "SELECT c FROM Consulta c WHERE c.cita.paciente = :paciente AND c.cita.estado = 't'"),
     @NamedQuery(name = "Consulta.findByObservaciones", query = "SELECT c FROM Consulta c WHERE c.observaciones = :observaciones")})
 public class Consulta implements Serializable {
     private static final long serialVersionUID = 1L;

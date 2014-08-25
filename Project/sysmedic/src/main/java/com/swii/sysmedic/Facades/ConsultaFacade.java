@@ -7,9 +7,12 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Consulta;
+import com.swii.sysmedic.entities.Paciente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +30,34 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
 
     public ConsultaFacade() {
         super(Consulta.class);
+    }
+    
+    public Consulta GetConsultaByIdPaciente(Paciente paciente) {
+        TypedQuery<Consulta> query = em.createNamedQuery("Consulta.findPacienteById", Consulta.class);
+        
+//        paciente = paciente!=null ? paciente:new Paciente();
+//        boolean nullPaciente = paciente.getId()==null;
+//        query.setParameter("nullPaciente", nullPaciente);
+        query.setParameter("paciente", paciente);
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
+    }
+    
+    public Consulta GetConsultaById(int id) {
+        TypedQuery<Consulta> query = em.createNamedQuery("Consulta.findById", Consulta.class);
+        
+//        paciente = paciente!=null ? paciente:new Paciente();
+//        boolean nullPaciente = paciente.getId()==null;
+//        query.setParameter("nullPaciente", nullPaciente);
+        query.setParameter("id", id);
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
     }
     
 }

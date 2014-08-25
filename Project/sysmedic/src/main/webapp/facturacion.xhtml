@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
@@ -14,6 +14,8 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Validations.js" type="text/javascript" ></script>
+    <script src="js/Factura.js" type="text/javascript" ></script>
     
 
     <h:form id="formulario">
@@ -52,10 +54,10 @@
                     <p:inputText value="#{Factura.cliente.apellidos}" id="apellido" required="true" label="apellido" />
                     
                     <h:outputLabel for="ruc" value="R.U.C.:" />
-                    <p:inputText value="#{Factura.cliente.ruc}" id="ruc" required="true" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    <p:inputText value="#{Factura.cliente.ruc}" id="ruc" required="true" maxlength="10" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
-                    <p:inputText value="#{Factura.cliente.telefono}" id="telefono" required="true" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    <p:inputText value="#{Factura.cliente.telefono}" id="telefono" required="true" maxlength="10" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
                     <p:inputTextarea value="#{Factura.cliente.direcion}" id="direccion" rows="6" cols="15" /><br />
@@ -72,23 +74,45 @@
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
-                    <h:outputLabel for="cita" value="N. Cita:" />
-                    <h:outputText value="#{Cita.cita.id}" />
+                                        
+                    <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
+                    <p:autoComplete id="ci_paciente" value="#{Factura.paciente.ci}" completeMethod="#{Factura.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
+                        <p:ajax event="itemSelect" listener="#{Factura.onCiSelect}" update="nombre_paciente" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onCita}" update="numero_cita" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onCita}" update="estado_cita" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onTarifario}" update="tipo_consulta" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onTarifario}" update="valor_consulta" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onFactura}" update="descuento_consulta" oncomplete=""/> 
+                        <p:ajax event="itemSelect" listener="#{Factura.onFactura}" update="total_consulta" oncomplete=""/> 
+                    </p:autoComplete>                 
                     
-                    <h:outputLabel for="costo" value="#{msg['Costo']}:" />
-                    <h:outputText value="#" />                   
+                    <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
+                    <p:inputText id="nombre_paciente" value= "#{Factura.paciente.nombres} #{Factura.paciente.apellidos}" required="true" label="nombre_paciente" readonly="true" disabled="true"/>             
+                    
+                    <h:outputLabel for="numero_cita" value="#{msg['numero_cita']}: " />
+                    <p:inputText id="numero_cita" value= "#{Factura.consulta.cita.id}" required="true" label="numero_cita" readonly="true" disabled="true"/>             
+                    
+                    <h:outputLabel for="estado_cita" value="#{msg['estado_cita']}: " />
+                    <p:inputText id="estado_cita" value= "#{Factura.cita.estado}" required="true" label="estado_cita" readonly="true" disabled="true"/>             
+                               
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid columns="1" cellpadding="4">
                 <h:panelGrid columns="2" cellpadding="4">
-                    <h:outputLabel for="ivaConsulta" value="IVA 12% :" />
-                    <h:outputText value="#" />
                     
-                    <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
-                    <h:outputText value="#" />
+                    <h:outputLabel for="tipo_consulta" value="#{msg['tipo_consulta']}: " />
+                    <p:inputText id="tipo_consulta" value= "#{Factura.especialidad.nombre}" required="true" label="tipo_consulta" readonly="true" disabled="true"/>             
                     
-                    <h:outputLabel for="totalConsulta" value="#{msg['Total']}:" />
-                    <h:outputText value="#" />                                       
+                    <h:outputLabel for="valor_consulta" value="#{msg['valor_consulta']}: " />
+                    <p:inputText id="valor_consulta" value= "#" required="true" label="valor_consulta" readonly="true" disabled="true"/>             
+                    
+                    <h:outputLabel for="descuento_consulta" value="#{msg['descuento_consulta']}: " />
+                    <p:inputText id="descuento_consulta" value= "#" required="true" label="descuento_consulta" readonly="true" disabled="true"/>             
+                    
+                    <h:outputLabel for="total_consulta" value="#{msg['total_consulta']}: " />
+                    <p:inputText id="total_consulta" value= "#" required="true" label="total_consulta" readonly="true" disabled="true"/>             
+                    
+                    
                 </h:panelGrid>
             </h:panelGrid>
         </h:panelGrid>

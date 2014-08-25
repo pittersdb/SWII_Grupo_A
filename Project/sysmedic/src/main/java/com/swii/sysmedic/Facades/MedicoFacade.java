@@ -43,4 +43,14 @@ public class MedicoFacade extends AbstractFacade<Medico> {
             return query.getResultList();
     }
     
+    public Medico GetMedicoById(int id) {
+        TypedQuery<Medico> query = em.createNamedQuery("Medico.findById", Medico.class);
+        query.setParameter("id", id);
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
+    }
+    
 }
