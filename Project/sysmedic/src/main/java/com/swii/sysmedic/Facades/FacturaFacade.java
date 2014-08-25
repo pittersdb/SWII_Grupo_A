@@ -29,7 +29,9 @@ public class FacturaFacade extends AbstractFacade<Factura> {
     private ClienteFacade clienteFacade;
     @EJB
     private DetalleFacturaConsultaFacade dfcFacade; 
-
+    @EJB
+    private CitaFacade citaFacade; 
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -60,7 +62,8 @@ public class FacturaFacade extends AbstractFacade<Factura> {
         factura.setCliente(cliente);
         create(factura);
         dfc.setFactura(factura);
-        
+//         dfc.getConsulta().getCita().setEstado(Cita.Estado.Pagado.toString());
+//         this.citaFacade.edit(dfc.getConsulta().getCita());
         this.dfcFacade.Insert(dfc);        
     } 
     
