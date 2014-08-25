@@ -46,16 +46,16 @@
         <hr />
         <h:panelGrid columns="2" cellpadding="3">
             <h:panelGrid columns="1" cellpadding="4">
-                <h:panelGrid columns="2" cellpadding="4">
+                <h:panelGrid columns="2" cellpadding="4" id="clientSection" >
+                    
+                    <h:outputLabel for="ruc" value="R.U.C.:" />
+                    <p:inputText value="#{Factura.cliente.ruc}" id="ruc" required="true" maxlength="10" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="nombre" value="#{msg['Nombre']}:" />
                     <p:inputText value="#{Factura.cliente.nombres}" id="nombre" required="true" label="nombre" />
                     
                     <h:outputLabel for="apellido" value="#{msg['Apellido']}:" />
                     <p:inputText value="#{Factura.cliente.apellidos}" id="apellido" required="true" label="apellido" />
-                    
-                    <h:outputLabel for="ruc" value="R.U.C.:" />
-                    <p:inputText value="#{Factura.cliente.ruc}" id="ruc" required="true" maxlength="10" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
                     
                     <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
                     <p:inputText value="#{Factura.cliente.telefono}" id="telefono" required="true" maxlength="10" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
@@ -116,7 +116,7 @@
         <hr />
         <h4>#{msg['Datos_del_Medicamento']}</h4>
         <hr />
-        <p:dataTable id="facturas" value="#" var="fact" rows="10" paginator="true" paginatorPosition="bottom">
+        <p:dataTable id="facturas" value="#{Factura.listSelectedMedicamentoLote}" var="medicina" rows="10" paginator="true" paginatorPosition="bottom" rendered="#{Factura.listMedicamento.size() >0 eq true}">
 
             <p:column style="width: auto">
                     <f:facet name="header" >
@@ -128,26 +128,13 @@
                     <f:facet name="header">
                         <h:outputText value="#{msg['Medicamento']}" />
                     </f:facet>
-                <h:outputText value="#{Medicamento.medicamento.nombre}" />
-            </p:column>
-            <p:column>
-                <p:column>
-                  <p:commandButton id="combutton" update=":formulario:display" oncomplete="editMedicina.show()" icon="ui-icon-search" title="Edit" >
-                  
-                  </p:commandButton>
-                </p:column>
-            </p:column>
-            <p:column>
-                <f:facet name="header" >
-                    <h:outputText value="#{msg['Descripcion']}" style="width:100%" />
-                </f:facet>
-                <h:outputText value="#" />                                    
+                <h:outputText value="#{medicina.medicamento.nombre}" />
             </p:column>
             <p:column>
                 <f:facet name="header">
                     <h:outputText value="#{msg['Precio_Unitario']}" />
                 </f:facet>
-                <h:outputText value="#" />
+                <h:outputText value="#{medicina.precio}" />
             </p:column>
             <p:column>
                 <f:facet name="header">
@@ -163,6 +150,8 @@
             </p:column>
 
         </p:dataTable>
+        
+        <p:commandButton id="combutton" update=":formulario:display" oncomplete="editMedicina.show()" icon="ui-icon-search" title="Edit" ></p:commandButton>
         <hr />
         <h4>#{msg['Datos_Factura']}</h4>
         <hr />
@@ -211,32 +200,32 @@
             
             <p:dialog header="#{msg['Medicamentos']}" widgetVar="editMedicina" resizable="false" id="editMdc" >
             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
-                <p:dataTable id="medicamentoTable" value="#{Medicamento.all}" var="medicamento" rows="10" paginator="true" paginatorPosition="bottom" tableStyle="width:auto">
+                <p:dataTable id="medicamentoTable" value="#{Factura.listMedicamentoLote}" var="med" rows="10" paginator="true" paginatorPosition="bottom" tableStyle="width:auto">
                     
                         <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['Medicamento']}" />
                                 </f:facet>
-                            <h:outputText value="#{medicamento.nombre}" />
+                            <h:outputText value="#{med.medicamento.nombre}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
                                 <h:outputText value="#{msg['Descripcion']}" style="width:100%" />
                             </f:facet>
-                            <h:outputText value="#{medicamento.descripcion}" />                                    
+                            <h:outputText value="#{med.medicamento.descripcion}" />                                    
                         </p:column>
                         <p:column>
                             <f:facet name="header" >
                                 <h:outputText value="#{msg['Stock']}" style="width:100%" />
                             </f:facet>
-                            <h:outputText value="100" />                                    
+                            <h:outputText value="#{med.cantidadDisponible}" />                                    
                         </p:column>
                     
                         <p:column>
                             <f:facet name="header" >
                                 <h:outputText value="#{msg['Accion']}" style="width:100%" />
                             </f:facet>
-                            <p:commandButton value="#{msg['Importar']}" actionListener="#{Medicamento.LoadMedicina(medicamento.nombre)}" />                                    
+                            <p:commandButton value="#{msg['Importar']}" actionListener="#{Factura.agregarMedicamentos()}" />                                    
                         </p:column>
                         
                     </p:dataTable>

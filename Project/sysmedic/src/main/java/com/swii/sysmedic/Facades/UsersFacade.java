@@ -49,14 +49,19 @@ public class UsersFacade extends AbstractFacade<Users> {
         List users = query.getResultList();
         if(users == null || users.isEmpty())
             return null;
-        else
+        else{
+            Users userTarget = query.getResultList().get(0);
+            if(userTarget.getMedico() == null && userTarget.getRol().equals("m"))
+                userTarget.setMedico(this.medicoFacade.GetMedicoByUser(userTarget));
+                
             return query.getResultList().get(0);
+        }
     }
     
     public Users LoadCompleteUser(String nickname){
         Users user = GetUser(nickname);
         if(user.getRol().equals("m")){
-            user.setEspecialidad( this.medicoFacade.find(user.getId()).getEspecialidad().getId());
+            user.setEspecialidad( this.medicoFacade.GetMedicoByUser(user).getEspecialidad().getId());
         }
         return user;
     }
@@ -68,7 +73,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     public void Save(Users user, String selectedRol, int selectedEspecialidad){
         user.setRol(selectedRol);
         user.setEnabled((short)1);
-        user.setPassword(encriptarMD5(user.getPassword()));
+        //user.setPassword(encriptarMD5(user.getPassword()));
         create(user);
         
          if(user.getRol().equalsIgnoreCase("m")){
@@ -103,7 +108,7 @@ public class UsersFacade extends AbstractFacade<Users> {
         originalUser.set(user);
         this.edit(originalUser);
         
-        Medico medico = medicoFacade.find(user.getId());
+        Medico medico = medicoFacade.GetMedicoByUser(user);
         if(medico != null && !user.getRol().equals("m")){
             medicoFacade.remove(medico);
         }
