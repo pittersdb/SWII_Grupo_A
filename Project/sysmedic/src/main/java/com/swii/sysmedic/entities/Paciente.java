@@ -88,7 +88,7 @@ public class Paciente implements Serializable {
     private String direcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
     private Collection<Cita> citaCollection; 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", orphanRemoval = true)
     private Collection<PacienteAntecedente> pacienteAntecedenteCollection;
 
     public Paciente() {

@@ -6,9 +6,7 @@
 
 package com.swii.sysmedic.Views;
 
-import com.swii.sysmedic.Facades.CitaFacade;
 import com.swii.sysmedic.Facades.ConsultaFacade;
-import com.swii.sysmedic.Facades.MedicacionFacade;
 import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medicacion;
 import com.swii.sysmedic.entities.MedicacionPK;

@@ -33,7 +33,7 @@
     </p:dialog>       
     
     <p:dialog header="#{msg['Antecedentes']}" widgetVar="dlgAntecedentesConsulta" draggable="false" resizable="false">
-        <!--<ui:include src="antecedentes.xhtml" />-->
+       <ui:include src="antecedentes.xhtml" />
     </p:dialog>
     
     <h:form id = "frmConsulta">      
@@ -62,7 +62,7 @@
                     <h:panelGrid columns="2" cellpadding="4">
                         
                         <p:outputLabel value="#{msg['Antecedentes']}: " />
-                        <p:commandButton value="#{msg['Gestionar_Antecedentes']}" id="btnAntecedentes" onclick="PF('dlgAntecedentesConsulta').show();" />
+                        <p:commandButton value="#{msg['Gestionar_Antecedentes']}" id="btnAntecedentes" actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup)}" immediate="true" update="messages, :frmAntecedentes" oncomplete="PF('dlgAntecedentesConsulta').show();" />
                         
                     </h:panelGrid>
                     <p:panel header="#{msg['Prescripcion']}: ">

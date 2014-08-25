@@ -7,9 +7,11 @@
 package com.swii.sysmedic.Facades;
 
 import com.swii.sysmedic.entities.Antecedente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +29,19 @@ public class AntecedenteFacade extends AbstractFacade<Antecedente> {
 
     public AntecedenteFacade() {
         super(Antecedente.class);
+    }
+    
+    public Antecedente findByNombre(String nombre){
+        TypedQuery<Antecedente> query = em.createNamedQuery("Antecedente.findByNombre", Antecedente.class);
+        query.setParameter("nombre", nombre );
+        List<Antecedente> result = query.getResultList();
+        if(result == null)
+            return null;
+        
+        if(result.isEmpty())
+            return null;
+        else
+            return result.get(0);
     }
     
 }

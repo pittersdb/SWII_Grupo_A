@@ -98,4 +98,9 @@
         <managed-bean-class>com.swii.sysmedic.Views.MedicacionView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Antecedente</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Views.AntecedenteView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

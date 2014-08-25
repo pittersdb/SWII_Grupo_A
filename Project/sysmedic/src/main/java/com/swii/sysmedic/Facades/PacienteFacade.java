@@ -6,6 +6,7 @@
 
 package com.swii.sysmedic.Facades;
 
+import com.swii.sysmedic.entities.AntecedentesGroup;
 import com.swii.sysmedic.entities.Paciente;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -53,5 +54,10 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
     public List<Paciente> findAll() {
         List<Paciente> contacts = em.createNamedQuery("Paciente.findAll", Paciente.class).getResultList();
         return contacts;
+    }
+    
+    public void SaveAntecendentes(Paciente paciente, AntecedentesGroup antecedentes){
+        antecedentes.setPacienteAntecedentePK(paciente);
+        this.edit(paciente);
     }
 }

@@ -6,7 +6,9 @@
 
 package com.swii.sysmedic.entities;
 
+import com.swii.sysmedic.Facades.AntecedenteFacade;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author fabian
  */
 @Entity
-@Table(name = "paciente_antecedente")
+@Table(name = "\"SysMedic\".paciente_antecedente")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PacienteAntecedente.findAll", query = "SELECT p FROM PacienteAntecedente p"),
@@ -38,7 +40,7 @@ public class PacienteAntecedente implements Serializable {
     protected PacienteAntecedentePK pacienteAntecedentePK;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 150)
     @Column(name = "valor")
     private String valor;
     @JoinColumn(name = "paciente_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -49,6 +51,11 @@ public class PacienteAntecedente implements Serializable {
     private Antecedente antecedente;
 
     public PacienteAntecedente() {
+    }
+    
+     public PacienteAntecedente(Antecedente defaultAntecedente, String defaultValor) {         
+         this.antecedente = defaultAntecedente;
+         this.valor = defaultValor;
     }
 
     public PacienteAntecedente(PacienteAntecedentePK pacienteAntecedentePK) {
