@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m"),
     @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id"),
+    @NamedQuery(name = "Medico.findByUser", query = "SELECT m FROM Medico m WHERE m.users = :user"),
 @NamedQuery(name = "Medico.findByName", query = "SELECT m FROM Medico m WHERE (lower(m.users.name) LIKE :name OR lower(m.users.apellidos) LIKE :apellidos)")})
 public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
