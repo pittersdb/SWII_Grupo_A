@@ -203,6 +203,22 @@
                             
                             <h:panelGrid columns="1" cellpadding="3">
                                 
+                                <p:panel header="#{msg['Mediciones']}: ">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="peso" value="#{msg['Peso']}(lb): " />
+                                        <p:inputText id="peso" value ="#{Consulta.consulta.peso}" disabled="true" label="peso" />
+
+                                        <h:outputLabel for="estatura" value="#{msg['Estatura']}(m): " />
+                                        <p:inputText id="estatura" value ="#{Consulta.consulta.talla}" disabled="true" label="estatura" />
+
+                                        <h:outputLabel for="glucosa" value="#{msg['Glucosa']}: " />
+                                        <p:inputText id="glucosa" value ="#{Consulta.consulta.glucosa}" disabled="true" label="glucosa" />
+
+                                        <h:outputLabel for="presion_arterial" value="#{msg['presion_arterial']}: " />
+                                        <p:inputText id="presion_arterial" value ="#{Consulta.consulta.presionArterial}"  disabled="true" label="presion_arterial" />
+                                    </h:panelGrid>
+                                </p:panel>
+                                
                                 <p:panel header="#{msg['Prescripcion']}: ">
                                     <h:panelGrid columns="1" cellpadding="3">
                                         <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}: "></p:outputLabel>
