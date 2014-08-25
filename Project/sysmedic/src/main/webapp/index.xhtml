@@ -208,7 +208,10 @@
             <p:panel id="panelHistorial" header="#{msg['Historial']}" style="display: none;">
                 <h:panelGroup>
                     <sec:authorize url="/faces/historial.xhtml" var="isAuthorizedH">
-                        <ui:include src="historial.xhtml" />
+<!--                        <ui:include src="historial.xhtml" > 
+                            <ui:param name="frmHistorial" value="frmHistorialFromIndex" />     
+                            <ui:param name="paciente" value="#{null}" />                        
+                        </ui:include>-->
                     </sec:authorize>
                     <c:if test="${!isAuthorizedH}">
                         <ui:include src="NoAutorizacionMensaje.xhtml" />
