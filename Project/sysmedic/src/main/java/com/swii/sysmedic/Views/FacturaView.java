@@ -121,8 +121,8 @@ public class FacturaView {
         List<String> results = new ArrayList<String>();
         paciente = this.pacienteFacade.GetPacienteByCi(query);
         
-        //consulta = this.consultaFacade.GetConsultaByIdPaciente(paciente); 
-        consulta = this.consultaFacade.GetConsultaById(1); 
+        consulta = this.consultaFacade.GetConsultaByIdPaciente(paciente); 
+        //consulta = this.consultaFacade.GetConsultaById(1); 
         cita = consulta.getCita();
         medico = consulta.getCita().getMedico();
         especialidad = medico.getEspecialidad();
