@@ -6,8 +6,10 @@
 
 package com.swii.sysmedic.Views;
 
+import com.swii.sysmedic.Facades.MedicoFacade;
 import com.swii.sysmedic.Facades.TurnoFacade;
 import com.swii.sysmedic.entities.Cita;
+import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medico;
 import com.swii.sysmedic.entities.Turno;
 import java.util.ArrayList;
@@ -30,9 +32,12 @@ public class TurnoView {
     
     @EJB
     private TurnoFacade turnoFacade;
+    @EJB
+    private MedicoFacade medicoFacade;
     private Turno turno = new Turno();
     private List<Turno> orderedTurnos = new ArrayList<Turno>();
     private Turno current;
+    private Turno next;
     private int selectedMedicoId;
     private Medico selectedMedico;
     
@@ -46,7 +51,7 @@ public class TurnoView {
     
     @PostConstruct
     public void init() {
-        List<Medico> allMedicos = MedicoView.getInstance().getAll();
+        List<Medico> allMedicos = this.medicoFacade.findAll();
         Medico medicoTarget = null;
         if(!allMedicos.isEmpty() && !UsersView.getLoggedUser().isMedic())
             medicoTarget = allMedicos.get(0);
@@ -57,6 +62,7 @@ public class TurnoView {
         if(medicoTarget != null){
             this.orderedTurnos.addAll(this.turnoFacade.GetAllTurnosByMedico(medicoTarget));
             this.selectedMedicoId = medicoTarget.getId();
+            this.setSelectedMedico(medicoTarget);
         }
     }
     
@@ -89,11 +95,33 @@ public class TurnoView {
                 }
             }
         }
+        if(current != null && current.getCita().getConsulta() == null)
+            current.getCita().setConsulta(new Consulta());
         return current;
     }
     
     public void setCurrent(Turno current) {
         this.current = current;
+    }
+    
+    public Turno getNext() {
+        if(next == null){
+            if(this.orderedTurnos != null ){
+                if(this.orderedTurnos.isEmpty())
+                    this.getOrderedTurnos();
+                if(!this.orderedTurnos.isEmpty()){
+                    if(this.orderedTurnos.size() >= 2)
+                        next = this.orderedTurnos.get(1);
+                }
+            }
+        }
+        if(next != null && next.getCita().getConsulta() == null)
+            next.getCita().setConsulta(new Consulta());
+        return next;
+    }
+    
+    public void setNext(Turno next) {
+        this.next = next;
     }
     
     public int getSelectedMedicoId() {
@@ -105,7 +133,8 @@ public class TurnoView {
     }
     
     public Medico getSelectedMedico() {
-        selectedMedico = MedicoView.getInstance().getMedico(selectedMedicoId);
+         if(selectedMedico == null || (selectedMedico != null && selectedMedico.getId() != selectedMedicoId))      
+            selectedMedico = this.medicoFacade.find(selectedMedicoId);
         return selectedMedico;
     }
     
@@ -155,7 +184,8 @@ public class TurnoView {
             if( !this.orderedTurnos.isEmpty())
                 this.setCurrent(this.orderedTurnos.get(0));
             else
-                this.setCurrent(null);
+                this.setCurrent(null); 
+            //System.out.println("CONSULTA DESC: "+ this.getCurrent().getCita().getPaciente().getNombres());
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

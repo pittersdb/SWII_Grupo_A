@@ -77,7 +77,7 @@
                 
                 
         <c:if test="${idFormCita == 'frmProximaCita'}">
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Cita.Save(Turno.current.cita.paciente)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Cita.SaveProxima(Turno.current)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
             </p:commandButton>  
          </c:if>    

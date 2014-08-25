@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.Views;
 
@@ -29,12 +29,12 @@ import javax.faces.model.SelectItem;
 public class MedicamentoView {
     @EJB
     private MedicamentoFacade medicamentoFacade;
-
+    
     private Medicamento medicamento = new Medicamento();
     private List<Medicamento> all = new ArrayList<Medicamento>();
     private String selectedItem; // +getter +setter
 //    private List<SelectItem> availableMedicamentos; // +getter (no setter necessary)
-
+    
     /**
      * Creates a new instance of MedicamentoView
      */
@@ -59,7 +59,7 @@ public class MedicamentoView {
     public String getSelectedMedicamento() {
         return selectedItem;
     }
-
+    
     public void setSelectMedicamento(String selectedItem) {
         this.selectedItem = selectedItem;
     }
@@ -99,5 +99,10 @@ public class MedicamentoView {
     private void Clear(){
         medicamento.setNombre(null);
         medicamento.setDescripcion(null);
+    }
+    
+    public List<Medicamento> completeMedicamento(String query) {
+        List<Medicamento> medics = this.medicamentoFacade.GetMedicamentoByNombre(query);
+        return medics;
     }
 }

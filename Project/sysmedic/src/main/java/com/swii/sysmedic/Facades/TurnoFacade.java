@@ -29,6 +29,8 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     
     @EJB
     private CitaFacade citaFacade;
+    @EJB
+    private ConsultaFacade consultaFacade;
     
     @Override
     protected EntityManager getEntityManager() {
@@ -42,7 +44,11 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     public List<Turno> GetAllTurnosByMedico(Medico medico){
         TypedQuery<Turno> query = em.createNamedQuery("Turno.findByMedico", Turno.class);     
         query.setParameter("medico", medico);
-        return query.getResultList();
+        List<Turno> result = query.getResultList();
+        for(Turno turn : result){
+            turn.getCita().setConsulta(this.consultaFacade.GetByCita(turn.getCita()));
+        }
+        return result;
     }
     
     public Turno Assign(Cita cita){
@@ -58,8 +64,10 @@ public class TurnoFacade extends AbstractFacade<Turno> {
               turno.setOrden(1);
               System.out.println("MAX ORDER NULL"); 
           } 
+          turno.getCita().setConsulta(this.consultaFacade.GetByCita(turno.getCita()));
           create(turno);
-          cita.setEstado(Cita.Estado.Esperando.toString());
+          if(!(turno.getCita().getConsulta() != null && turno.getCita().getConsulta().getId() != null))
+            cita.setEstado(Cita.Estado.Esperando.toString());
           citaFacade.edit(cita);
           return turno; 
     }
@@ -72,6 +80,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
             cita.setEstado(Cita.Estado.Pendiente.toString());          
         }
         citaFacade.edit(cita);
+        cita.setConsulta(this.consultaFacade.GetByCita(turno.getCita()));
        this.remove(turno);   
     }
     

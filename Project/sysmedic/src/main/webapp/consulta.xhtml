@@ -16,71 +16,91 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     
-    <h:form>
-        <p:dialog header="#{msg['Informacion_del_Sistema']}" widgetVar="dlGuardadoCorrectoConsulta" minHeight="40" draggable="false" resizable="false">
-            <ui:include src="guardadoCorrectoMensaje.xhtml" />
-        </p:dialog>                   
-        
-        <p:dialog header="#{msg['Esta_a_punto_de_cancelar_esta_Consulta']}" widgetVar="dlgCancelacionConsulta" minHeight="40" draggable="false" resizable="false">
-            <ui:include src="confirmacionDeAccion.xhtml" />
-        </p:dialog>
-        
-        <p:dialog header="#{msg['Antecedentes']}" widgetVar="dlgAntecedentesConsulta" draggable="false" resizable="false">
-            <ui:include src="antecedentes.xhtml" />
-        </p:dialog>
-        
-        <h:panelGrid columns="2" cellpadding="3">
-            <h:panelGrid columns="1" cellpadding="4">
-                <h:panelGrid columns="2" cellpadding="4">
-                    <h:outputLabel for="nombre_paciente" value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                    <h:outputLabel for="nombre_paciente" value="Juan Perez" />
-                </h:panelGrid>
-                <h:panelGrid columns="1" cellpadding="1">
-                    <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
-                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" />
-                    
-                    <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
-                    <p:inputTextarea id="observaciones" rows="6" cols="33" /><br />
-                </h:panelGrid>
-                
-                
-            </h:panelGrid>
-            
-            <h:panelGrid columns="1" cellpadding="3">
-                <h:panelGrid columns="2" cellpadding="4">
-                    
-                    <p:outputLabel value="#{msg['Antecedentes']}: " />
-                    <p:commandButton value="#{msg['Gestionar_Antecedentes']}" id="btnAntecedentes" onclick="PF('dlgAntecedentesConsulta').show();" />
-                    
-                </h:panelGrid>
-                <p:panel header="#{msg['Prescripcion']}: ">
-                    <h:panelGrid columns="1" cellpadding="3">
-                        <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}: "></p:outputLabel>
-                        <p:inputTextarea id="consideraciones" rows="3" cols="40" />   
-                        <p:dataTable var="car" value="#">
-                            <p:column headerText="#{msg['Medicamento']}">
-                                <h:outputText value="Xanax" />
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['Instruccion']}">
-                                <h:outputText value="2 tabletas al dia" />
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['Acciones']}">
-                                <p:commandButton value="#{msg['Modificar']}" id="btnModificarInstruccion" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;" />
-                                <p:commandButton value="#{msg['Eliminar']}" id="btnEliminarInstruccion" actionListener="#" styleClass="ui-priority-primary" style="font-size: 10px !important;"/>
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <p:commandButton value="#{msg['Agregar_Instruccion_de_Medicacion']}" id="btnAgregarMedicamento" actionListener="#" styleClass="ui-priority-primary" />
+    <p:dialog header="#{msg['Agregar_Instruccion_de_Medicacion']}" widgetVar="dlgAgregarInstruccionMedicacion" minHeight="40" draggable="false" resizable="false">
+        <ui:include src="instruccionMedicacion.xhtml" > 
+            <ui:param name="idFormInstruccionMedica" value="frmAgregarInstruccionMedicacion" />
+            <ui:param name="dialogMedicacion" value="dlgAgregarInstruccionMedicacion" />
+            <ui:param name="actionDBMedicacion" value="create" />
+        </ui:include>
+    </p:dialog>       
+    
+    <p:dialog header="#{msg['Modificar_Instruccion_de_Medicacion']}" widgetVar="dlgModificarInstruccionMedicacion" minHeight="40" draggable="false" resizable="false">
+        <ui:include src="instruccionMedicacion.xhtml" > 
+            <ui:param name="idFormInstruccionMedica" value="frmModificarInstruccionMedicacion" />
+            <ui:param name="dialogMedicacion" value="dlgModificarInstruccionMedicacion" />
+            <ui:param name="actionDBMedicacion" value="update" />
+        </ui:include>
+    </p:dialog>       
+    
+    <p:dialog header="#{msg['Antecedentes']}" widgetVar="dlgAntecedentesConsulta" draggable="false" resizable="false">
+       <ui:include src="antecedentes.xhtml" />
+    </p:dialog>
+    
+    <h:form id = "frmConsulta">      
+        <p:growl id="messages"  showDetail="true"/>
+        <h:panelGroup>
+            <h:panelGrid columns="2" cellpadding="3">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <h:panelGrid columns="2" cellpadding="4">
+                        <h:outputLabel value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                        <h:outputLabel  value="#{Turno.current.cita.paciente.nombres} #{Turno.current.cita.paciente.apellidos}" />
                     </h:panelGrid>
-                </p:panel>
-            </h:panelGrid>
-        </h:panelGrid>  
+                    <h:form id = "frmConsulta">  
+                        <h:panelGrid columns="1" cellpadding="1">
+                            <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
+                            <p:inputTextarea id="sintomatologia" rows="6" cols="33" value="#{Turno.current.cita.consulta.sintomatologia}" required="true"/>
+
+                            <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
+                            <p:inputTextarea id="observaciones" rows="6" cols="33" value="#{Turno.current.cita.consulta.observaciones}" />
+                            <br />
+                        </h:panelGrid>
+                    </h:form>
+                    
+                </h:panelGrid>
+                
+                <h:panelGrid columns="1" cellpadding="3">
+                    <h:panelGrid columns="2" cellpadding="4">
+                        
+                        <p:outputLabel value="#{msg['Antecedentes']}: " />
+                        <p:commandButton value="#{msg['Gestionar_Antecedentes']}" id="btnAntecedentes" actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup)}" immediate="true" update="messages, :frmAntecedentes" oncomplete="PF('dlgAntecedentesConsulta').show();" />
+                        
+                    </h:panelGrid>
+                    <p:panel header="#{msg['Prescripcion']}: ">
+                        <h:panelGrid columns="1" cellpadding="3">
+                            <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}: "></p:outputLabel>
+                            <p:inputTextarea id="consideraciones" rows="3" cols="40" value="#{Turno.current.cita.consulta.prescripcionMedica}"/>   
+                            
+                            <p:commandButton value="#{msg['Agregar_Instruccion_de_Medicacion']}" id="btnAgregarMedicamento" actionListener="#{Medicacion.Instatiate()}" styleClass="ui-priority-primary"  immediate="true" update=":frmAgregarInstruccionMedicacion" oncomplete="PF('dlgAgregarInstruccionMedicacion').show(); "/>
+                            
+                            <p:outputLabel value="#{msg['Instruccionnes_Por_Medicacion']}: " />
+                            <p:dataTable id="medicacionTable" var="medicacion" value="#{Turno.current.cita.consulta.medicacionCollection}" resizableColumns="true">
+                                <p:column headerText="#{msg['Medicamento']}">
+                                    <h:outputText value="#{medicacion.medicamento.nombre}" title="#{medicacion.medicamento.nombre}" />
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['Instruccion']}" >
+                                    <h:outputText value="#{medicacion.instruccion}" title="#{medicacion.instruccion}" />
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['Acciones']}">
+                                    <p:commandButton value="#{msg['Modificar']}" id="btnModificarInstruccion" actionListener="#{Medicacion.setMedicacion(medicacion)}" styleClass="ui-priority-primary" style="font-size: 10px !important;" immediate="true" update=":frmModificarInstruccionMedicacion" oncomplete="PF('dlgModificarInstruccionMedicacion').show(); "/>                                    
+                                    <p:commandButton value="#{msg['Eliminar']}" id="btnEliminarInstruccion"  actionListener="#{Consulta.DeleteInstruccionMedicacion(Turno.current, medicacion)}" oncomplete=""  immediate="true" update=":frmConsulta:medicacionTable" styleClass="ui-priority-primary" style="font-size: 10px !important;">
+                                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                                    </p:commandButton>   
+                                </p:column>
+                            </p:dataTable> 
+                            
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
+            </h:panelGrid>             
+        </h:panelGroup>
         
-        
-        
+        <p:commandButton id="btnGuardarConsulta" value="#{msg['Guardar']}"   actionListener="#{Consulta.SaveCompleteConsulta(Turno.current.cita.consulta)}" update="messages, frmConsulta" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); ocultarConsulta(); mostrarInternalPanelAgenda();}"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+         </p:commandButton>           
+              
+        <p:commandButton value="#{msg['Imprimir_Receta']}" id="btnImprimirConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda();" />            
+        <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromConsulta" type="button" onclick="ocultarConsulta(); mostrarInternalPanelAgenda(); "/>             
     </h:form>
-    
-    
 </html>

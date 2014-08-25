@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -41,6 +42,8 @@ public class MedicoView {
     }
     
    public static MedicoView getInstance() {
+       if(instance == null)
+           instance = (MedicoView) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("Medico");
         return instance;
     }
 

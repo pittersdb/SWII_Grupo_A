@@ -76,4 +76,14 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento> {
         return medicamentos;
     }
     
+      public List<Medicamento> GetMedicamentoByNombre(String name) {
+        TypedQuery<Medicamento> query = em.createNamedQuery("Medicamento.findByNombreCercano", Medicamento.class);
+        query.setParameter("nombre", "%"+name.toLowerCase()+"%");
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList();
+    }
+    
 }

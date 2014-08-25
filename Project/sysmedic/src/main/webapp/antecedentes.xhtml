@@ -5,9 +5,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
-          
-          
+      xmlns:p="http://primefaces.org/ui">
+    
+    
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -16,112 +16,117 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
-    <h:panelGrid columns="2" cellpadding="1" >
-        <h:panelGrid columns="2" cellpadding="1">
-            
-            <p:outputLabel for="sangre" value="#{msg['Tipo_de_Sangre']}: "></p:outputLabel>
-            <p:selectOneMenu id="sangre" value="#" maxlength="50" >
-                <f:selectItem itemLabel="A+" itemValue="Ap" />
-                <f:selectItem itemLabel="A-" itemValue="An" />
-                <f:selectItem itemLabel="B+" itemValue="Bp" />
-                <f:selectItem itemLabel="B-" itemValue="Bn" />
-                <f:selectItem itemLabel="O+" itemValue="Op" />
-                <f:selectItem itemLabel="O-" itemValue="On" />
-                <f:selectItem itemLabel="AB+" itemValue="ABp" />
-                <f:selectItem itemLabel="AB-" itemValue="ABn" />
-            </p:selectOneMenu>
-            
-            <p:outputLabel for="tabaco" value="#{msg['Tabaquismo']}: "></p:outputLabel>
-            <p:selectOneMenu id="tabaco" value="#" maxlength="20">
-                <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
-                <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
-                <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
-                <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
-            </p:selectOneMenu>
-            
-            <p:outputLabel for="alcohol" value="#{msg['Alcoholismo']}: "></p:outputLabel>
-            <p:selectOneMenu id="alcohol" value="#" maxlength="20">
-               <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
-                <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
-                <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
-                <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
-            </p:selectOneMenu>
-            
-            <p:outputLabel for="diabetes" value="#{msg['Diabetes']}: "></p:outputLabel>
-            <p:selectOneMenu id="diabetes" value="#" maxlength="20">
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-                <f:selectItem itemLabel="#{msg['Tipo']} 1" itemValue="1" />
-                <f:selectItem itemLabel="#{msg['Tipo']} 2" itemValue="2" />
-                <f:selectItem itemLabel="#{msg['Gestacional']}" itemValue="gestacional" />
-            </p:selectOneMenu>
-            
-            <p:outputLabel for="hipertens" value="#{msg['Hipertension_arterial']}: "></p:outputLabel>
-            <p:selectOneRadio id="hipertens" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="infartos" value="#{msg['Infartos']}: "></p:outputLabel>
-            <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." />
-            
-            <p:outputLabel for="sida" value="#{msg['SIDA']}: "></p:outputLabel>
-            <p:selectOneRadio id="sida" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>      
- 
-            
-            <p:outputLabel for="sifilis" value="#{msg['Sifilis']}: "></p:outputLabel>
-            <p:selectOneRadio id="sifilis" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-                   </h:panelGrid>
+    <h:form id="frmAntecedentes" >
+        <p:growl id="messages"  showDetail="true"/>
+        <h:panelGrid columns="2" cellpadding="1" >
+            <h:panelGrid columns="2" cellpadding="1">
+                
+                <p:outputLabel for="sangre" value="#{msg['Tipo_de_Sangre']}: "></p:outputLabel>
+                <p:selectOneMenu id="sangre" value="#{Antecedente.antecedentesGroup.tipoSangre.valor}" style="width:40%;" >
+                    <f:selectItem itemLabel="A+" itemValue="Ap" />
+                    <f:selectItem itemLabel="A-" itemValue="An" />
+                    <f:selectItem itemLabel="B+" itemValue="Bp" />
+                    <f:selectItem itemLabel="B-" itemValue="Bp" />
+                    <f:selectItem itemLabel="O+" itemValue="Op" />
+                    <f:selectItem itemLabel="O-" itemValue="On" />
+                    <f:selectItem itemLabel="AB+" itemValue="ABp" />
+                    <f:selectItem itemLabel="AB-" itemValue="ABn" />
+                </p:selectOneMenu>
+                    
+                <p:outputLabel for="tabaco" value="#{msg['Tabaquismo']}: " ></p:outputLabel>
+                <p:selectOneMenu id="tabaco" value="#{Antecedente.antecedentesGroup.tabaquismo.valor}" maxlength="20" style="width:70%;" >
+                    <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                    <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                    <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                    <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
+                </p:selectOneMenu>
+                    
+                <p:outputLabel for="alcohol" value="#{msg['Alcoholismo']}: "></p:outputLabel>
+                <p:selectOneMenu id="alcohol" value="#{Antecedente.antecedentesGroup.alcoholismo.valor}" maxlength="20" style="width:70%;" >
+                    <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                    <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                    <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                    <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
+                </p:selectOneMenu>
+                    
+                <p:outputLabel for="diabetes" value="#{msg['Diabetes']}: "></p:outputLabel>
+                <p:selectOneMenu id="diabetes" value="#{Antecedente.antecedentesGroup.diabetes.valor}" maxlength="20" style="width:75%;" >
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                    <f:selectItem itemLabel="#{msg['Tipo']} 1" itemValue="1" />
+                    <f:selectItem itemLabel="#{msg['Tipo']} 2" itemValue="2" />
+                    <f:selectItem itemLabel="#{msg['Gestacional']}" itemValue="gestacional" />
+                </p:selectOneMenu>
+                    
+                <p:outputLabel for="hipertens" value="#{msg['Hipertension_arterial']}: "></p:outputLabel>
+                <p:selectOneRadio id="hipertens" value="#{Antecedente.antecedentesGroup.hipertension.valor}"  >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="infartos" value="#{msg['Infartos']}: "></p:outputLabel>
+                <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." value="#{Antecedente.antecedentesGroup.infartos.valor}" />
+                    
+                <p:outputLabel for="sida" value="#{msg['SIDA']}: "></p:outputLabel>
+                <p:selectOneRadio id="sida" value="#{Antecedente.antecedentesGroup.sida.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>      
+                    
+                    
+                <p:outputLabel for="sifilis" value="#{msg['Sifilis']}: "></p:outputLabel>
+                <p:selectOneRadio id="sifilis" value="#{Antecedente.antecedentesGroup.sifilis.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+            </h:panelGrid>
+                
+            <h:panelGrid columns="2" cellpadding="1">
+                
+                <p:outputLabel for="hemopatias" value="#{msg['Hemopatias']}: "></p:outputLabel>
+                <p:selectOneRadio id="hemopatias" value="#{Antecedente.antecedentesGroup.hemopatias.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="cardio" value="#{msg['Cardiopatias']}: "></p:outputLabel>
+                <p:selectOneRadio id="cardio" value="#{Antecedente.antecedentesGroup.cardiopatias.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="atero" value="#{msg['Ateroesclerosis']}: "></p:outputLabel>
+                <p:selectOneRadio id="atero" value="#{Antecedente.antecedentesGroup.ateroesclerosis.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="neuro" value="#{msg['Neuropatias']}: "></p:outputLabel>
+                <p:selectOneRadio id="neuro" value="#{Antecedente.antecedentesGroup.neuropatias.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="artro" value="#{msg['Artropatias']}: "></p:outputLabel>
+                <p:selectOneRadio id="artro" value="#{Antecedente.antecedentesGroup.artropatias.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="toxico" value="#{msg['Toxicomanias']}: "></p:outputLabel>
+                <p:selectOneRadio id="toxico" value="#{Antecedente.antecedentesGroup.toxicomanias.valor}" >
+                    <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                    <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                </p:selectOneRadio>
+                    
+                <p:outputLabel for="alergias" value="#{msg['Alergias']}: "></p:outputLabel>
+                <br/>
+                <p:inputTextarea id="alergias" maxlength="100" value="#{Antecedente.antecedentesGroup.alergias.valor}" />
+                    
+                <p:commandButton id="btnGuardarAnt" value="#{msg['Guardar']}"   actionListener="#{Paciente.SaveAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup)}" update="messages, frmAntecedentes" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('dlgAntecedentesConsulta').hide();}"  > 
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                </p:commandButton> 
              
-        <h:panelGrid columns="2" cellpadding="1">
-            
-            <p:outputLabel for="hemopatias" value="#{msg['Hemopatias']}: "></p:outputLabel>
-            <p:selectOneRadio id="hemopatias" value="#{radioView.console}">
-               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="cardio" value="#{msg['Cardiopatias']}: "></p:outputLabel>
-            <p:selectOneRadio id="cardio" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="atero" value="#{msg['Ateroesclerosis']}: "></p:outputLabel>
-            <p:selectOneRadio id="atero" value="#{radioView.console}">
-               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="neuro" value="#{msg['Neuropatias']}: "></p:outputLabel>
-            <p:selectOneRadio id="neuro" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="artro" value="#{msg['Artropatias']}: "></p:outputLabel>
-            <p:selectOneRadio id="artro" value="#{radioView.console}">
-               <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="toxico" value="#{msg['Toxicomanias']}: "></p:outputLabel>
-            <p:selectOneRadio id="toxico" value="#{radioView.console}">
-                <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
-                <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
-            </p:selectOneRadio>
-            
-            <p:outputLabel for="alergias" value="#{msg['Alergias']}: "></p:outputLabel>
-            <br/>
-            <p:inputTextarea id="alergias" maxlength="100" />
-            
-            <p:commandButton value="#{msg['Guardar']}" id="btnGuardarTrans2" actionListener="#" styleClass="ui-priority-primary" />
-            
+            </h:panelGrid>
         </h:panelGrid>
-    </h:panelGrid>
+    </h:form>
 </html>

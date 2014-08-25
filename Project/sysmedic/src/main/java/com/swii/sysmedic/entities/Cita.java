@@ -21,9 +21,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -59,6 +61,7 @@ public class Cita implements Serializable {
         Terminado("t"), 
         Pendiente("d"),
         Esperando("e"),
+        EnProgreso("g"),
         Ninguno("n");
         
         private final String text;
@@ -100,10 +103,11 @@ public class Cita implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "estado")
     private String estado;
-    @OneToMany(mappedBy = "cita")
-    private Collection<Consulta> consultaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cita1")
-    private Collection<Consulta> consultaCollection1;
+    @OneToOne(mappedBy = "proximaCita")
+    private Consulta consultaProximaCita;
+//    @OneToOne(optional = false, mappedBy = "cita")
+    @Transient
+    private Consulta consulta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cita")
     private Collection<CitaCancelada> citaCanceladaCollection;
     @JoinColumn(name = "paciente_id", referencedColumnName = "id")
@@ -184,21 +188,23 @@ public class Cita implements Serializable {
     }
     
     @XmlTransient
-    public Collection<Consulta> getConsultaCollection() {
-        return consultaCollection;
+    public Consulta getConsultaProximaCita() {
+        return consultaProximaCita;
     }
     
-    public void setConsultaCollection(Collection<Consulta> consultaCollection) {
-        this.consultaCollection = consultaCollection;
+    public void setConsultaProximaCita(Consulta consultaProximaCita) {
+        this.consultaProximaCita = consultaProximaCita;
     }
     
-    @XmlTransient
-    public Collection<Consulta> getConsultaCollection1() {
-        return consultaCollection1;
+    public Consulta getConsulta() {
+//        if(consulta == null){
+//            consulta = new Consulta();
+//        }            
+        return consulta; 
     }
     
-    public void setConsultaCollection1(Collection<Consulta> consultaCollection1) {
-        this.consultaCollection1 = consultaCollection1;
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
     }
     
     @XmlTransient

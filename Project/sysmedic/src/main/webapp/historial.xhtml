@@ -16,129 +16,232 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     <!--http://www.consultorio-virtual.com/manual-de-usuario/-->
-    <h:form>
-        <p:tabView>
+    <h:form id="#{frmHistorial}" > 
+        <p:tabView id = "tabViewHistorial" >
             <p:tab title="#{msg['informacion_personal']}">
                 
                 <p:growl id="growl" showDetail="true" life="2000" />
                 
-                <!-- Estos datos se extraen de la base de datos. Son datos del paciente. -->
-                <h:panelGrid columns="4" cellpadding="5">
-                    
+                <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="inputHistorial" value="#{msg['Historial_N']}: "></p:outputLabel>
-                    <p:inputText id="inputHistorial" disabled="true" />
+                    <p:inputText id="inputHistorial" value="#{paciente.id}" disabled="true" size="5"/>                    
                     
-                    <p:outputLabel for="inputProvincia" value="#{msg['Provincia']}: "></p:outputLabel>
-                    <p:selectOneMenu id="inputProvincia" value="#" maxlength="20">
-                        <f:selectItem itemLabel="Guayas" itemValue="guayas" />
-                        <f:selectItem itemLabel="Pichincha" itemValue="pichincha" />
-                    </p:selectOneMenu>
+                    <p:outputLabel for="ci" value="#{msg['Cedula']}:" />
+                    <p:inputText value="#{paciente.ci}" id="ci" disabled="true" label="ci" maxlength="10" readonly="true" size="11" />
                     
-                    <p:outputLabel for="inputNombre" value="#{msg['Nombre']}: "></p:outputLabel>
-                    <p:inputText id="inputNombre" />
+                    <p:outputLabel for="nombres" value="#{msg['Nombre']}:" />
+                    <p:inputText value="#{paciente.nombres}" id="nombres" disabled="true" label="nombres" readonly="true" />
                     
-                    <p:outputLabel for="inputCiudad" value="#{msg['Ciudad']}: "></p:outputLabel>
-                    <p:selectOneMenu id="inputCiudad" value="#" maxlength="20">
-                        <f:selectItem itemLabel="Guayaquil" itemValue="guayaquil" />
-                        <f:selectItem itemLabel="Quito" itemValue="quito" />
-                    </p:selectOneMenu>
+                    <p:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
+                    <p:inputText value="#{paciente.apellidos}" id="apellidos" disabled="true" label="apellidos" readonly="true" />
                     
-                    <p:outputLabel for="inputApellidos" value="#{msg['Apellido']}: "></p:outputLabel>
-                    <p:inputText id="inputApellidos" />
+                    <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
+                    <p:calendar id="inputFechaNacimiento" value="#{paciente.fechaNacimiento}" readonly="true"  disabled="true"/>                    
                     
-                    <p:outputLabel for="txtaDireccion" value="#{msg['Direccion']}: "></p:outputLabel>
-                    <p:inputTextarea id="txtaDireccion" maxlength="100" />
+                    <p:outputLabel for="sexo" value="#{msg['Sexo']}:" />        
+                    <p:inputText value="#{paciente.sexo}" id="sexo" disabled="true" label="ci" maxlength="5" readonly="true"  size="10" />
                     
-                    <p:outputLabel for="inputCI" value="#{msg['Cedula']}: "></p:outputLabel>
-                    <p:inputText id="inputCI" />
+                    <p:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
+                    <p:inputText value="#{paciente.lugarProcedencia}" id="lugar_procedencia" disabled="true" label="lugar_procedencia" readonly="true" size="30" />
                     
-                    <p:outputLabel for="inputTelefono" value="#{msg['Telefono']}: "></p:outputLabel>
-                    <p:inputText id="inputTelefono" />
+                    <p:outputLabel for="direccion" value="#{msg['Direccion']}:" />
+                    <p:inputText value="#{paciente.direcion}" id="direccion" disabled="true" label="direccion" readonly="true" size="40" />               
                     
-                    <p:outputLabel for="inputSexo" value="#{msg['Sexo']}: "></p:outputLabel>
-                    <p:selectOneMenu id="inputSexo" value="#" maxlength="20">
-                        <f:selectItem itemLabel="#{msg['masculino']}" itemValue="m" />
-                        <f:selectItem itemLabel="#{msg['femenino']}" itemValue="f" /> 
-                    </p:selectOneMenu>
-                    
-                    <p:outputLabel for="inputCelular" value="#{msg['celular']}: "></p:outputLabel>
-                    <p:inputText id="inputCelular" />
-                    
-                    <p:outputLabel for="inputNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
-                    <p:calendar id="inputNacimiento" value="#{calendarView.date5}" locale="de" navigator="true" pattern="dd-MMM-yyyy" />
-                    
-                    <p:outputLabel for="inputMail" value="#{msg['correo']}: "></p:outputLabel>
-                    <p:inputText id="inputMail" />
-                    
-                    <p:commandButton value="#{msg['Guardar']}" id="btnGuardarTrans" update="growl" actionListener="#" styleClass="ui-priority-primary" />
-                    
-                </h:panelGrid>
+                </h:panelGrid>            
                 
             </p:tab>
             
             <p:tab title="#{msg['Antecedentes']}">
                 
-                <h:panelGroup>
-                    <ui:include src="antecedentes.xhtml" /> 
-                </h:panelGroup>
+                <h:panelGrid columns="2" cellpadding="1" >
+                    <h:panelGrid columns="2" cellpadding="1">
+                        
+                        <p:outputLabel for="sangre" value="#{msg['Tipo_de_Sangre']}: "></p:outputLabel>
+                        <p:selectOneMenu id="sangre" value="#{Antecedente.antecedentesGroup.tipoSangre.valor}" style="width:40%;" disabled="true" >
+                            <f:selectItem itemLabel="A+" itemValue="Ap" />
+                            <f:selectItem itemLabel="A-" itemValue="An" />
+                            <f:selectItem itemLabel="B+" itemValue="Bp" />
+                            <f:selectItem itemLabel="B-" itemValue="Bp" />
+                            <f:selectItem itemLabel="O+" itemValue="Op" />
+                            <f:selectItem itemLabel="O-" itemValue="On" />
+                            <f:selectItem itemLabel="AB+" itemValue="ABp" />
+                            <f:selectItem itemLabel="AB-" itemValue="ABn" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="tabaco" value="#{msg['Tabaquismo']}: " ></p:outputLabel>
+                        <p:selectOneMenu id="tabaco" value="#{Antecedente.antecedentesGroup.tabaquismo.valor}" maxlength="20" style="width:70%;"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                            <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                            <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                            <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="alcohol" value="#{msg['Alcoholismo']}: "></p:outputLabel>
+                        <p:selectOneMenu id="alcohol" value="#{Antecedente.antecedentesGroup.alcoholismo.valor}" maxlength="20" style="width:70%;"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['nunca']}" itemValue="n" />
+                            <f:selectItem itemLabel="#{msg['casual']}" itemValue="c" />
+                            <f:selectItem itemLabel="#{msg['frecuente']}" itemValue="f" />
+                            <f:selectItem itemLabel="#{msg['siempre']}" itemValue="s" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="diabetes" value="#{msg['Diabetes']}: "></p:outputLabel>
+                        <p:selectOneMenu id="diabetes" value="#{Antecedente.antecedentesGroup.diabetes.valor}" maxlength="20" style="width:75%;"  disabled="true"  >
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                            <f:selectItem itemLabel="#{msg['Tipo']} 1" itemValue="1" />
+                            <f:selectItem itemLabel="#{msg['Tipo']} 2" itemValue="2" />
+                            <f:selectItem itemLabel="#{msg['Gestacional']}" itemValue="gestacional" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="hipertens" value="#{msg['Hipertension_arterial']}: "></p:outputLabel>
+                        <p:selectOneRadio id="hipertens" value="#{Antecedente.antecedentesGroup.hipertension.valor}"  disabled="true"  >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="infartos" value="#{msg['Infartos']}: "></p:outputLabel>
+                        <p:inputText id="infartos" alt="Ingrese un N&uacute;mero." value="#{Antecedente.antecedentesGroup.infartos.valor}"   disabled="true"  />
+                        
+                        <p:outputLabel for="sida" value="#{msg['SIDA']}: "></p:outputLabel>
+                        <p:selectOneRadio id="sida" value="#{Antecedente.antecedentesGroup.sida.valor}"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>      
+                        
+                        
+                        <p:outputLabel for="sifilis" value="#{msg['Sifilis']}: "></p:outputLabel>
+                        <p:selectOneRadio id="sifilis" value="#{Antecedente.antecedentesGroup.sifilis.valor}"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2" cellpadding="1">
+                        
+                        <p:outputLabel for="hemopatias" value="#{msg['Hemopatias']}: "></p:outputLabel>
+                        <p:selectOneRadio id="hemopatias" value="#{Antecedente.antecedentesGroup.hemopatias.valor}"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="cardio" value="#{msg['Cardiopatias']}: "></p:outputLabel>
+                        <p:selectOneRadio id="cardio" value="#{Antecedente.antecedentesGroup.cardiopatias.valor}"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="atero" value="#{msg['Ateroesclerosis']}: "></p:outputLabel>
+                        <p:selectOneRadio id="atero" value="#{Antecedente.antecedentesGroup.ateroesclerosis.valor}"  disabled="true" >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="neuro" value="#{msg['Neuropatias']}: "></p:outputLabel>
+                        <p:selectOneRadio id="neuro" value="#{Antecedente.antecedentesGroup.neuropatias.valor}"  disabled="true"  >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="artro" value="#{msg['Artropatias']}: "></p:outputLabel>
+                        <p:selectOneRadio id="artro" value="#{Antecedente.antecedentesGroup.artropatias.valor}"  disabled="true"  >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="toxico" value="#{msg['Toxicomanias']}: "></p:outputLabel>
+                        <p:selectOneRadio id="toxico" value="#{Antecedente.antecedentesGroup.toxicomanias.valor}"  disabled="true"  >
+                            <f:selectItem itemLabel="#{msg['si']}" itemValue="si" />
+                            <f:selectItem itemLabel="#{msg['no']}" itemValue="no" />
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel for="alergias" value="#{msg['Alergias']}: "></p:outputLabel>
+                        <br/>
+                        <p:inputTextarea id="alergias" maxlength="100" value="#{Antecedente.antecedentesGroup.alergias.valor}"  disabled="true" />                       
+                        
+                    </h:panelGrid>
+                </h:panelGrid>
                 
             </p:tab>
             
             <p:tab title="#{msg['Consultas']}">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="car" value="#">
-                        <p:column headerText="No.">
-                            <h:outputText value="#" />
+                    <p:dataTable var="consulta" value="#{Paciente.getConsultas(paciente)}">
+                        <p:column headerText="Cod.">
+                            <h:outputText value="#{consulta.id}" />
                         </p:column>
                         
-                        <p:column headerText="#{msg['fecha']}">
-                            <h:outputText value="#" />
+                        <p:column headerText="#{msg['fecha']} (dd/mm/aaaa)">
+                            <h:outputText value="#{consulta.cita.fechaConsultaActual}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                            </h:outputText>
                         </p:column>
                         
                         <p:column headerText="#{msg['Acciones']}">
-                            <p:commandButton value="#{msg['mostrar_datos']}" id="btnMostrarDatosCOnsulta" styleClass="ui-priority-primary" style="font-size: 10px !important; "  />                    
+                            <p:commandButton value="#{msg['mostrar_datos']}" id="btnMostrarDatosCOnsulta" actionListener="#{Consulta.setConsulta(consulta)}" update=":#{frmHistorial}:tabViewHistorial:panelConsultaHistorial" styleClass="ui-priority-primary" style="font-size: 10px !important; "  />
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
-                <!--p:commandButton value="Eliminar Consulta" id="btnEliminarConsulta" actionListener="#" styleClass="ui-priority-primary" /-->
                 <br/>  
-                <p:panel header="#{msg['datos_consulta_N']} #">
-                    <h:panelGrid columns="2" cellpadding="3">
-                        <h:panelGrid columns="1" cellpadding="4">
-                            <h:panelGrid columns="2" cellpadding="4">
-                                <h:outputLabel for="nombre_paciente" value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                <h:outputLabel for="nombre_paciente" value="Juan Perez" />
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellpadding="1">
-                                <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
-                                <p:inputTextarea id="sintomatologia" rows="6" cols="33" disabled="true"/>
-                                
-                                <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
-                                <p:inputTextarea id="observaciones" rows="6" cols="33" disabled="true"/><br />
-                            </h:panelGrid>
-                            
-                            
-                        </h:panelGrid>
-                        
-                        <h:panelGrid columns="1" cellpadding="3">
-                            <p:panel header="#{msg['Prescripcion']}: ">
-                                <h:panelGrid columns="1" cellpadding="3">
-                                    <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}s: "></p:outputLabel>
-                                    <p:inputTextarea id="consideraciones" rows="3" cols="40" disabled="true"/>   
-                                    <p:dataTable var="car" value="#">
-                                        <p:column headerText="#{msg['Medicamento']}">
-                                            <h:outputText value="Xanax" />
-                                        </p:column>
-                                        
-                                        <p:column headerText="#{msg['Instruccion']}">
-                                            <h:outputText value="2 tabletas al dia" />
-                                        </p:column>
-                                    </p:dataTable>                        
-                                    
+                <p:panel id="panelConsultaHistorial" header="#{msg['datos_consulta_N']} #{Consulta.consulta.id}"  >
+                    <h:panelGroup rendered="#{Consulta.consulta != null}" >
+                        <h:panelGrid columns="2" cellpadding="3">
+                            <h:panelGrid columns="1" cellpadding="4">
+                                <h:panelGrid columns="2" cellpadding="4">
+                                    <h:outputLabel value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
+                                    <h:outputLabel  value="#{paciente.nombres} #{paciente.apellidos}" />
                                 </h:panelGrid>
-                            </p:panel>
-                        </h:panelGrid>
-                    </h:panelGrid>  
+                                
+                                <h:panelGrid columns="1" cellpadding="1">
+                                    <p:outputLabel for="sintomatologia" value="#{msg['Sintomatologia']}: " />
+                                    <p:inputTextarea id="sintomatologia" rows="6" cols="33" value="#{Consulta.consulta.sintomatologia}" disabled="true" />
+                                    
+                                    <p:outputLabel for="observaciones" value="#{msg['Observaciones']}: " />
+                                    <p:inputTextarea id="observaciones" rows="6" cols="33" value="#{Consulta.consulta.observaciones}"  disabled="true" />
+                                    <br />
+                                </h:panelGrid>
+                                
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="1" cellpadding="3">
+                                
+                                <p:panel header="#{msg['Mediciones']}: ">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputLabel for="peso" value="#{msg['Peso']}(lb): " />
+                                        <p:inputText id="peso" value ="#{Consulta.consulta.peso}" disabled="true" label="peso" />
+
+                                        <h:outputLabel for="estatura" value="#{msg['Estatura']}(m): " />
+                                        <p:inputText id="estatura" value ="#{Consulta.consulta.talla}" disabled="true" label="estatura" />
+
+                                        <h:outputLabel for="glucosa" value="#{msg['Glucosa']}: " />
+                                        <p:inputText id="glucosa" value ="#{Consulta.consulta.glucosa}" disabled="true" label="glucosa" />
+
+                                        <h:outputLabel for="presion_arterial" value="#{msg['presion_arterial']}: " />
+                                        <p:inputText id="presion_arterial" value ="#{Consulta.consulta.presionArterial}"  disabled="true" label="presion_arterial" />
+                                    </h:panelGrid>
+                                </p:panel>
+                                
+                                <p:panel header="#{msg['Prescripcion']}: ">
+                                    <h:panelGrid columns="1" cellpadding="3">
+                                        <p:outputLabel for="consideraciones" value="#{msg['Consideraciones_Generales']}: "></p:outputLabel>
+                                        <p:inputTextarea id="consideraciones" rows="3" cols="40" value="#{Consulta.consulta.prescripcionMedica}" disabled="true" />                                  
+                                        
+                                        
+                                        <p:outputLabel value="#{msg['Instruccionnes_Por_Medicacion']}: " />
+                                        <p:dataTable id="medicacionTable" var="medicacion" value="#{Consulta.consulta.medicacionCollection}" resizableColumns="true">
+                                            <p:column headerText="#{msg['Medicamento']}">
+                                                <h:outputText value="#{medicacion.medicamento.nombre}" title="#{medicacion.medicamento.nombre}" />
+                                            </p:column>
+                                            
+                                            <p:column headerText="#{msg['Instruccion']}" >
+                                                <h:outputText value="#{medicacion.instruccion}" title="#{medicacion.instruccion}" />
+                                            </p:column>
+                                            
+                                        </p:dataTable> 
+                                        
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+                        </h:panelGrid>             
+                    </h:panelGroup>
                 </p:panel>
             </p:tab>
         </p:tabView>

@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByFechaNacimiento", query = "SELECT p FROM Paciente p WHERE p.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Paciente.findBySexo", query = "SELECT p FROM Paciente p WHERE p.sexo = :sexo"),
     @NamedQuery(name = "Paciente.findByLugarProcedencia", query = "SELECT p FROM Paciente p WHERE p.lugarProcedencia = :lugarProcedencia"),
+    @NamedQuery(name = "Paciente.findConsultas", query = "SELECT c FROM Consulta c WHERE c.cita.paciente = :paciente"),
     @NamedQuery(name = "Paciente.findByDirecion", query = "SELECT p FROM Paciente p WHERE p.direcion = :direcion")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -84,13 +85,11 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "direcion")
+    @Column(name = "direcion") 
     private String direcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
-    private Collection<Consulta> consultaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
-    private Collection<Cita> citaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente")
+    private Collection<Cita> citaCollection; 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", orphanRemoval = true)
     private Collection<PacienteAntecedente> pacienteAntecedenteCollection;
 
     public Paciente() {
@@ -184,15 +183,6 @@ public class Paciente implements Serializable {
 
     public void setDirecion(String direcion) {
         this.direcion = direcion;
-    }
-
-    @XmlTransient
-    public Collection<Consulta> getConsultaCollection() {
-        return consultaCollection;
-    }
-
-    public void setConsultaCollection(Collection<Consulta> consultaCollection) {
-        this.consultaCollection = consultaCollection;
     }
 
     @XmlTransient
