@@ -31,17 +31,18 @@ public class AntecedenteFacade extends AbstractFacade<Antecedente> {
         super(Antecedente.class);
     }
     
-    public Antecedente findByNombre(String nombre){
+    public Antecedente findByNombreOrCreate(String nombre){
         TypedQuery<Antecedente> query = em.createNamedQuery("Antecedente.findByNombre", Antecedente.class);
-        query.setParameter("nombre", nombre );
+        query.setParameter("nombre", nombre);
         List<Antecedente> result = query.getResultList();
-        if(result == null)
-            return null;
-        
-        if(result.isEmpty())
-            return null;
-        else
+        if(result != null && !result.isEmpty()){
             return result.get(0);
+        }else{
+            Antecedente newAntecedente = new Antecedente();
+            newAntecedente.setNombre(nombre);
+            this.create(newAntecedente);
+            return newAntecedente;
+        }            
     }
     
 }
