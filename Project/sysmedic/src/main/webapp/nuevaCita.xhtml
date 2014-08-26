@@ -88,7 +88,7 @@
             </p:commandButton>  
          </c:if>    
                 
-            <p:commandButton id="btnImprimir" value="#{msg['Imprimir']}" actionListener="#" />
+            <p:commandButton id="btnImprimir" value="#{msg['Imprimir']}" actionListener="#{Report.imprimirCita(Cita.cita)}" immediate="true" ajax="false" onclick="form.target='_blank'; " />
 
         </h:panelGrid>
             
