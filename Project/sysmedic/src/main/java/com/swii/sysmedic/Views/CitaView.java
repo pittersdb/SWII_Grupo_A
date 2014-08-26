@@ -188,7 +188,7 @@ public class CitaView {
             else
                 this.citaFacade.SaveProxima(cita, consulta);
             
-            this.Clear();
+            //this.Clear();
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));

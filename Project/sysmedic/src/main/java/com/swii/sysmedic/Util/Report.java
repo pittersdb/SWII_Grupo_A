@@ -1,11 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package com.swii.sysmedic.Util;
 
+import com.swii.sysmedic.Reports.CitaReportBean;
 import com.swii.sysmedic.entities.Cita;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,23 +33,33 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  * @author LUCAS
  */
 public class Report {
-
+    
     /**
      * Creates a new instance of Report
      */
     public Report() {
     }
     
-     public void imprimirCita( Cita cita) throws JRException, IOException {
+    public void imprimirCita( Cita cita) throws JRException, IOException {
         
-         InputStream reportStream = new FileInputStream(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/sysmedicCitaReport.jrxml"));
-         JasperReport report = JasperCompileManager.compileReport(reportStream);
-         
-         ArrayList<Cita> citasCollection = new ArrayList<>();
-         
-         citasCollection.add(new Cita(200));
-         
-         Map<String, Object> parametros = new HashMap<String, Object>();
+        CitaReportBean citaReport = new CitaReportBean();
+        
+        citaReport.setCiPaciente(cita.getPaciente().getCi());
+        citaReport.setNombrePaciente(cita.getPaciente().getNombres() + " " +cita.getPaciente().getApellidos());
+        citaReport.setNombreMedico(cita.getMedico().getUsers().getName() + cita.getMedico().getUsers().getApellidos());
+        citaReport.setEspecialidadMedico(cita.getMedico().getEspecialidad().getNombre());
+        CustomDate customDate = new CustomDate(cita.getFechaConsultaActual());
+        citaReport.setFechaCita(customDate.getDate() + " de " + customDate.getMonthName() + " de " +customDate.getYear());
+        
+        
+        InputStream reportStream = new FileInputStream(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/sysmedicCitaReport.jrxml"));
+        JasperReport report = JasperCompileManager.compileReport(reportStream);
+        
+        ArrayList<CitaReportBean> citasCollection = new ArrayList<>();
+        
+        citasCollection.add(citaReport);
+        
+        Map<String, Object> parametros = new HashMap<String, Object>();
         parametros.put("txtUsuario", "Jefferson Valdez");
         //File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/sysmedicCitaReport.jrxml"));
         JRDataSource datasource = new JRBeanCollectionDataSource(citasCollection, false);
@@ -61,15 +72,9 @@ public class Report {
         outStream.flush();
         outStream.close();
         FacesContext.getCurrentInstance().responseComplete();
-//        
-                
-//        String script = "window.open('" + "" + "', '_blank'";
-//ExtendedRenderKitService service = Service.getRenderKitService(FacesContext.getCurrentInstance(), ExtendedRenderKitService.class);
-//service.addScript(FacesContext.getCurrentInstance(), script);
-        
-        
         datasource = new JRBeanCollectionDataSource(citasCollection, true);
-// Print the jasper report
+        
+        // Print the jasper report
         JasperPrint print = JasperFillManager.fillReport(report, parametros, datasource);
         JasperPrintManager.printReport(print, false);
     }

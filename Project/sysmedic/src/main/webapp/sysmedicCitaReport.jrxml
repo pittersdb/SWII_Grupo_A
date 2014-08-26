@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
+<!-- Created with Jaspersoft Studio version last--> 
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sysmedicCitaReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="69ddd73f-c031-4578-add9-b333a33742ce">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -15,51 +15,25 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-                   <field name="id" class="java.lang.Integer"> 
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="ciPaciente" class="java.lang.String"/>
+	<field name="nombrePaciente" class="java.lang.String"/>
+	<field name="nombreMedico" class="java.lang.String"/>
+	<field name="especialidadMedico" class="java.lang.String"/>
+	<field name="fechaCita" class="java.lang.String"/>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
-		<groupHeader>
-			<band height="37">
-				<frame>
-					<reportElement mode="Opaque" x="-21" y="7" width="843" height="24" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="de0e594c-9541-4b5e-ad5a-df461ca7e80a"/>
-					<rectangle>
-						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343" uuid="14cddc95-1e25-4e86-b803-c4b6b6232286"/>
-						<graphicElement>
-							<pen lineWidth="0.0"/>
-						</graphicElement>
-					</rectangle>
-					<textField>
-						<reportElement x="60" y="3" width="100" height="20" uuid="f8414707-5462-42f2-a62d-25c66fe55db8"/>
-						<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
-					</textField>
-				</frame>
-			</band>
-		</groupHeader>
 		<groupFooter>
-			<band height="6"/>
+			<band/>
 		</groupFooter>
 	</group>
 	<group name="Group2">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
-		<groupHeader>
-			<band height="30">
-				<textField>
-					<reportElement style="SubTitle" x="0" y="4" width="802" height="20" uuid="77f356e4-0160-4cfc-93ff-315e2fe5589b"/>
-					<textElement>
-						<font size="16" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["GroupField"]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="150" splitType="Stretch">
+		<band height="138" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="289" y="0" width="210" height="62" forecolor="#413D6E" uuid="5261f0ef-0d83-4464-a109-d8515728ff37"/>
 				<textElement verticalAlignment="Middle">
@@ -89,32 +63,166 @@
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
-	<columnHeader>
-		<band height="32" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="8eec50f9-418b-4cfa-937e-8ee984610134"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-		</band>
-	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
-			<frame>
-				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="2d9a8d94-0614-4539-a28a-c7425772dbd7"/>
-			</frame>
+		<band height="314" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="20" y="30" width="170" height="24" backcolor="#A2BCF5" uuid="d8b2ecc9-2504-4d96-baa0-c87b85216faa">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="18" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Datos del Paciente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="20" y="70" width="80" height="24" backcolor="#A2BCF5" uuid="d11ca5dd-0f50-4f1a-932b-bbab60be7bb9">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Cedula: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="70" width="141" height="24" uuid="39bd2a50-5cea-4761-8613-4cfe1ec5f81a"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciPaciente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="300" y="70" width="80" height="24" backcolor="#A2BCF5" uuid="256fcb6b-0162-4cf5-b1c9-bf8248e84e34">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="70" width="250" height="24" uuid="37309259-d1f9-4ebc-baa2-5b1884f48c32"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrePaciente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="20" y="110" width="170" height="24" backcolor="#A2BCF5" uuid="53eda5b8-a09e-481c-98a5-188781645460">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="18" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Datos del Medico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="20" y="145" width="80" height="24" backcolor="#A2BCF5" uuid="c8ac7945-ff41-4c28-a63b-1bf5fc632527">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="145" width="161" height="24" uuid="6a766471-238c-4d0a-93ea-22d6d3b98eb7"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreMedico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="300" y="145" width="130" height="24" backcolor="#A2BCF5" uuid="39e102bf-35da-4068-b25e-6e8b82390db3">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Especialidad: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="145" width="180" height="24" uuid="9dab0b0f-3ecd-4eb4-9f3b-d1a8188d2d22"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{especialidadMedico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="20" y="200" width="140" height="30" forecolor="#0B097D" backcolor="#A19F95" uuid="fb4db9ca-09c2-4764-8607-9c0c8c2e7c39">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Cita:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="203" width="230" height="24" uuid="c0e7e945-c27d-4f64-89fa-8b77652d61c3"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaCita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="741" y="0" width="61" height="314" forecolor="#0B097D" backcolor="#A2BCF5" uuid="831d68bc-22bb-4e55-a6d3-cb1a6a345152">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="95b3ad33-bffd-4512-a634-baf22e171465"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-		</band>
+		<band height="6" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="25" splitType="Stretch">
