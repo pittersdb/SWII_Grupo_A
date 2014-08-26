@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 
 /**
@@ -42,11 +43,30 @@ public class CitaView {
     private String selectedEstado;
     private Date fechaInf;
     private Date fechaSup;
+    private Integer idCita;
+    
+    private List<Cita> all = new ArrayList<Cita>();
+    
+
+    public Integer getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(Integer idCita) {
+        this.idCita = idCita;
+    }
     
     
     private List<Cita> resultSet = new ArrayList<Cita>();
     private List<Cita> todaySet = new ArrayList<Cita>();
-    
+
+    public List<Cita> getAll() {
+        return all;
+    }
+
+    public void setAll(List<Cita> all) {
+        this.all = all;
+    }
     /**
      * Creates a new instance of CitaView
      */
@@ -60,6 +80,12 @@ public class CitaView {
     
     @PostConstruct
     public void init() {
+        all.addAll(allFromDB());
+        //instance = this;
+    }
+    
+    public List<Cita> allFromDB(){
+        return this.citaFacade.findAll();
     }
     
     public String getCiPaciente() {
@@ -70,7 +96,9 @@ public class CitaView {
         this.ciPaciente = ciPaciente;
     }
     
-    
+    public void interno(){
+        
+    }
     
     
     public String getTest() {
@@ -262,5 +290,20 @@ public class CitaView {
         
         MedicoView.getInstance().setMedico(null);
         PacienteView.getInstance().setPaciente(null);
+    }
+    
+    public List<Integer> vistaCita(int id){
+        List<Integer> resultado = new ArrayList<Integer>();
+        cita = this.citaFacade.GetCitaById(id);
+        if(cita != null){
+            resultado.add(cita.getId());
+        }else{
+            cita = new Cita();
+        }        
+        return resultado;
+    }
+    
+    public void onIdSelect(SelectEvent event){
+        if(cita == null) cita=new Cita();
     }
 }

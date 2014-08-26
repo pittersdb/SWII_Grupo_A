@@ -29,4 +29,8 @@ public class DetalleFacturaConsultaFacade extends AbstractFacade<DetalleFacturaC
         super(DetalleFacturaConsulta.class);
     }
     
+    public void Insert(DetalleFacturaConsulta dfc){
+        create(dfc);
+    }
+    
 }

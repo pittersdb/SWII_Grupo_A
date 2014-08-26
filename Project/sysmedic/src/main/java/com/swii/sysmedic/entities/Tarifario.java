@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Tarifario.findAll", query = "SELECT t FROM Tarifario t"),
     @NamedQuery(name = "Tarifario.findById", query = "SELECT t FROM Tarifario t WHERE t.id = :id"),
-    @NamedQuery(name = "Tarifario.findByNombreServicio", query = "SELECT t FROM Tarifario t WHERE t.nombreServicio = :nombreServicio"),
+    @NamedQuery(name = "Tarifario.findByNombreServicio", query = "SELECT t FROM Tarifario t WHERE (lower(t.nombreServicio) LIKE :nombreServicio)"),
     @NamedQuery(name = "Tarifario.findByPrecio", query = "SELECT t FROM Tarifario t WHERE t.precio = :precio")})
-public class Tarifario implements Serializable {
+public class Tarifario implements Serializable {//(lower(m.users.name) LIKE :name OR lower(m.users.apellidos) LIKE :apellidos)
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

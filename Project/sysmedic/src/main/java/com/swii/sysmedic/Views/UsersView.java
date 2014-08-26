@@ -40,6 +40,7 @@ public class UsersView {
     
     private static Users loggedUser;
     
+    
     /**
      * Creates a new instance of UsersView
      */

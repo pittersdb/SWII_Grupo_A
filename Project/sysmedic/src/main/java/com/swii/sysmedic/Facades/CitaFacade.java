@@ -79,4 +79,20 @@ public class CitaFacade extends AbstractFacade<Cita> {
     }
        
     
+    public Cita GetCitaById(int  id){
+        TypedQuery<Cita> query = em.createNamedQuery("Cita.findById", Cita.class);
+        query.setParameter("id", id);
+        List matches = query.getResultList();
+        if(matches == null || matches.isEmpty())
+            return null;
+        else
+            return query.getResultList().get(0);
+                 
+    }   
+    
+    @Override
+    public List<Cita> findAll() {
+        List<Cita> contacts = em.createNamedQuery("Cita.findAll", Cita.class).getResultList();
+        return contacts;
+    }
 }
