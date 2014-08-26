@@ -176,18 +176,22 @@ public class CitaView {
     public void Save(Paciente targetPaciente, Consulta consulta){
         //System.out.println("CITA HAS BEEN SAVED: " + PacienteView.getInstance().getPaciente().getId() + ", "+ MedicoView.getInstance());
         try{
-            this.cita.setEstado(Cita.Estado.Pendiente.toString());
-            if(UsersView.getLoggedUser().isMedic())
-                MedicoView.getInstance().setMedico(UsersView.getLoggedUser().getMedico());
-            this.cita.setMedico(MedicoView.getInstance().getMedico());
-            this.cita.setPaciente(targetPaciente);
-            this.cita.setUsers(UsersView.getLoggedUser());
-            
-            if(consulta == null)
-                this.citaFacade.create(cita);
-            else
-                this.citaFacade.SaveProxima(cita, consulta);
-            
+            if(targetPaciente != null && targetPaciente.getId() != null && targetPaciente.getId() != 0){
+                this.cita.setEstado(Cita.Estado.Pendiente.toString());
+                if(UsersView.getLoggedUser().isMedic())
+                    MedicoView.getInstance().setMedico(UsersView.getLoggedUser().getMedico());
+                this.cita.setMedico(MedicoView.getInstance().getMedico());
+                this.cita.setPaciente(targetPaciente);
+                this.cita.setUsers(UsersView.getLoggedUser());
+
+                if(consulta == null)
+                    this.citaFacade.create(cita);
+                else
+                    this.citaFacade.SaveProxima(cita, consulta);                          
+            }else{
+                FacesContext.getCurrentInstance().validationFailed();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Paciente no existe", "Por favor ingrese el numero correcto de cedula o ingrese el nuevo paciente"));            
+            }
             //this.Clear();
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
@@ -279,7 +283,7 @@ public class CitaView {
          return new ArrayList<>();
     }
     
-    void Clear(){
+    public void Clear(){
         this.cita.setId(0);
         this.cita.setEstado("");
         this.cita.setMedico(null);
