@@ -41,8 +41,18 @@ public class MedicamentoLoteFacade extends AbstractFacade<MedicamentoLote> {
             return (long)1;
         }
         else{
-            return ((long) query.getResultList().get(lotes.size()-1).getCodigoLote()) + ((long) 1);
+            return getCodeOfLastLote(lotes) + 1;//((long) query.getResultList().get(lotes.size()-1).getCodigoLote()) + ((long) 1);
         }
+    }
+    
+    public long getCodeOfLastLote(List<MedicamentoLote> lotes){
+        long last=0;
+        for(MedicamentoLote a: lotes){
+            if(a.getCodigoLote() > last){
+                last = a.getCodigoLote();
+            }
+        }
+        return last;
     }
     
     public List<MedicamentoLote> getLotesbyMedicamento(int idMed){
