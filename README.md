@@ -4,7 +4,7 @@ SWII_Grupo_A
 Proyecto de Ingenieria de Software II - Grupo A
 ---------------------
 
-Para que la aplicacion SysMedic pueda ser desplagada se
+Para que la aplicacion SysMedic pueda ser desplegada se
 necesita realizar algunos pasos previos considerando la 
 configuracion de la base de datos a utilizar, CAS y la 
 apliacion misma, primero describiremos la estrutura de 
@@ -48,14 +48,27 @@ Las herramientas de desarrollo que se estan utilizando son:
 **Importante: ** 	Con JDK 1.8 existen errores en CAS cuando se construye (build),
 					es por ello que se opto por 1.7
 					
-1. 	Crear la base de datos con la tabla de usuarios que utilizara el servicio de
-	autenticacion central y la aplicacion, para ello ejecutar el script
-	sysmedic_ddl.sql que se encuentra en la carpeta Databases en el ambiente
-	de postgres (pgAdmin o utilizando otro IDE), con ello se debera 
-	crear la base de datos sysmedic con una tabla de usuarios, tres registros
-	de prueba en ella y un usuaio de la base de datos llamado sysmedic con
-	password sysmedic2014 que sera utilizado por la aplicacion, seguir las indicaciones 
-	dentro del script si hay algun problema.
+1. Crear la base de datos, pra lo cual se tendran que seguir los siguientes pasos,
+	de preferencia utilizar Pg Admin para generar la base:
+		
+		1.1 En Pg Admin crear un usuario con todos los privilegios llamado "sysmedic"
+			con password "sysmedic2014".
+			
+		1.2 Crear una base de datos llamada "SysMedic" (debe llevar las mayusculas como se muestran).
+		
+		1.3 Ir a la ubicacion "C:\Program Files\PostgreSQL\9.3\bin" en su carpeta de
+			instalacion de postgres y abra alli una ventana de comandos con shitft sostenido + click derecho
+			y escogiendo "Abrir ventana de comandos aqui".
+			
+		1.4 En la ventana de comandos escribimos el siguiente comando y lo ejecutamos:
+					
+				psql -U sysmedic -d SysMedic < "D:\Ingenieria de Software II Repo\SWII_Grupo_A\Databases\sysmedic_database.sql"	
+				
+			COnsidere que el path de ejemplo es en donde reside el archivo sysmedic_database.sql que 
+			contiene los comandos necesarios y los datos para crear la base.
+		
+		1.5 Desde Pg Admin ahora se refleja el nuevo schema en la base de datos SysMedic
+			
 	
 2. 	Crear el JDBC para la aplicacion, para ello se debe crear primero un 
 	pool de conexiones JDB y luego un recurso de JDBC. Dentro de la carpeta 
