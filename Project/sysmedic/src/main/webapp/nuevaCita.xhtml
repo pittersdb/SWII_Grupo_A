@@ -37,16 +37,25 @@
         function habilitarNombre(){
             document.getElementById("nombre_paciente").disabled=false;
         }
+        
     </script>
         
-    <h:form id="#{idFormCita}"> 
+        
+        
+    <h:form id="#{idFormCita}" onkeypress=" return filterEnterKey();"> 
+        <h:outputScript>
+            function filterEnterKey() {             
+            return (event.keyCode !== 13 || ((event.keyCode === 13) &amp;&amp; (#{Paciente.paciente != null and Paciente.paciente.id != null and Paciente.paciente.id != 0})) );            
+            }
+        </h:outputScript>
         <p:growl id="messages"  showDetail="true"/>
         <h:panelGrid columns="2" cellpadding="5">   
             
             <c:if test="${idFormCita == 'frmNuevaCita'}">
                 <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
                 <p:autoComplete id="ci_paciente" value="#{Paciente.paciente.ci}" completeMethod="#{Paciente.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
-                    <p:ajax event="itemSelect" listener="#{Paciente.onCiSelect}" update="nombre_paciente" oncomplete=""/> 
+                    <p:ajax event="itemSelect" update="#{idFormCita}" oncomplete=""/> 
+                    <p:ajax event="change" update="#{idFormCita}" oncomplete=""/> 
                 </p:autoComplete>                 
                 <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
                 <p:inputText id="nombre_paciente" value= "#{Paciente.paciente.nombres} #{Paciente.paciente.apellidos}" required="true" label="nombre_paciente" readonly="true" disabled="true"/>             
@@ -77,14 +86,14 @@
                 
                 
             <c:if test="${idFormCita == 'frmProximaCita'}">
-                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Cita.SaveProxima(Turno.current)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
+                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"  actionListener="#{Cita.SaveProxima(Turno.current)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
                 </p:commandButton>  
             </c:if>    
                 
             <c:if test="${idFormCita == 'frmNuevaCita'}">
                 <h:panelGroup id="buttonGroup" >
-                    <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"  rendered="#{!(Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0)}" 
+                    <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" rendered="#{!(Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0)}" 
                                      actionListener="#{Cita.Save(Paciente.paciente)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); }"  > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />                         
                     </p:commandButton>  

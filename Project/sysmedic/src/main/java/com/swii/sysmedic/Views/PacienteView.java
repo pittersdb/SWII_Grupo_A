@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.event.*;
 /**
  *
  * @author fabian
@@ -99,12 +99,6 @@ public class PacienteView {
        
          
         return results;
-    }
-    
-     public void onCiSelect(SelectEvent event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-         System.out.println("SELECT PACIENTE");
-         if(paciente == null) paciente = new Paciente(0, "", "","", null, "", "", "");
     }
      
     public void LoadPaciente(String ci){
