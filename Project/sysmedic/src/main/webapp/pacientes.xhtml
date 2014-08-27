@@ -15,9 +15,13 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
     
-    <h:form id="formPaciente">
+    <h:form id="formPaciente"> 
+        
+        <p:growl id="msgs" showDetail="true" />        
         <h2>#{msg['lista_pacientes']}</h2>
-                
+        <p:commandButton value="#{msg['crear_nuevo_paciente']}" actionListener="#{Paciente.InstancePaciente()}" onclick="PF('dlgNuevoPaciente').show();" />
+        <br/>
+        <br/>
         <p:dataTable id="pacienteTable" var="paciente" value="#{Paciente.all}" tableStyle="width:auto">
             <p:column headerText="#{msg['Nombre']}" style="width:100px">
                 <h:outputText value="#{paciente.nombres}" />
@@ -48,45 +52,39 @@
             </p:column>
             
             <p:column headerText="#{msg['Acciones']}" style="width:250px">
-                    <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
-                    <p:commandButton value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
-                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
-                    </p:commandButton>   
-                    <p:confirmDialog global="true" showEffect="fade" >                  
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                    </p:confirmDialog>
+                <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
+                <p:commandButton value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
+                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                </p:commandButton>   
+                <p:confirmDialog global="true" showEffect="fade" >                  
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+                </p:confirmDialog>
                 
             </p:column> 
             
         </p:dataTable>
-        <center>
-            <br/>
-            <br/>
-            <p:commandButton value="#{msg['crear_nuevo_paciente']}" actionListener="#{Paciente.InstancePaciente()}" onclick="PF('dlgNuevoPaciente').show();" />
-            <p:growl id="msgs" showDetail="true" />
-            
-        </center>
+        
     </h:form>   
     
-        <!-- Pop up para nuevo paciente-->
-            
-        <p:dialog header="#{msg['nuevo_paciente']}" widgetVar="dlgNuevoPaciente" minHeight="40" draggable="false" resizable="false" >
-            <ui:include src="nuevoPaciente.xhtml" >
-                <ui:param name="idForm" value="frmNuevoPaciente" />
-                <ui:param name="dialog" value="dlgNuevoPaciente" />
-                <ui:param name="actionDB" value="create" />
-            </ui:include>
-        </p:dialog>    
-            
-        <!-- Pop up para modificar paciente-->
-        <p:dialog header="#{msg['Modificar']} #{msg['Paciente']}" widgetVar="dlgEditarPaciente" minHeight="40" draggable="false" resizable="false">
-            <ui:include src="nuevoPaciente.xhtml"> 
-                <ui:param name="idForm" value="frmModificarPaciente" />
-                <ui:param name="dialog" value="dlgEditarPaciente" />
-                <ui:param name="actionDB" value="update" />
-            </ui:include>
-        </p:dialog>
+    <!-- Pop up para nuevo paciente-->
+    
+    <p:dialog header="#{msg['nuevo_paciente']}" widgetVar="dlgNuevoPaciente" minHeight="40" draggable="false" resizable="false" >
+        <ui:include src="nuevoPaciente.xhtml" >
+            <ui:param name="idForm" value="frmNuevoPaciente" />
+            <ui:param name="dialog" value="dlgNuevoPaciente" />
+            <ui:param name="actionDB" value="create" />
+        </ui:include>
+    </p:dialog>    
+    
+    <!-- Pop up para modificar paciente-->
+    <p:dialog header="#{msg['Modificar']} #{msg['Paciente']}" widgetVar="dlgEditarPaciente" minHeight="40" draggable="false" resizable="false">
+        <ui:include src="nuevoPaciente.xhtml"> 
+            <ui:param name="idForm" value="frmModificarPaciente" />
+            <ui:param name="dialog" value="dlgEditarPaciente" />
+            <ui:param name="actionDB" value="update" />
+        </ui:include>
+    </p:dialog>
     
 </html>
 

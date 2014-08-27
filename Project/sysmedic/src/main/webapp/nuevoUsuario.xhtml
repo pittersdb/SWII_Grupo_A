@@ -32,14 +32,14 @@
             letter-spacing: -1px;
         }
         
-    /*    .ui-growl {   
-            position:fixed; 
-            top: 5%;
-            left: 37%;
-            width: 290px;
-            height: 110px;
-            z-index:9999; 
-        }*/
+        /*    .ui-growl {   
+                position:fixed; 
+                top: 5%;
+                left: 37%;
+                width: 290px;
+                height: 110px;
+                z-index:9999; 
+            }*/
     </style>
     
     <h:form id="#{idForm}" >   
@@ -65,16 +65,19 @@
                 <h:outputLabel for="nickname" value="#{msg['usuario']}:" />
                 <p:inputText value="#{User.user.nickname}" id="nickname" required="true" label="nickname" />            
                 
-                <h:outputLabel value="#{msg['password']}:" /> 
-                <p:password value="#{User.user.password}" binding="#{pass}" id="password" required="true" validator="passwordValidator"/>
-                <p:message for="password" />
-                
-                <h:outputLabel value="#{msg['repetir_password']}:" /> 
-                <p:password id="repeatPassword" required="true" validator="repeatPasswordValidator" label="repeatPassword" >
-                    <f:attribute name="password" value="#{pass.value}" />
+                 
+                    <h:outputLabel value="#{msg['password']}:" /> 
+                 <h:panelGrid columns="2" cellpadding="1">  
+                    <p:password value="#{User.user.password}" binding="#{pass}" id="password" required="true" validator="passwordValidator"/>
+                    <p:message for="password" />
+                 </h:panelGrid>
                     
-                </p:password>    
-                    
+                    <h:outputLabel value="#{msg['repetir_password']}:" /> 
+                    <p:password id="repeatPassword" required="true" validator="repeatPasswordValidator" label="repeatPassword" >
+                        <f:attribute name="password" value="#{pass.value}" />
+                        
+                    </p:password>    
+               
             </c:if> 
             
             <p:outputLabel for="rol" value="#{msg['rol']}: "></p:outputLabel>

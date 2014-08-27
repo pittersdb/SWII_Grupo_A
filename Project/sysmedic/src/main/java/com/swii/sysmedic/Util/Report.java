@@ -46,7 +46,7 @@ public class Report {
         
         citaReport.setCiPaciente(cita.getPaciente().getCi());
         citaReport.setNombrePaciente(cita.getPaciente().getNombres() + " " +cita.getPaciente().getApellidos());
-        citaReport.setNombreMedico(cita.getMedico().getUsers().getName() + cita.getMedico().getUsers().getApellidos());
+        citaReport.setNombreMedico(cita.getMedico().getUsers().getName() +" " +cita.getMedico().getUsers().getApellidos());
         citaReport.setEspecialidadMedico(cita.getMedico().getEspecialidad().getNombre());
         CustomDate customDate = new CustomDate(cita.getFechaConsultaActual());
         citaReport.setFechaCita(customDate.getDate() + " de " + customDate.getMonthName() + " de " +customDate.getYear());

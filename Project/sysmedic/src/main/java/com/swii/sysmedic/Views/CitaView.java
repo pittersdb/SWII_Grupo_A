@@ -294,6 +294,7 @@ public class CitaView {
         
         MedicoView.getInstance().setMedico(null);
         PacienteView.getInstance().setPaciente(null);
+        System.out.println("CLEAR CITA:");
     }
     
     public List<Integer> vistaCita(int id){

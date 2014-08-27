@@ -53,7 +53,7 @@
             
             <c:if test="${idFormCita == 'frmNuevaCita'}">
                 <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
-                <p:autoComplete id="ci_paciente" value="#{Paciente.paciente.ci}" completeMethod="#{Paciente.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
+                <p:autoComplete id="ci_paciente" value="#{Paciente.paciente.ci}" completeMethod="#{Paciente.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente." disabled="#{Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"  >
                     <p:ajax event="itemSelect" update="#{idFormCita}" oncomplete=""/> 
                     <p:ajax event="change" update="#{idFormCita}" oncomplete=""/> 
                 </p:autoComplete>                 
@@ -82,11 +82,11 @@
             
             
             <p:outputLabel for="inputFecha" value="#{msg['fecha_cita']}: "></p:outputLabel>
-            <p:calendar id="inputFecha" showOn="button" value="#{Cita.cita.fechaConsultaActual}"/>
+            <p:calendar id="inputFecha" showOn="button" value="#{Cita.cita.fechaConsultaActual}" disabled="#{Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0}" />
                 
                 
             <c:if test="${idFormCita == 'frmProximaCita'}">
-                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"  actionListener="#{Cita.SaveProxima(Turno.current)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
+                <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"  actionListener="#{Cita.SaveProxima(Turno.current)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialogCita}').hide();}"  > 
                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
                 </p:commandButton>  
             </c:if>    
@@ -94,11 +94,11 @@
             <c:if test="${idFormCita == 'frmNuevaCita'}">
                 <h:panelGroup id="buttonGroup" >
                     <p:commandButton id="btnGuardar" value="#{msg['Guardar']}" rendered="#{!(Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0)}" 
-                                     actionListener="#{Cita.Save(Paciente.paciente)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){ClearCitas();PF('confirmDlg').show(); }"  > 
+                                     actionListener="#{Cita.Save(Paciente.paciente)}" update="messages, #{idFormCita}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }"  > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />                         
                     </p:commandButton>  
                         
-                    <p:commandButton rendered="#{Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0}" id="btnNuevo" value="#{msg['nueva_cita']}" actionListener="#{Cita.Clear()}" update="messages, #{idFormCita}" onclick="" />                                                                              
+                    <p:commandButton rendered="#{Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0}" id="btnNuevo" value="#{msg['nueva_cita']}" actionListener="#{Cita.Clear()}" update="messages, #{idFormCita}" onclick="" oncomplete="" />                                                                              
                         
                     <p:commandButton rendered="#{Cita.cita != null and Cita.cita.id != null and Cita.cita.id != 0}" id="btnImprimir" value="#{msg['Imprimir']}" actionListener="#{Report.imprimirCita(Cita.cita)}" immediate="true" ajax="false" onclick="form.target='_blank'; " /> 
                 </h:panelGroup>
