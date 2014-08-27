@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+          
+          
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Validations.js" type="text/javascript" ></script>
+    <script src="js/Factura.js" type="text/javascript" ></script>
+    
+    <style>
+        .ui-panel .ui-panel-titlebar-icon{
+            display: none;
+        }
+    </style>
+      
+    <p:panel id="panelInternalFactura" style="display: block;">
+        <p:tabView id= "tabViewFacturacion">
+            <p:tab  title="#{msg['facturacion_de_Consulta']}">
+                <h:panelGroup>                    
+                    <ui:include src="facturarConsulta.xhtml" > 
+                        <!--ui:param name="idFormFacturarConsulta" value="frmNuevaFacturarConsulta" /-->                        
+                    </ui:include>
+                </h:panelGroup>                
+            </p:tab>
+            
+            <p:tab title="#{msg['facturacion_de_Medicinas']}">
+              <h:form id="facturarMedicinas">
+              <p:growl id="messages"  showDetail="true"/>  
+                <h:panelGrid columns="1" cellpadding="10">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <h:panelGrid columns="1" cellpadding="4">
+                            <h:panelGrid columns="2" cellpadding="4">
+                                <h:outputLabel for="numero" value="#{msg['No_Factura']}:" />
+                                <h:outputLabel value="#{Factura.numeroFactura}" />
+
+                                <h:outputLabel for="autorizacionSRI" value="#{msg['Autorizacion_SRI']}:" />
+                                <h:outputLabel value="#{Factura.factura.fechaAutorizacionSri}" />
+
+                                <h:outputLabel for="caducidadSRI" value="#{msg['Caducidad_SRI']}:" />
+                                <h:outputLabel value="#{Factura.factura.fechaCaducidadSri}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="4">
+                            <!--  logo  -->
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <!-- DATOS DE MEDICAMENTOS  -->
+                    <hr />
+                    <h4>#{msg['Datos_del_Medicamento']}</h4>
+                    <hr />
+                    <p:dataTable id="facturas" value="#{Factura.allMedicamentoLoteFromDB}" var="medicina" rows="10" paginator="true" paginatorPosition="bottom" rendered="#{Factura.listMedicamento.size() >0 eq true}">
+                        <p:column style="width: auto">
+                            <f:facet name="header" >
+                                <h:outputText value="#{msg['Cantidad']}" />
+                            </f:facet>
+                            <h:inputText value="#" />                                    
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['Medicamento']}" />
+                            </f:facet>
+                            <h:outputText value="#{medicina.medicamento.nombre}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['Precio_Unitario']}" />
+                            </f:facet>
+                            <h:outputText value="#{medicina.precio}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['Descuento']}" />
+                            </f:facet>
+                            <h:outputText value="#" />                                    
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['Total']}" />
+                            </f:facet>
+                            <h:outputText value="#" />                                    
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['Cantidad_Disponible']}" />
+                            </f:facet>
+                            <h:outputText value="#" />                                    
+                        </p:column>
+                    </p:dataTable>
+                    <hr />
+                    <h4>#{msg['Datos_Factura']}</h4>
+                    <hr />
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <h:panelGrid columns="2" cellpadding="4">
+                            <h:outputLabel for="subTotal" value="#{msg['SubTotal']}" />
+                            <h:outputText value="#" />
+
+                            <h:outputLabel for="iva" value="IVA 12% :" />
+                            <h:inputText value="#{Factura.factura.iva}" />
+
+                            <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
+                            <h:inputText value="#{Factura.factura.descuentoTotal}" />
+
+                            <h:outputLabel for="total" value="#{msg['Total']}:" />
+                            <h:inputText value="#{Factura.factura.total}" />
+
+                            <p:outputLabel for="formaPago" value="#{msg['forma_pago']}:" />
+                            <p:selectOneMenu id="formaPago" value="#{Factura.factura.formaPago}" >
+                                <f:selectItem itemLabel="#{msg['Contado']}" itemValue="c" />
+                                <f:selectItem itemLabel="#{msg['Credito']}" itemValue="t" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="fecha_pago" value="#{msg['Fecha_de_pago']}: "></p:outputLabel>
+                            <p:calendar id="fecha_pago" showOn="button" value="#{Factura.factura.fechaPago}"/>
+
+                            <h:outputLabel for="observacion" value="#{msg['Observaciones']}:" />
+                            <p:inputTextarea id="observacion" rows="3" cols="15" value="#{Factura.factura.observacion}"/><br />                    
+                        </h:panelGrid>
+                    </h:panelGrid>    
+                    <hr />                    
+                </h:panelGrid>
+                <h:panelGrid columns="3" cellpadding="10">
+                <h:panelGrid columns="1">
+                    <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}"   actionListener="#{Factura.Insert()}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }"  > 
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                    </p:commandButton>  
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <p:commandButton id="btnImprimirFactura" value="#{msg['Imprimir']}" actionListener="#" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
+                    </h:panelGrid>           
+                </h:panelGrid>
+              </h:form>
+            </p:tab>
+        </p:tabView>        
+    </p:panel>       
+</html>

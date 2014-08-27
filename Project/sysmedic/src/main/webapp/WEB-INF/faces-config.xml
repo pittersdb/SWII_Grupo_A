@@ -102,4 +102,9 @@
         <managed-bean-class>com.swii.sysmedic.Views.AntecedenteView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Report</managed-bean-name>
+        <managed-bean-class>com.swii.sysmedic.Util.Report</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

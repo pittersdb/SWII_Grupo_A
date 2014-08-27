@@ -37,21 +37,21 @@ public class AntecedentesGroup {
      
     
     public AntecedentesGroup(AntecedenteFacade antecedenteFacade){        
-        tipoSangre = new PacienteAntecedente(antecedenteFacade.findByNombre("tipo_sangre"),"Op");
-        tabaquismo  = new PacienteAntecedente(antecedenteFacade.findByNombre("tabaquismo"),"n");
-        alcoholismo  = new PacienteAntecedente(antecedenteFacade.findByNombre("alcoholismo"),"n");
-        diabetes  = new PacienteAntecedente(antecedenteFacade.findByNombre("diabetes"),"no");
-        hipertension  = new PacienteAntecedente(antecedenteFacade.findByNombre("hipertension"),"no");
-        infartos  = new PacienteAntecedente(antecedenteFacade.findByNombre("infartos"),"0");
-        sida  = new PacienteAntecedente(antecedenteFacade.findByNombre("sida"),"no");
-        sifilis  = new PacienteAntecedente(antecedenteFacade.findByNombre("sifilis"),"no");
-        hemopatias  = new PacienteAntecedente(antecedenteFacade.findByNombre("hemopatias"),"no");
-        cardiopatias  = new PacienteAntecedente(antecedenteFacade.findByNombre("cardiopatias"),"no");
-        ateroesclerosis  = new PacienteAntecedente(antecedenteFacade.findByNombre("ateroesclerosis"),"no");
-        neuropatias  = new PacienteAntecedente(antecedenteFacade.findByNombre("neuropatias"),"no");
-        artropatias  = new PacienteAntecedente(antecedenteFacade.findByNombre("artropatias"),"no");
-        toxicomanias  = new PacienteAntecedente(antecedenteFacade.findByNombre("toxicomanias"),"no");
-        alergias  = new PacienteAntecedente(antecedenteFacade.findByNombre("alergias"),"Ninguna");
+        tipoSangre = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("tipo_sangre"),"Op");
+        tabaquismo  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("tabaquismo"),"n");
+        alcoholismo  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("alcoholismo"),"n");
+        diabetes  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("diabetes"),"no");
+        hipertension  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("hipertension"),"no");
+        infartos  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("infartos"),"0");
+        sida  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("sida"),"no");
+        sifilis  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("sifilis"),"no");
+        hemopatias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("hemopatias"),"no");
+        cardiopatias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("cardiopatias"),"no");
+        ateroesclerosis  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("ateroesclerosis"),"no");
+        neuropatias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("neuropatias"),"no");
+        artropatias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("artropatias"),"no");
+        toxicomanias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("toxicomanias"),"no");
+        alergias  = new PacienteAntecedente(antecedenteFacade.findByNombreOrCreate("alergias"),"Ninguna");
     }
     
     //End fixed antecedentes

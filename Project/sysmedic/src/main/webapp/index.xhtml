@@ -51,6 +51,19 @@
                         mostrarInternalPanelAgenda();
                         ocultarInternalPanelHistorial();
                     }
+                    function mostrarFacturacion() {
+                        ocultarTodo();
+                        document.getElementById("panelFacturacion").style.display = "block";
+                        mostrarInternalPanelFacturacion();
+                    }
+                    
+                    function mostrarInternalPanelFacturacion() {
+                        document.getElementById("panelInternalFacturacion").style.display = "block";
+                    }
+                    
+                    function ocultarInternalPanelFacturacion() {
+                        document.getElementById("panelInternalFacturacion").style.display = "block";
+                    }
 
                     function mostrarInternalPanelAgenda() {
                         document.getElementById("panelInternalAgenda").style.display = "block";
@@ -62,11 +75,6 @@
 
                     function mostrarConsulta() {
                         document.getElementById("panelConsulta").style.display = "block";
-                    }
-
-                    function mostrarFacturacion() {
-                        ocultarTodo();
-                        document.getElementById("panelFacturacion").style.display = "block";
                     }
 
                     function ocultarConsulta() {
@@ -125,7 +133,8 @@
                         <p:menu style="width:190px">
                             
                             <p:menuitem  value="#{msg['Agenda']}" url="#" onclick="mostrarAgenda()"/>
-                            <p:menuitem value="#{msg['Facturacion']}" url="#"  id="opFacturacion" onclick="mostrarFacturacion()"/>
+                            <p:menuitem value="#{msg['Facturacion']}" url="#" onclick="mostrarFacturacion()"/>
+                            <!--p:menuitem value="#{msg['Facturacion']}" url="#"  id="opFacturacion" onclick="mostrarFacturacion()"/-->
                             <p:menuitem value="#{msg['Inventario']}" url="#" id="opInventario" onclick="mostrarInventario()"/>
                             <p:menuitem value="#{msg['Usuarios']}" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
                             <p:menuitem value="#{msg['Pacientes']}" url="#" id="opPacientes" onclick="mostrarPacientes()"/>
@@ -182,8 +191,11 @@
             <!-- Panel para la Facturacion -->
             <p:panel id="panelFacturacion" header="#{msg['Facturacion']}" style="display: none;">
                 <h:panelGroup>
-                    <sec:authorize url="/faces/facturacion.xhtml" var="isAuthorizedH">
+                    <!--sec:authorize url="/faces/facturacion.xhtml" var="isAuthorizedH">
                         <ui:include src="facturacion.xhtml" />
+                    </sec:authorize-->
+                    <sec:authorize url="/faces/facturas.xhtml" var="isAuthorizedH">
+                        <ui:include src="facturas.xhtml" />
                     </sec:authorize>
                     <c:if test="${!isAuthorizedH}">
                         <ui:include src="NoAutorizacionMensaje.xhtml" />

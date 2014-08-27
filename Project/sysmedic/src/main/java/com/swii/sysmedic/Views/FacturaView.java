@@ -80,6 +80,7 @@ public class FacturaView {
     private Medicamento medicina = new Medicamento();
     private MedicamentoLote medicamentoLote = new MedicamentoLote();
     
+    private int numeroFactura = 0;
     private int descuento_Consulta =0;
     private Double total_Consulta = 0.0;
     private Double iva = 0.0;
@@ -91,6 +92,23 @@ public class FacturaView {
     private List<MedicamentoLote> listSelectedMedicamentoLote =new ArrayList<MedicamentoLote>();
     private List<Factura> all = new ArrayList<Factura>();
     private List<Medicamento> listMedicamento = new ArrayList<Medicamento>();
+    
+     
+
+    @PostConstruct
+    public void init() {
+        all.addAll(allFromDB());
+        listMedicamentoLote.addAll(allMedicamentoLoteFromDB());
+        this.setNumeroFactura(all.size()+1);
+    }
+    
+    public int getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(int numeroFactura) {
+        this.numeroFactura = numeroFactura;
+    }
     
     public List<MedicamentoLote> getListSelectedMedicamentoLote() {
         return listSelectedMedicamentoLote;
@@ -168,14 +186,7 @@ public class FacturaView {
     public void setListMedicamento(List<Medicamento> listMedicamento) {
         this.listMedicamento = listMedicamento;
     }
-     
-
-    @PostConstruct
-    public void init() {
-        all.addAll(allFromDB());
-        listMedicamentoLote.addAll(allMedicamentoLoteFromDB());
-    }
-    
+       
     public List<MedicamentoLote> allMedicamentoLoteFromDB(){
         return this.medicamentoloteFacade.findAll();
     }
@@ -245,8 +256,8 @@ public class FacturaView {
         List<String> results = new ArrayList<String>();
         paciente = this.pacienteFacade.GetPacienteByCi(query);
         
-        //consulta = this.consultaFacade.GetConsultaByIdPaciente(paciente); 
-        consulta = this.consultaFacade.GetConsultaById(1); 
+        consulta = this.consultaFacade.GetConsultaByIdPaciente(paciente); 
+        //consulta = this.consultaFacade.GetConsultaById(1); 
         cita = consulta.getCita();
         medico = consulta.getCita().getMedico();
         especialidad = medico.getEspecialidad();

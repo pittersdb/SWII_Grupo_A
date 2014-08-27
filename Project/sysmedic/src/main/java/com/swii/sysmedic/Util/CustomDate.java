@@ -23,7 +23,12 @@ public class CustomDate {
      */
     public CustomDate() {
         date = Calendar.getInstance().getTime();
-    }
+    }    
+    
+    public CustomDate(Date date) {
+        this.date = date;
+    }    
+    
     
     public int getDate(){        
         return date.getDate();

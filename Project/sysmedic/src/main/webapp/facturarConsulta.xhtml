@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    <script src="js/Validations.js" type="text/javascript" ></script>
+    <script src="js/Factura.js" type="text/javascript" ></script>
+    
+    <h:form id="factur">
+        <p:growl id="messages"  showDetail="true"/>
+        <!--c:if test="${idFormCita == 'frmNuevaFacturarConsulta'}"-->        
+            <h:panelGrid columns="1" cellpadding="3"> 
+                <h:panelGrid columns="2" cellpadding="3">
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <h:panelGrid columns="2" cellpadding="4">
+                            <h:outputLabel for="numero" value="#{msg['No_Factura']}:" />
+                            <h:outputLabel value="#{Factura.numeroFactura}" />
+                    
+                            <h:outputLabel for="autorizacionSRI" value="#{msg['Autorizacion_SRI']}:" />
+                            <h:outputLabel value="#{Factura.factura.fechaAutorizacionSri}" />
+                    
+                            <h:outputLabel for="caducidadSRI" value="#{msg['Caducidad_SRI']}:" />
+                            <h:outputLabel value="#{Factura.factura.fechaCaducidadSri}" />
+                                       
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <!--  logo  -->
+                    </h:panelGrid>
+                </h:panelGrid>    
+                <!--    DATOS CLIENTE  -->
+                <hr />        
+                <h4>#{msg['Datos_Cliente']} </h4>
+                <hr />
+                <h:panelGrid columns="2" cellpadding="3">
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <h:panelGrid columns="2" cellpadding="4" id="clientSection" >
+                            <h:outputLabel for="ruc" value="R.U.C.:" />
+                            <p:inputText value="#{Factura.cliente.ruc}" id="ruc" required="true" maxlength="10" label="ruc" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    
+                            <h:outputLabel for="nombre" value="#{msg['Nombre']}:" />
+                            <p:inputText value="#{Factura.cliente.nombres}" id="nombre" required="true" label="nombre" />
+                    
+                            <h:outputLabel for="apellido" value="#{msg['Apellido']}:" />
+                            <p:inputText value="#{Factura.cliente.apellidos}" id="apellido" required="true" label="apellido" />
+                    
+                            <h:outputLabel for="telefono" value="#{msg['Telefono']}:" />
+                            <p:inputText value="#{Factura.cliente.telefono}" id="telefono" required="true" maxlength="10" label="telefono" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+                    
+                            <h:outputLabel for="direccion" value="#{msg['Direccion']}:" />
+                            <p:inputTextarea value="#{Factura.cliente.direcion}" id="direccion" rows="6" cols="15" /><br />
+                    
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+        
+                <!--    DETALLE DE LA CONSULTA REALIZADA  -->
+                <hr />        
+                <h4>#{msg['Detalle_Consulta_Realizada']}</h4>
+                <hr />
+                <h:panelGrid columns="2" cellpadding="3"  id="panelPacienteFac" >
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <h:panelGrid columns="2" cellpadding="4">                                        
+                            <h:outputLabel for="ci_paciente" value="#{msg['CI_Paciente']}: " />
+                            <p:autoComplete id="ci_paciente" value="#{Factura.paciente.ci}" completeMethod="#{Factura.matchCi}" maxlength="10" label="ci_paciente"  required="true" requiredMessage="Debe ingresar la cedula del paciente.">
+                                <p:ajax event="itemSelect" update="panelPacienteFac" oncomplete=""/> 
+                            </p:autoComplete>                 
+
+                            <h:outputLabel for="nombre_paciente" value="#{msg['Nombre_del_Paciente']}: " />
+                            <p:inputText id="nombre_paciente" value= "#{Factura.paciente.nombres} #{Factura.paciente.apellidos}" required="true" label="nombre_paciente" readonly="true" disabled="true"/>             
+
+                            <h:outputLabel for="numero_cita" value="#{msg['N_Cita']}: " />
+                            <p:inputText id="numero_cita" value= "#{Factura.consulta.cita.id}" required="true" label="numero_cita" readonly="true" disabled="true"/>             
+
+                            <h:outputLabel for="estado_cita" value="#{msg['estado_cita']}: " />
+                            <p:inputText id="estado_cita" value= "#{Factura.cita.estado}" required="true" label="estado_cita" readonly="true" disabled="true"/>             
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <h:panelGrid columns="2" cellpadding="4">                    
+                            <h:outputLabel for="tipo_consulta" value="#{msg['tipo_consulta']}: " />
+                            <p:inputText id="tipo_consulta" value= "#{Factura.especialidad.nombre}" required="true" label="tipo_consulta" readonly="true" disabled="true"/>             
+
+                            <h:outputLabel for="valor_consulta" value="#{msg['valor_consulta']}: " />
+                            <p:inputText id="valor_consulta" value= "#{Factura.tarifario.precio}" required="true" label="valor_consulta" readonly="true" disabled="true"/>             
+
+                            <h:outputLabel for="descuento_consulta" value="#{msg['Descuento']}: " />
+                            <p:inputText id="descuento_consulta" value= "#{Factura.descuento_Consulta}" required="true" label="descuento_consulta" readonly="true" disabled="true"/>             
+
+                            <h:outputLabel for="total_consulta" value="#{msg['Total']}: " />
+                            <p:inputText id="total_consulta" value= "#{Factura.total_Consulta}" required="true" label="total_consulta" readonly="true" disabled="true"/>                                 
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h4>#{msg['Datos_Factura']}</h4>
+            <hr />
+            <h:panelGrid columns="1" cellpadding="4">
+                <h:panelGrid columns="2" cellpadding="4">
+                    <h:outputLabel for="subTotal" value="#{msg['SubTotal']}" />
+                    <h:outputText value="#" />
+                    
+                    <h:outputLabel for="iva" value="IVA 12% :" />
+                    <h:inputText value="#{Factura.factura.iva}" />
+                    
+                    <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
+                    <h:inputText value="#{Factura.factura.descuentoTotal}" />
+                    
+                    <h:outputLabel for="total" value="#{msg['Total']}:" />
+                    <h:inputText value="#{Factura.factura.total}" />
+                    
+                    <p:outputLabel for="formaPago" value="#{msg['forma_pago']}:" />
+                    <p:selectOneMenu id="formaPago" value="#{Factura.factura.formaPago}" >
+                        <f:selectItem itemLabel="#{msg['Contado']}" itemValue="c" />
+                        <f:selectItem itemLabel="#{msg['Credito']}" itemValue="t" />
+                    </p:selectOneMenu>
+                                        
+                    <p:outputLabel for="fecha_pago" value="#{msg['Fecha_de_pago']}: "></p:outputLabel>
+                    <p:calendar id="fecha_pago" showOn="button" value="#{Factura.factura.fechaPago}"/>
+                    
+                    <h:outputLabel for="observacion" value="#{msg['Observaciones']}:" />
+                    <p:inputTextarea id="observacion" rows="3" cols="15" value="#{Factura.factura.observacion}"/><br />                    
+                </h:panelGrid>
+            </h:panelGrid>
+            <hr />
+            <h:panelGrid columns="3" cellpadding="10">
+                <h:panelGrid columns="1">
+                    <p:commandButton id="btnGuardarFactura" value="#{msg['Guardar']}"   actionListener="#{Factura.Insert()}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }"  > 
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
+                    </p:commandButton>  
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <p:commandButton id="btnImprimirFactura" value="#{msg['Imprimir']}" actionListener="#" />
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
+                </h:panelGrid>           
+            </h:panelGrid>
+        <!--/c:if-->    
+    </h:form>
+    
+</html>

@@ -46,7 +46,7 @@
                     <p:outputLabel for="inputFecha" value="#{msg['fecha_ingreso']}: "></p:outputLabel>
                     <p:calendar id="inputFecha" showOn="button" value="#{MedicamentoLote.medicamentoLote.fechaIngreso}" maxdate="#{MedicamentoLote.today}"/>
 
-                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }" > 
+                    <p:commandButton id="btnGuardarNuevoLote" value="#{msg['Guardar']}"   actionListener="#{MedicamentoLote.Save()}" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); }" > 
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>
                     
@@ -90,7 +90,7 @@
                         <p:ajax listener="#{MedicamentoLote.UpdateAllLotes()}" />
                     </p:selectOneMenu>
 
-                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg1').show(); }"  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote">
+                    <p:commandButton value="#{msg['Devolver']}" actionListener="#{MedicamentoLote.Devolver(MedicamentoLote.selectedLoteDev)}" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg1').show(); }"  immediate="true" update="messages, :inventario:medicamentosTable, :inventario:formDevMedicinas:selectLote, :inventario:caducadosTable">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>   
                     
@@ -120,7 +120,7 @@
         <!-- Reportes de medicinas-->
         <p:tab title="#{msg['reportes']}">
             <h:panelGrid columns="2" cellpadding="5">
-                <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#{MedicamentoLote.AllCaducado()}" update=":inventario:caducadosTable" onclick="PF('dlgCaducados').show();"/>
+                <p:commandButton value="#{msg['medicinas_caducadas']}" id="btnMedicinasCaducadas" actionListener="#{MedicamentoLote.allCaducado}" update=":inventario:caducadosTable" onclick="PF('dlgCaducados').show();"/>
                 <br/>
                 <p:outputLabel value="#{msg['ordenar_por']}"/>
                 <br/>
@@ -175,7 +175,7 @@
                 </p:dataTable>
                 
                 <p:dialog header="#{msg['medicinas_caducadas']}" widgetVar="dlgCaducados" minHeight="40" draggable="false" resizable="false" >
-                    <p:dataTable id="caducadosTable" var="medicamentolote" value="#{MedicamentoLote.allCaducado}" paginator="true" rows="15">
+                    <p:dataTable id="caducadosTable" var="medicamentolote" value="#{MedicamentoLote.allCaducado}" paginator="true" rows="10">
                         <p:column headerText="#{msg['Medicamento']}">
                             <h:outputText value="#{medicamentolote.medicamento.nombre}" />
                         </p:column>

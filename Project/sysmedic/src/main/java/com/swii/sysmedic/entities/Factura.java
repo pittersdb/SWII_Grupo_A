@@ -60,7 +60,7 @@ public class Factura implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "numero")
-    private int numero = 2222;
+    private int numero;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_pago")

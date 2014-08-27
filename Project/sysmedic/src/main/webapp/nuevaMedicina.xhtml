@@ -26,30 +26,23 @@
             <p:inputTextarea id="descripcion_medicina" maxlength="150" value="#{Medicamento.medicamento.descripcion}"/>
             
 
-            <p:commandButton id="btnGuardarMed" value="#{msg['Guardar']}"   actionListener="#{Medicamento.Save()}" update=":inventario:medicamentosTable, :inventario:formDevMedicinas:selectMedic, :inventario:formIngMedicinas:selectMedicina" > 
+            <p:commandButton id="btnGuardarMed" value="#{msg['Guardar']}"   actionListener="#{Medicamento.Save()}" update=":inventario:formNuevoMedicamento:medicinaTable, :inventario:formDevMedicinas:selectMedic, :inventario:formIngMedicinas:selectMedicina" > 
                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
             </p:commandButton>
             
             <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" />
         </h:panelGrid>
-    </h:form>
-    <div> 
+        
         <h2>#{msg['lista_medicina']}</h2>
-        <h:form id="formMedicamento">
-                             
-            <p:dataTable id="medicinaTable" var="medicina" value="#{Medicamento.all}" tableStyle="width:auto">
-                
-                <p:column headerText="#{msg['nombre_medicina']}" style="width:200px">
-                    <h:outputText value="#{medicina.nombre}" />
-                </p:column>
-                    
-                <p:column headerText="#{msg['Descripcion']}" style="width:100px">
-                    <h:outputText value="#{medicina.descripcion}" />
-                </p:column>
-
-            </p:dataTable>  
-                
-        </h:form>      
-    </div>
-
+        
+        <p:dataTable id="medicinaTable" var="medicina" value="#{Medicamento.all}" tableStyle="width:auto">
+            <p:column headerText="#{msg['nombre_medicina']}" style="width:200px">
+                <h:outputText value="#{medicina.nombre}" />
+            </p:column>
+            <p:column headerText="#{msg['Descripcion']}" style="width:100px">
+                <h:outputText value="#{medicina.descripcion}" />
+            </p:column>
+        </p:dataTable>  
+        
+    </h:form>
 </html>

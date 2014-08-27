@@ -39,10 +39,10 @@ public class MedicamentoLoteView {
     private MedicamentoLote lote = new MedicamentoLote();
     private int selectedMedicamento, selectedMedicamentoDev, selectedLoteDev;
     private int selectedOrder;
-    private List<MedicamentoLote> all = new ArrayList<MedicamentoLote>();
-    private List<MedicamentoLote> allLotes = new ArrayList<MedicamentoLote>();
-    private List<MedicamentoLote> allCaducado = new ArrayList<MedicamentoLote>();
-    private List<MedicamentoLote> allStock = new ArrayList<MedicamentoLote>();
+    private List<MedicamentoLote> all = new ArrayList<>();
+    private List<MedicamentoLote> allLotes = new ArrayList<>();
+    private List<MedicamentoLote> allCaducado = new ArrayList<>();
+    private List<MedicamentoLote> allStock = new ArrayList<>();
     /**
      * Creates a new instance of MedicamentoLoteView
      */
@@ -53,11 +53,11 @@ public class MedicamentoLoteView {
     @PostConstruct
     public void init() {
         all.addAll(allFromDB());
-        Collections.sort(allStock,new Comparator<MedicamentoLote>(){
-                     @Override
-                     public int compare(MedicamentoLote m1, MedicamentoLote m2){
-                         return m1.getMedicamento().getNombre().compareTo(m2.getMedicamento().getNombre());
-                     }});
+//        Collections.sort(allStock,new Comparator<MedicamentoLote>(){
+//                     @Override
+//                     public int compare(MedicamentoLote m1, MedicamentoLote m2){
+//                         return m1.getMedicamento().getNombre().compareTo(m2.getMedicamento().getNombre());
+//                     }});
         UpdateMedicamentosCaducados();
     }
     
@@ -100,18 +100,27 @@ public class MedicamentoLoteView {
         if (selectedMedicamentoDev != -1) {
             allLotes.removeAll(all);
             allLotes.addAll(medicamentoLoteFacade.getLotesbyMedicamento(selectedMedicamentoDev));
+            Collections.sort(allLotes,new Comparator<MedicamentoLote>(){
+                @Override
+                 public int compare(MedicamentoLote m1, MedicamentoLote m2){
+                     int temp;
+                     if (m1.getCodigoLote() < m2.getCodigoLote()){temp = -1;}
+                     else if (m1.getCodigoLote() > m2.getCodigoLote()){temp = 1;}
+                     else {temp = 0;}
+                     return temp;
+                 }});
             return allLotes;
         } else {
-            return new ArrayList<MedicamentoLote>();
+            return new ArrayList<>();
         }
 
-        //return allLotes;
     }
     
     public List<MedicamentoLote> getAllCaducado() {
-
-        allCaducado.addAll(medicamentoLoteFacade.getLotesbyEstado("c"));
-        allCaducado.addAll(medicamentoLoteFacade.getLotesbyEstado("b"));
+        if(allCaducado.isEmpty()){
+            allCaducado.addAll(medicamentoLoteFacade.getLotesbyEstado("c"));
+            allCaducado.addAll(medicamentoLoteFacade.getLotesbyEstado("b"));
+        }
         return allCaducado;
     }
     
@@ -130,6 +139,15 @@ public class MedicamentoLoteView {
     public void UpdateAllLotes(){
         this.allLotes.clear();
         this.allLotes.addAll(this.medicamentoLoteFacade.getLotesbyMedicamento(getSelectedMedicamentoDev()));
+        Collections.sort(allLotes,new Comparator<MedicamentoLote>(){
+                @Override
+                 public int compare(MedicamentoLote m1, MedicamentoLote m2){
+                     int temp;
+                     if (m1.getCodigoLote() < m2.getCodigoLote()){temp = -1;}
+                     else if (m1.getCodigoLote() > m2.getCodigoLote()){temp = 1;}
+                     else {temp = 0;}
+                     return temp;
+                 }});
     }
     
     public void OrderAllFecha(){
@@ -193,12 +211,13 @@ public class MedicamentoLoteView {
     
     public void Save(){
         try{
-            long newCodigo = this.medicamentoLoteFacade.getNewCodigoLote(selectedMedicamento);
-            this.lote.setCodigoLote(newCodigo);
+            this.lote.setCodigoLote(medicamentoLoteFacade.getNewCodigoLote(selectedMedicamento));
             this.lote.setEstado("d");
             this.lote.setMedicamento(new Medicamento(selectedMedicamento));
             
             this.medicamentoLoteFacade.SaveLote(lote);
+            allStock.add(lote);
+            all.add(lote);
             
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
@@ -212,7 +231,10 @@ public class MedicamentoLoteView {
             MedicamentoLote loteToReturn = this.medicamentoLoteFacade.find(id);
             this.medicamentoLoteFacade.updateEstadoA("b", loteToReturn.getId());
             //this.medicamentoLoteFacade.remove(loteToReturn);
+            allStock.remove(loteToReturn);
             this.all.remove(loteToReturn);
+            allLotes.remove(loteToReturn);
+            allCaducado.add(loteToReturn);
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error del Sistema", "Contacte a soporte tecnico para gestionar este error. \n "+e.getMessage()));
