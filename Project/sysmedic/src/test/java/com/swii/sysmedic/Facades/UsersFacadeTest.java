@@ -20,6 +20,30 @@ import org.junit.Test;
  * @author LUCAS
  */
 public class UsersFacadeTest {
+    
+    //    /**
+//     * Test of GetUser method, of class UsersFacade.
+//     */
+    @Test
+    public void testGetUser() throws Exception {
+        String nickName = "gchavez";
+        
+        Map<String, Object> props = new HashMap<String, Object>();
+        
+        props.put(EJBContainer.MODULES, new File("target/classes"));
+        props.put("org.glassfish.ejb.embedded.glassfish.configuration.file", Config.getInstance().getProperty("server.config.file"));
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(props);
+        
+        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
+        System.out.println("Inserting entities...");
+        
+        String expResultName = "Gabriel";
+        String resultName = instance.GetUser(nickName).getName();
+        assertEquals(expResultName, resultName);
+        container.close();
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("Data cannot be retrieved.");
+    }
 //
 //    public UsersFacadeTest() {
 //    }
@@ -327,29 +351,7 @@ public class UsersFacadeTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of GetUser method, of class UsersFacade.
-//     */
-    @Test
-    public void testGetUser() throws Exception {
-        String nickName = "gchavez";
-        
-        Map<String, Object> props = new HashMap<String, Object>();
-        
-        props.put(EJBContainer.MODULES, new File("target/classes"));
-        props.put("org.glassfish.ejb.embedded.glassfish.configuration.file", Config.getInstance().getProperty("server.config.file"));
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(props);
-        
-        UsersFacade instance = (UsersFacade)container.getContext().lookup("java:global/classes/UsersFacade");
-        System.out.println("Inserting entities...");
-        
-        String expResultName = "Gabriel";
-        String resultName = instance.GetUser(nickName).getName();
-        assertEquals(expResultName, resultName);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("Data cannot be retrieved.");
-    }
+
 //
 //    /**
 //     * Test of LoadCompleteUser method, of class UsersFacade.
