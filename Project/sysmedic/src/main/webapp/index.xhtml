@@ -132,8 +132,8 @@
                     <p:panel id="mainMenu" header="#{msg['Opciones']}"  >
                         <p:menu style="width:190px">
                             
-                            <p:menuitem  value="#{msg['Agenda']}" url="#" onclick="mostrarAgenda()"/>
-                            <p:menuitem value="#{msg['Facturacion']}" url="#" onclick="mostrarFacturacion()"/>
+                            <p:menuitem  value="#{msg['Agenda']}" url="#" id="opAgenda"  onclick="mostrarAgenda()"/>
+                            <p:menuitem value="#{msg['Facturacion']}" url="#" id="opFacturacion" onclick="mostrarFacturacion()"/>
                             <!--p:menuitem value="#{msg['Facturacion']}" url="#"  id="opFacturacion" onclick="mostrarFacturacion()"/-->
                             <p:menuitem value="#{msg['Inventario']}" url="#" id="opInventario" onclick="mostrarInventario()"/>
                             <p:menuitem value="#{msg['Usuarios']}" url="#" id="opUsuarios" onclick="mostrarUsuarios()"/>
