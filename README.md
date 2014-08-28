@@ -67,7 +67,7 @@ Las herramientas de desarrollo que se estan utilizando son:
 			COnsidere que el path de ejemplo es en donde reside el archivo sysmedic_database.sql que 
 			contiene los comandos necesarios y los datos para crear la base.
 		
-		1.5 Desde Pg Admin ahora se refleja el nuevo schema en la base de datos SysMedic
+		1.5 Desde Pg Admin ahora se refleja el nuevo schema en la base de datos SysMedic y ya puede ser utilizada por la aplicacion.
 			
 	
 2. 	Crear el JDBC para la aplicacion, para ello se debe crear primero un 
@@ -106,13 +106,23 @@ Las herramientas de desarrollo que se estan utilizando son:
 
 		server.https.name = https://localhost:8181
 		server.database.name = localhost:5432
+		server.config.file = C:/Users/LUCAS/AppData/Roaming/NetBeans/8.0/config/GF_4.0/domain1/config/domain.xml
 
 	Sin embargo, considerar que este URL de  "server.https.name" debe ser donde reside el servicio https
 	en su servidor Glassfish ya que puede tener otro puerto asociado distinto al
 	mostrado en este ejemplo. Lo mismo para "server.database.name" donde reside el servicio
-	de postgres de donde se va a acceder a la base de datos, deberia ser el mismo se cambio en el paso 3.
+	de postgres de donde se va a acceder a la base de datos, deberia ser el mismo que se cambio en el paso 3.
 	
-	Estas propiedades son utilizadas en los archivos de configuracion de Srping Security, por lo tanto al
+	El parametro "server.config.file" es el lugar donde reside el archivo domain.xml que usa Netbeans para 
+	la configuracion de Glassfish y sirve para ser especificado en los tests de EJBs, es IMPORTANTE que este path
+	este con slash (/) y NO con backslash (\) para que sea tomado correctamente en los tests, ademas este path
+	no necesariamente es el mismo archivo que se encuentra en la carpeta de instalacion de Glassfish y eso se puede comprobar
+	si vamos en Netbenas al menu Tools -> Servers y existe un parametro llamado "Domains Folder", si ese es el caso es alli donde
+	esta el domain.xml que se esta usando, caso contrario si este parametro no se encuentra y solo esta la referencia a la
+	instalacion podemos estar seguros que el archivo de configuarion que se esta usando es el de la carpeta de instalacion
+	de Glassfish.
+	
+	Las primeras dos propiedades son utilizadas en los archivos de configuracion de Spring Security, por lo tanto al
 	cambiarlas se esta configurando indirectamente a Spring que ya tiene integrada su comunicacion con CAS.
 	El siguiente paso es importante.
 	
@@ -121,9 +131,10 @@ Las herramientas de desarrollo que se estan utilizando son:
 	server.database.name sean tomados en cuenta en los archivos de 
 	configuraciones respectivos ya que un feature de Maven permite esto.
 	
-10.	Ahora el proyecto ya puede ser ejecutado y se abrira el explorador mostrando
+10.	Ahora el proyecto ya puede ser desplegado y ejecutado, se abrira el explorador mostrando
 	el servicio de autenticacion, ahora se puede ingresar a la aplicacion
-	con los datos de prueba de la base de datos.
+	con los datos de prueba de la base de datos. Puede ingresar con usuario "admin_user" y contraseña "admin_password"
+	para probar la aplicacion como administrador.
 			
 	
 
