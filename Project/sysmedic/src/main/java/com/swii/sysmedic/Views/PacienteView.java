@@ -130,6 +130,7 @@ public class PacienteView {
         try{
             Paciente originalpaciente = this.pacienteFacade.UpdateWithConstraints(paciente);
             int index = this.all.indexOf(originalpaciente);
+            this.all.get(index).set(originalpaciente);
             this.Clear();
         }catch(Exception e){
             FacesContext.getCurrentInstance().validationFailed();

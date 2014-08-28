@@ -34,10 +34,10 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         super(Paciente.class);
     }
     
-    @Transactional
+    
     public Paciente UpdateWithConstraints(Paciente paciente){
         Paciente originalPaciente = paciente;
-        
+        this.edit(paciente);
         return originalPaciente;
     }
     

@@ -49,7 +49,7 @@
             
             <p:column headerText="#{msg['Direccion']}" style="width:100px">
                 <h:outputText value="#{paciente.direcion}" />
-            </p:column>
+            </p:column> 
             
             <p:column headerText="#{msg['Acciones']}" style="width:250px">
                 <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
