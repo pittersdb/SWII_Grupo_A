@@ -17,24 +17,24 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     <script src="js/Consultas.js" type="text/javascript" ></script>     
     
-    <h:form id = "frmMediciones">
+    <h:form id = "#{idFormMediciones}">
         <p:growl id="messages"  showDetail="true"/> 
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="peso" value="#{msg['Peso']}(lb): " />
-            <p:inputText id="peso" value ="#{Turno.current.cita.consulta.peso}" required="true" label="peso" onkeypress=" return isNumberKey(event); " />
+            <p:inputText id="peso" value ="#{Turno.turno.cita.consulta.peso}" required="true" label="peso" onkeypress=" return isNumberKey(event); " />
                 
             <h:outputLabel for="estatura" value="#{msg['Estatura']}(m): " />
-            <p:inputText id="estatura" value ="#{Turno.current.cita.consulta.talla}" required="true" label="estatura" />
+            <p:inputText id="estatura" value ="#{Turno.turno.cita.consulta.talla}" required="true" label="estatura" />
                 
             <h:outputLabel for="glucosa" value="#{msg['Glucosa']}(mg/dl): " />
-            <p:inputText id="glucosa" value ="#{Turno.current.cita.consulta.glucosa}" required="true" label="glucosa" />
+            <p:inputText id="glucosa" value ="#{Turno.turno.cita.consulta.glucosa}" required="true" label="glucosa" />
                 
             <h:outputLabel for="presion_arterial" value="#{msg['presion_arterial']}(mmHg): " />
-            <p:inputText id="presion_arterial" value ="#{Turno.current.cita.consulta.presionArterial}"  required="true" label="presion_arterial" />
+            <p:inputText id="presion_arterial" value ="#{Turno.turno.cita.consulta.presionArterial}"  required="true" label="presion_arterial" />
         </h:panelGrid>
             
         <h:panelGrid columns="1" cellpadding="5">
-            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Consulta.SaveMediciones(Turno.current)}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('dlgMedicionesPacientes').hide(); }"  > 
+            <p:commandButton id="btnGuardar" value="#{msg['Guardar']}"   actionListener="#{Consulta.SaveMediciones(Turno.turno)}" update="messages" oncomplete="if (args &amp;&amp; !args.validationFailed){PF('confirmDlg').show(); PF('#{dialogMediciones}').hide(); }"  > 
                 <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" /> 
             </p:commandButton>         
         </h:panelGrid>

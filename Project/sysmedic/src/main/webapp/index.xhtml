@@ -15,8 +15,11 @@
     <!-- Prime UI -->
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
-
+    
+   
+    
     <f:view contentType="text/html">
+         
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -43,6 +46,10 @@
                     function mostrarPacientes() {
                         ocultarTodo();
                         document.getElementById("panelPacientes").style.display = "block";
+                    }
+                    
+                    function ocultarPacientes() {
+                        document.getElementById("panelPacientes").style.display = "none";
                     }
 
                     function mostrarAgenda() {
@@ -87,6 +94,22 @@
 
                     function ocultarInternalPanelHistorial() {
                         document.getElementById("panelHistorialForAgenda").style.display = "none";
+                    }
+                    
+                     function mostrarInternalPanelPacientes() {
+                        document.getElementById("panelInternalPacientes").style.display = "block";
+                    }
+
+                    function ocultarInternalPanelPacientes() {
+                        document.getElementById("panelInternalPacientes").style.display = "none";
+                    }
+                    
+                    function mostrarInternalPanelHistorialFromPacientes() {
+                        document.getElementById("panelHistorialForPacientes").style.display = "block";                        
+                    }
+
+                    function ocultarInternalPanelHistoriaFromPacientesl() {
+                        document.getElementById("panelHistorialForPacientes").style.display = "none";
                     }
 
                     function ocultarTodo() {
@@ -296,6 +319,7 @@
     <h:link outcome="/tarifario/List" value="Show All Tarifario Items"/>
     <br />
     <h:link outcome="/users/List" value="Show All Users Items"/>-->
+<ui:include src="utilities.xhtml" />
 </h:body>
 
 

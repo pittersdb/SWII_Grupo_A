@@ -5,9 +5,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:sec="http://www.springframework.org/security/tags"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-          
-          
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+        
+        
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
     <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
@@ -51,11 +51,17 @@
         </p:dialog>
         <p:tabView id= "tabViewAgenda">
             
+            
+            
             <p:tab title="#{msg['Atencion_Paciente']}">       
-                <p:dialog header="#{msg['Mediciones']}" widgetVar="dlgMedicionesPacientes" minHeight="40" draggable="false" resizable="false">
-                    <ui:include src="medicionesPaciente.xhtml" />
+                
+                <p:dialog header="#{msg['Mediciones']}" widgetVar="dlgMedicionesCurrent" minHeight="40" draggable="false" resizable="false">
+                    <ui:include src="medicionesPaciente.xhtml" > 
+                        <ui:param name="idFormMediciones" value="frmMedicionesCurrent" />
+                        <ui:param name="dialogMediciones" value="dlgMedicionesCurrent" />
+                    </ui:include>
                 </p:dialog> 
-                    
+                
                 <p:dialog header="#{msg['Proxima_Cita']}" widgetVar="dlgProximaCita" minHeight="40" draggable="false" resizable="false">
                     <ui:include src="nuevaCita.xhtml" > 
                         <ui:param name="idFormCita" value="frmProximaCita" />
@@ -92,7 +98,7 @@
                                         <p:confirm header="#{msg['Decartar_Turno_Continuar']}" message="#{msg['Esta_segura_de_esta_accion']}. #{msg['Decartar_Turno_Continuar']} ?" icon="ui-icon-alert" />                                          
                                     </p:commandButton>  
                                     <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="2. #{msg['Iniciar_Consulta']}" style=" float: right; font-size: 12px !important; color: darkblue; border-color:  darkcyan" actionListener="#{Consulta.StartConsulta(Turno.current)}" immediate="true" update="messages, :tabViewAgenda:panelPaciente" oncomplete="if (args &amp;&amp; !args.validationFailed){ PF('panelConsulta').toggle();}"/>                                                                          
-                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="1. #{msg['Agregar_Mediciones']}" style=" float: right; font-size: 12px !important; color: darkolivegreen; border-color:  darkseagreen" actionListener="#" update=":tabViewAgenda:frmMediciones" oncomplete="PF('dlgMedicionesPacientes').show();" />                                    
+                                    <p:commandButton rendered= "#{!Consulta.isReadyToStart(Turno.current)}" value="1. #{msg['Agregar_Mediciones']}" style=" float: right; font-size: 12px !important; color: darkolivegreen; border-color:  darkseagreen" actionListener="#{Turno.setTurno(Turno.current)}" update=":tabViewAgenda:frmMedicionesCurrent" oncomplete="PF('dlgMedicionesCurrent').show();" />                                    
                                 </f:facet>                           
                                     
                                     
@@ -110,8 +116,8 @@
                                         <h:panelGrid columns="1" cellpadding="1">   
                                             <h:outputLabel value="#{msg['Acciones']}: " style=" color : cadetblue ; font-size: 1.1em"/>
                                             <p:commandButton id="btnInfoPaciente" value="#{msg['Ver_Historial_Clinico']}" actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup) }" action="#{Consulta.setConsulta(null)}" update=":frmHistorialFromConsulta" oncomplete="mostrarInternalPanelHistorial(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
-                                            <p:commandButton id="btnMediciones" value="#{msg['Agregar_o_ver_Mediciones']}" type="button" style=" font-size: 12px !important;" onclick="PF('dlgMedicionesPacientes').show();" />
-                                            <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" actionListener="#" update=":frmConsulta" oncomplete="mostrarConsulta(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
+                                            <p:commandButton id="btnMediciones" value="#{msg['Agregar_o_ver_Mediciones']}" style=" font-size: 12px !important;" actionListener="#{Turno.setTurno(Turno.current)}" update=":tabViewAgenda:frmMedicionesCurrent" oncomplete="PF('dlgMedicionesCurrent').show();" />                                    
+                                            <p:commandButton id="btnAtencion" value="#{msg['Atender_Consulta']}" actionListener="#{Turno.setTurno(Turno.current)}" update=":frmConsulta" oncomplete="mostrarConsulta(); ocultarInternalPanelAgenda();" style=" font-size: 12px !important;" />
                                             <p:commandButton id="btnProgramarCita" value="#{msg['Programar_Proxima_Cita']}" style=" font-size: 12px !important;" onclick="PF('dlgProximaCita').show();" />
                                                 
                                             <p:commandButton id="btnContinuar"  value="#{msg['Finalizar_y_pasar_al_siguiente']}" actionListener="#{Turno.FinishAndNext()}" oncomplete="" update=":tabViewAgenda:frmTurnosHoy:messages, :tabViewAgenda:frmTurnosHoy:turnosTable,  :tabViewAgenda:panelPaciente" style="font-size: 12px !important;">
@@ -145,6 +151,12 @@
                 
             <p:tab title="#{msg['Assignacion_Turnos']}">      
                 
+                <p:dialog header="#{msg['Mediciones']}" widgetVar="dlgMedicionesPacientes" minHeight="40" draggable="false" resizable="false">
+                    <ui:include src="medicionesPaciente.xhtml" > 
+                        <ui:param name="idFormMediciones" value="frmMedicionesPacientes" />
+                        <ui:param name="dialogMediciones" value="dlgMedicionesPacientes" />
+                    </ui:include>
+                </p:dialog> 
                 
                 <p:dialog id="dglSeleccionarCita" header="#{msg['Citas_programadas_para_hoy']} Dr(a). #{Turno.selectedMedico.users.name} #{Turno.selectedMedico.users.apellidos}" widgetVar="dlgSeleccionarCita" minHeight="40" draggable="false" resizable="false">
                     <ui:include src="seleccionarCita.xhtml" />
@@ -191,7 +203,7 @@
                                     <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                                 </p:commandButton>  
                                     
-                                    
+                                <p:commandButton value="#{msg['Agregar_Mediciones']}"  actionListener="#{Turno.setTurno(turno)}" update=":tabViewAgenda:frmMedicionesPacientes" oncomplete="PF('dlgMedicionesPacientes').show();" style=" font-size: 10px !important; color: darkolivegreen; border-color:  darkseagreen" />
                             </p:column>
                                 
                         </p:dataTable>
@@ -276,7 +288,7 @@
         <h:panelGroup>
             <ui:include src="historial.xhtml" > 
                 <ui:param name="frmHistorial" value="frmHistorialFromConsulta" />     
-                <ui:param name="paciente" value="#{Turno.current.cita.paciente}" />                        
+                <ui:param name="pacienteHistorial" value="#{Turno.current.cita.paciente}" />                        
             </ui:include>
         </h:panelGroup>
         <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromHistorial" type="button" onclick="ocultarInternalPanelHistorial(); mostrarInternalPanelAgenda(); "/>             

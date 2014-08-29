@@ -42,7 +42,7 @@ public class UsersInterfaceTest  {
         
         try{
             
-            Selenium selBrowser = new DefaultSelenium("localhost", 4444, "*firefox", appServerURL);
+            Selenium selBrowser = new DefaultSelenium("localhost", 4444, "*googlechrome", appServerURL);
             selBrowser.start();
             
             selBrowser.setSpeed("2000");
@@ -50,9 +50,9 @@ public class UsersInterfaceTest  {
             selBrowser.type("username", "gchavez");
             selBrowser.type("password", "mypassword1");
             selBrowser.click("//input[@name='submit']");
-            selBrowser.setSpeed("5000");
+            selBrowser.setSpeed("3000");
             selBrowser.click("//a[@onclick='mostrarUsuarios()']");
-            selBrowser.setSpeed("2000");
+            selBrowser.setSpeed("1000");
             selBrowser.click("//button[@id='formUser:createUsuarioButton']");
             
             selBrowser.type("//input[@id='frmNuevoUsuario:nombre']", "Katherine");
@@ -65,12 +65,12 @@ public class UsersInterfaceTest  {
             
             selBrowser.click("//button[@id='frmNuevoUsuario:btnGuardar']");
             
+            selBrowser.setSpeed("2000");
+            
+            
+            selBrowser.click("//button[@id='yesButton']");        
+            
             selBrowser.setSpeed("3000");
-            
-            selBrowser.click("//button[@id='frmModificarPaciente:j_idt560']");
-            selBrowser.click("//button[@id='frmModificarPaciente:j_idt564']");            
-            
-            selBrowser.setSpeed("5000");
             selBrowser.close();
             
             selBrowser.stop();

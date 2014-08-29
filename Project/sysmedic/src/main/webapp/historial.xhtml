@@ -24,28 +24,28 @@
                 
                 <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="inputHistorial" value="#{msg['Historial_N']}: "></p:outputLabel>
-                    <p:inputText id="inputHistorial" value="#{paciente.id}" disabled="true" size="5"/>                    
+                    <p:inputText id="inputHistorial" value="#{pacienteHistorial.id}" disabled="true" size="5"/>                    
                     
                     <p:outputLabel for="ci" value="#{msg['Cedula']}:" />
-                    <p:inputText value="#{paciente.ci}" id="ci" disabled="true" label="ci" maxlength="10" readonly="true" size="11" />
+                    <p:inputText value="#{pacienteHistorial.ci}" id="ci" disabled="true" label="ci" maxlength="10" readonly="true" size="11" />
                     
                     <p:outputLabel for="nombres" value="#{msg['Nombre']}:" />
-                    <p:inputText value="#{paciente.nombres}" id="nombres" disabled="true" label="nombres" readonly="true" />
+                    <p:inputText value="#{pacienteHistorial.nombres}" id="nombres" disabled="true" label="nombres" readonly="true" />
                     
                     <p:outputLabel for="apellidos" value="#{msg['Apellido']}:" />
-                    <p:inputText value="#{paciente.apellidos}" id="apellidos" disabled="true" label="apellidos" readonly="true" />
+                    <p:inputText value="#{pacienteHistorial.apellidos}" id="apellidos" disabled="true" label="apellidos" readonly="true" />
                     
                     <p:outputLabel for="inputFechaNacimiento" value="#{msg['fecha_nacimiento']}: "></p:outputLabel>
-                    <p:calendar id="inputFechaNacimiento" value="#{paciente.fechaNacimiento}" readonly="true"  disabled="true"/>                    
+                    <p:calendar id="inputFechaNacimiento" value="#{pacienteHistorial.fechaNacimiento}" readonly="true"  disabled="true"/>                    
                     
                     <p:outputLabel for="sexo" value="#{msg['Sexo']}:" />        
-                    <p:inputText value="#{paciente.sexo}" id="sexo" disabled="true" label="ci" maxlength="5" readonly="true"  size="10" />
+                    <p:inputText value="#{pacienteHistorial.sexo}" id="sexo" disabled="true" label="ci" maxlength="5" readonly="true"  size="10" />
                     
                     <p:outputLabel for="lugar_procedencia" value="#{msg['lugar_procedencia']}:" />
-                    <p:inputText value="#{paciente.lugarProcedencia}" id="lugar_procedencia" disabled="true" label="lugar_procedencia" readonly="true" size="30" />
+                    <p:inputText value="#{pacienteHistorial.lugarProcedencia}" id="lugar_procedencia" disabled="true" label="lugar_procedencia" readonly="true" size="30" />
                     
                     <p:outputLabel for="direccion" value="#{msg['Direccion']}:" />
-                    <p:inputText value="#{paciente.direcion}" id="direccion" disabled="true" label="direccion" readonly="true" size="40" />               
+                    <p:inputText value="#{pacienteHistorial.direcion}" id="direccion" disabled="true" label="direccion" readonly="true" size="40" />               
                     
                 </h:panelGrid>            
                 
@@ -164,7 +164,7 @@
             
             <p:tab title="#{msg['Consultas']}">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="consulta" value="#{Paciente.getConsultas(paciente)}">
+                    <p:dataTable var="consulta" value="#{Paciente.getConsultas(pacienteHistorial)}">
                         <p:column headerText="Cod.">
                             <h:outputText value="#{consulta.id}" />
                         </p:column>
@@ -187,7 +187,7 @@
                             <h:panelGrid columns="1" cellpadding="4">
                                 <h:panelGrid columns="2" cellpadding="4">
                                     <h:outputLabel value="#{msg['Paciente']}: " style=" color : cadetblue ; font-size: 1.1em"/>
-                                    <h:outputLabel  value="#{paciente.nombres} #{paciente.apellidos}" />
+                                    <h:outputLabel  value="#{pacienteHistorial.nombres} #{pacienteHistorial.apellidos}" />
                                 </h:panelGrid>
                                 
                                 <h:panelGrid columns="1" cellpadding="1">

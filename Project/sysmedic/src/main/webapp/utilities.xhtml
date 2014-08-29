@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
+    
+    
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../jquery_ui_redmond/development-bundle/themes/cupertino/jquery.ui.theme.css" />
+    <script type="text/javascript" src="../js/jquery-1.9.0.min.js" ></script>
+    <script type="text/javascript" src="../jquery_ui_redmond/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <!-- Prime UI -->
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
+    <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
+    
+    <p:confirmDialog id="confirmGlobalDialog" showEffect="fade" global="true" >
+        <p:commandButton id = "yesButton" type="button" value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton id = "noButton" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+    </p:confirmDialog>
+    
+    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
+        <f:facet name="message">
+            <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
+        </f:facet>
+        <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
+                         icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
+    </p:confirmDialog>
+    
+</html>
+

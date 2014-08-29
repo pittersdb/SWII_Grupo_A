@@ -14,59 +14,61 @@
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.js"></script> 
     <script type="text/javascript" src="../prime-ui-0.7/production/prime-ui-0.7-min.css"></script>
     
-    
-    <h:form id="formPaciente"> 
-        
-        <p:growl id="msgs" showDetail="true" />        
-        <h2>#{msg['lista_pacientes']}</h2>
-        <p:commandButton value="#{msg['crear_nuevo_paciente']}" actionListener="#{Paciente.InstancePaciente()}" onclick="PF('dlgNuevoPaciente').show();" />
-        <br/>
-        <br/>
-        <p:dataTable id="pacienteTable" var="paciente" value="#{Paciente.all}" tableStyle="width:auto">
-            <p:column headerText="#{msg['Nombre']}" style="width:100px">
-                <h:outputText value="#{paciente.nombres}" />
-            </p:column> 
+    <p:panel id="panelInternalPacientes" style="display: block;">
+        <h:form id="formPaciente"> 
             
-            <p:column headerText="#{msg['Apellido']}" style="width:100px">
-                <h:outputText value="#{paciente.apellidos}" />
-            </p:column>
-            
-            <p:column headerText="#{msg['Cedula']}" style="width:100px">
-                <h:outputText value="#{paciente.ci}" />
-            </p:column>
-            
-            <p:column headerText="#{msg['fecha_nacimiento']}" style="width:100px">
-                <h:outputText value="#{paciente.fechaNacimiento}" />
-            </p:column>
-            
-            <p:column headerText="#{msg['Sexo']}" style="width:100px">
-                <h:outputText value="#{paciente.sexo}" />
-            </p:column>                                
-            
-            <p:column headerText="#{msg['lugar_procedencia']}" style="width:100px">
-                <h:outputText value="#{paciente.lugarProcedencia}" />
-            </p:column>
-            
-            <p:column headerText="#{msg['Direccion']}" style="width:100px">
-                <h:outputText value="#{paciente.direcion}" />
-            </p:column> 
-            
-            <p:column headerText="#{msg['Acciones']}" style="width:250px">
-                <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
-                <p:commandButton value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
-                    <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
-                </p:commandButton>   
-                <p:confirmDialog global="true" showEffect="fade" >                  
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                </p:confirmDialog>
+            <p:growl id="msgs" showDetail="true" />        
+            <h2>#{msg['lista_pacientes']}</h2>
+            <p:commandButton value="#{msg['crear_nuevo_paciente']}" actionListener="#{Paciente.InstancePaciente()}" onclick="PF('dlgNuevoPaciente').show();" />
+            <br/>
+            <br/>
+            <p:dataTable id="pacienteTable" var="paciente" value="#{Paciente.all}" tableStyle="width:auto">
+                <p:column headerText="#{msg['Nombre']}" style="width:100px">
+                    <h:outputText value="#{paciente.nombres}" />
+                </p:column> 
                 
-            </p:column> 
+                <p:column headerText="#{msg['Apellido']}" style="width:100px">
+                    <h:outputText value="#{paciente.apellidos}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['Cedula']}" style="width:100px">
+                    <h:outputText value="#{paciente.ci}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['fecha_nacimiento']} (dd/mm/aaaa)" style="width:100px">
+                    <h:outputText value="#{paciente.fechaNacimiento}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="#{msg['Sexo']}" style="width:100px">
+                    <h:outputText value="#{paciente.sexo}" />
+                </p:column>                                
+                
+                <p:column headerText="#{msg['lugar_procedencia']}" style="width:100px">
+                    <h:outputText value="#{paciente.lugarProcedencia}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['Direccion']}" style="width:100px">
+                    <h:outputText value="#{paciente.direcion}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['Acciones']}" style="width:250px">
+                    <p:commandButton value="#{msg['Modificar']}"  actionListener="#{Paciente.LoadPaciente(paciente.ci)}" oncomplete="PF('dlgEditarPaciente').show();"  immediate="true" update=":formPaciente:msgs, :frmModificarPaciente" style="font-size: 10px !important;"/>
+                    <p:commandButton rendered="false" value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
+                        <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
+                    </p:commandButton>   
+                    <!--                <p:confirmDialog global="true" showEffect="fade" >                  
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
+                                    </p:confirmDialog>-->
+                    <p:commandButton value="#{msg['Ver_Historial_Clinico']}"  actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup) }" action="#{Paciente.setPaciente(paciente)}" update=":frmHistorialFromPacientes" oncomplete="ocultarInternalPanelPacientes(); mostrarInternalPanelHistorialFromPacientes(); " style=" font-size: 10px !important; color: darkolivegreen; border-color:  darkseagreen" />                
+                </p:column> 
+                
+            </p:dataTable>
             
-        </p:dataTable>
-        
-    </h:form>   
-    
+        </h:form>   
+    </p:panel>
     <!-- Pop up para nuevo paciente-->
     
     <p:dialog header="#{msg['nuevo_paciente']}" widgetVar="dlgNuevoPaciente" minHeight="40" draggable="false" resizable="false" >
@@ -85,6 +87,16 @@
             <ui:param name="actionDB" value="update" />
         </ui:include>
     </p:dialog>
+    
+    <p:panel id="panelHistorialForPacientes" header="#{msg['Historial']}: #{Paciente.paciente.nombres} #{Paciente.paciente.apellidos}" style="display: none;">
+        <h:panelGroup>
+            <ui:include src="historial.xhtml" > 
+                <ui:param name="frmHistorial" value="frmHistorialFromPacientes" />     
+                <ui:param name="pacienteHistorial" value="#{Paciente.paciente}" />                        
+            </ui:include>
+        </h:panelGroup>
+        <p:commandButton value="#{msg['Volver_Pacientes']}" id="btnVolverATurnosFromPaciente" type="button" onclick="ocultarInternalPanelHistoriaFromPacientesl(); mostrarInternalPanelPacientes(); "/>             
+    </p:panel>
     
 </html>
 
