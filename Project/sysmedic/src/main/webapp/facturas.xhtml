@@ -42,13 +42,13 @@
                         <h:panelGrid columns="1" cellpadding="4">
                             <h:panelGrid columns="2" cellpadding="4">
                                 <h:outputLabel for="numero" value="#{msg['No_Factura']}:" />
-                                <h:outputLabel value="#{Factura.numeroFactura}" />
+                                <h:outputLabel id="numero" value="#{Factura.numeroFactura}" />
 
                                 <h:outputLabel for="autorizacionSRI" value="#{msg['Autorizacion_SRI']}:" />
-                                <h:outputLabel value="#{Factura.factura.fechaAutorizacionSri}" />
+                                <h:outputLabel id="autorizacionSRI" value="#{Factura.factura.fechaAutorizacionSri}" />
 
                                 <h:outputLabel for="caducidadSRI" value="#{msg['Caducidad_SRI']}:" />
-                                <h:outputLabel value="#{Factura.factura.fechaCaducidadSri}" />
+                                <h:outputLabel id="caducidadSRI" value="#{Factura.factura.fechaCaducidadSri}" />
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid columns="1" cellpadding="4">
@@ -128,16 +128,16 @@
                     <h:panelGrid columns="1" cellpadding="4">
                         <h:panelGrid columns="2" cellpadding="4">
                             <h:outputLabel for="subTotal" value="#{msg['SubTotal']}" />
-                            <h:outputText value="#" />
+                            <h:outputText id="subTotal" value="#" />
 
                             <h:outputLabel for="iva" value="IVA 12% :" />
-                            <h:inputText value="#{Factura.factura.iva}" />
+                            <h:inputText id="iva" value="#{Factura.factura.iva}" />
 
                             <h:outputLabel for="descuento" value="#{msg['Descuento']}:" />
-                            <h:inputText value="#{Factura.factura.descuentoTotal}" />
+                            <h:inputText id="descuento" value="#{Factura.factura.descuentoTotal}" />
 
                             <h:outputLabel for="total" value="#{msg['Total']}:" />
-                            <h:inputText value="#{Factura.factura.total}" />
+                            <h:inputText id="total" value="#{Factura.factura.total}" />
 
                             <p:outputLabel for="formaPago" value="#{msg['forma_pago']}:" />
                             <p:selectOneMenu id="formaPago" value="#{Factura.factura.formaPago}" >
