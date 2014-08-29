@@ -288,7 +288,7 @@
         <h:panelGroup>
             <ui:include src="historial.xhtml" > 
                 <ui:param name="frmHistorial" value="frmHistorialFromConsulta" />     
-                <ui:param name="paciente" value="#{Turno.current.cita.paciente}" />                        
+                <ui:param name="pacienteHistorial" value="#{Turno.current.cita.paciente}" />                        
             </ui:include>
         </h:panelGroup>
         <p:commandButton value="#{msg['Volver_a_Turnos']}" id="btnVolverATurnosFromHistorial" type="button" onclick="ocultarInternalPanelHistorial(); mostrarInternalPanelAgenda(); "/>             

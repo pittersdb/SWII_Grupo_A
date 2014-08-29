@@ -47,6 +47,10 @@
                         ocultarTodo();
                         document.getElementById("panelPacientes").style.display = "block";
                     }
+                    
+                    function ocultarPacientes() {
+                        document.getElementById("panelPacientes").style.display = "none";
+                    }
 
                     function mostrarAgenda() {
                         ocultarTodo();
@@ -90,6 +94,22 @@
 
                     function ocultarInternalPanelHistorial() {
                         document.getElementById("panelHistorialForAgenda").style.display = "none";
+                    }
+                    
+                     function mostrarInternalPanelPacientes() {
+                        document.getElementById("panelInternalPacientes").style.display = "block";
+                    }
+
+                    function ocultarInternalPanelPacientes() {
+                        document.getElementById("panelInternalPacientes").style.display = "none";
+                    }
+                    
+                    function mostrarInternalPanelHistorialFromPacientes() {
+                        document.getElementById("panelHistorialForPacientes").style.display = "block";                        
+                    }
+
+                    function ocultarInternalPanelHistoriaFromPacientesl() {
+                        document.getElementById("panelHistorialForPacientes").style.display = "none";
                     }
 
                     function ocultarTodo() {
