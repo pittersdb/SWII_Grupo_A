@@ -7,6 +7,7 @@
 package com.swii.sysmedic.Views;
 
 import com.swii.sysmedic.Facades.CitaFacade;
+import com.swii.sysmedic.Facades.PacienteFacade;
 import com.swii.sysmedic.entities.Cita;
 import com.swii.sysmedic.entities.Consulta;
 import com.swii.sysmedic.entities.Medico;
@@ -36,6 +37,9 @@ public class CitaView {
     @EJB
     private CitaFacade citaFacade;
     
+    @EJB
+    private PacienteFacade pacienteFacade;
+    
     private Cita cita = new Cita();
     private String test;
     
@@ -46,6 +50,9 @@ public class CitaView {
     private Integer idCita;
     
     private List<Cita> all = new ArrayList<Cita>();
+    
+    private Paciente pacienteNuevaCita = new Paciente();
+    private Paciente pacienteBusqueda = new Paciente();
     
 
     public Integer getIdCita() {
@@ -115,6 +122,22 @@ public class CitaView {
     
     public void setSelectedEstado(String selectedEstado) {
         this.selectedEstado = selectedEstado;
+    }
+
+    public Paciente getPacienteNuevaCita() {
+        return pacienteNuevaCita;
+    }
+
+    public void setPacienteNuevaCita(Paciente pacienteNuevaCita) {
+        this.pacienteNuevaCita = pacienteNuevaCita;
+    }
+
+    public Paciente getPacienteBusqueda() {
+        return pacienteBusqueda;
+    }
+
+    public void setPacienteBusqueda(Paciente pacienteBusqueda) {
+        this.pacienteBusqueda = pacienteBusqueda;
     }
     
     
@@ -247,8 +270,8 @@ public class CitaView {
         }
     }
     
-    public void Search(){
-       this.resultSet = Search(PacienteView.getInstance().getPaciente(), MedicoView.getInstance().getMedico(),fechaInf, fechaSup, selectedEstado);
+    public void Search(Paciente paciente){
+       this.resultSet = Search(paciente, MedicoView.getInstance().getMedico(),fechaInf, fechaSup, selectedEstado);
     }
     
     public void SearchToday(Medico medico){
@@ -283,7 +306,7 @@ public class CitaView {
          return new ArrayList<>();
     }
     
-    public void Clear(){
+    public void Clear(Paciente pacienteToClear){
         this.cita.setId(0);
         this.cita.setEstado("");
         this.cita.setMedico(null);
@@ -293,7 +316,8 @@ public class CitaView {
         this.cita.setFechaConsultaActual(Calendar.getInstance().getTime());
         
         MedicoView.getInstance().setMedico(null);
-        PacienteView.getInstance().setPaciente(null);
+        pacienteToClear.Clear();
+        //PacienteView.getInstance().setPaciente(null);
         System.out.println("CLEAR CITA:");
     }
     
@@ -310,5 +334,29 @@ public class CitaView {
     
     public void onIdSelect(SelectEvent event){
         if(cita == null) cita=new Cita();
+    }
+    
+    
+    public List<String> matchCiNuevoPaciente(String query) {
+        return matchCi(pacienteNuevaCita, query);
+    }
+    
+    public List<String> matchCiBuscarPaciente(Paciente paciente,String query) {
+        return matchCi(pacienteBusqueda, query);
+    }
+    
+     private List<String> matchCi(Paciente pacienteQuery,String query) {
+        
+        List<String> results = new ArrayList<String>();
+        Paciente paciente = this.pacienteFacade.GetPacienteByCi(query);
+        if(paciente != null){     
+            pacienteQuery.set(paciente);
+            results.add(pacienteQuery.getCi());
+        }else{
+             pacienteQuery.Clear();
+        }
+       
+         
+        return results;
     }
 }

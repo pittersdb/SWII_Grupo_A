@@ -111,20 +111,7 @@
                 </p:commandButton>   
             </c:if>   
             
-            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" onclick=" PF('#{dialog}').hide()" />  
-            
-            <p:confirmDialog global="true" showEffect="fade" >                  
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-            </p:confirmDialog>
-            
-            <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
-                <f:facet name="message">
-                    <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
-                </f:facet>
-                <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
-                                 icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
-            </p:confirmDialog>
+            <p:commandButton id="btnCancelar" value="#{msg['Cancelar']}" actionListener="#" onclick=" PF('#{dialog}').hide()" />          
             
         </h:panelGrid>
         
