@@ -50,20 +50,7 @@
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>
                     
-                    <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarTrans" actionListener="#" />
-                    
-<!--                    <p:confirmDialog global="true" showEffect="fade" >                  
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                    </p:confirmDialog>                   -->
-                    
-                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg" appendToBody="true" >
-                        <f:facet name="message">
-                            <h:outputText value="#{msg['Los_datos_se_han_guardado_exitosamente']}" /> 
-                        </f:facet>
-                        <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
-                                         icon="ui-icon-check" onclick="PF('confirmDlg').hide()"  />
-                    </p:confirmDialog>
+                    <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarTrans" actionListener="#" />             
                     
                 </h:panelGrid>
             </h:form>
@@ -96,18 +83,6 @@
                     
                     <p:commandButton value="#{msg['Cancelar']}" id="btnCancelarLote" actionListener="#" />
                     
-<!--                    <p:confirmDialog global="true" showEffect="fade" >                  
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                    </p:confirmDialog>-->
-
-                    <p:confirmDialog header="#{msg['Informacion_del_Sistema']}" widgetVar="confirmDlg1" appendToBody="true" >
-                        <f:facet name="message">
-                            <h:outputText value="#{msg['La_devolucion_se_ha_realizado_exitosamente']}" /> 
-                        </f:facet>
-                        <p:commandButton value="#{msg['Ok']}" type="button" styleClass="ui-confirmdialog-yes" 
-                                         icon="ui-icon-check" onclick="PF('confirmDlg1').hide()"  />
-                    </p:confirmDialog>
                 </h:panelGrid>
             </h:form>
         </p:tab>

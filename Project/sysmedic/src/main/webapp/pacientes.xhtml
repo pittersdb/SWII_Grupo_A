@@ -58,10 +58,6 @@
                     <p:commandButton rendered="false" value="#{msg['Eliminar']}" actionListener="#{Paciente.Delete(paciente.id)}" oncomplete=""  immediate="true" update=":formPaciente:msgs, :formPaciente:pacienteTable" style="font-size: 10px !important;">
                         <p:confirm header="#{msg['Informacion_del_Sistema']}" message="#{msg['Esta_segura_de_esta_accion']}" icon="ui-icon-alert" />
                     </p:commandButton>   
-                    <!--                <p:confirmDialog global="true" showEffect="fade" >                  
-                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
-                                    </p:confirmDialog>-->
                     <p:commandButton value="#{msg['Ver_Historial_Clinico']}"  actionListener="#{Paciente.LoadAntecedentes(Turno.current.cita.paciente, Antecedente.antecedentesGroup) }" action="#{Paciente.setPaciente(paciente)}" update=":frmHistorialFromPacientes" oncomplete="ocultarInternalPanelPacientes(); mostrarInternalPanelHistorialFromPacientes(); " style=" font-size: 10px !important; color: darkolivegreen; border-color:  darkseagreen" />                
                 </p:column> 
                 
